@@ -18,7 +18,7 @@ import socket
 import time
 from urllib.parse import urljoin, urlsplit
 
-import fitz
+import pymupdf as fitz
 import requests
 
 

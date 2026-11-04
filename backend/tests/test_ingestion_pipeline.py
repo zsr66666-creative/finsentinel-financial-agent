@@ -4,7 +4,7 @@ import io
 import json
 from pathlib import Path
 
-import fitz
+import pymupdf as fitz
 import pytest
 
 from app.ingestion.pipeline import IngestionError, ingest_pdf, validate_source_url
