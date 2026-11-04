@@ -52,3 +52,25 @@ class HybridRetriever:
         else:
             warnings.append("embeddings_not_configured")
         return {"value": lexical, "source_ids": [row["id"] for row in lexical], "retrieval_mode": mode, "warnings": warnings}
+
+
+def search_chunks(rows, query, company_id=None, period=None, document_type=None, as_of=None, top_k=5):
+    """Filter evidence before lexical ranking and preserve page anchors."""
+    scoped = []
+    for row in rows:
+        if company_id and row.get("company_id") != company_id:
+            continue
+        if period and str(row.get("period")) != str(period):
+            continue
+        if document_type and row.get("document_type") != document_type:
+            continue
+        if as_of and row.get("date") and str(row["date"]) > str(as_of):
+            continue
+        scoped.append(row)
+    result = HybridRetriever().search(scoped, query, None)
+    items = []
+    for rank, row in enumerate(result["value"][:max(0, min(top_k, 20))], start=1):
+        tokens = Counter(tokenize(row.get("text", "")))
+        score = sum(tokens[token] for token in tokenize(query))
+        items.append({**row, "chunk_id": row.get("id"), "page_no": row.get("page"), "paragraph_no": row.get("paragraph"), "score": score, "rank": rank})
+    return {"items": items, "total": len(items), "retrieval_mode": "bm25_only", "warnings": result["warnings"]}

@@ -18,6 +18,8 @@ from app.financial_calculations import (
     calc_receivables_turnover,
 )
 from app.risk_rules import evaluate_rules
+from app.retrieval import search_chunks
+from app.evaluation import recall_at_k
 
 
 def now():
@@ -103,6 +105,12 @@ def create_app(database_url=None, data_mode=None):
             'period': item.get('period'),
             'data_mode': item.get('data_mode', mode),
         }
+
+    @app.get('/api/v1/evidence/search')
+    def search_evidence(company_id: str | None = None, period: str | None = None, document_type: str | None = None, query: str = '', as_of: str | None = None, top_k: int = 5):
+        if not query.strip():
+            return {'items': [], 'total': 0, 'retrieval_mode': 'bm25_only', 'warnings': ['empty_query']}
+        return search_chunks(store.all('document_chunks') or store.all('evidence_spans'), query, company_id, period, document_type, as_of, top_k)
 
     @app.get('/api/v1/companies/{company_id}/metrics/{metric}/growth')
     def metric_growth(company_id: str, metric: str, current_period: str, previous_period: str):

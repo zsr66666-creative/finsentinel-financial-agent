@@ -55,3 +55,7 @@ The deterministic calculation module now includes receivables turnover, inventor
 ## Week 06 risk rules
 
 The deterministic risk rule service evaluates versioned profit, margin, inventory, receivables, and cash-flow screening rules. Alerts preserve trigger values, formulas, evidence IDs, severity, review status, and rule version. Missing or invalid inputs produce no alert. Use `POST /api/v1/alerts/evaluate` to persist evaluated alerts.
+
+## Week 07-08 retrieval and evaluation
+
+Evidence search now filters company, period, document type and `as_of` before lexical ranking. Use `GET /api/v1/evidence/search`; responses preserve page and paragraph anchors and report `bm25_only`. `recall_at_k` evaluates only cases with human-labeled gold evidence IDs. Embeddings, vector search and reranking remain intentionally out of scope until the BM25 baseline and frozen evaluation set are complete.
