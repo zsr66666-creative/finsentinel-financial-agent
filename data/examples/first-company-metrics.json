@@ -1,0 +1,67 @@
+{
+  "company": {
+    "ticker": "002475",
+    "name": "立讯精密",
+    "exchange": "SZ",
+    "industry": "消费电子/电子制造"
+  },
+  "document": {
+    "title": "立讯精密：2026年半年度报告",
+    "period": "2026H1",
+    "report_type": "half_year_report",
+    "published_at": null,
+    "source_url": null,
+    "source_url_status": "待从巨潮资讯或公司官网补录精确公告链接",
+    "local_source_path": "C:/Users/27029/Desktop/立讯精密：2026年半年度报告.PDF",
+    "accessed_at": "2026-11-04T11:43:54Z",
+    "sha256": "841a3271cddd0e0e6bf9d60e39bda69fa48de13c67300c313395d849bddfa588",
+    "file_size_bytes": 3812196,
+    "page_count": 233,
+    "extraction_method": "PyMuPDF text extraction with manual page verification",
+    "data_mode": "real_public_disclosure_local_copy"
+  },
+  "metrics": [
+    {
+      "name": "revenue",
+      "label": "营业收入",
+      "value": "174504335921.25",
+      "unit": "CNY",
+      "original_unit": "元",
+      "period": "2026H1",
+      "statement_scope": "consolidated",
+      "page_no": 8,
+      "evidence_text": "营业收入（元）174,504,335,921.25",
+      "quality_status": "page_verified"
+    },
+    {
+      "name": "net_profit_attributable",
+      "label": "归属于上市公司股东的净利润",
+      "value": "7842698288.86",
+      "unit": "CNY",
+      "original_unit": "元",
+      "period": "2026H1",
+      "statement_scope": "consolidated",
+      "page_no": 8,
+      "evidence_text": "归属于上市公司股东的净利润（元）7,842,698,288.86",
+      "quality_status": "page_verified"
+    },
+    {
+      "name": "inventory",
+      "label": "存货",
+      "value": "50367311994.53",
+      "unit": "CNY",
+      "original_unit": "元",
+      "period": "2026-06-30",
+      "statement_scope": "consolidated",
+      "page_no": 60,
+      "evidence_text": "存货 50,367,311,994.53；上年末 42,332,782,449.47",
+      "quality_status": "page_verified"
+    }
+  ],
+  "notes": [
+    "用户提供的文件是2026年半年度报告，不是原计划建议的2024年年度报告。",
+    "营业收入和归母净利润取第8页本报告期；存货取第60页本报告期末。",
+    "本文件未从PDF元数据中发现精确官方公告URL，因此source_url保持null，待人工补录后再用于公开语料索引。",
+    "2026H1属于半年报期间；不要与年度数据直接进行年度同比。"
+  ]
+}
