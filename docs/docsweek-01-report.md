@@ -134,3 +134,46 @@ missing_evidence 404
 ```
 
 当前默认 `create_app()` 使用 `synthetic_demo`，因此上面的 24 家公司和 12 条指标属于教学演示数据。Day 4 的 `seed_day4()` 仍用于本地真实报告三指标样本；启动真实资料 API 时需使用独立 SQLite 数据库和 `DATA_MODE=real_corpus`，避免将演示数据混入真实结果。
+
+## Day 6：确定性财务计算与增长接口
+
+本日目标是先完成可审计的财务计算基础，不引入大模型、LangChain、LangGraph、RAG 或多 Agent。
+
+已完成：
+
+- `backend/app/financial_calculations.py`：使用 `Decimal` 计算同比增长和毛利率，避免金额先转 `float` 造成精度损失；
+- 对缺失值、基期为 0、基期为负数和收入为 0 的情况显式报错；
+- `backend/tests/test_financial_calculations.py`：覆盖增长、下降、边界和毛利率场景；
+- `GET /api/v1/companies/{company_id}/metrics/{metric}/growth`：返回当前值、上期值、增长结果、公式、来源 ID 和数据模式；
+- `seed_day4()` 支持把真实样本中的 `comparatives` 写入上期指标；
+- 立讯精密 2026H1 与 2025H1 的营业收入、归母净利润可进行同比计算；存货仍是资产负债表时点值，没有虚构同比数据。
+
+验证命令：
+
+```powershell
+cd backend
+$env:PYTHONPATH = "."
+python -m pytest tests/test_financial_calculations.py -q
+```
+
+验证结果：
+
+```text
+5 passed in 0.01s
+```
+
+真实样本接口验证（`sqlite:///day6-real.db`，`data_mode=real_corpus`）：
+
+```text
+revenue 2026H1 vs 2025H1 → 200，增长 40.16%
+net_profit_attributable 2026H1 vs 2025H1 → 200，增长 18.04%
+inventory 缺少可比期间 → 404，不生成假数据
+```
+
+增长公式为：
+
+```text
+(current_value - previous_value) / previous_value × 100
+```
+
+本日结果仅代表当前本地真实公开披露样本的计算结果，不构成投资建议；简历中的性能和准确率指标仍需后续评测后填写。

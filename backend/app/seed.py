@@ -86,6 +86,9 @@ def seed_day4(store=None):
             source_evidence_ids=[evidence_id], quality_status=item["quality_status"],
         )
         store.put("financial_metrics", {**metric.model_dump(mode="json"), "source_ids": metric.source_evidence_ids, "data_mode": "real_public_disclosure_local_copy"})
+        for comparative in item.get("comparatives", []):
+            prior_metric = metric.model_copy(update={"id": f"{metric.id}-{comparative['period']}", "value": comparative["value"], "period": comparative["period"]})
+            store.put("financial_metrics", {**prior_metric.model_dump(mode="json"), "source_ids": metric.source_evidence_ids, "data_mode": "real_public_disclosure_local_copy"})
     print("seed_ok", {"companies": 1, "filings": 1, "metrics": 3, "evidence": 3, "database": str(store.engine.url)})
     store.close()
 

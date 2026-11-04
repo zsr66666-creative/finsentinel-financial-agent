@@ -10,6 +10,7 @@ from app.seed import seed
 from app.store import Store
 from app.tools import Tools
 from app.workflow import run_workflow
+from app.financial_calculations import calc_growth
 
 
 def now():
@@ -94,6 +95,35 @@ def create_app(database_url=None, data_mode=None):
             'source_url': item.get('source_url') or (document or {}).get('source_url'),
             'period': item.get('period'),
             'data_mode': item.get('data_mode', mode),
+        }
+
+    @app.get('/api/v1/companies/{company_id}/metrics/{metric}/growth')
+    def metric_growth(company_id: str, metric: str, current_period: str, previous_period: str):
+        company = require('companies', company_id)
+        rows = [m for m in store.all('financial_metrics') if m.get('company_id') == company_id and m.get('metric') == metric]
+        current = next((m for m in rows if m.get('period') == current_period), None)
+        previous = next((m for m in rows if m.get('period') == previous_period), None)
+        if not current or not previous:
+            raise HTTPException(404, 'current or previous metric not found')
+        if current.get('unit') != previous.get('unit'):
+            raise HTTPException(422, 'current and previous units must match')
+        try:
+            growth = calc_growth(current.get('value'), previous.get('value'))
+        except ValueError as exc:
+            raise HTTPException(422, str(exc)) from exc
+        formula = f"({current['value']} - {previous['value']}) / {previous['value']} × 100"
+        return {
+            'company': {'ticker': company.get('ticker', company.get('code')), 'name': company.get('name')},
+            'metric': metric,
+            'current_period': current_period,
+            'previous_period': previous_period,
+            'current_value': current['value'],
+            'previous_value': previous['value'],
+            'growth': str(growth.quantize(__import__('decimal').Decimal('0.01'))),
+            'unit': '%',
+            'formula': formula,
+            'source_ids': current.get('source_ids', []) + previous.get('source_ids', []),
+            'data_mode': current.get('data_mode', mode),
         }
 
     @app.get('/api/v1/alerts')
