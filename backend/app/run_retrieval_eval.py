@@ -5,7 +5,7 @@ import glob
 from pathlib import Path
 
 from app.evaluation import recall_at_k
-from app.retrieval import search_chunks
+from app.retrieval import merge_page_spans, search_chunks
 
 
 def run():
@@ -13,15 +13,16 @@ def run():
     for filename in glob.glob("data/derived/documents/*.json"):
         document = json.loads(Path(filename).read_text(encoding="utf-8"))
         for page in document.get("pages", []):
-            for index, span in enumerate(page.get("spans", [])):
+            spans = merge_page_spans(page.get("spans", []))
+            for index, span in enumerate(spans):
                 chunks.append({
-                    "id": f"{document['id']}-p{page['page']}-s{index}",
+                    "id": f"{document['id']}-p{page['page']}-m{index}",
                     "company_id": f"cn-{document['company_code']}",
                     "period": document["report_period"],
                     "date": document.get("published_at"),
                     "document_type": document.get("report_type"),
                     "page": page["page"],
-                    "paragraph": index + 1,
+                    "paragraph": span.get("paragraph_start", index + 1),
                     "text": span.get("text", ""),
                 })
     cases = [json.loads(line) for line in Path("data/evals/golden_questions.jsonl").read_text(encoding="utf-8").splitlines() if line.strip()]

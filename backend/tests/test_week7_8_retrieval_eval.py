@@ -1,5 +1,5 @@
 from app.evaluation import recall_at_k
-from app.retrieval import expand_query, search_chunks
+from app.retrieval import expand_query, merge_page_spans, search_chunks
 
 
 def rows():
@@ -30,3 +30,10 @@ def test_query_expansion_removes_question_fillers_and_adds_financial_synonyms():
     expanded = expand_query("立讯精密2026年上半年归母净利润是多少？")
     assert "归属于上市公司股东的净利润" in expanded
     assert "是多少" not in expanded
+
+
+def test_merge_page_spans_preserves_page_context_and_bounds_size():
+    merged = merge_page_spans([{"page": 8, "paragraph": 1, "text": "营业收入"}, {"page": 8, "paragraph": 2, "text": "174"}])
+    assert merged[0]["text"] == "营业收入\n174"
+    assert merged[0]["paragraph_start"] == 1
+    assert merged[0]["paragraph_end"] == 2

@@ -98,3 +98,23 @@ def search_chunks(rows, query, company_id=None, period=None, document_type=None,
         score = sum(tokens[token] for token in tokenize(expanded_query))
         items.append({**row, "chunk_id": row.get("id"), "page_no": row.get("page"), "paragraph_no": row.get("paragraph"), "score": score, "rank": rank})
     return {"items": items, "total": len(items), "retrieval_mode": "bm25_only", "warnings": result["warnings"]}
+
+
+def merge_page_spans(spans, max_chars=900):
+    """Merge adjacent spans on one page without losing page/paragraph anchors."""
+    merged = []
+    current = None
+    for span in spans:
+        text = span.get("text", "")
+        if not text.strip():
+            continue
+        if current is None or len(current["text"]) + len(text) > max_chars:
+            if current is not None:
+                merged.append(current)
+            current = {**span, "text": text, "paragraph_start": span.get("paragraph", 1), "paragraph_end": span.get("paragraph", 1)}
+        else:
+            current["text"] += "\n" + text
+            current["paragraph_end"] = span.get("paragraph", current["paragraph_end"])
+    if current is not None:
+        merged.append(current)
+    return merged

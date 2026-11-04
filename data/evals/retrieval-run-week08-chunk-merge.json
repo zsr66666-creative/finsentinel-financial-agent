@@ -1,0 +1,238 @@
+{
+  "run_id": "week08-real-bm25-001",
+  "corpus_version": "week7-8-v1",
+  "top_k": 5,
+  "case_count": 10,
+  "hit_count": 9,
+  "recall_at_5": 0.9,
+  "details": [
+    {
+      "case_id": "case-001",
+      "question": "立讯精密2026年上半年营业收入是多少？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m1"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p11-m1",
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p8-m1"
+      ],
+      "hits": [
+        "002475-2026H1-p8-m1"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-002",
+      "question": "立讯精密2026年上半年归属于上市公司股东的净利润是多少？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p21-m0",
+        "002475-2026H1-p1-m0"
+      ],
+      "hits": [
+        "002475-2026H1-p8-m0"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-003",
+      "question": "立讯精密2026年6月30日存货是多少？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p60-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p60-m0",
+        "002475-2026H1-p63-m0",
+        "002475-2026H1-p81-m1",
+        "002475-2026H1-p21-m1"
+      ],
+      "hits": [
+        "002475-2026H1-p60-m0"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-004",
+      "question": "立讯精密2026年上半年营业收入同比增长多少？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m1"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p11-m1",
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p8-m1"
+      ],
+      "hits": [
+        "002475-2026H1-p8-m1"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-005",
+      "question": "立讯精密2026年上半年归母净利润同比增长多少？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p21-m0",
+        "002475-2026H1-p1-m0"
+      ],
+      "hits": [
+        "002475-2026H1-p8-m0"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-006",
+      "question": "2026年半年度报告的财务报表金额单位是什么？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p1-m0",
+        "002475-2026H1-p81-m0",
+        "002475-2026H1-p11-m0"
+      ],
+      "hits": [
+        "002475-2026H1-p8-m0"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-007",
+      "question": "当前证据是否足以计算2026年上半年存货同比增长？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p60-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p60-m0",
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p81-m1",
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p160-m0"
+      ],
+      "hits": [
+        "002475-2026H1-p60-m0"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-008",
+      "question": "2026年上半年营业收入和归母净利润位于报告哪一页？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p11-m1",
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p11-m0"
+      ],
+      "hits": [
+        "002475-2026H1-p8-m0"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-009",
+      "question": "仅凭存货增加能否直接得出公司经营恶化？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p60-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p21-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p81-m1",
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p82-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-010",
+      "question": "营业收入增速为10%、存货增速为25%时是否达到存货异常规则？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p60-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p11-m1",
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p60-m0",
+        "002475-2026H1-p8-m1"
+      ],
+      "hits": [
+        "002475-2026H1-p60-m0"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    }
+  ]
+}

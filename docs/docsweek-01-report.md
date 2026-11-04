@@ -327,3 +327,21 @@ data/evals/retrieval-run-week08-query-expansion.json
 ```
 
 这是同一语料、同一问题集、同一 top-k 下的单变量实验。0.70 仍是单公司小样本结果，不能外推为行业级性能。下一步应优化 chunk 合并，再独立比较其影响。
+
+## Week 08 检索优化实验 B：合并相邻 PDF span
+
+在查询扩展实验的基础上，将同一页相邻 span 合并为最多约 900 字符的上下文 chunk，保留物理页码和段落起止位置。使用相同 10 条黄金问题、相同 top-k=5 和同一语料版本重新运行：
+
+```text
+查询扩展前：Recall@5 = 0.10
+查询扩展后：Recall@5 = 0.70
+合并页面 chunk 后：命中 9/10，Recall@5 = 0.90
+```
+
+结果文件：
+
+```text
+data/evals/retrieval-run-week08-chunk-merge.json
+```
+
+该结果是单公司三份报告的小样本实验。当前仍有 1 条漏检，需记录具体原因后再决定是否增加同义词或调整 chunk 边界；不能直接把 0.90 外推为行业级指标。
