@@ -6,3 +6,6 @@ httpx>=0.27,<1
 pytest>=8,<10
 PyMuPDF>=1.24,<2
 requests>=2.32,<3
+# Install this backend package so legacy ``import fitz`` and ``import app``
+# callers work even in minimal CI workflows.
+-e ./backend
