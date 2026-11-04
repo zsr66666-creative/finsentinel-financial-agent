@@ -198,3 +198,21 @@ python -m pytest tests/test_financial_calculations.py tests/test_retrieval.py -q
 当前 Windows 环境的 pytest 临时目录权限会影响依赖 `tmp_path` 的全量测试；这属于测试环境权限问题，已使用仓库目录下的 focused tests 完成 Day 7 核心验收。后续 CI 在 Linux runner 上执行完整测试集。
 
 第一周最终闭环：真实指标样本 → SQLite → FastAPI → 精确计算 → 检索适配器 → 测试与周报。下一阶段再接入正式文档解析和工作流编排。
+
+## 第一周完整验收日志
+
+验收日期：2026-11-04
+
+| 项目 | 结果 | 证据 |
+|---|---|---|
+| 首家公司与三项指标 | PASS | 立讯精密 002475；营业收入、归母净利润、存货 |
+| SQLite 数据库 | PASS | `python -m app.seed` 成功；公司 1、年报 1、指标 5（含两个可比期间）、证据 3 |
+| 数据库检查脚本 | PASS | 已兼容当前可比期间扩展，确认至少 3 个指标及来源关联 |
+| FastAPI 基础接口 | PASS | 公司、指标、证据接口及 404 行为已在 Day 5 验证 |
+| 确定性计算 | PASS | `Decimal` 同比、毛利率及边界测试 |
+| 增长 API | PASS | 营业收入 40.16%，归母净利润 18.04%；存货缺少期间时 404 |
+| 证据检索 | PASS | BM25、可选 embedding、RRF 和降级测试 |
+| focused tests | PASS | `11 passed in 0.01s` |
+| 开源文档 | PASS | README、架构、数据契约、评测说明和周报已提交 |
+
+未纳入第一周的内容：大模型、LangChain、LangGraph、RAG、向量数据库、自动 PDF 解析和投资建议。全量测试仍受本机 Windows pytest 临时目录权限影响，已明确记录，后续 CI 负责完整环境验收。
