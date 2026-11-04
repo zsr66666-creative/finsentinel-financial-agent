@@ -47,3 +47,7 @@ The response contains both raw values, percentage growth, formula, source IDs,
 and `data_mode`. Calculations use `Decimal`. Missing comparison periods, unit
 mismatches and invalid baselines return explicit errors. Inventory is not
 compared unless a verified prior period exists.
+
+## Week 05 financial ratios
+
+The deterministic calculation module now includes receivables turnover, inventory turnover, and operating cash flow quality. Inputs remain Decimal values. Missing balances, zero average balances, invalid numbers, and non-positive consolidated profit produce explicit errors. The API is `GET /api/v1/companies/{company_id}/financial-ratios` and returns formulas and calculation status without inventing missing inputs.

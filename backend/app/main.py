@@ -10,7 +10,13 @@ from app.seed import seed
 from app.store import Store
 from app.tools import Tools
 from app.workflow import run_workflow
-from app.financial_calculations import calc_growth
+from app.financial_calculations import (
+    calc_cash_flow_quality,
+    calc_growth,
+    calc_gross_margin,
+    calc_inventory_turnover,
+    calc_receivables_turnover,
+)
 
 
 def now():
@@ -125,6 +131,35 @@ def create_app(database_url=None, data_mode=None):
             'source_ids': current.get('source_ids', []) + previous.get('source_ids', []),
             'data_mode': current.get('data_mode', mode),
         }
+
+    @app.get('/api/v1/companies/{company_id}/financial-ratios')
+    def financial_ratios(
+        company_id: str,
+        revenue: str | None = None,
+        cost: str | None = None,
+        opening_receivables: str | None = None,
+        closing_receivables: str | None = None,
+        opening_inventory: str | None = None,
+        closing_inventory: str | None = None,
+        operating_cash_flow: str | None = None,
+        consolidated_net_profit: str | None = None,
+    ):
+        require('companies', company_id)
+        result = {'company_id': company_id, 'ratios': {}}
+        def add(name, formula, value):
+            result['ratios'][name] = {'value': str(value), 'formula': formula, 'status': 'calculated'}
+        try:
+            if revenue is not None and cost is not None:
+                add('gross_margin', '(revenue - cost) / revenue × 100', calc_gross_margin(revenue, cost))
+            if all(v is not None for v in (revenue, opening_receivables, closing_receivables)):
+                add('receivables_turnover', 'revenue / average(opening_receivables, closing_receivables)', calc_receivables_turnover(revenue, opening_receivables, closing_receivables))
+            if all(v is not None for v in (cost, opening_inventory, closing_inventory)):
+                add('inventory_turnover', 'cost / average(opening_inventory, closing_inventory)', calc_inventory_turnover(cost, opening_inventory, closing_inventory))
+            if operating_cash_flow is not None and consolidated_net_profit is not None:
+                add('cash_flow_quality', 'operating_cash_flow / consolidated_net_profit', calc_cash_flow_quality(operating_cash_flow, consolidated_net_profit))
+        except ValueError as exc:
+            raise HTTPException(422, str(exc)) from exc
+        return result
 
     @app.get('/api/v1/alerts')
     def alerts(company_id: str | None = None, status: str | None = None, severity: str | None = None):

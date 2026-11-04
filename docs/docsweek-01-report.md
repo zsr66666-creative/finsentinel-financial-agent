@@ -216,3 +216,24 @@ python -m pytest tests/test_financial_calculations.py tests/test_retrieval.py -q
 | 开源文档 | PASS | README、架构、数据契约、评测说明和周报已提交 |
 
 未纳入第一周的内容：大模型、LangChain、LangGraph、RAG、向量数据库、自动 PDF 解析和投资建议。全量测试仍受本机 Windows pytest 临时目录权限影响，已明确记录，后续 CI 负责完整环境验收。
+
+## Week 05：财务比率工具
+
+本周补齐确定性财务比率计算，所有输入继续使用 `Decimal`，不交给模型执行：
+
+- 应收账款周转率：营业收入 / 平均应收账款；
+- 存货周转率：营业成本 / 平均存货；
+- 现金流质量：经营现金流净额 / 合并净利润；
+- 保留已有同比和毛利率计算。
+
+边界规则：期初或期末余额缺失、平均余额为 0、数值无法解析时返回明确错误；合并净利润小于等于 0 时不把现金流质量比率作为常规质量分数解释。
+
+新增接口：
+
+```text
+GET /api/v1/companies/{company_id}/financial-ratios
+```
+
+接口返回每个已提供输入的比率、公式和计算状态。没有提供完整输入时不补零、不伪造结果；公司不存在返回 404，非法计算返回 422。
+
+验证结果：财务计算测试 `9 passed`；手工 TestClient 验证四个比率均返回 200。Windows 本地依赖 `tmp_path` 的测试仍受 pytest 临时目录权限影响，CI 应在 Linux 环境执行完整测试。
