@@ -1,0 +1,50 @@
+{
+  "corpus_version": "week7-8-v1",
+  "records": [
+    {
+      "id": "002475-2024FY",
+      "title": "立讯精密：2024年年度报告",
+      "company_code": "002475",
+      "period": "2024FY",
+      "source_url": "local://Desktop/立讯精密：2024年年度报告.PDF",
+      "acquired_at": "2026-11-05T00:00:00+08:00",
+      "sha256": "e436b5ab1775cfa05aacb4a16dd8e5c6b89e926ed18a7a55a86728bab6fcb1da",
+      "bytes": 1698863,
+      "total_pages": 276,
+      "extracted_page_count": 11,
+      "extraction_scope": "selected_financial_and_risk_pages",
+      "parser": "PyMuPDF 1.28.0",
+      "data_mode": "real_corpus"
+    },
+    {
+      "id": "002475-2025FY",
+      "title": "立讯精密：2025年年度报告",
+      "company_code": "002475",
+      "period": "2025FY",
+      "source_url": "local://Desktop/立讯精密：2025年年度报告.PDF",
+      "acquired_at": "2026-11-05T00:00:00+08:00",
+      "sha256": "957556c331a237cc3235b63659e884c7e1e877b6460f06d5039159f1598e4e46",
+      "bytes": 5000312,
+      "total_pages": 309,
+      "extracted_page_count": 14,
+      "extraction_scope": "selected_financial_and_risk_pages",
+      "parser": "PyMuPDF 1.28.0",
+      "data_mode": "real_corpus"
+    },
+    {
+      "id": "002475-2026H1",
+      "title": "立讯精密：2026年半年度报告",
+      "company_code": "002475",
+      "period": "2026H1",
+      "source_url": "local://Desktop/立讯精密：2026年半年度报告.PDF",
+      "acquired_at": "2026-11-05T00:00:00+08:00",
+      "sha256": "841a3271cddd0e0e6bf9d60e39bda69fa48de13c67300c313395d849bddfa588",
+      "bytes": 3812196,
+      "total_pages": 233,
+      "extracted_page_count": 13,
+      "extraction_scope": "selected_financial_and_risk_pages",
+      "parser": "PyMuPDF 1.28.0",
+      "data_mode": "real_corpus"
+    }
+  ]
+}

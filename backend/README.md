@@ -59,3 +59,7 @@ The deterministic risk rule service evaluates versioned profit, margin, inventor
 ## Week 07-08 retrieval and evaluation
 
 Evidence search now filters company, period, document type and `as_of` before lexical ranking. Use `GET /api/v1/evidence/search`; responses preserve page and paragraph anchors and report `bm25_only`. `recall_at_k` evaluates only cases with human-labeled gold evidence IDs. Embeddings, vector search and reranking remain intentionally out of scope until the BM25 baseline and frozen evaluation set are complete.
+
+## Real corpus and golden questions
+
+The repository now tracks a manifest for three local Lixun Precision filings and a ten-case human-reviewed evaluation seed. PDFs remain local and ignored; the manifest records SHA-256, page counts, extraction scope and acquisition time. `data/evals/golden_questions.jsonl` contains seven development cases and three test candidates with gold evidence IDs. This is a single-company seed, not a generalization benchmark.

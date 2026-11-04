@@ -273,3 +273,21 @@ GET /api/v1/evidence/search
 第八周新增 `backend/app/evaluation.py` 的 Recall@k 计算，并加入黄金证据 ID 对照测试。评测函数只对有标注黄金证据的问题计分，避免把无证据题错误计入召回率。
 
 本次新增检索与评测测试：`3 passed`。当前仍需人工建立 40 条黄金问题、冻结开发/测试划分和真实语料 Recall@5 报告；目标值不作为实测结果。
+
+## 真实语料与黄金问题集（2026-11-05）
+
+已导入立讯精密三份本地公开报告作为 `real_corpus`：2024 年年度报告、2025 年年度报告和 2026 年半年度报告。原始 PDF 保留在本地，不提交 Git；仓库只提交来源清单、SHA-256、页数和提取范围：
+
+```text
+data/manifests/lixun-corpus-manifest.json
+```
+
+已建立第一版 10 条人工核验黄金问题：
+
+```text
+data/evals/golden_questions.jsonl
+```
+
+划分为 7 条 development、3 条 test。每条包含公司、期间、答案、黄金证据 ID、页码/公式信息、允许误差、标注状态和语料版本。当前 test 集仅作为初版冻结候选，后续若用于调参必须记录污染。
+
+当前语料仍只有一家公司的三份报告，不能据此声称跨公司泛化或行业级 Recall@5。
