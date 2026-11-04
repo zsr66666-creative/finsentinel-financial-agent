@@ -1,5 +1,12 @@
 """Synthetic fixtures. Company names are real, all financial facts are invented."""
 from datetime import datetime, timezone
+import json
+from pathlib import Path
+from sqlalchemy import delete
+
+from .database import create_database
+from .models import CompanyRecord, DocumentRecord, EvidenceRecord, MetricRecord
+from .store import MODELS
 
 COMPANIES = [('002475','立讯精密'),('002241','歌尔股份'),('601138','工业富联'),('002600','领益智造'),('002456','欧菲光'),('002273','水晶光电'),('300433','蓝思科技'),('300207','欣旺达'),('002384','东山精密'),('002938','鹏鼎控股'),('300408','三环集团'),('002463','沪电股份'),('002916','深南电路'),('300136','信维通信'),('300115','长盈精密'),('002351','漫步者'),('002055','得润电子'),('002635','安洁科技'),('300735','光弘科技'),('002681','奋达科技'),('002402','和而泰'),('300679','电连技术'),('002947','恒铭达'),('603160','汇顶科技')]
 
@@ -36,3 +43,52 @@ def seed(store):
             evidence_id = f'{code}-2025-annual-{metric}'
             expected = store.get('financial_metrics', evidence_id)['value']
             store.put('eval_cases', {'id':f'gold-{i}-{metric}','company_id':code,'question':f'2025 年 {metric} 是多少？','metric':metric,'period':'2025','expected_value':expected,'tolerance':0.01,'required_evidence_ids':[evidence_id],'source':'synthetic_gold','status':'approved'})
+
+
+def seed_day4(store=None):
+    """Reset the local SQLite fixture to the first-week three-metric dataset."""
+    store = store or create_database()
+    with store.sessions.begin() as session:
+        for table in reversed(list(MODELS.values())):
+            session.execute(delete(table))
+
+    example_path = Path(__file__).resolve().parents[2] / "data" / "examples" / "first-company-metrics.json"
+    example = json.loads(example_path.resolve().read_text(encoding="utf-8"))
+    company = example["company"]
+    company_row = CompanyRecord(
+        id=f"cn-{company['ticker']}", ticker=company["ticker"], name=company["name"],
+        exchange=company["exchange"], industry=company["industry"],
+    )
+    store.put("companies", {**company_row.model_dump(), "code": company_row.ticker, "data_mode": "real_public_disclosure_local_copy"})
+    document = example["document"]
+    document_row = DocumentRecord(
+        id="doc-002475-2026H1", company_id=company_row.id, title=document["title"],
+        document_type=document["report_type"], report_period=document["period"],
+        published_at=document.get("published_at"), source_url=document.get("source_url"),
+        accessed_at=document["accessed_at"], sha256=document["sha256"],
+        file_size_bytes=document["file_size_bytes"], page_count=document["page_count"],
+        extraction_method=document["extraction_method"], quality_status="page_verified",
+    )
+    store.put("filings", {**document_row.model_dump(), "data_mode": "real_public_disclosure_local_copy", "version": document_row.sha256})
+    for index, item in enumerate(example["metrics"]):
+        evidence_id = f"{document_row.id}-e{index + 1}"
+        evidence = EvidenceRecord(
+            id=evidence_id, document_id=document_row.id, page_no=item["page_no"],
+            text=item["evidence_text"], source_url=document.get("source_url"),
+            extraction_method="manual_page_verification",
+        )
+        store.put("evidence_spans", {**evidence.model_dump(), "company_id": company_row.id, "filing_id": document_row.id, "document_type": document_row.document_type, "date": document_row.published_at, "period": item["period"], "page": evidence.page_no, "paragraph": 1, "data_mode": "real_public_disclosure_local_copy"})
+        metric = MetricRecord(
+            id=f"{document_row.id}-{item['name']}", company_id=company_row.id,
+            document_id=document_row.id, metric=item["name"], value=item["value"],
+            currency="CNY", unit=item["original_unit"], period=item["period"],
+            statement_scope=item["statement_scope"], source_page=item["page_no"],
+            source_evidence_ids=[evidence_id], quality_status=item["quality_status"],
+        )
+        store.put("financial_metrics", {**metric.model_dump(mode="json"), "source_ids": metric.source_evidence_ids, "data_mode": "real_public_disclosure_local_copy"})
+    print("seed_ok", {"companies": 1, "filings": 1, "metrics": 3, "evidence": 3, "database": str(store.engine.url)})
+    store.close()
+
+
+if __name__ == "__main__":
+    seed_day4()

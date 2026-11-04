@@ -73,3 +73,32 @@ companies 1 ─── * financial_metrics * ─── 1 documents
 - `2026H1` 不得标记为 `2026FY`，不同报告期间不能直接比较。
 
 Day 3 的完成标准已达到：数据库模型可以据此实现，后端 API 可以据此设计，前端可以据此显示数值、单位、期间和来源。
+
+## Day 4：建立 SQLite 数据库
+
+已完成 SQLite 本地数据库初始化层：
+
+- `backend/app/database.py`：默认 `sqlite:///./finsentinel.db`，并开启 SQLite 外键检查；
+- `backend/app/models.py`：公司、文档、指标和证据的 Pydantic 数据模型；
+- `backend/app/seed.py`：从 `data/examples/first-company-metrics.json` 建立第一周真实样本；
+- `backend/app/check_database.py`：检查数据库记录数量、关联来源和基本数据完整性。
+
+运行命令：
+
+```powershell
+cd backend
+$env:PYTHONPATH = "."
+python -m app.seed
+python -m app.check_database
+```
+
+实际检查结果：
+
+```text
+companies: 1
+filings: 1
+financial_metrics: 3
+evidence_spans: 3
+```
+
+当前三项指标仍保留原始“元”单位、报告期间和来源证据 ID。重复执行 `python -m app.seed` 会先重建 Day 4 本地样本，不会累加重复记录；后续导入器需要将同样的幂等规则迁移到正式 Alembic 数据库模型。
