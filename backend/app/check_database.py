@@ -11,7 +11,8 @@ def check_database() -> dict:
     evidence = store.all("evidence_spans")
     assert len(companies) == 1, f"expected 1 company, got {len(companies)}"
     assert len(filings) == 1, f"expected 1 filing, got {len(filings)}"
-    assert len(metrics) >= 3, f"expected at least 3 metrics, got {len(metrics)}"
+    metric_names = {metric["metric"] for metric in metrics}
+    assert {"revenue", "net_profit_attributable", "inventory"}.issubset(metric_names)
     assert len(evidence) == 3, f"expected 3 evidence rows, got {len(evidence)}"
     assert all(m["company_id"] == companies[0]["id"] for m in metrics)
     assert all(m["source_ids"] for m in metrics)
