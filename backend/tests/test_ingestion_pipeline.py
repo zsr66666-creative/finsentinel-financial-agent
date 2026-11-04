@@ -4,14 +4,14 @@ import io
 import json
 from pathlib import Path
 
-import pymupdf as fitz
+import pymupdf
 import pytest
 
 from app.ingestion.pipeline import IngestionError, ingest_pdf, validate_source_url
 
 
 def fixture_pdf(text="Revenue 100.00"):
-    doc = fitz.open()
+    doc = pymupdf.open()
     doc.new_page().insert_text((72, 72), text)
     doc.new_page().insert_text((72, 72), "Cash flow -20.00")
     return doc.tobytes()
@@ -67,4 +67,5 @@ def test_downloader_rejects_unapproved_sources_without_network(url):
 
 def test_downloader_accepts_exact_official_host():
     assert validate_source_url("https://static.cninfo.com.cn/finalpage/2025-01-01/1.PDF", resolve=False)
+
 
