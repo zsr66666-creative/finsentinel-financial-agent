@@ -26,3 +26,10 @@ class IngestionRequest(StrictModel):
 
 class EvalRequest(StrictModel):
     mode: Literal['workflow', 'baseline'] = 'workflow'
+
+
+class RiskEvaluationRequest(StrictModel):
+    company_id: str
+    period: str
+    metrics: dict[str, str | int | float | None]
+    evidence_ids: list[str] = Field(default_factory=list, max_length=50)

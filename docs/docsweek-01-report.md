@@ -237,3 +237,25 @@ GET /api/v1/companies/{company_id}/financial-ratios
 接口返回每个已提供输入的比率、公式和计算状态。没有提供完整输入时不补零、不伪造结果；公司不存在返回 404，非法计算返回 422。
 
 验证结果：财务计算测试 `9 passed`；手工 TestClient 验证四个比率均返回 200。Windows 本地依赖 `tmp_path` 的测试仍受 pytest 临时目录权限影响，CI 应在 Linux 环境执行完整测试。
+
+## Week 06：规则服务与告警
+
+本周新增 `backend/app/risk_rules.py`，使用版本化确定性规则生成研究告警：
+
+- 归母净利润同比下降至少 20%；
+- 毛利率下降至少 3 个百分点；
+- 存货或应收账款增速至少 20%，且比营业收入增速高至少 10 个百分点；
+- 合并净利润为正且经营现金流净额为负。
+
+每条告警保存规则 ID、规则版本、公司、期间、严重级别、触发值、公式、证据 ID 和复核状态。缺失、非法或不完整输入不会生成告警。
+
+新增接口：
+
+```text
+POST /api/v1/alerts/evaluate
+GET  /api/v1/alerts
+GET  /api/v1/alerts/{alert_id}
+POST /api/v1/alerts/{alert_id}/feedback
+```
+
+规则测试结果：`4 passed`；与财务计算测试合计：`13 passed`。规则触发只表示研究线索，不代表投资建议或确定性风险结论。

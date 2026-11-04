@@ -51,3 +51,7 @@ compared unless a verified prior period exists.
 ## Week 05 financial ratios
 
 The deterministic calculation module now includes receivables turnover, inventory turnover, and operating cash flow quality. Inputs remain Decimal values. Missing balances, zero average balances, invalid numbers, and non-positive consolidated profit produce explicit errors. The API is `GET /api/v1/companies/{company_id}/financial-ratios` and returns formulas and calculation status without inventing missing inputs.
+
+## Week 06 risk rules
+
+The deterministic risk rule service evaluates versioned profit, margin, inventory, receivables, and cash-flow screening rules. Alerts preserve trigger values, formulas, evidence IDs, severity, review status, and rule version. Missing or invalid inputs produce no alert. Use `POST /api/v1/alerts/evaluate` to persist evaluated alerts.

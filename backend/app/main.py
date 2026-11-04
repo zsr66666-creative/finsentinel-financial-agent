@@ -5,7 +5,7 @@ from time import perf_counter
 from uuid import uuid4
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from app.schemas import AnalysisRequest, FeedbackRequest, IngestionRequest, EvalRequest
+from app.schemas import AnalysisRequest, FeedbackRequest, IngestionRequest, EvalRequest, RiskEvaluationRequest
 from app.seed import seed
 from app.store import Store
 from app.tools import Tools
@@ -17,6 +17,7 @@ from app.financial_calculations import (
     calc_inventory_turnover,
     calc_receivables_turnover,
 )
+from app.risk_rules import evaluate_rules
 
 
 def now():
@@ -164,6 +165,14 @@ def create_app(database_url=None, data_mode=None):
     @app.get('/api/v1/alerts')
     def alerts(company_id: str | None = None, status: str | None = None, severity: str | None = None):
         return envelope([a for a in store.all('alerts') if (not company_id or a['company_id']==company_id) and (not status or a['status']==status) and (not severity or a['severity']==severity)])
+
+    @app.post('/api/v1/alerts/evaluate', status_code=201)
+    def evaluate_alerts(request: RiskEvaluationRequest):
+        require('companies', request.company_id)
+        alerts = evaluate_rules(request.metrics, request.company_id, request.period, request.evidence_ids)
+        for alert in alerts:
+            store.put('alerts', alert)
+        return envelope(alerts)
 
     @app.get('/api/v1/alerts/{alert_id}')
     def alert(alert_id: str):
