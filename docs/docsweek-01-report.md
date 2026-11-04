@@ -102,3 +102,35 @@ evidence_spans: 3
 ```
 
 当前三项指标仍保留原始“元”单位、报告期间和来源证据 ID。重复执行 `python -m app.seed` 会先重建 Day 4 本地样本，不会累加重复记录；后续导入器需要将同样的幂等规则迁移到正式 Alembic 数据库模型。
+
+## Day 5：FastAPI 指标与证据接口
+
+已实现并验证：
+
+```text
+GET /api/v1/companies
+GET /api/v1/companies/{company_id}/metrics
+GET /api/v1/evidence/{evidence_id}
+```
+
+指标列表返回 `items`、`total`，每条指标补充公司名称、来源页码、来源 URL、报告期间、单位和 `data_mode`。证据接口返回文档 ID、物理 PDF 页码、原文片段、来源 URL和期间。
+
+错误行为：
+
+```text
+不存在的公司 → 404
+不存在的期间/指标 → 404
+不存在的证据 → 404
+```
+
+实际 TestClient 检查结果：
+
+```text
+companies 200 24
+metrics 200 12
+missing_company 404
+missing_metric 404
+missing_evidence 404
+```
+
+当前默认 `create_app()` 使用 `synthetic_demo`，因此上面的 24 家公司和 12 条指标属于教学演示数据。Day 4 的 `seed_day4()` 仍用于本地真实报告三指标样本；启动真实资料 API 时需使用独立 SQLite 数据库和 `DATA_MODE=real_corpus`，避免将演示数据混入真实结果。

@@ -20,6 +20,20 @@ def envelope(items):
     return {'items':items,'total':len(items)}
 
 
+def _metric_response(store, metric, mode):
+    evidence_ids = metric.get('source_ids', metric.get('source_evidence_ids', []))
+    evidence = store.get('evidence_spans', evidence_ids[0]) if evidence_ids else None
+    filing_id = metric.get('filing_id', metric.get('document_id'))
+    filing = store.get('filings', filing_id) if filing_id else None
+    return {
+        **metric,
+        'company': {'ticker': metric.get('company_id'), 'name': (store.get('companies', metric.get('company_id')) or {}).get('name')},
+        'source_page': metric.get('source_page', metric.get('page')) or (evidence or {}).get('page_no', (evidence or {}).get('page')),
+        'source_url': metric.get('source_url') or (evidence or {}).get('source_url') or (filing or {}).get('source_url'),
+        'data_mode': metric.get('data_mode', mode),
+    }
+
+
 def create_app(database_url=None, data_mode=None):
     url = database_url or os.getenv('DATABASE_URL','sqlite:///./finsentinel.db')
     mode = data_mode or os.getenv('DATA_MODE','synthetic_demo')
@@ -61,7 +75,26 @@ def create_app(database_url=None, data_mode=None):
     @app.get('/api/v1/companies/{company_id}/metrics')
     def metrics(company_id: str, period: str | None = None):
         require('companies',company_id)
-        return envelope([m for m in store.all('financial_metrics') if m['company_id']==company_id and (period is None or m['period']==period)])
+        rows = [m for m in store.all('financial_metrics') if m['company_id']==company_id and (period is None or m['period']==period)]
+        if not rows:
+            raise HTTPException(404, 'financial metrics not found')
+        return envelope([_metric_response(store, m, mode) for m in rows])
+
+    @app.get('/api/v1/evidence/{evidence_id}')
+    def evidence(evidence_id: str):
+        item = require('evidence_spans', evidence_id)
+        document_id = item.get('filing_id') or item.get('document_id')
+        document = store.get('filings', document_id) if document_id else None
+        return {
+            'id': item['id'],
+            'company_id': item.get('company_id'),
+            'document_id': document_id,
+            'page_no': item.get('page_no', item.get('page')),
+            'text': item.get('text', ''),
+            'source_url': item.get('source_url') or (document or {}).get('source_url'),
+            'period': item.get('period'),
+            'data_mode': item.get('data_mode', mode),
+        }
 
     @app.get('/api/v1/alerts')
     def alerts(company_id: str | None = None, status: str | None = None, severity: str | None = None):

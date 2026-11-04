@@ -25,6 +25,11 @@ def test_seed_data_and_evidence_contract(client):
     assert len(companies) == 24
     metrics = client.get('/api/v1/companies/002475/metrics').json()['items']
     assert metrics and all(m['source_ids'] for m in metrics)
+    assert metrics[0]['company']['name'] == '立讯精密'
+    evidence_id = metrics[0]['source_ids'][0]
+    evidence = client.get('/api/v1/evidence/' + evidence_id)
+    assert evidence.status_code == 200
+    assert evidence.json()['page_no'] > 0
     alerts = client.get('/api/v1/alerts').json()['items']
     assert alerts
     detail = client.get(f"/api/v1/alerts/{alerts[0]['id']}").json()
@@ -59,6 +64,9 @@ def test_input_validation_and_missing_resources(client):
     assert client.post('/api/v1/analysis/runs', json={'company_id': '002475', 'question': ''}).status_code == 422
     assert client.get('/api/v1/alerts/missing').status_code == 404
     assert client.post('/api/v1/alerts/missing/feedback', json={'action': 'reject'}).status_code == 404
+    assert client.get('/api/v1/companies/missing/metrics').status_code == 404
+    assert client.get('/api/v1/companies/002475/metrics?period=2099').status_code == 404
+    assert client.get('/api/v1/evidence/missing').status_code == 404
 
 
 def test_ingestion_and_evaluations(client):

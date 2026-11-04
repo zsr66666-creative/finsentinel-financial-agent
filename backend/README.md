@@ -23,3 +23,14 @@ no external model calls, embedding benchmark or real financial accuracy claim.
 Feedback is persisted and creates pending regression candidates, requiring
 human approval before inclusion in scored cases. The `/evals/runs` endpoint
 checks fixture calculations/citations/retrieval, and reports this scope.
+
+## Day 5 API
+
+From `backend/`:
+
+```powershell
+$env:PYTHONPATH = "."
+python -m uvicorn app.main:app --reload --port 8000
+```
+
+Open <http://127.0.0.1:8000/docs>. The v0.1 endpoints are `GET /api/v1/companies`, `GET /api/v1/companies/{company_id}/metrics`, and `GET /api/v1/evidence/{evidence_id}`. Missing companies, periods, metrics and evidence return 404 instead of synthetic fallback values.
