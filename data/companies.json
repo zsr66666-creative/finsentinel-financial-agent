@@ -1,0 +1,30 @@
+{
+  "scope": "A-share consumer-electronics brands, components, assembly and adjacent PCB suppliers. Research watchlist, not an official industry taxonomy.",
+  "companies": [
+    {"code":"002475","name":"立讯精密","segment":"精密制造与连接"},
+    {"code":"002241","name":"歌尔股份","segment":"声学与智能硬件"},
+    {"code":"300433","name":"蓝思科技","segment":"精密结构件"},
+    {"code":"002600","name":"领益智造","segment":"精密功能件"},
+    {"code":"002273","name":"水晶光电","segment":"光学元器件"},
+    {"code":"002456","name":"欧菲光","segment":"光学与触控"},
+    {"code":"300207","name":"欣旺达","segment":"消费电池"},
+    {"code":"300679","name":"电连技术","segment":"射频连接器"},
+    {"code":"002655","name":"共达电声","segment":"声学元器件"},
+    {"code":"002369","name":"卓翼科技","segment":"电子制造"},
+    {"code":"300115","name":"长盈精密","segment":"精密结构件"},
+    {"code":"002888","name":"惠威科技","segment":"声学终端"},
+    {"code":"002635","name":"安洁科技","segment":"精密功能件"},
+    {"code":"002055","name":"得润电子","segment":"连接器"},
+    {"code":"002938","name":"鹏鼎控股","segment":"消费电子PCB"},
+    {"code":"002045","name":"国光电器","segment":"声学终端"},
+    {"code":"002351","name":"漫步者","segment":"声学终端"},
+    {"code":"002681","name":"奋达科技","segment":"智能硬件"},
+    {"code":"300136","name":"信维通信","segment":"射频器件"},
+    {"code":"002139","name":"拓邦股份","segment":"智能控制"},
+    {"code":"002429","name":"兆驰股份","segment":"多媒体与LED"},
+    {"code":"002217","name":"合力泰","segment":"显示与触控"},
+    {"code":"002384","name":"东山精密","segment":"精密制造与PCB"},
+    {"code":"002916","name":"深南电路","segment":"PCB与封装基板"},
+    {"code":"002463","name":"沪电股份","segment":"PCB相邻产业链"}
+  ]
+}

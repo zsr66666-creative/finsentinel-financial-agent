@@ -1,0 +1,151 @@
+import os
+from contextlib import asynccontextmanager
+from datetime import datetime, timezone
+from time import perf_counter
+from uuid import uuid4
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from app.schemas import AnalysisRequest, FeedbackRequest, IngestionRequest, EvalRequest
+from app.seed import seed
+from app.store import Store
+from app.tools import Tools
+from app.workflow import run_workflow
+
+
+def now():
+    return datetime.now(timezone.utc).isoformat()
+
+
+def envelope(items):
+    return {'items':items,'total':len(items)}
+
+
+def create_app(database_url=None, data_mode=None):
+    url = database_url or os.getenv('DATABASE_URL','sqlite:///./finsentinel.db')
+    mode = data_mode or os.getenv('DATA_MODE','synthetic_demo')
+    store = Store(url)
+    if mode == 'synthetic_demo':
+        seed(store)
+    elif mode == 'real_corpus' and os.getenv('CORPUS_PATH'):
+        from app.corpus import load_corpus
+        load_corpus(store,os.environ['CORPUS_PATH'])
+    tools = Tools(store)
+
+    @asynccontextmanager
+    async def lifespan(app):
+        yield
+        store.close()
+
+    app = FastAPI(title='FinSentinel API',version='0.1.0',lifespan=lifespan,description='Evidence-first finance research workbench. Synthetic fixtures are explicitly labeled.')
+    app.state.store = store
+    app.add_middleware(CORSMiddleware,allow_origins=os.getenv('CORS_ORIGINS','http://localhost:3000').split(','),allow_methods=['GET','POST'],allow_headers=['Content-Type'])
+
+    def require(table, key):
+        item = store.get(table,key)
+        if not item:
+            raise HTTPException(404, f'{table} record not found')
+        return item
+
+    @app.get('/health')
+    def health():
+        return {'status':'ok','data_mode':mode,'model':'deterministic-demo','database':'connected'}
+
+    @app.get('/api/v1/companies')
+    def companies():
+        return envelope(store.all('companies'))
+
+    @app.get('/api/v1/companies/{company_id}')
+    def company(company_id: str):
+        return require('companies',company_id)
+
+    @app.get('/api/v1/companies/{company_id}/metrics')
+    def metrics(company_id: str, period: str | None = None):
+        require('companies',company_id)
+        return envelope([m for m in store.all('financial_metrics') if m['company_id']==company_id and (period is None or m['period']==period)])
+
+    @app.get('/api/v1/alerts')
+    def alerts(company_id: str | None = None, status: str | None = None, severity: str | None = None):
+        return envelope([a for a in store.all('alerts') if (not company_id or a['company_id']==company_id) and (not status or a['status']==status) and (not severity or a['severity']==severity)])
+
+    @app.get('/api/v1/alerts/{alert_id}')
+    def alert(alert_id: str):
+        item = require('alerts',alert_id)
+        runs = [r for r in store.all('analysis_runs') if r['company_id']==item['company_id']]
+        return {**item,'evidence':[require('evidence_spans',eid) for eid in item['evidence_ids']], 'agent_steps':runs[-1]['agent_steps'] if runs else [],'tool_calls':runs[-1]['tool_calls'] if runs else [],'feedback':[f for f in store.all('feedback') if f['alert_id']==alert_id]}
+
+    @app.post('/api/v1/analysis/runs',status_code=201)
+    def create_run(request: AnalysisRequest):
+        company = require('companies',request.company_id)
+        run_id, started = str(uuid4()), perf_counter()
+        try:
+            state = run_workflow(store,tools,request.company_id,request.question,request.period,request.mode)
+        except ValueError as exc:
+            raise HTTPException(422,str(exc)) from exc
+        run = {'id':run_id,'run_id':run_id,'company_id':request.company_id,'company_name':company['name'],'question':request.question,'period':request.period,'mode':request.mode,'status':'completed' if state.verification['status']=='passed' else 'needs_review','summary':state.summary,'metrics':state.metrics,'evidence':state.evidence,'agent_steps':state.steps,'tool_calls':state.tool_calls,'verification':state.verification,'prompt_version':'evidence-v1','model_version':'deterministic-demo-v1','token_usage':0,'cost_usd':0.0,'duration_ms':round((perf_counter()-started)*1000,2),'created_at':now(),'data_mode':company['data_mode'],'human_review_required':True}
+        store.put('analysis_runs',run)
+        for step in state.steps:
+            store.put('agent_steps',{**step,'run_id':run_id})
+        for call in state.tool_calls:
+            store.put('tool_calls',{**call,'id':str(uuid4()),'run_id':run_id})
+        return run
+
+    @app.get('/api/v1/analysis/runs/{run_id}')
+    def get_run(run_id: str):
+        return require('analysis_runs',run_id)
+
+    @app.post('/api/v1/alerts/{alert_id}/feedback',status_code=201)
+    def feedback(alert_id: str, request: FeedbackRequest):
+        item = require('alerts',alert_id)
+        if request.action in ('reject','modify') and not request.error_type:
+            raise HTTPException(422,'error_type is required for reject/modify')
+        if request.action=='modify' and not request.comment.strip():
+            raise HTTPException(422,'comment is required for modify')
+        fid, case_id = str(uuid4()), None
+        if request.action != 'confirm':
+            case_id = f'feedback-{fid}'
+            store.put('eval_cases',{'id':case_id,'company_id':item['company_id'],'question':item['title'],'source':'human_feedback','status':'pending_review','error_type':request.error_type,'comment':request.comment,'alert_id':alert_id})
+        record = {'id':fid,'alert_id':alert_id,**request.model_dump(),'regression_case_id':case_id,'created_at':now()}
+        store.put('feedback',record)
+        store.put('alerts',{**item,'status':{'confirm':'confirmed','reject':'rejected','modify':'modified'}[request.action]})
+        return record
+
+    @app.get('/api/v1/evals/summary')
+    def eval_summary():
+        cases = store.all('eval_cases')
+        runs = store.all('eval_runs')
+        return {'golden_case_count':len([c for c in cases if c.get('status')=='approved']),'pending_regression_cases':len([c for c in cases if c.get('status')=='pending_review']),'latest_run':sorted(runs,key=lambda r:r['created_at'])[-1] if runs else None,'runs':runs,'data_mode':mode,'measured':bool(runs),'targets':{'numeric_accuracy':0.98,'citation_coverage':0.95,'recall_at_5':0.90,'p95_latency_ms':12000},'notice':'演示评测仅验证 synthetic fixtures；不代表真实财报或 LLM 效果。'}
+
+    @app.post('/api/v1/evals/runs',status_code=201)
+    def evaluate(request: EvalRequest):
+        cases = [c for c in store.all('eval_cases') if c.get('status')=='approved']
+        correct, citations, recall, timings = 0,0,0,[]
+        for case in cases:
+            started = perf_counter()
+            result = tools.get_metric(case['company_id'],case['metric'],case['period'])
+            correct += abs(result['value']-case['expected_value'])<=case['tolerance']
+            citations += all(store.get('evidence_spans',s) for s in result['source_ids'])
+            retrieved = tools.search_evidence(case['company_id'],None,None,case['metric'],limit=5)
+            recall += set(case['required_evidence_ids']).issubset(retrieved['source_ids'])
+            timings.append((perf_counter()-started)*1000)
+        n = len(cases)
+        record = {'id':str(uuid4()),'created_at':now(),'mode':request.mode,'model_version':'deterministic-demo-v1','case_count':n,'metrics':{'numeric_accuracy':correct/n if n else None,'citation_coverage':citations/n if n else None,'recall_at_5':recall/n if n else None,'p95_latency_ms':round(sorted(timings)[max(0,int(len(timings)*.95)-1)],2) if n else None},'data_mode':mode,'scope':'tool-and-lexical-retrieval fixture checks; not a language-model benchmark'}
+        store.put('eval_runs',record)
+        return record
+
+    @app.post('/api/v1/admin/ingestion/jobs',status_code=202)
+    def ingestion(request: IngestionRequest):
+        for code in request.company_ids:
+            require('companies',code)
+        record = {'id':str(uuid4()),'status':'completed','mode':request.mode,'company_ids':request.company_ids,'created_at':now(),'documents_processed':0,'data_mode':mode,'message':'Local fixture validation completed; no external documents downloaded.'}
+        store.put('ingestion_jobs',record)
+        return record
+
+    @app.get('/api/v1/data-quality')
+    def quality():
+        values = store.all('financial_metrics')
+        return {'data_mode':mode,'company_count':len(store.all('companies')),'filing_count':len(store.all('filings')),'metric_count':len(values),'evidence_count':len(store.all('evidence_spans')),'missing_source_count':sum(not m['source_ids'] for m in values),'jobs':store.all('ingestion_jobs'),'sources':store.all('filings')[:20]}
+
+    return app
+
+
+app = create_app()

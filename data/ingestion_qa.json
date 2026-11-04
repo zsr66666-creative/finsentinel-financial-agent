@@ -1,0 +1,88 @@
+{
+  "generated_at": "2026-11-04T04:19:10.656209+00:00",
+  "data_mode": "real_public_disclosure",
+  "document_count": 89,
+  "company_count": 25,
+  "total_original_pages": 11478,
+  "extracted_pages": 960,
+  "span_count": 27615,
+  "table_count": 338,
+  "all_offsets_valid": true,
+  "metric_count": 0,
+  "eval_candidate_count": 40,
+  "adjudicated_gold_count": 0,
+  "errors": [
+    {
+      "company_code": "002241",
+      "stage": "discovery",
+      "report_type": "guarantee",
+      "error": "no matching official filing in search response"
+    },
+    {
+      "company_code": "300433",
+      "stage": "discovery",
+      "report_type": "guarantee",
+      "error": "no matching official filing in search response"
+    },
+    {
+      "company_code": "002273",
+      "stage": "discovery",
+      "report_type": "guarantee",
+      "error": "no matching official filing in search response"
+    },
+    {
+      "company_code": "300679",
+      "stage": "discovery",
+      "report_type": "guarantee",
+      "error": "no matching official filing in search response"
+    },
+    {
+      "company_code": "002888",
+      "stage": "discovery",
+      "report_type": "guarantee",
+      "error": "no matching official filing in search response"
+    },
+    {
+      "company_code": "002635",
+      "stage": "discovery",
+      "report_type": "guarantee",
+      "error": "no matching official filing in search response"
+    },
+    {
+      "company_code": "002055",
+      "stage": "discovery",
+      "report_type": "guarantee",
+      "error": "no matching official filing in search response"
+    },
+    {
+      "company_code": "002938",
+      "stage": "discovery",
+      "report_type": "guarantee",
+      "error": "no matching official filing in search response"
+    },
+    {
+      "company_code": "002351",
+      "stage": "discovery",
+      "report_type": "guarantee",
+      "error": "no matching official filing in search response"
+    },
+    {
+      "company_code": "002681",
+      "stage": "discovery",
+      "report_type": "guarantee",
+      "error": "no matching official filing in search response"
+    },
+    {
+      "company_code": "300136",
+      "stage": "discovery",
+      "report_type": "guarantee",
+      "error": "no matching official filing in search response"
+    }
+  ],
+  "limitations": [
+    "Selected pages of long reports only; not an exhaustive source corpus.",
+    "Geometric tables are machine extracted and require review before financial decisions.",
+    "Evaluation candidates are pending human adjudication; no accuracy score is claimed.",
+    "Historical disclosures through 2025; no live surveillance or completeness claim."
+  ]
+}
