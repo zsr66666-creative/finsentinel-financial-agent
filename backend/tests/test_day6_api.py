@@ -48,7 +48,8 @@ def test_financial_ratios_endpoint_returns_formulas_and_values(tmp_path):
     )
     assert response.status_code == 200
     ratios = response.json()["ratios"]
-    assert ratios["gross_margin"]["value"] == "25"
+    assert ratios["gross_margin"]["value"] == "25.00"
     assert ratios["receivables_turnover"]["value"] == "2"
     assert ratios["inventory_turnover"]["value"] == "2"
     assert ratios["cash_flow_quality"]["value"] == "0.3"
+
