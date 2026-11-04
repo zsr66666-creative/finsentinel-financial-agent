@@ -34,3 +34,16 @@ python -m uvicorn app.main:app --reload --port 8000
 ```
 
 Open <http://127.0.0.1:8000/docs>. The v0.1 endpoints are `GET /api/v1/companies`, `GET /api/v1/companies/{company_id}/metrics`, and `GET /api/v1/evidence/{evidence_id}`. Missing companies, periods, metrics and evidence return 404 instead of synthetic fallback values.
+
+## Day 6 growth API
+
+Period-over-period growth is available at:
+
+```text
+GET /api/v1/companies/{company_id}/metrics/{metric}/growth?current_period=2026H1&previous_period=2025H1
+```
+
+The response contains both raw values, percentage growth, formula, source IDs,
+and `data_mode`. Calculations use `Decimal`. Missing comparison periods, unit
+mismatches and invalid baselines return explicit errors. Inventory is not
+compared unless a verified prior period exists.

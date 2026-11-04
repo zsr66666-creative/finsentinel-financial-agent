@@ -177,3 +177,24 @@ inventory 缺少可比期间 → 404，不生成假数据
 ```
 
 本日结果仅代表当前本地真实公开披露样本的计算结果，不构成投资建议；简历中的性能和准确率指标仍需后续评测后填写。
+
+## Day 7：第一周验收与可复现收尾
+
+本日完成第一周收尾：
+
+- 补充后端 README 中的增长接口契约、错误边界和真实数据模式说明；
+- 增加增长 API 回归测试，确认营业收入同比为 `40.16%`，存货缺少可比期间时返回 `404`；
+- 补齐确定性检索适配器 `backend/app/retrieval.py`，支持 BM25 结果、可选 embedding 接口、RRF 工具和 embedding 失败降级；
+- 检索和财务计算 focused tests 共 `11 passed`。
+
+验收命令：
+
+```powershell
+cd backend
+$env:PYTHONPATH = "."
+python -m pytest tests/test_financial_calculations.py tests/test_retrieval.py -q
+```
+
+当前 Windows 环境的 pytest 临时目录权限会影响依赖 `tmp_path` 的全量测试；这属于测试环境权限问题，已使用仓库目录下的 focused tests 完成 Day 7 核心验收。后续 CI 在 Linux runner 上执行完整测试集。
+
+第一周最终闭环：真实指标样本 → SQLite → FastAPI → 精确计算 → 检索适配器 → 测试与周报。下一阶段再接入正式文档解析和工作流编排。
