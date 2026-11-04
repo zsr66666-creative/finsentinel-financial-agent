@@ -9,6 +9,7 @@ jobs:
       PYTHONPATH: backend
     steps:
       - uses: actions/checkout@v4
+      - run: git rev-parse HEAD && git grep -n "import fitz\|import pymupdf" -- backend/tests/test_ingestion_pipeline.py
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
