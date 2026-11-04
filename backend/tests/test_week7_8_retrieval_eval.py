@@ -1,5 +1,5 @@
 from app.evaluation import recall_at_k
-from app.retrieval import search_chunks
+from app.retrieval import expand_query, search_chunks
 
 
 def rows():
@@ -24,3 +24,9 @@ def test_empty_query_returns_no_results():
 def test_recall_at_five_uses_gold_evidence_ids():
     cases = [{"id": "q1", "gold_evidence_ids": ["a", "b"]}, {"id": "q2", "gold_evidence_ids": ["c"]}]
     assert recall_at_k(cases, {"q1": ["a", "x"], "q2": ["c"]}) == 0.75
+
+
+def test_query_expansion_removes_question_fillers_and_adds_financial_synonyms():
+    expanded = expand_query("立讯精密2026年上半年归母净利润是多少？")
+    assert "归属于上市公司股东的净利润" in expanded
+    assert "是多少" not in expanded

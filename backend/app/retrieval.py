@@ -4,9 +4,32 @@ import re
 from collections import Counter
 
 
+QUERY_SYNONYMS = {
+    "营业收入": ("营业收入", "营业总收入", "收入"),
+    "归母净利润": ("归母净利润", "归属于上市公司股东的净利润", "归属于上市公司股东净利润"),
+    "存货": ("存货", "存货余额", "存货账面价值"),
+    "应收账款": ("应收账款", "应收款项"),
+    "经营现金流": ("经营现金流", "经营活动产生的现金流量净额", "经营现金流净额"),
+    "经营活动产生的现金流量净额": ("经营活动产生的现金流量净额", "经营现金流净额", "经营现金流"),
+}
+QUERY_FILLERS = ("是多少", "多少", "能否", "是否", "请问", "请分析", "请说明", "？", "?")
+
+
 def tokenize(text: str) -> list[str]:
     tokens = re.findall(r"[\u4e00-\u9fff]{2}|[A-Za-z0-9_]+", text.lower())
     return tokens
+
+
+def expand_query(query: str) -> str:
+    """Normalize question wording while preserving financial terms."""
+    expanded = query
+    for filler in QUERY_FILLERS:
+        expanded = expanded.replace(filler, " ")
+    terms = [expanded]
+    for canonical, synonyms in QUERY_SYNONYMS.items():
+        if canonical in expanded or any(synonym in expanded for synonym in synonyms):
+            terms.extend(synonyms)
+    return " ".join(terms)
 
 
 def reciprocal_rank_fusion(rankings: list[list[str]], k: int = 60) -> list[tuple[str, float]]:
@@ -29,7 +52,7 @@ class HybridRetriever:
         if not scoped:
             return {"value": [], "source_ids": [], "retrieval_mode": "bm25", "warnings": ["embeddings_not_configured"]}
 
-        query_tokens = tokenize(query)
+        query_tokens = tokenize(expand_query(query))
         scores = []
         for row in scoped:
             counts = Counter(tokenize(row.get("text", "")))
@@ -67,10 +90,11 @@ def search_chunks(rows, query, company_id=None, period=None, document_type=None,
         if as_of and row.get("date") and str(row["date"]) > str(as_of):
             continue
         scoped.append(row)
-    result = HybridRetriever().search(scoped, query, None)
+    expanded_query = expand_query(query)
+    result = HybridRetriever().search(scoped, expanded_query, None)
     items = []
     for rank, row in enumerate(result["value"][:max(0, min(top_k, 20))], start=1):
         tokens = Counter(tokenize(row.get("text", "")))
-        score = sum(tokens[token] for token in tokenize(query))
+        score = sum(tokens[token] for token in tokenize(expanded_query))
         items.append({**row, "chunk_id": row.get("id"), "page_no": row.get("page"), "paragraph_no": row.get("paragraph"), "score": score, "rank": rank})
     return {"items": items, "total": len(items), "retrieval_mode": "bm25_only", "warnings": result["warnings"]}

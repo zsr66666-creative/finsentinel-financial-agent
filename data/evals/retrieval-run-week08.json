@@ -3,8 +3,8 @@
   "corpus_version": "week7-8-v1",
   "top_k": 5,
   "case_count": 10,
-  "recall_at_5": 0.1,
-  "hit_count": 1,
+  "hit_count": 7,
+  "recall_at_5": 0.7,
   "details": [
     {
       "case_id": "case-001",
@@ -13,19 +13,21 @@
         "002475-2026H1-p8-s5"
       ],
       "retrieved_ids": [
-        "002475-2026H1-p1-s0",
-        "002475-2026H1-p2-s0",
-        "002475-2026H1-p3-s0",
-        "002475-2026H1-p8-s0",
-        "002475-2026H1-p11-s0"
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p11-s34",
+        "002475-2026H1-p8-s25",
+        "002475-2026H1-p8-s27",
+        "002475-2026H1-p11-s35"
       ],
-      "hits": [],
-      "hit": false,
+      "hits": [
+        "002475-2026H1-p8-s5"
+      ],
+      "hit": true,
       "retrieval_mode": "bm25_only",
       "warnings": [
         "embeddings_not_configured"
       ],
-      "miss_reason": "query_or_chunk_mismatch"
+      "miss_reason": null
     },
     {
       "case_id": "case-002",
@@ -37,8 +39,8 @@
         "002475-2026H1-p8-s6",
         "002475-2026H1-p8-s7",
         "002475-2026H1-p8-s14",
-        "002475-2026H1-p1-s0",
-        "002475-2026H1-p2-s0"
+        "002475-2026H1-p21-s23",
+        "002475-2026H1-p21-s2"
       ],
       "hits": [
         "002475-2026H1-p8-s6"
@@ -57,19 +59,21 @@
         "002475-2026H1-p60-s30"
       ],
       "retrieved_ids": [
-        "002475-2026H1-p1-s0",
-        "002475-2026H1-p2-s0",
-        "002475-2026H1-p3-s0",
-        "002475-2026H1-p8-s0",
-        "002475-2026H1-p11-s0"
+        "002475-2026H1-p81-s27",
+        "002475-2026H1-p13-s17",
+        "002475-2026H1-p13-s30",
+        "002475-2026H1-p60-s30",
+        "002475-2026H1-p63-s10"
       ],
-      "hits": [],
-      "hit": false,
+      "hits": [
+        "002475-2026H1-p60-s30"
+      ],
+      "hit": true,
       "retrieval_mode": "bm25_only",
       "warnings": [
         "embeddings_not_configured"
       ],
-      "miss_reason": "query_or_chunk_mismatch"
+      "miss_reason": null
     },
     {
       "case_id": "case-004",
@@ -78,19 +82,21 @@
         "002475-2026H1-p8-s5"
       ],
       "retrieved_ids": [
-        "002475-2026H1-p11-s13",
-        "002475-2026H1-p11-s25",
-        "002475-2026H1-p1-s0",
-        "002475-2026H1-p2-s0",
-        "002475-2026H1-p3-s0"
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p11-s34",
+        "002475-2026H1-p8-s25",
+        "002475-2026H1-p8-s27",
+        "002475-2026H1-p11-s13"
       ],
-      "hits": [],
-      "hit": false,
+      "hits": [
+        "002475-2026H1-p8-s5"
+      ],
+      "hit": true,
       "retrieval_mode": "bm25_only",
       "warnings": [
         "embeddings_not_configured"
       ],
-      "miss_reason": "query_or_chunk_mismatch"
+      "miss_reason": null
     },
     {
       "case_id": "case-005",
@@ -99,19 +105,21 @@
         "002475-2026H1-p8-s6"
       ],
       "retrieved_ids": [
-        "002475-2026H1-p1-s0",
-        "002475-2026H1-p2-s0",
-        "002475-2026H1-p3-s0",
-        "002475-2026H1-p8-s0",
-        "002475-2026H1-p11-s0"
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p8-s14",
+        "002475-2026H1-p21-s23",
+        "002475-2026H1-p21-s2"
       ],
-      "hits": [],
-      "hit": false,
+      "hits": [
+        "002475-2026H1-p8-s6"
+      ],
+      "hit": true,
       "retrieval_mode": "bm25_only",
       "warnings": [
         "embeddings_not_configured"
       ],
-      "miss_reason": "query_or_chunk_mismatch"
+      "miss_reason": null
     },
     {
       "case_id": "case-006",
@@ -141,19 +149,21 @@
         "002475-2026H1-p60-s30"
       ],
       "retrieved_ids": [
-        "002475-2026H1-p11-s13",
-        "002475-2026H1-p11-s25",
-        "002475-2026H1-p11-s15",
-        "002475-2026H1-p11-s6",
-        "002475-2026H1-p21-s23"
+        "002475-2026H1-p81-s27",
+        "002475-2026H1-p13-s17",
+        "002475-2026H1-p13-s30",
+        "002475-2026H1-p60-s30",
+        "002475-2026H1-p63-s10"
       ],
-      "hits": [],
-      "hit": false,
+      "hits": [
+        "002475-2026H1-p60-s30"
+      ],
+      "hit": true,
       "retrieval_mode": "bm25_only",
       "warnings": [
         "embeddings_not_configured"
       ],
-      "miss_reason": "query_or_chunk_mismatch"
+      "miss_reason": null
     },
     {
       "case_id": "case-008",
@@ -162,11 +172,11 @@
         "002475-2026H1-p60-s30"
       ],
       "retrieved_ids": [
-        "002475-2026H1-p21-s23",
-        "002475-2026H1-p8-s18",
-        "002475-2026H1-p8-s21",
-        "002475-2026H1-p11-s13",
-        "002475-2026H1-p11-s15"
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p8-s14",
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p11-s34"
       ],
       "hits": [],
       "hit": false,
@@ -183,19 +193,21 @@
         "002475-2026H1-p60-s30"
       ],
       "retrieved_ids": [
-        "002475-2026H1-p11-s19",
-        "002475-2026H1-p21-s18",
-        "002475-2026H1-p8-s26",
-        "002475-2026H1-p13-s7",
-        "002475-2026H1-p13-s30"
+        "002475-2026H1-p13-s30",
+        "002475-2026H1-p81-s27",
+        "002475-2026H1-p13-s17",
+        "002475-2026H1-p60-s30",
+        "002475-2026H1-p63-s10"
       ],
-      "hits": [],
-      "hit": false,
+      "hits": [
+        "002475-2026H1-p60-s30"
+      ],
+      "hit": true,
       "retrieval_mode": "bm25_only",
       "warnings": [
         "embeddings_not_configured"
       ],
-      "miss_reason": "query_or_chunk_mismatch"
+      "miss_reason": null
     },
     {
       "case_id": "case-010",
@@ -206,9 +218,9 @@
       "retrieved_ids": [
         "002475-2026H1-p8-s5",
         "002475-2026H1-p11-s34",
-        "002475-2026H1-p8-s14",
         "002475-2026H1-p160-s27",
-        "002475-2026H1-p2-s9"
+        "002475-2026H1-p13-s17",
+        "002475-2026H1-p13-s30"
       ],
       "hits": [],
       "hit": false,
