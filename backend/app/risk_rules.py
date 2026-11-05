@@ -53,3 +53,23 @@ def evaluate_rules(metrics, company_id, period, evidence_ids):
     if profit is not None and cash_flow is not None and profit > 0 and cash_flow < 0:
         alerts.append(_alert("cash_flow_quality", "经营现金流为负而合并净利润为正", company_id, period, {"consolidated_net_profit": profit, "operating_cash_flow": cash_flow}, "合并净利润 > 0 且经营现金流净额 < 0", evidence_ids, "high"))
     return alerts
+
+
+EVENT_TYPES = ("impairment", "litigation", "major_customer", "related_party")
+
+
+def evaluate_event_rule(event_type, company_id, period, evidence_ids, *, event_date=None, amount=None, description=""):
+    """Create a review-only event alert; an event is not automatically high risk."""
+    if event_type not in EVENT_TYPES or not evidence_ids:
+        return None
+    values = {"event_type": event_type, "event_date": event_date, "amount": amount}
+    return _alert(
+        f"announcement_{event_type}",
+        f"公告事项待人工复核：{event_type}",
+        company_id,
+        period,
+        values,
+        "公告事项存在；影响程度需结合原文和人工复核",
+        evidence_ids,
+        "medium",
+    ) | {"description": description, "event_date": event_date, "amount": str(amount) if amount is not None else None}

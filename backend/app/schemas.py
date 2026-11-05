@@ -33,3 +33,13 @@ class RiskEvaluationRequest(StrictModel):
     period: str
     metrics: dict[str, str | int | float | None]
     evidence_ids: list[str] = Field(default_factory=list, max_length=50)
+
+
+class EventEvaluationRequest(StrictModel):
+    company_id: str
+    period: str
+    event_type: Literal['impairment', 'litigation', 'major_customer', 'related_party']
+    evidence_ids: list[str] = Field(default_factory=list, max_length=50)
+    event_date: str | None = None
+    amount: str | None = None
+    description: str = Field(default='', max_length=2000)
