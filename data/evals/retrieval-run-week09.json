@@ -1267,5 +1267,8 @@
       "company_id": "cn-300115",
       "annotation_status": "human_reviewed"
     }
-  ]
+  ],
+  "generated_at_utc": "2026-11-05T16:52:39Z",
+  "code_version": "7882fba71251d17fc3a68908ff837bcdb2dc49b0",
+  "evaluation_scope": "week09-day05-multi-company-retrieval"
 }
