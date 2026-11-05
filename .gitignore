@@ -25,3 +25,6 @@ data/corpus.jsonl
 data/documents/
 backend/*.db
 frontend/.next/
+backend/.tmp/
+backend/*.db
+backend/data/
