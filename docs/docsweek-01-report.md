@@ -414,3 +414,13 @@ data/evals/retrieval-run-multi-company.json
 ## 新增公司黄金问题补充
 
 已为歌尔股份、领益智造、长盈精密、蓝思科技补充 8 条事实查找黄金问题，均绑定已解析报告中的页码片段和证据 ID，并标记为 `human_reviewed`。问题集当前共 48 条；新增材料的官方 URL 仍待人工补录，不能据此宣称完整跨公司评测。
+
+## 官方来源链接清单
+
+用户提供了 8 个深交所正式披露页面，已整理到：
+
+```text
+data/manifests/official_urls.csv
+```
+
+当前状态为 `pending_document_mapping`。因为链接尚未与具体 PDF 文件名逐一对应，暂不写入某个公司的 `source_url` 字段，避免错误归属。打开每个页面确认标题、证券代码、披露日期和附件后，再把 `document_id` 填入该 CSV 并更新语料 manifest。
