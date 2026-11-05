@@ -362,3 +362,19 @@ The three named files are frozen experiment snapshots. The test split contains 3
 | `retrieval-run-week08-chunk-merge.json` | 0.90 | merged page chunks, before refusal-label correction |
 
 These are single-company, three-document snapshots and are not industry-level measurements.
+
+## 黄金问题集扩展至 40 条
+
+已在 `data/evals/golden_questions.jsonl` 中从 10 条扩展到 40 条，共新增 30 条问题。新增问题覆盖事实查找、跨期计算、证据定位、公告事件、风险解释/正确拒答和同业比较。
+
+当前统计：
+
+```text
+总题数：40
+已人工核验：原有 10 条
+待人工核验：新增 30 条
+development：30 条
+test：10 条
+```
+
+新增题目没有伪造答案或黄金证据 ID；公告事件和同业比较题在当前单公司语料不足时明确记录缺失原因，待补充真实材料后再标注。测试集比例扩展为 10 条，后续冻结测试题不得用于调参。
