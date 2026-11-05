@@ -28,3 +28,6 @@ frontend/.next/
 backend/.tmp/
 backend/*.db
 backend/data/
+.browser-config/
+.pytest-tmp/
+.tmp/
