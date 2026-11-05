@@ -234,5 +234,8 @@
       ],
       "miss_reason": null
     }
-  ]
+  ],
+  "frozen": true,
+  "frozen_at": "2026-11-05",
+  "evaluation_note": "Historical experiment snapshot; do not use test split for tuning."
 }
