@@ -272,6 +272,22 @@
       "parser": "PyMuPDF 1.28.0",
       "report_type": "annual_report_summary",
       "data_mode": "real_corpus"
+    },
+    {
+      "id": "002241-2026H1",
+      "title": "歌尔股份：2026年半年度报告",
+      "company_code": "002241",
+      "report_period": "2026H1",
+      "source_url": "https://www.szse.cn/disclosure/listed/bulletinDetail/index.html?76891b48-554f-4211-a5a2-ba438add7421",
+      "acquired_at": "2026-11-05T00:00:00+08:00",
+      "sha256": "272bf426ad236cb7bab8f8b0fbd6c2c5eca718f8e0edaf0b9a27256f42dae908",
+      "bytes": 4555062,
+      "total_pages": 172,
+      "extracted_page_count": 11,
+      "extraction_scope": "selected_financial_and_risk_pages",
+      "parser": "PyMuPDF 1.28.0",
+      "report_type": "semiannual_report",
+      "data_mode": "real_corpus"
     }
   ]
 }
