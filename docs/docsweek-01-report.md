@@ -351,3 +351,14 @@ data/evals/retrieval-run-week08-chunk-merge.json
 唯一未命中题为“仅凭存货增加能否直接得出公司经营恶化？”。复核后确认这是正确拒答/证据支持判断题，不应绑定第 60 页存货数字作为黄金证据；该页只能支持“存货金额及期初期末数值”，不能支持“经营恶化”这一更强结论。
 
 已将 `case-009` 的 `gold_evidence_ids` 修正为空，并标记为 `human_reviewed_correct_refusal`。Recall@5 只对有黄金证据的问题计分，因此重新运行后 9 个可检索证据题全部命中，Recall@5 = 1.00；10 个问题仍全部保留，case-009 单独用于正确拒答评测，不计入 Recall@5 分母。
+# Week 08 evaluation freeze
+
+The three named files are frozen experiment snapshots. The test split contains 3 of 10 cases; it must not be used for tuning. The current corrected evaluation is kept separately in `retrieval-run-week08.json`, where the correct-refusal case has no gold evidence and is excluded from the Recall@5 denominator.
+
+| Snapshot | Recall@5 | Scope |
+|---|---:|---|
+| `retrieval-run-week08-baseline.json` | 0.10 | original BM25 |
+| `retrieval-run-week08-query-expansion.json` | 0.70 | query expansion |
+| `retrieval-run-week08-chunk-merge.json` | 0.90 | merged page chunks, before refusal-label correction |
+
+These are single-company, three-document snapshots and are not industry-level measurements.

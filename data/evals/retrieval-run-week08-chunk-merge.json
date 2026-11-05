@@ -4,7 +4,7 @@
   "top_k": 5,
   "case_count": 10,
   "hit_count": 9,
-  "recall_at_5": 1.0,
+  "recall_at_5": 0.9,
   "details": [
     {
       "case_id": "case-001",
@@ -193,7 +193,9 @@
     {
       "case_id": "case-009",
       "question": "仅凭存货增加能否直接得出公司经营恶化？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2026H1-p60-m0"
+      ],
       "retrieved_ids": [
         "002475-2026H1-p21-m0",
         "002475-2026H1-p21-m1",
