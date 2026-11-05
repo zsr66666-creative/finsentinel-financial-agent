@@ -1,0 +1,1271 @@
+{
+  "run_id": "week09-multi-company-bm25-001",
+  "corpus_version": "week8-multi-company-v2",
+  "top_k": 5,
+  "question_set": "data/evals/golden_questions.jsonl",
+  "question_count": 48,
+  "retrieval_mode": "bm25_only",
+  "results": {
+    "cases": 48,
+    "scored_cases": 17,
+    "hits": 9,
+    "recall_at_5": 0.5294117647058824
+  },
+  "by_company": {
+    "cn-002475": {
+      "cases": 40,
+      "scored_cases": 9,
+      "hits": 9,
+      "recall_at_5": 1.0
+    },
+    "cn-002241": {
+      "cases": 2,
+      "scored_cases": 2,
+      "hits": 0,
+      "recall_at_5": 0.0
+    },
+    "cn-002600": {
+      "cases": 1,
+      "scored_cases": 1,
+      "hits": 0,
+      "recall_at_5": 0.0
+    },
+    "cn-300115": {
+      "cases": 3,
+      "scored_cases": 3,
+      "hits": 0,
+      "recall_at_5": 0.0
+    },
+    "cn-300433": {
+      "cases": 2,
+      "scored_cases": 2,
+      "hits": 0,
+      "recall_at_5": 0.0
+    }
+  },
+  "by_type": {
+    "fact_lookup": {
+      "cases": 18,
+      "scored_cases": 11,
+      "hits": 3,
+      "recall_at_5": 0.2727272727272727
+    },
+    "calculation": {
+      "cases": 9,
+      "scored_cases": 2,
+      "hits": 2,
+      "recall_at_5": 1.0
+    },
+    "scope": {
+      "cases": 1,
+      "scored_cases": 1,
+      "hits": 1,
+      "recall_at_5": 1.0
+    },
+    "correct_refusal": {
+      "cases": 1,
+      "scored_cases": 1,
+      "hits": 1,
+      "recall_at_5": 1.0
+    },
+    "evidence_location": {
+      "cases": 6,
+      "scored_cases": 1,
+      "hits": 1,
+      "recall_at_5": 1.0
+    },
+    "evidence_support": {
+      "cases": 1,
+      "scored_cases": 0,
+      "hits": 0,
+      "recall_at_5": null
+    },
+    "rule": {
+      "cases": 1,
+      "scored_cases": 1,
+      "hits": 1,
+      "recall_at_5": 1.0
+    },
+    "announcement_event": {
+      "cases": 4,
+      "scored_cases": 0,
+      "hits": 0,
+      "recall_at_5": null
+    },
+    "risk_explanation": {
+      "cases": 4,
+      "scored_cases": 0,
+      "hits": 0,
+      "recall_at_5": null
+    },
+    "peer_comparison": {
+      "cases": 3,
+      "scored_cases": 0,
+      "hits": 0,
+      "recall_at_5": null
+    }
+  },
+  "by_split": {
+    "development": {
+      "cases": 36,
+      "scored_cases": 13,
+      "hits": 7,
+      "recall_at_5": 0.5384615384615384
+    },
+    "test": {
+      "cases": 12,
+      "scored_cases": 4,
+      "hits": 2,
+      "recall_at_5": 0.5
+    }
+  },
+  "warnings": [
+    "embeddings_not_configured"
+  ],
+  "details": [
+    {
+      "case_id": "case-001",
+      "question": "立讯精密2026年上半年营业收入是多少？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m1"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p11-m1",
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p8-m1"
+      ],
+      "hits": [
+        "002475-2026H1-p8-m1"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null,
+      "type": "fact_lookup",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "human_reviewed"
+    },
+    {
+      "case_id": "case-002",
+      "question": "立讯精密2026年上半年归属于上市公司股东的净利润是多少？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p21-m0",
+        "002475-2026H1-p1-m0"
+      ],
+      "hits": [
+        "002475-2026H1-p8-m0"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null,
+      "type": "fact_lookup",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "human_reviewed"
+    },
+    {
+      "case_id": "case-003",
+      "question": "立讯精密2026年6月30日存货是多少？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p60-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p60-m0",
+        "002475-2026H1-p63-m0",
+        "002475-2026H1-p81-m1",
+        "002475-2026H1-p21-m1"
+      ],
+      "hits": [
+        "002475-2026H1-p60-m0"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null,
+      "type": "fact_lookup",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "human_reviewed"
+    },
+    {
+      "case_id": "case-004",
+      "question": "立讯精密2026年上半年营业收入同比增长多少？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m1"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p11-m1",
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p8-m1"
+      ],
+      "hits": [
+        "002475-2026H1-p8-m1"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null,
+      "type": "calculation",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "human_reviewed"
+    },
+    {
+      "case_id": "case-005",
+      "question": "立讯精密2026年上半年归母净利润同比增长多少？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p21-m0",
+        "002475-2026H1-p1-m0"
+      ],
+      "hits": [
+        "002475-2026H1-p8-m0"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null,
+      "type": "calculation",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "human_reviewed"
+    },
+    {
+      "case_id": "case-006",
+      "question": "2026年半年度报告的财务报表金额单位是什么？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p1-m0",
+        "002475-2026H1-p81-m0",
+        "002475-2026H1-p11-m0"
+      ],
+      "hits": [
+        "002475-2026H1-p8-m0"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null,
+      "type": "scope",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "human_reviewed"
+    },
+    {
+      "case_id": "case-007",
+      "question": "当前证据是否足以计算2026年上半年存货同比增长？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p60-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p60-m0",
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p81-m1",
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p160-m0"
+      ],
+      "hits": [
+        "002475-2026H1-p60-m0"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null,
+      "type": "correct_refusal",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "human_reviewed"
+    },
+    {
+      "case_id": "case-008",
+      "question": "2026年上半年营业收入和归母净利润位于报告哪一页？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p11-m1",
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p11-m0"
+      ],
+      "hits": [
+        "002475-2026H1-p8-m0"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null,
+      "type": "evidence_location",
+      "split": "test",
+      "company_id": "cn-002475",
+      "annotation_status": "human_reviewed"
+    },
+    {
+      "case_id": "case-009",
+      "question": "仅凭存货增加能否直接得出公司经营恶化？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2026H1-p21-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p81-m1",
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p82-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "evidence_support",
+      "split": "test",
+      "company_id": "cn-002475",
+      "annotation_status": "human_reviewed_correct_refusal"
+    },
+    {
+      "case_id": "case-010",
+      "question": "营业收入增速为10%、存货增速为25%时是否达到存货异常规则？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p60-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p11-m1",
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p60-m0",
+        "002475-2026H1-p8-m1"
+      ],
+      "hits": [
+        "002475-2026H1-p60-m0"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null,
+      "type": "rule",
+      "split": "test",
+      "company_id": "cn-002475",
+      "annotation_status": "human_reviewed"
+    },
+    {
+      "case_id": "case-011",
+      "question": "立讯精密2024年营业收入是多少？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2024FY-p39-m0",
+        "002475-2024FY-p9-m0",
+        "002475-2024FY-p8-m0",
+        "002475-2024FY-p50-m0",
+        "002475-2024FY-p1-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "fact_lookup",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-012",
+      "question": "立讯精密2025年营业收入是多少？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p42-m1",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p226-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "fact_lookup",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-013",
+      "question": "立讯精密2025年经营活动产生的现金流量净额是多少？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p42-m0",
+        "002475-2025FY-p142-m0",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p43-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "fact_lookup",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-014",
+      "question": "立讯精密2024年末存货是多少？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2024FY-p39-m0",
+        "002475-2024FY-p122-m0",
+        "002475-2024FY-p147-m0",
+        "002475-2024FY-p8-m0",
+        "002475-2024FY-p50-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "fact_lookup",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-015",
+      "question": "立讯精密2025年末应收账款是多少？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p116-m0",
+        "002475-2025FY-p119-m0",
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p226-m0",
+        "002475-2025FY-p43-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "fact_lookup",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-016",
+      "question": "立讯精密2026年上半年归母净利润是否包含扣除非经常性损益后的净利润？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p8-m1",
+        "002475-2026H1-p81-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "fact_lookup",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-017",
+      "question": "立讯精密2025年年度报告财务报表金额单位是什么？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p1-m0",
+        "002475-2025FY-p2-m0",
+        "002475-2025FY-p116-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "fact_lookup",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-018",
+      "question": "立讯精密2025年营业收入同比增长多少？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p42-m1",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p226-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "calculation",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-019",
+      "question": "立讯精密2025年归母净利润同比增长多少？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p8-m1",
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p42-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "calculation",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-020",
+      "question": "立讯精密2025年末存货较2024年末增长多少？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p140-m0",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p111-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "calculation",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-021",
+      "question": "立讯精密2026年上半年经营现金流与上年同期相比如何？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2026H1-p82-m0",
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p11-m1",
+        "002475-2026H1-p82-m1",
+        "002475-2026H1-p21-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "calculation",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-022",
+      "question": "立讯精密2025年存货周转率需要哪些输入？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p140-m0",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p116-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "calculation",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-023",
+      "question": "立讯精密2025年应收账款周转率的分母如何计算？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p116-m0",
+        "002475-2025FY-p119-m0",
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p226-m0",
+        "002475-2025FY-p111-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "calculation",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-024",
+      "question": "立讯精密经营现金流质量比率的分子和分母分别是什么？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p42-m0",
+        "002475-2025FY-p142-m0",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p111-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "calculation",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-025",
+      "question": "2025年年度报告中营业收入位于哪一页？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p42-m1",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p226-m1",
+        "002475-2025FY-p140-m0",
+        "002475-2025FY-p111-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "evidence_location",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-026",
+      "question": "2025年年度报告中经营现金流净额位于哪一页？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p42-m0",
+        "002475-2025FY-p142-m0",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p111-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "evidence_location",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-027",
+      "question": "2026年半年度报告中存货所在报表的页码是多少？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p60-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p81-m1",
+        "002475-2026H1-p160-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "evidence_location",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-028",
+      "question": "2025年末应收账款的期末和期初数值来自哪一页？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p116-m0",
+        "002475-2025FY-p119-m0",
+        "002475-2025FY-p226-m0",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p111-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "evidence_location",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-029",
+      "question": "2024年年度报告主要会计数据所在页码是多少？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2024FY-p2-m0",
+        "002475-2024FY-p1-m0",
+        "002475-2024FY-p9-m0",
+        "002475-2024FY-p8-m0",
+        "002475-2024FY-p39-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "evidence_location",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-030",
+      "question": "现有三份报告是否披露重大诉讼及其金额？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p2-m0",
+        "002475-2025FY-p56-m0",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p112-m0",
+        "002475-2025FY-p111-m2"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "announcement_event",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-031",
+      "question": "现有三份报告是否披露重大客户依赖事项？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p116-m0",
+        "002475-2025FY-p2-m0",
+        "002475-2025FY-p56-m0",
+        "002475-2025FY-p112-m0",
+        "002475-2025FY-p111-m2"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "announcement_event",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-032",
+      "question": "现有三份报告是否披露关联交易事项？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p116-m0",
+        "002475-2025FY-p56-m0",
+        "002475-2025FY-p2-m0",
+        "002475-2025FY-p112-m0",
+        "002475-2025FY-p56-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "announcement_event",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-033",
+      "question": "现有三份报告是否披露存货跌价准备或减值事项？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p140-m0",
+        "002475-2025FY-p42-m1",
+        "002475-2025FY-p56-m0",
+        "002475-2025FY-p226-m0",
+        "002475-2025FY-p43-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "announcement_event",
+      "split": "development",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-034",
+      "question": "存货增长是否必然表示经营状况恶化？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p140-m0",
+        "002475-2025FY-p42-m1",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p142-m0",
+        "002475-2025FY-p116-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "risk_explanation",
+      "split": "test",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-035",
+      "question": "经营现金流为负而净利润为正时应如何解释？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p42-m0",
+        "002475-2025FY-p142-m0",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p56-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "risk_explanation",
+      "split": "test",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-036",
+      "question": "毛利率下降是否可以单独证明存在重大经营风险？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p142-m0",
+        "002475-2025FY-p42-m0",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p56-m0",
+        "002475-2025FY-p2-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "risk_explanation",
+      "split": "test",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-037",
+      "question": "没有可比期数据时系统应如何处理同比问题？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "risk_explanation",
+      "split": "test",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-038",
+      "question": "立讯精密与歌尔股份2025年营业收入谁更高？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p42-m1",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p226-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "peer_comparison",
+      "split": "test",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-039",
+      "question": "立讯精密与蓝思科技2025年存货周转率如何比较？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p140-m0",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p42-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "peer_comparison",
+      "split": "test",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-040",
+      "question": "五家公司中谁的经营现金流质量最好？",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p42-m0",
+        "002475-2025FY-p142-m0",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p56-m0",
+        "002475-2025FY-p43-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "peer_comparison",
+      "split": "test",
+      "company_id": "cn-002475",
+      "annotation_status": "pending_review"
+    },
+    {
+      "case_id": "case-041",
+      "question": "歌尔股份2025年归属于上市公司股东的净利润是多少？",
+      "gold_evidence_ids": [
+        "002241-2025FY-p8-s16"
+      ],
+      "retrieved_ids": [
+        "002241-2025FY-p9-m0",
+        "002241-2025FY-p8-m0",
+        "002241-2025FY-p8-m1",
+        "002241-2025FY-p21-m0",
+        "002241-2025FY-p104-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "fact_lookup",
+      "split": "development",
+      "company_id": "cn-002241",
+      "annotation_status": "human_reviewed"
+    },
+    {
+      "case_id": "case-042",
+      "question": "歌尔股份2024年归属于上市公司股东的净利润是多少？",
+      "gold_evidence_ids": [
+        "002241-2024FY-p8-s16"
+      ],
+      "retrieved_ids": [
+        "002241-2024FY-p9-m0",
+        "002241-2024FY-p8-m0",
+        "002241-2024FY-p8-m1",
+        "002241-2024FY-p60-m0",
+        "002241-2024FY-p20-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "fact_lookup",
+      "split": "development",
+      "company_id": "cn-002241",
+      "annotation_status": "human_reviewed"
+    },
+    {
+      "case_id": "case-043",
+      "question": "领益智造2025年年度报告披露的归母净利润约为多少亿元？",
+      "gold_evidence_ids": [
+        "002600-2025FY-p2-s7"
+      ],
+      "retrieved_ids": [
+        "002600-2025FY-p10-m1",
+        "002600-2025FY-p12-m0",
+        "002600-2025FY-p11-m0",
+        "002600-2025FY-p11-m1",
+        "002600-2025FY-p2-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "fact_lookup",
+      "split": "development",
+      "company_id": "cn-002600",
+      "annotation_status": "human_reviewed"
+    },
+    {
+      "case_id": "case-044",
+      "question": "长盈精密2025年度业绩快报归母净利润是多少万元？",
+      "gold_evidence_ids": [
+        "300115-2025FLASH-p1-s14"
+      ],
+      "retrieved_ids": [
+        "300115-2025FLASH-p2-m0",
+        "300115-2025FLASH-p1-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "fact_lookup",
+      "split": "development",
+      "company_id": "cn-300115",
+      "annotation_status": "human_reviewed"
+    },
+    {
+      "case_id": "case-045",
+      "question": "长盈精密2025年度业绩快报归母净利润同比增减幅度是多少？",
+      "gold_evidence_ids": [
+        "300115-2025FLASH-p1-s14"
+      ],
+      "retrieved_ids": [
+        "300115-2025FLASH-p2-m0",
+        "300115-2025FLASH-p1-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "fact_lookup",
+      "split": "development",
+      "company_id": "cn-300115",
+      "annotation_status": "human_reviewed"
+    },
+    {
+      "case_id": "case-046",
+      "question": "蓝思科技2024年营业收入是多少？",
+      "gold_evidence_ids": [
+        "300433-2024FY-p7-s0"
+      ],
+      "retrieved_ids": [
+        "300433-2024FY-p7-m0",
+        "300433-2024FY-p112-m0",
+        "300433-2024FY-p7-m1",
+        "300433-2024FY-p114-m0",
+        "300433-2024FY-p20-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "fact_lookup",
+      "split": "development",
+      "company_id": "cn-300433",
+      "annotation_status": "human_reviewed"
+    },
+    {
+      "case_id": "case-047",
+      "question": "蓝思科技2025年年度报告摘要营业收入是多少？",
+      "gold_evidence_ids": [
+        "300433-2025SUMMARY-p4-s0"
+      ],
+      "retrieved_ids": [
+        "300433-2025SUMMARY-p4-m0",
+        "300433-2025SUMMARY-p1-m0",
+        "300433-2025SUMMARY-p2-m0",
+        "300433-2025SUMMARY-p5-m0",
+        "300433-2025SUMMARY-p6-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "fact_lookup",
+      "split": "test",
+      "company_id": "cn-300433",
+      "annotation_status": "human_reviewed"
+    },
+    {
+      "case_id": "case-048",
+      "question": "长盈精密2024年末存货账面价值是多少？",
+      "gold_evidence_ids": [
+        "300115-2024FY-p0-s0"
+      ],
+      "retrieved_ids": [
+        "300115-2024FY-p78-m0",
+        "300115-2024FY-p104-m0",
+        "300115-2024FY-p18-m0",
+        "300115-2024FY-p81-m0",
+        "300115-2024FY-p8-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": "query_or_chunk_mismatch",
+      "type": "fact_lookup",
+      "split": "test",
+      "company_id": "cn-300115",
+      "annotation_status": "human_reviewed"
+    }
+  ]
+}
