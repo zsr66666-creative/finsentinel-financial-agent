@@ -1,0 +1,841 @@
+{
+  "run_id": "week08-multi-company-bm25-001",
+  "corpus_version": "week8-multi-company-v2",
+  "top_k": 5,
+  "case_count": 40,
+  "scored_case_count": 9,
+  "hit_count": 9,
+  "recall_at_5": 1.0,
+  "details": [
+    {
+      "case_id": "case-001",
+      "split": "development",
+      "type": "fact_lookup",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m1"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p11-m1",
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p8-m1"
+      ],
+      "hits": [
+        "002475-2026H1-p8-m1"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-002",
+      "split": "development",
+      "type": "fact_lookup",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p21-m0",
+        "002475-2026H1-p1-m0"
+      ],
+      "hits": [
+        "002475-2026H1-p8-m0"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-003",
+      "split": "development",
+      "type": "fact_lookup",
+      "gold_evidence_ids": [
+        "002475-2026H1-p60-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p60-m0",
+        "002475-2026H1-p63-m0",
+        "002475-2026H1-p81-m1",
+        "002475-2026H1-p21-m1"
+      ],
+      "hits": [
+        "002475-2026H1-p60-m0"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-004",
+      "split": "development",
+      "type": "calculation",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m1"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p11-m1",
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p8-m1"
+      ],
+      "hits": [
+        "002475-2026H1-p8-m1"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-005",
+      "split": "development",
+      "type": "calculation",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p21-m0",
+        "002475-2026H1-p1-m0"
+      ],
+      "hits": [
+        "002475-2026H1-p8-m0"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-006",
+      "split": "development",
+      "type": "scope",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p1-m0",
+        "002475-2026H1-p81-m0",
+        "002475-2026H1-p11-m0"
+      ],
+      "hits": [
+        "002475-2026H1-p8-m0"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-007",
+      "split": "development",
+      "type": "correct_refusal",
+      "gold_evidence_ids": [
+        "002475-2026H1-p60-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p60-m0",
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p81-m1",
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p160-m0"
+      ],
+      "hits": [
+        "002475-2026H1-p60-m0"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-008",
+      "split": "test",
+      "type": "evidence_location",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p11-m1",
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p11-m0"
+      ],
+      "hits": [
+        "002475-2026H1-p8-m0"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-009",
+      "split": "test",
+      "type": "evidence_support",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2026H1-p21-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p81-m1",
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p82-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-010",
+      "split": "test",
+      "type": "rule",
+      "gold_evidence_ids": [
+        "002475-2026H1-p60-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p11-m1",
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p60-m0",
+        "002475-2026H1-p8-m1"
+      ],
+      "hits": [
+        "002475-2026H1-p60-m0"
+      ],
+      "hit": true,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-011",
+      "split": "development",
+      "type": "fact_lookup",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2024FY-p39-m0",
+        "002475-2024FY-p9-m0",
+        "002475-2024FY-p8-m0",
+        "002475-2024FY-p50-m0",
+        "002475-2024FY-p1-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-012",
+      "split": "development",
+      "type": "fact_lookup",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p42-m1",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p226-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-013",
+      "split": "development",
+      "type": "fact_lookup",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p42-m0",
+        "002475-2025FY-p142-m0",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p43-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-014",
+      "split": "development",
+      "type": "fact_lookup",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2024FY-p39-m0",
+        "002475-2024FY-p122-m0",
+        "002475-2024FY-p147-m0",
+        "002475-2024FY-p8-m0",
+        "002475-2024FY-p50-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-015",
+      "split": "development",
+      "type": "fact_lookup",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p116-m0",
+        "002475-2025FY-p119-m0",
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p226-m0",
+        "002475-2025FY-p43-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-016",
+      "split": "development",
+      "type": "fact_lookup",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p8-m1",
+        "002475-2026H1-p81-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-017",
+      "split": "development",
+      "type": "fact_lookup",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p1-m0",
+        "002475-2025FY-p2-m0",
+        "002475-2025FY-p116-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-018",
+      "split": "development",
+      "type": "calculation",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p42-m1",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p226-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-019",
+      "split": "development",
+      "type": "calculation",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p8-m1",
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p42-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-020",
+      "split": "development",
+      "type": "calculation",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p140-m0",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p111-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-021",
+      "split": "development",
+      "type": "calculation",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2026H1-p82-m0",
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p11-m1",
+        "002475-2026H1-p82-m1",
+        "002475-2026H1-p21-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-022",
+      "split": "development",
+      "type": "calculation",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p140-m0",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p116-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-023",
+      "split": "development",
+      "type": "calculation",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p116-m0",
+        "002475-2025FY-p119-m0",
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p226-m0",
+        "002475-2025FY-p111-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-024",
+      "split": "development",
+      "type": "calculation",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p42-m0",
+        "002475-2025FY-p142-m0",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p111-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-025",
+      "split": "development",
+      "type": "evidence_location",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p42-m1",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p226-m1",
+        "002475-2025FY-p140-m0",
+        "002475-2025FY-p111-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-026",
+      "split": "development",
+      "type": "evidence_location",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p42-m0",
+        "002475-2025FY-p142-m0",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p111-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-027",
+      "split": "development",
+      "type": "evidence_location",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p60-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p81-m1",
+        "002475-2026H1-p160-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-028",
+      "split": "development",
+      "type": "evidence_location",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p116-m0",
+        "002475-2025FY-p119-m0",
+        "002475-2025FY-p226-m0",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p111-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-029",
+      "split": "development",
+      "type": "evidence_location",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2024FY-p2-m0",
+        "002475-2024FY-p1-m0",
+        "002475-2024FY-p9-m0",
+        "002475-2024FY-p8-m0",
+        "002475-2024FY-p39-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-030",
+      "split": "development",
+      "type": "announcement_event",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p2-m0",
+        "002475-2025FY-p56-m0",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p112-m0",
+        "002475-2025FY-p111-m2"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-031",
+      "split": "development",
+      "type": "announcement_event",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p116-m0",
+        "002475-2025FY-p2-m0",
+        "002475-2025FY-p56-m0",
+        "002475-2025FY-p112-m0",
+        "002475-2025FY-p111-m2"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-032",
+      "split": "development",
+      "type": "announcement_event",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p116-m0",
+        "002475-2025FY-p56-m0",
+        "002475-2025FY-p2-m0",
+        "002475-2025FY-p112-m0",
+        "002475-2025FY-p56-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-033",
+      "split": "development",
+      "type": "announcement_event",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p140-m0",
+        "002475-2025FY-p42-m1",
+        "002475-2025FY-p56-m0",
+        "002475-2025FY-p226-m0",
+        "002475-2025FY-p43-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-034",
+      "split": "test",
+      "type": "risk_explanation",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p140-m0",
+        "002475-2025FY-p42-m1",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p142-m0",
+        "002475-2025FY-p116-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-035",
+      "split": "test",
+      "type": "risk_explanation",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p42-m0",
+        "002475-2025FY-p142-m0",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p56-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-036",
+      "split": "test",
+      "type": "risk_explanation",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p142-m0",
+        "002475-2025FY-p42-m0",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p56-m0",
+        "002475-2025FY-p2-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-037",
+      "split": "test",
+      "type": "risk_explanation",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-038",
+      "split": "test",
+      "type": "peer_comparison",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p42-m1",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p226-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-039",
+      "split": "test",
+      "type": "peer_comparison",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p140-m0",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p42-m1"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-040",
+      "split": "test",
+      "type": "peer_comparison",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p42-m0",
+        "002475-2025FY-p142-m0",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p56-m0",
+        "002475-2025FY-p43-m0"
+      ],
+      "hits": [],
+      "hit": false,
+      "retrieval_mode": "bm25_only",
+      "warnings": [
+        "embeddings_not_configured"
+      ],
+      "miss_reason": null
+    }
+  ]
+}
