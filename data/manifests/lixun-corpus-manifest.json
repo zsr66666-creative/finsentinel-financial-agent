@@ -15,7 +15,8 @@
       "extraction_scope": "selected_financial_and_risk_pages",
       "parser": "PyMuPDF 1.28.0",
       "report_type": "annual_report",
-      "data_mode": "real_corpus"
+      "data_mode": "real_corpus",
+      "source_attachment_url": "https://disc.static.szse.cn/download/disc/disk03/finalpage/2025-03-27/516f5664-26dd-4d90-b5f5-cfe415a4fe79.PDF?n=%E6%AD%8C%E5%B0%94%E8%82%A1%E4%BB%BD%EF%BC%9A2024%E5%B9%B4%E5%B9%B4%E5%BA%A6%E6%8A%A5%E5%91%8A.PDF"
     },
     {
       "id": "002241-2025FY",
@@ -63,7 +64,8 @@
       "extraction_scope": "selected_financial_and_risk_pages",
       "parser": "PyMuPDF 1.28.0",
       "report_type": "annual_report",
-      "data_mode": "real_corpus"
+      "data_mode": "real_corpus",
+      "source_attachment_url": "https://disc.static.szse.cn/download/disc/disk03/finalpage/2025-04-25/1bf51964-8a4f-4d31-b1b2-be01899c7c25.PDF?n=%E7%AB%8B%E8%AE%AF%E7%B2%BE%E5%AF%86%EF%BC%9A2024%E5%B9%B4%E5%B9%B4%E5%BA%A6%E6%8A%A5%E5%91%8A.PDF"
     },
     {
       "id": "002475-2025FY",
@@ -79,7 +81,8 @@
       "extraction_scope": "selected_financial_and_risk_pages",
       "parser": "PyMuPDF 1.28.0",
       "report_type": "annual_report",
-      "data_mode": "real_corpus"
+      "data_mode": "real_corpus",
+      "source_attachment_url": "https://disc.static.szse.cn/download/disc/disk03/finalpage/2026-04-15/432e4ce5-d0c6-4085-8b11-c3da131f3bc7.PDF?n=%E7%AB%8B%E8%AE%AF%E7%B2%BE%E5%AF%86%EF%BC%9A2025%E5%B9%B4%E5%B9%B4%E5%BA%A6%E6%8A%A5%E5%91%8A.PDF"
     },
     {
       "id": "002475-2026H1",
@@ -127,7 +130,8 @@
       "extraction_scope": "selected_financial_and_risk_pages",
       "parser": "PyMuPDF 1.28.0",
       "report_type": "annual_report",
-      "data_mode": "real_corpus"
+      "data_mode": "real_corpus",
+      "source_attachment_url": "https://disc.static.szse.cn/download/disc/disk03/finalpage/2025-03-29/6fe4b393-667c-4db9-8138-3208cb144134.PDF?n=%E9%A2%86%E7%9B%8A%E6%99%BA%E9%80%A0%EF%BC%9A2024%E5%B9%B4%E5%B9%B4%E5%BA%A6%E6%8A%A5%E5%91%8A.PDF"
     },
     {
       "id": "002600-2025FY",
@@ -143,7 +147,8 @@
       "extraction_scope": "selected_financial_and_risk_pages",
       "parser": "PyMuPDF 1.28.0",
       "report_type": "annual_report",
-      "data_mode": "real_corpus"
+      "data_mode": "real_corpus",
+      "source_attachment_url": "https://disc.static.szse.cn/download/disc/disk03/finalpage/2026-03-28/c5786ab1-ff1f-45a2-8ac8-2ba222834fad.PDF?n=%E9%A2%86%E7%9B%8A%E6%99%BA%E9%80%A0%EF%BC%9A2025%E5%B9%B4%E5%B9%B4%E5%BA%A6%E6%8A%A5%E5%91%8A.PDF"
     },
     {
       "id": "002600-BUYBACK-2025",
@@ -255,7 +260,8 @@
       "extraction_scope": "selected_financial_and_risk_pages",
       "parser": "PyMuPDF 1.28.0",
       "report_type": "annual_report",
-      "data_mode": "real_corpus"
+      "data_mode": "real_corpus",
+      "source_attachment_url": "https://disc.static.szse.cn/download/disc/disk03/finalpage/2025-03-27/49337fd5-984e-4b5e-aebb-8dd22a76f4ff.PDF?n=%E8%93%9D%E6%80%9D%E7%A7%91%E6%8A%80%EF%BC%9A2024%E5%B9%B4%E5%B9%B4%E5%BA%A6%E6%8A%A5%E5%91%8A.PDF"
     },
     {
       "id": "300433-2025SUMMARY",
@@ -271,7 +277,8 @@
       "extraction_scope": "complete",
       "parser": "PyMuPDF 1.28.0",
       "report_type": "annual_report_summary",
-      "data_mode": "real_corpus"
+      "data_mode": "real_corpus",
+      "source_attachment_url": "https://disc.static.szse.cn/download/disc/disk03/finalpage/2026-03-31/51a36b51-bc87-410b-8fca-aaab38dacbd9.pdf?n=%E8%93%9D%E6%80%9D%E7%A7%91%E6%8A%80%EF%BC%9A2025%E5%B9%B4%E5%B9%B4%E5%BA%A6%E6%8A%A5%E5%91%8A.PDF"
     },
     {
       "id": "002241-2026H1",
@@ -287,7 +294,8 @@
       "extraction_scope": "selected_financial_and_risk_pages",
       "parser": "PyMuPDF 1.28.0",
       "report_type": "semiannual_report",
-      "data_mode": "real_corpus"
+      "data_mode": "real_corpus",
+      "source_attachment_url": "https://disc.static.szse.cn/download/disc/disk03/finalpage/2026-08-21/fcbfdcf3-9752-431b-9bb2-f2987be3af88.PDF?n=%E6%AD%8C%E5%B0%94%E8%82%A1%E4%BB%BD%EF%BC%9A2026%E5%B9%B4%E5%8D%8A%E5%B9%B4%E5%BA%A6%E6%8A%A5%E5%91%8A.PDF"
     }
   ]
 }
