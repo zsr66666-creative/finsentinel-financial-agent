@@ -32,3 +32,13 @@ export function formatMetric(value, unit = '') {
   if (typeof value !== 'number') return String(value);
   return `${value.toLocaleString('zh-CN', { maximumFractionDigits: 1, minimumFractionDigits: unit === '%' ? 1 : 0 })}${unit}`;
 }
+
+export function connectionStatusLabel({ loading = false, connected = false, error = '' } = {}) {
+  if (loading) return '正在连接数据服务…';
+  if (connected) return '数据服务已连接';
+  return error ? '数据服务暂时不可用，当前展示离线演示数据。' : '离线演示模式';
+}
+
+export function refreshLabel(refreshing = false) {
+  return refreshing ? '刷新中…' : '刷新数据';
+}

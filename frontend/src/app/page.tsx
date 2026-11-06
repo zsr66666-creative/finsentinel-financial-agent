@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { filterAlerts, formatMetric, normalizeAlert, normalizeCollection } from '@/lib/domain.mjs';
+import { connectionStatusLabel, filterAlerts, formatMetric, normalizeAlert, normalizeCollection, refreshLabel } from '@/lib/domain.mjs';
 import { fixtureAlerts, fixtureCompanies, fixtureTrend } from '@/lib/fixtures';
 
 type Row = Record<string, any>;
@@ -42,6 +42,8 @@ export default function Workbench() {
   const [query, setQuery] = useState('');
   const [connected, setConnected] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState('');
+  const [refreshing, setRefreshing] = useState(false);
   const [feedback, setFeedback] = useState('');
   const [errorType, setErrorType] = useState('citation_error');
   const [notice, setNotice] = useState('');
@@ -55,16 +57,22 @@ export default function Workbench() {
   const [selectedCompany, setSelectedCompany] = useState('');
   const [dataStatus, setDataStatus] = useState<Row | null>(null);
 
-  useEffect(() => {
-    let active = true;
-    Promise.all([request('/api/v1/alerts'), request('/api/v1/companies')]).then(([a, c]) => {
-      if (!active) return;
+  async function loadDashboard({ refresh = false } = {}) {
+    if (refresh) setRefreshing(true); else setLoading(true);
+    setLoadError('');
+    try {
+      const [a, c] = await Promise.all([request('/api/v1/alerts'), request('/api/v1/companies')]);
       const rows = normalizeCollection(a).map(normalizeAlert); const cs = normalizeCollection(c);
       setAlerts(rows); setCompanies(cs); setSelectedId(rows[0]?.id ?? ''); setAnalysisCompany(cs[0]?.id ?? ''); setSelectedCompany(cs[0]?.id ?? ''); setConnected(true);
-      request('/api/v1/evals/summary').then(value => active && setEvalSummary(value)).catch(() => {});
-      request('/api/v1/data/quality').then(value => active && setDataStatus(value)).catch(() => {});
-    }).catch(() => { if (active) { setConnected(false); setAnalysisCompany(fixtureCompanies[0].id); setSelectedCompany(fixtureCompanies[0].id); } }).finally(() => active && setLoading(false));
-    return () => { active = false; };
+      request('/api/v1/evals/summary').then(value => setEvalSummary(value)).catch(() => {});
+      request('/api/v1/data/quality').then(value => setDataStatus(value)).catch(() => {});
+    } catch (error) {
+      setConnected(false); setLoadError(error instanceof Error ? error.message : '网络错误'); setAnalysisCompany(fixtureCompanies[0].id); setSelectedCompany(fixtureCompanies[0].id);
+    } finally { setLoading(false); setRefreshing(false); }
+  }
+
+  useEffect(() => {
+    loadDashboard();
   }, []);
 
   useEffect(() => {
@@ -125,7 +133,8 @@ export default function Workbench() {
       <header className="topbar"><div className="breadcrumb">研究工作台 <span>/</span> <strong>{nav.find(n => n.id === view)?.label}</strong></div><div className="topbar-right"><span className="live-dot" />日级监测<span className="vertical-rule" /><span>消费电子 / 电子制造</span><button className="icon-button" onClick={() => setNotice('告警通知集中显示在风险告警与人工复核页面。')} aria-label="通知">♧</button><span className="avatar small">研</span></div></header>
       <div className="content">
         <div className="page-heading"><div><div className="eyebrow">EVIDENCE-DRIVEN RESEARCH</div><h1>{view === 'overview' ? '行业风险监控总览' : nav.find(n => n.id === view)?.label}</h1><p>{view === 'overview' ? '从财务变化到公告事件，让每一条研判都有据可循。' : '查看来源、计算过程与复核记录，形成可追溯的研究闭环。'}</p></div><button className="primary-button" onClick={() => { setAnalysisOpen(true); setRun(null); }}>＋ 新建分析</button></div>
-        <div className={`mode-banner ${connected ? 'connected' : ''}`}><span>{loading ? '◌ 正在连接数据服务…' : connected ? '● 数据服务已连接' : '◈ 离线演示模式'}</span><span>{isFixture ? '当前展示合成测试数据，不代表真实公司财务情况。' : '公开材料研究辅助 · 结论需人工复核'}</span><span className="banner-end">{connected ? 'API ONLINE' : 'FIXTURE DATA'}</span></div>
+        <div className={`mode-banner ${connected ? 'connected' : ''}`}><span>{loading ? '◌ ' : connected ? '● ' : '◈ '}{connectionStatusLabel({ loading, connected, error: loadError })}</span><span>{loadError ? `连接失败：${loadError}。` : isFixture ? '当前展示合成测试数据，不代表真实公司财务情况。' : '公开材料研究辅助 · 结论需人工复核'}</span><button className="banner-action" onClick={() => loadDashboard({ refresh: true })} disabled={loading || refreshing}>{refreshLabel(refreshing)}</button><span className="banner-end">{connected ? 'API ONLINE' : 'FIXTURE DATA'}</span></div>
+        {loadError && !loading && <div className="notice error" role="alert">数据服务暂时不可用，当前展示离线演示数据。<button onClick={() => loadDashboard({ refresh: true })} disabled={refreshing}>{refreshLabel(refreshing)}</button></div>}
         {notice && <div className="notice" role="status">{notice}<button aria-label="关闭提示" onClick={() => setNotice('')}>×</button></div>}
 
         {view === 'overview' && <>

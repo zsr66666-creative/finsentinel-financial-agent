@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { filterAlerts, normalizeAlert, normalizeCollection, formatMetric } from '../src/lib/domain.mjs';
+import { filterAlerts, normalizeAlert, normalizeCollection, formatMetric, connectionStatusLabel, refreshLabel } from '../src/lib/domain.mjs';
 
 test('severity, company, status and keyword filters combine rather than replace each other', () => {
   const rows = [
@@ -24,4 +24,13 @@ test('backend alert field aliases normalize to stable view model', () => {
 test('missing and zero metrics remain distinct', () => {
   assert.equal(formatMetric(null, '%'), '—');
   assert.equal(formatMetric(0, '%'), '0.0%');
+});
+test('connection state exposes loading, connected and recoverable error messages', () => {
+  assert.equal(connectionStatusLabel({ loading: true }), '正在连接数据服务…');
+  assert.equal(connectionStatusLabel({ connected: true }), '数据服务已连接');
+  assert.equal(connectionStatusLabel({ error: 'timeout' }), '数据服务暂时不可用，当前展示离线演示数据。');
+});
+test('refresh label distinguishes idle and active refresh', () => {
+  assert.equal(refreshLabel(false), '刷新数据');
+  assert.equal(refreshLabel(true), '刷新中…');
 });
