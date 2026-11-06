@@ -1,20 +1,20 @@
 {
-  "run_id": "week10-multi-company-query-expansion-reviewed-002",
-  "generated_at_utc": "2026-11-06T05:25:09Z",
-  "code_version": "0850105bf97317b56753ec97191bad17aef334fc",
+  "run_id": "week10-multi-company-query-expansion-reviewed-003",
+  "generated_at_utc": "2026-11-06T05:54:07Z",
+  "code_version": "673f4fe2da72d2672dddeffa83496908f8f856ac",
   "corpus_version": "week10-reviewed",
   "question_set": "data/evals/golden_questions.jsonl",
   "question_count": 74,
   "retrieval_mode": "query_expansion",
   "top_k": 10,
-  "matching_rule": "exact evidence ID or normalized document-page key",
+  "matching_rule": "exact ID, normalized page key, event evidence document-page mapping, and period-year compatibility",
   "results": {
     "cases": 74,
     "scored_cases": 59,
-    "hits_at_5": 47,
-    "recall_at_5": 0.7966101694915254,
-    "hits_at_10": 50,
-    "recall_at_10": 0.847457627118644
+    "hits_at_5": 52,
+    "recall_at_5": 0.8813559322033898,
+    "hits_at_10": 55,
+    "recall_at_10": 0.9322033898305084
   },
   "details_at_5": [
     {
@@ -674,11 +674,11 @@
       "question": "现有三份报告是否披露重大诉讼及其金额？",
       "gold_evidence_ids": [],
       "retrieved_ids": [
+        "002475-RELATED-POLICY-2025-p9-m0",
         "002475-2025FY-p2-m0",
         "002475-2025FY-p56-m0",
-        "002475-2025FY-p112-m0",
-        "002475-2025FY-p43-m0",
-        "002475-2025FY-p111-m2"
+        "002475-RELATED-POLICY-2025-p10-m0",
+        "002475-2025FY-p112-m0"
       ],
       "matched_ids": [],
       "hit": false,
@@ -694,10 +694,10 @@
       "gold_evidence_ids": [],
       "retrieved_ids": [
         "002475-2025FY-p116-m0",
+        "002475-RELATED-POLICY-2025-p7-m0",
+        "002475-RELATED-POLICY-2025-p9-m0",
         "002475-2025FY-p2-m0",
-        "002475-2025FY-p56-m0",
-        "002475-2025FY-p112-m0",
-        "002475-2025FY-p111-m2"
+        "002475-2025FY-p56-m0"
       ],
       "matched_ids": [],
       "hit": false,
@@ -712,11 +712,11 @@
       "question": "现有三份报告是否披露关联交易事项？",
       "gold_evidence_ids": [],
       "retrieved_ids": [
-        "002475-2025FY-p116-m0",
-        "002475-2025FY-p56-m1",
-        "002475-2025FY-p56-m0",
-        "002475-2025FY-p112-m0",
-        "002475-2025FY-p140-m1"
+        "002475-RELATED-POLICY-2025-p9-m0",
+        "002475-RELATED-POLICY-2025-p10-m0",
+        "002475-RELATED-POLICY-2025-p8-m0",
+        "002475-RELATED-POLICY-2025-p1-m0",
+        "002475-RELATED-POLICY-2025-p2-m0"
       ],
       "matched_ids": [],
       "hit": false,
@@ -792,7 +792,7 @@
         "002475-2025FY-p42-m0",
         "002475-2025FY-p43-m0",
         "002475-2025FY-p56-m0",
-        "002475-2025FY-p2-m0"
+        "002475-RELATED-POLICY-2025-p10-m0"
       ],
       "matched_ids": [],
       "hit": false,
@@ -806,7 +806,11 @@
       "split": "test",
       "question": "没有可比期数据时系统应如何处理同比问题？",
       "gold_evidence_ids": [],
-      "retrieved_ids": [],
+      "retrieved_ids": [
+        "002475-RELATED-POLICY-2025-p2-m0",
+        "002475-RELATED-POLICY-2025-p9-m0",
+        "002475-RELATED-POLICY-2025-p5-m0"
+      ],
       "matched_ids": [],
       "hit": false,
       "status": "human_reviewed_correct_refusal",
@@ -862,7 +866,7 @@
         "002475-2025FY-p142-m0",
         "002475-2025FY-p56-m0",
         "002475-2025FY-p8-m0",
-        "002475-2025FY-p43-m0"
+        "002475-RELATED-POLICY-2025-p1-m0"
       ],
       "matched_ids": [],
       "hit": false,
@@ -886,8 +890,8 @@
         "002241-2025FY-p2-m0"
       ],
       "matched_ids": [
-        "002241-2025FY-p8-m1",
-        "002241-2025FY-p8-m0"
+        "002241-2025FY-p8-m0",
+        "002241-2025FY-p8-m1"
       ],
       "hit": true,
       "status": "human_reviewed",
@@ -1511,10 +1515,12 @@
         "300433-2023FY-p101-m1",
         "300433-2023FY-p27-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
+      "matched_ids": [
+        "300433-2023FY-p18-m0"
+      ],
+      "hit": true,
       "status": "human_reviewed",
-      "miss_reason": "query_or_chunk_mismatch"
+      "miss_reason": null
     },
     {
       "case_id": "case-070",
@@ -1526,11 +1532,11 @@
         "week10-event-litigation-001"
       ],
       "retrieved_ids": [
-        "002600-2025FY-p230-m0",
-        "002600-2025FY-p225-m0",
-        "002600-2025FY-p224-m0",
-        "002600-2025FY-p104-m0",
-        "002600-2025FY-p11-m1"
+        "002600-GUARANTEE-2025-p1-m0",
+        "002600-GUARANTEE-2025-p2-m0",
+        "002600-GUARANTEE-2025-p4-m0",
+        "002600-GUARANTEE-2025-p5-m0",
+        "002600-2025FY-p230-m0"
       ],
       "matched_ids": [],
       "hit": false,
@@ -1553,10 +1559,13 @@
         "300433-2024FY-p20-m0",
         "300433-2024FY-p20-m1"
       ],
-      "matched_ids": [],
-      "hit": false,
+      "matched_ids": [
+        "300433-2024FY-p30-m0",
+        "300433-2024FY-p30-m1"
+      ],
+      "hit": true,
       "status": "human_reviewed",
-      "miss_reason": "query_or_chunk_mismatch"
+      "miss_reason": null
     },
     {
       "case_id": "case-072",
@@ -1567,11 +1576,19 @@
       "gold_evidence_ids": [
         "week10-event-related-party-001"
       ],
-      "retrieved_ids": [],
-      "matched_ids": [],
-      "hit": false,
+      "retrieved_ids": [
+        "002475-RELATED-POLICY-2025-p9-m0",
+        "002475-RELATED-POLICY-2025-p10-m0",
+        "002475-RELATED-POLICY-2025-p1-m0",
+        "002475-RELATED-POLICY-2025-p8-m0",
+        "002475-RELATED-POLICY-2025-p6-m0"
+      ],
+      "matched_ids": [
+        "002475-RELATED-POLICY-2025-p1-m0"
+      ],
+      "hit": true,
       "status": "human_reviewed",
-      "miss_reason": "query_or_chunk_mismatch"
+      "miss_reason": null
     },
     {
       "case_id": "case-073",
@@ -1583,16 +1600,18 @@
         "week10-event-buyback-001"
       ],
       "retrieved_ids": [
-        "002600-2025FY-p216-m0",
-        "002600-2025FY-p225-m0",
-        "002600-2025FY-p104-m0",
-        "002600-2025FY-p257-m0",
-        "002600-2025FY-p224-m0"
+        "002600-BUYBACK-2025-p1-m0",
+        "002600-BUYBACK-2025-p2-m0",
+        "002600-BUYBACK-2025-p3-m0",
+        "002600-GUARANTEE-2025-p1-m0",
+        "002600-2025FY-p216-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
+      "matched_ids": [
+        "002600-BUYBACK-2025-p1-m0"
+      ],
+      "hit": true,
       "status": "human_reviewed",
-      "miss_reason": "query_or_chunk_mismatch"
+      "miss_reason": null
     },
     {
       "case_id": "case-074",
@@ -1604,16 +1623,18 @@
         "week10-event-guarantee-001"
       ],
       "retrieved_ids": [
+        "002600-GUARANTEE-2025-p1-m0",
+        "002600-GUARANTEE-2025-p2-m0",
+        "002600-GUARANTEE-2025-p4-m0",
         "002600-2025FY-p104-m0",
-        "002600-2025FY-p225-m0",
-        "002600-2025FY-p257-m0",
-        "002600-2025FY-p230-m0",
-        "002600-2025FY-p216-m0"
+        "002600-BUYBACK-2025-p1-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
+      "matched_ids": [
+        "002600-GUARANTEE-2025-p1-m0"
+      ],
+      "hit": true,
       "status": "human_reviewed",
-      "miss_reason": "query_or_chunk_mismatch"
+      "miss_reason": null
     }
   ],
   "details_at_10": [
@@ -1968,10 +1989,10 @@
         "002475-2025FY-p8-m0",
         "002475-2025FY-p43-m0",
         "002475-2025FY-p111-m0",
+        "002475-RELATED-POLICY-2025-p6-m0",
         "002475-2025FY-p56-m0",
         "002475-2025FY-p112-m0",
-        "002475-2025FY-p116-m0",
-        "002475-2025FY-p140-m1"
+        "002475-2025FY-p116-m0"
       ],
       "matched_ids": [
         "002475-2025FY-p8-m0"
@@ -2136,11 +2157,11 @@
         "002475-2025FY-p111-m1",
         "002475-2025FY-p111-m0",
         "002475-2025FY-p42-m0",
+        "002475-RELATED-POLICY-2025-p1-m0",
         "002475-2025FY-p56-m0",
         "002475-2025FY-p1-m0",
         "002475-2025FY-p116-m0",
-        "002475-2025FY-p56-m1",
-        "002475-2025FY-p112-m0"
+        "002475-2025FY-p56-m1"
       ],
       "matched_ids": [
         "002475-2025FY-p8-m0",
@@ -2266,10 +2287,10 @@
         "002475-2025FY-p111-m1",
         "002475-2025FY-p43-m0",
         "002475-2025FY-p111-m0",
+        "002475-RELATED-POLICY-2025-p6-m0",
         "002475-2025FY-p56-m0",
         "002475-2025FY-p112-m0",
-        "002475-2025FY-p140-m1",
-        "002475-2025FY-p1-m0"
+        "002475-2025FY-p140-m1"
       ],
       "matched_ids": [],
       "hit": false,
@@ -2320,10 +2341,10 @@
         "002475-2025FY-p111-m1",
         "002475-2025FY-p43-m0",
         "002475-2025FY-p56-m0",
+        "002475-RELATED-POLICY-2025-p6-m0",
         "002475-2025FY-p112-m0",
         "002475-2025FY-p2-m0",
-        "002475-2025FY-p1-m0",
-        "002475-2025FY-p116-m0"
+        "002475-2025FY-p1-m0"
       ],
       "matched_ids": [
         "002475-2025FY-p42-m0"
@@ -2425,16 +2446,16 @@
       "question": "现有三份报告是否披露重大诉讼及其金额？",
       "gold_evidence_ids": [],
       "retrieved_ids": [
+        "002475-RELATED-POLICY-2025-p9-m0",
         "002475-2025FY-p2-m0",
         "002475-2025FY-p56-m0",
+        "002475-RELATED-POLICY-2025-p10-m0",
         "002475-2025FY-p112-m0",
         "002475-2025FY-p43-m0",
+        "002475-RELATED-POLICY-2025-p7-m0",
         "002475-2025FY-p111-m2",
-        "002475-2025FY-p116-m0",
-        "002475-2025FY-p140-m0",
-        "002475-2025FY-p42-m0",
-        "002475-2025FY-p42-m1",
-        "002475-2025FY-p8-m1"
+        "002475-RELATED-POLICY-2025-p1-m0",
+        "002475-RELATED-POLICY-2025-p6-m0"
       ],
       "matched_ids": [],
       "hit": false,
@@ -2450,15 +2471,15 @@
       "gold_evidence_ids": [],
       "retrieved_ids": [
         "002475-2025FY-p116-m0",
+        "002475-RELATED-POLICY-2025-p7-m0",
+        "002475-RELATED-POLICY-2025-p9-m0",
         "002475-2025FY-p2-m0",
         "002475-2025FY-p56-m0",
         "002475-2025FY-p112-m0",
+        "002475-RELATED-POLICY-2025-p10-m0",
         "002475-2025FY-p111-m2",
-        "002475-2025FY-p3-m0",
-        "002475-2025FY-p42-m0",
-        "002475-2025FY-p43-m0",
-        "002475-2025FY-p8-m1",
-        "002475-2025FY-p111-m1"
+        "002475-RELATED-POLICY-2025-p1-m0",
+        "002475-RELATED-POLICY-2025-p2-m0"
       ],
       "matched_ids": [],
       "hit": false,
@@ -2473,16 +2494,16 @@
       "question": "现有三份报告是否披露关联交易事项？",
       "gold_evidence_ids": [],
       "retrieved_ids": [
-        "002475-2025FY-p116-m0",
-        "002475-2025FY-p56-m1",
-        "002475-2025FY-p56-m0",
-        "002475-2025FY-p112-m0",
-        "002475-2025FY-p140-m1",
-        "002475-2025FY-p2-m0",
-        "002475-2025FY-p111-m2",
-        "002475-2025FY-p119-m1",
-        "002475-2025FY-p140-m0",
-        "002475-2025FY-p3-m0"
+        "002475-RELATED-POLICY-2025-p9-m0",
+        "002475-RELATED-POLICY-2025-p10-m0",
+        "002475-RELATED-POLICY-2025-p8-m0",
+        "002475-RELATED-POLICY-2025-p1-m0",
+        "002475-RELATED-POLICY-2025-p2-m0",
+        "002475-RELATED-POLICY-2025-p7-m0",
+        "002475-RELATED-POLICY-2025-p6-m0",
+        "002475-RELATED-POLICY-2025-p5-m0",
+        "002475-RELATED-POLICY-2025-p4-m0",
+        "002475-RELATED-POLICY-2025-p3-m0"
       ],
       "matched_ids": [],
       "hit": false,
@@ -2550,11 +2571,11 @@
         "002475-2025FY-p8-m0",
         "002475-2025FY-p8-m1",
         "002475-2025FY-p43-m0",
+        "002475-RELATED-POLICY-2025-p6-m0",
         "002475-2025FY-p56-m0",
         "002475-2025FY-p140-m1",
         "002475-2025FY-p111-m1",
-        "002475-2025FY-p112-m0",
-        "002475-2025FY-p56-m1"
+        "002475-2025FY-p112-m0"
       ],
       "matched_ids": [],
       "hit": false,
@@ -2573,7 +2594,10 @@
         "002475-2025FY-p42-m0",
         "002475-2025FY-p43-m0",
         "002475-2025FY-p56-m0",
+        "002475-RELATED-POLICY-2025-p10-m0",
+        "002475-RELATED-POLICY-2025-p9-m0",
         "002475-2025FY-p2-m0",
+        "002475-RELATED-POLICY-2025-p5-m0",
         "002475-2025FY-p111-m2",
         "002475-2025FY-p8-m0"
       ],
@@ -2589,7 +2613,11 @@
       "split": "test",
       "question": "没有可比期数据时系统应如何处理同比问题？",
       "gold_evidence_ids": [],
-      "retrieved_ids": [],
+      "retrieved_ids": [
+        "002475-RELATED-POLICY-2025-p2-m0",
+        "002475-RELATED-POLICY-2025-p9-m0",
+        "002475-RELATED-POLICY-2025-p5-m0"
+      ],
       "matched_ids": [],
       "hit": false,
       "status": "human_reviewed_correct_refusal",
@@ -2655,12 +2683,12 @@
         "002475-2025FY-p142-m0",
         "002475-2025FY-p56-m0",
         "002475-2025FY-p8-m0",
+        "002475-RELATED-POLICY-2025-p1-m0",
+        "002475-RELATED-POLICY-2025-p6-m0",
+        "002475-RELATED-POLICY-2025-p10-m0",
+        "002475-RELATED-POLICY-2025-p8-m0",
         "002475-2025FY-p43-m0",
-        "002475-2025FY-p111-m1",
-        "002475-2025FY-p140-m1",
-        "002475-2025FY-p111-m2",
-        "002475-2025FY-p112-m0",
-        "002475-2025FY-p2-m0"
+        "002475-RELATED-POLICY-2025-p9-m0"
       ],
       "matched_ids": [],
       "hit": false,
@@ -2689,8 +2717,8 @@
         "002241-2025FY-p3-m0"
       ],
       "matched_ids": [
-        "002241-2025FY-p8-m1",
-        "002241-2025FY-p8-m0"
+        "002241-2025FY-p8-m0",
+        "002241-2025FY-p8-m1"
       ],
       "hit": true,
       "status": "human_reviewed",
@@ -2742,9 +2770,9 @@
         "002600-2025FY-p2-m0",
         "002600-2025FY-p216-m0",
         "002600-2025FY-p257-m0",
+        "002600-BUYBACK-2025-p1-m0",
         "002600-2025FY-p224-m0",
-        "002600-2025FY-p10-m0",
-        "002600-2025FY-p225-m0"
+        "002600-2025FY-p10-m0"
       ],
       "matched_ids": [
         "002600-2025FY-p2-m0"
@@ -3033,10 +3061,10 @@
         "002600-2025FY-p11-m1",
         "002600-2025FY-p2-m0",
         "002600-2025FY-p216-m0",
+        "002600-BUYBACK-2025-p1-m0",
         "002600-2025FY-p257-m0",
         "002600-2025FY-p224-m0",
-        "002600-2025FY-p225-m0",
-        "002600-2025FY-p10-m0"
+        "002600-2025FY-p225-m0"
       ],
       "matched_ids": [
         "002600-2025FY-p2-m0"
@@ -3063,8 +3091,8 @@
         "002600-2025FY-p2-m0",
         "002600-2025FY-p224-m0",
         "002600-2025FY-p225-m0",
-        "002600-2025FY-p257-m0",
-        "002600-2025FY-p10-m0"
+        "002600-BUYBACK-2025-p1-m0",
+        "002600-GUARANTEE-2025-p1-m0"
       ],
       "matched_ids": [
         "002600-2025FY-p2-m0"
@@ -3089,10 +3117,10 @@
         "002600-2025FY-p11-m1",
         "002600-2025FY-p2-m0",
         "002600-2025FY-p216-m0",
+        "002600-BUYBACK-2025-p1-m0",
         "002600-2025FY-p10-m0",
         "002600-2025FY-p224-m0",
-        "002600-2025FY-p257-m0",
-        "002600-2025FY-p225-m0"
+        "002600-2025FY-p257-m0"
       ],
       "matched_ids": [
         "002600-2025FY-p2-m0"
@@ -3117,10 +3145,10 @@
         "002600-2025FY-p11-m1",
         "002600-2025FY-p2-m0",
         "002600-2025FY-p216-m0",
+        "002600-BUYBACK-2025-p1-m0",
         "002600-2025FY-p257-m0",
         "002600-2025FY-p225-m0",
-        "002600-2025FY-p224-m0",
-        "002600-2025FY-p10-m0"
+        "002600-2025FY-p224-m0"
       ],
       "matched_ids": [
         "002600-2025FY-p2-m0"
@@ -3146,9 +3174,9 @@
         "002600-2025FY-p2-m0",
         "002600-2025FY-p216-m0",
         "002600-2025FY-p257-m0",
+        "002600-BUYBACK-2025-p1-m0",
         "002600-2025FY-p10-m0",
-        "002600-2025FY-p224-m0",
-        "002600-2025FY-p225-m0"
+        "002600-2025FY-p224-m0"
       ],
       "matched_ids": [
         "002600-2025FY-p2-m0"
@@ -3425,10 +3453,12 @@
         "300433-2023FY-p1-m0",
         "300433-2023FY-p101-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
+      "matched_ids": [
+        "300433-2023FY-p18-m0"
+      ],
+      "hit": true,
       "status": "human_reviewed",
-      "miss_reason": "query_or_chunk_mismatch"
+      "miss_reason": null
     },
     {
       "case_id": "case-070",
@@ -3440,16 +3470,16 @@
         "week10-event-litigation-001"
       ],
       "retrieved_ids": [
+        "002600-GUARANTEE-2025-p1-m0",
+        "002600-GUARANTEE-2025-p2-m0",
+        "002600-GUARANTEE-2025-p4-m0",
+        "002600-GUARANTEE-2025-p5-m0",
         "002600-2025FY-p230-m0",
         "002600-2025FY-p225-m0",
+        "002600-BUYBACK-2025-p1-m0",
+        "002600-GUARANTEE-2025-p3-m0",
         "002600-2025FY-p224-m0",
-        "002600-2025FY-p104-m0",
-        "002600-2025FY-p11-m1",
-        "002600-2025FY-p216-m0",
-        "002600-2025FY-p1-m0",
-        "002600-2025FY-p230-m1",
-        "002600-2025FY-p12-m1",
-        "002600-2025FY-p257-m0"
+        "002600-2025FY-p104-m0"
       ],
       "matched_ids": [],
       "hit": false,
@@ -3477,10 +3507,13 @@
         "300433-2024FY-p1-m0",
         "300433-2024FY-p116-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
+      "matched_ids": [
+        "300433-2024FY-p30-m0",
+        "300433-2024FY-p30-m1"
+      ],
+      "hit": true,
       "status": "human_reviewed",
-      "miss_reason": "query_or_chunk_mismatch"
+      "miss_reason": null
     },
     {
       "case_id": "case-072",
@@ -3491,11 +3524,24 @@
       "gold_evidence_ids": [
         "week10-event-related-party-001"
       ],
-      "retrieved_ids": [],
-      "matched_ids": [],
-      "hit": false,
+      "retrieved_ids": [
+        "002475-RELATED-POLICY-2025-p9-m0",
+        "002475-RELATED-POLICY-2025-p10-m0",
+        "002475-RELATED-POLICY-2025-p1-m0",
+        "002475-RELATED-POLICY-2025-p8-m0",
+        "002475-RELATED-POLICY-2025-p6-m0",
+        "002475-RELATED-POLICY-2025-p2-m0",
+        "002475-RELATED-POLICY-2025-p7-m0",
+        "002475-RELATED-POLICY-2025-p5-m0",
+        "002475-RELATED-POLICY-2025-p4-m0",
+        "002475-RELATED-POLICY-2025-p3-m0"
+      ],
+      "matched_ids": [
+        "002475-RELATED-POLICY-2025-p1-m0"
+      ],
+      "hit": true,
       "status": "human_reviewed",
-      "miss_reason": "query_or_chunk_mismatch"
+      "miss_reason": null
     },
     {
       "case_id": "case-073",
@@ -3507,21 +3553,23 @@
         "week10-event-buyback-001"
       ],
       "retrieved_ids": [
+        "002600-BUYBACK-2025-p1-m0",
+        "002600-BUYBACK-2025-p2-m0",
+        "002600-BUYBACK-2025-p3-m0",
+        "002600-GUARANTEE-2025-p1-m0",
         "002600-2025FY-p216-m0",
         "002600-2025FY-p225-m0",
         "002600-2025FY-p104-m0",
-        "002600-2025FY-p257-m0",
-        "002600-2025FY-p224-m0",
-        "002600-2025FY-p258-m0",
-        "002600-2025FY-p10-m0",
-        "002600-2025FY-p230-m0",
-        "002600-2025FY-p5-m0",
-        "002600-2025FY-p11-m1"
+        "002600-BUYBACK-2025-p2-m1",
+        "002600-GUARANTEE-2025-p2-m0",
+        "002600-2025FY-p257-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
+      "matched_ids": [
+        "002600-BUYBACK-2025-p1-m0"
+      ],
+      "hit": true,
       "status": "human_reviewed",
-      "miss_reason": "query_or_chunk_mismatch"
+      "miss_reason": null
     },
     {
       "case_id": "case-074",
@@ -3533,21 +3581,23 @@
         "week10-event-guarantee-001"
       ],
       "retrieved_ids": [
+        "002600-GUARANTEE-2025-p1-m0",
+        "002600-GUARANTEE-2025-p2-m0",
+        "002600-GUARANTEE-2025-p4-m0",
         "002600-2025FY-p104-m0",
+        "002600-BUYBACK-2025-p1-m0",
+        "002600-GUARANTEE-2025-p3-m0",
+        "002600-GUARANTEE-2025-p5-m0",
         "002600-2025FY-p225-m0",
         "002600-2025FY-p257-m0",
-        "002600-2025FY-p230-m0",
-        "002600-2025FY-p216-m0",
-        "002600-2025FY-p10-m0",
-        "002600-2025FY-p258-m0",
-        "002600-2025FY-p224-m0",
-        "002600-2025FY-p5-m0",
-        "002600-2025FY-p257-m1"
+        "002600-2025FY-p230-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
+      "matched_ids": [
+        "002600-GUARANTEE-2025-p1-m0"
+      ],
+      "hit": true,
       "status": "human_reviewed",
-      "miss_reason": "query_or_chunk_mismatch"
+      "miss_reason": null
     }
   ],
   "warnings": [
