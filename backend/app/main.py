@@ -265,6 +265,7 @@ def create_app(database_url=None, data_mode=None):
         return record
 
     @app.get('/api/v1/data-quality')
+    @app.get('/api/v1/data/quality')
     def quality():
         values = store.all('financial_metrics')
         return {'data_mode':mode,'company_count':len(store.all('companies')),'filing_count':len(store.all('filings')),'metric_count':len(values),'evidence_count':len(store.all('evidence_spans')),'missing_source_count':sum(not m['source_ids'] for m in values),'jobs':store.all('ingestion_jobs'),'sources':store.all('filings')[:20]}

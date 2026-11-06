@@ -53,3 +53,11 @@ def test_financial_ratios_endpoint_returns_formulas_and_values(tmp_path):
     assert ratios["inventory_turnover"]["value"] == "2"
     assert ratios["cash_flow_quality"]["value"] == "0.3"
 
+
+def test_data_quality_nested_route_alias_returns_quality_record(tmp_path):
+    response = _client(tmp_path).get("/api/v1/data/quality")
+    assert response.status_code == 200
+    body = response.json()
+    assert body["data_mode"] == "real_corpus"
+    assert "company_count" in body
+
