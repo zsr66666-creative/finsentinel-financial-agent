@@ -1,0 +1,1596 @@
+{
+  "run_id": "week10-weighted-001",
+  "generated_at_utc": "2026-11-06T01:00:23Z",
+  "code_version": "e59953ffaa7bad4d94ecfc93e20160f5a0b81694",
+  "corpus_version": "week10-multi-company-v3",
+  "question_set": "data/evals/golden_questions.jsonl",
+  "question_count": 74,
+  "retrieval_mode": "weighted",
+  "top_k": 5,
+  "matching_rule": "exact evidence ID or normalized document-page key (document_id-pN)",
+  "results": {
+    "cases": 74,
+    "scored_cases": 43,
+    "hits": 29,
+    "recall_at_5": 0.6744186046511628
+  },
+  "by_company": {
+    "cn-002241": {
+      "cases": 7,
+      "scored_cases": 7,
+      "hits": 7,
+      "recall_at_5": 1.0
+    },
+    "cn-002475": {
+      "cases": 41,
+      "scored_cases": 10,
+      "hits": 9,
+      "recall_at_5": 0.9
+    },
+    "cn-002600": {
+      "cases": 9,
+      "scored_cases": 9,
+      "hits": 0,
+      "recall_at_5": 0.0
+    },
+    "cn-300115": {
+      "cases": 8,
+      "scored_cases": 8,
+      "hits": 6,
+      "recall_at_5": 0.75
+    },
+    "cn-300433": {
+      "cases": 9,
+      "scored_cases": 9,
+      "hits": 7,
+      "recall_at_5": 0.7777777777777778
+    }
+  },
+  "by_type": {
+    "announcement_event": {
+      "cases": 7,
+      "scored_cases": 3,
+      "hits": 0,
+      "recall_at_5": 0.0
+    },
+    "calculation": {
+      "cases": 9,
+      "scored_cases": 2,
+      "hits": 2,
+      "recall_at_5": 1.0
+    },
+    "correct_refusal": {
+      "cases": 3,
+      "scored_cases": 3,
+      "hits": 1,
+      "recall_at_5": 0.3333333333333333
+    },
+    "evidence_location": {
+      "cases": 11,
+      "scored_cases": 6,
+      "hits": 5,
+      "recall_at_5": 0.8333333333333334
+    },
+    "evidence_support": {
+      "cases": 1,
+      "scored_cases": 0,
+      "hits": 0,
+      "recall_at_5": null
+    },
+    "fact_lookup": {
+      "cases": 30,
+      "scored_cases": 23,
+      "hits": 18,
+      "recall_at_5": 0.782608695652174
+    },
+    "peer_comparison": {
+      "cases": 3,
+      "scored_cases": 0,
+      "hits": 0,
+      "recall_at_5": null
+    },
+    "risk_explanation": {
+      "cases": 6,
+      "scored_cases": 2,
+      "hits": 0,
+      "recall_at_5": 0.0
+    },
+    "rule": {
+      "cases": 1,
+      "scored_cases": 1,
+      "hits": 1,
+      "recall_at_5": 1.0
+    },
+    "scope": {
+      "cases": 3,
+      "scored_cases": 3,
+      "hits": 2,
+      "recall_at_5": 0.6666666666666666
+    }
+  },
+  "by_split": {
+    "development": {
+      "cases": 62,
+      "scored_cases": 39,
+      "hits": 26,
+      "recall_at_5": 0.6666666666666666
+    },
+    "test": {
+      "cases": 12,
+      "scored_cases": 4,
+      "hits": 3,
+      "recall_at_5": 0.75
+    }
+  },
+  "warnings": [
+    "embeddings_not_configured"
+  ],
+  "details": [
+    {
+      "case_id": "case-001",
+      "company_id": "cn-002475",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m1"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p11-m1",
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p8-m1"
+      ],
+      "matched_ids": [
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p8-m1"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-002",
+      "company_id": "cn-002475",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p21-m0",
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p81-m0"
+      ],
+      "matched_ids": [
+        "002475-2026H1-p8-m0"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-003",
+      "company_id": "cn-002475",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [
+        "002475-2026H1-p60-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p60-m0",
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p63-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p1-m0"
+      ],
+      "matched_ids": [
+        "002475-2026H1-p60-m0"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-004",
+      "company_id": "cn-002475",
+      "type": "calculation",
+      "split": "development",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m1"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p11-m1",
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p8-m1"
+      ],
+      "matched_ids": [
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p8-m1"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-005",
+      "company_id": "cn-002475",
+      "type": "calculation",
+      "split": "development",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p21-m0",
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p81-m0"
+      ],
+      "matched_ids": [
+        "002475-2026H1-p8-m0"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-006",
+      "company_id": "cn-002475",
+      "type": "scope",
+      "split": "development",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p1-m0",
+        "002475-2026H1-p81-m0",
+        "002475-2026H1-p11-m0"
+      ],
+      "matched_ids": [
+        "002475-2026H1-p8-m0"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-007",
+      "company_id": "cn-002475",
+      "type": "correct_refusal",
+      "split": "development",
+      "gold_evidence_ids": [
+        "002475-2026H1-p60-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p60-m0",
+        "002475-2026H1-p11-m1",
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p21-m1"
+      ],
+      "matched_ids": [
+        "002475-2026H1-p60-m0"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-008",
+      "company_id": "cn-002475",
+      "type": "evidence_location",
+      "split": "test",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p11-m1",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p21-m0",
+        "002475-2026H1-p11-m0"
+      ],
+      "matched_ids": [
+        "002475-2026H1-p8-m0"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-009",
+      "company_id": "cn-002475",
+      "type": "evidence_support",
+      "split": "test",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2026H1-p21-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p82-m0",
+        "002475-2026H1-p11-m1",
+        "002475-2026H1-p81-m1"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-010",
+      "company_id": "cn-002475",
+      "type": "rule",
+      "split": "test",
+      "gold_evidence_ids": [
+        "002475-2026H1-p60-m0"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p11-m1",
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p8-m1",
+        "002475-2026H1-p60-m0"
+      ],
+      "matched_ids": [
+        "002475-2026H1-p60-m0"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-011",
+      "company_id": "cn-002475",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2024FY-p9-m0",
+        "002475-2024FY-p39-m0",
+        "002475-2024FY-p8-m0",
+        "002475-2024FY-p50-m0",
+        "002475-2024FY-p1-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-012",
+      "company_id": "cn-002475",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p42-m1",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p140-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-013",
+      "company_id": "cn-002475",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p42-m0",
+        "002475-2025FY-p142-m0",
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p43-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-014",
+      "company_id": "cn-002475",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2024FY-p39-m0",
+        "002475-2024FY-p122-m0",
+        "002475-2024FY-p147-m0",
+        "002475-2024FY-p50-m0",
+        "002475-2024FY-p8-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-015",
+      "company_id": "cn-002475",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p116-m0",
+        "002475-2025FY-p119-m0",
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p226-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-016",
+      "company_id": "cn-002475",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p21-m0",
+        "002475-2026H1-p11-m0",
+        "002475-2026H1-p81-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-017",
+      "company_id": "cn-002475",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p1-m0",
+        "002475-2025FY-p116-m0",
+        "002475-2025FY-p2-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-018",
+      "company_id": "cn-002475",
+      "type": "calculation",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p42-m1",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p140-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-019",
+      "company_id": "cn-002475",
+      "type": "calculation",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p8-m1",
+        "002475-2025FY-p56-m0",
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p111-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-020",
+      "company_id": "cn-002475",
+      "type": "calculation",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p140-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-021",
+      "company_id": "cn-002475",
+      "type": "calculation",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2026H1-p82-m0",
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p11-m1",
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p82-m1"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-022",
+      "company_id": "cn-002475",
+      "type": "calculation",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p140-m0",
+        "002475-2025FY-p116-m0",
+        "002475-2025FY-p43-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-023",
+      "company_id": "cn-002475",
+      "type": "calculation",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p116-m0",
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p119-m0",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p226-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-024",
+      "company_id": "cn-002475",
+      "type": "calculation",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p42-m0",
+        "002475-2025FY-p142-m0",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p43-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-025",
+      "company_id": "cn-002475",
+      "type": "evidence_location",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p42-m1",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p140-m0",
+        "002475-2025FY-p226-m1",
+        "002475-2025FY-p111-m1"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-026",
+      "company_id": "cn-002475",
+      "type": "evidence_location",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p42-m0",
+        "002475-2025FY-p142-m0",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p43-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-027",
+      "company_id": "cn-002475",
+      "type": "evidence_location",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2026H1-p21-m1",
+        "002475-2026H1-p60-m0",
+        "002475-2026H1-p13-m0",
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p1-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-028",
+      "company_id": "cn-002475",
+      "type": "evidence_location",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p116-m0",
+        "002475-2025FY-p119-m0",
+        "002475-2025FY-p226-m0",
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p43-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-029",
+      "company_id": "cn-002475",
+      "type": "evidence_location",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2024FY-p2-m0",
+        "002475-2024FY-p1-m0",
+        "002475-2024FY-p9-m0",
+        "002475-2024FY-p39-m0",
+        "002475-2024FY-p8-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-030",
+      "company_id": "cn-002475",
+      "type": "announcement_event",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p2-m0",
+        "002475-2025FY-p56-m0",
+        "002475-2025FY-p112-m0",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p111-m2"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-031",
+      "company_id": "cn-002475",
+      "type": "announcement_event",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p116-m0",
+        "002475-2025FY-p2-m0",
+        "002475-2025FY-p56-m0",
+        "002475-2025FY-p112-m0",
+        "002475-2025FY-p111-m2"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-032",
+      "company_id": "cn-002475",
+      "type": "announcement_event",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p116-m0",
+        "002475-2025FY-p56-m1",
+        "002475-2025FY-p56-m0",
+        "002475-2025FY-p112-m0",
+        "002475-2025FY-p140-m1"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-033",
+      "company_id": "cn-002475",
+      "type": "announcement_event",
+      "split": "development",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p42-m1",
+        "002475-2025FY-p56-m0",
+        "002475-2025FY-p140-m0",
+        "002475-2025FY-p226-m0",
+        "002475-2025FY-p116-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-034",
+      "company_id": "cn-002475",
+      "type": "risk_explanation",
+      "split": "test",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p140-m0",
+        "002475-2025FY-p142-m0",
+        "002475-2025FY-p42-m1",
+        "002475-2025FY-p42-m0",
+        "002475-2025FY-p43-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-035",
+      "company_id": "cn-002475",
+      "type": "risk_explanation",
+      "split": "test",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p42-m0",
+        "002475-2025FY-p142-m0",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p56-m0",
+        "002475-2025FY-p8-m1"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-036",
+      "company_id": "cn-002475",
+      "type": "risk_explanation",
+      "split": "test",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p142-m0",
+        "002475-2025FY-p42-m0",
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p56-m0",
+        "002475-2025FY-p2-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-037",
+      "company_id": "cn-002475",
+      "type": "risk_explanation",
+      "split": "test",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p1-m0",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p111-m2",
+        "002475-2025FY-p112-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-038",
+      "company_id": "cn-002475",
+      "type": "peer_comparison",
+      "split": "test",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p42-m1",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p140-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-039",
+      "company_id": "cn-002475",
+      "type": "peer_comparison",
+      "split": "test",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p111-m1",
+        "002475-2025FY-p111-m0",
+        "002475-2025FY-p140-m0",
+        "002475-2025FY-p116-m0",
+        "002475-2025FY-p43-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-040",
+      "company_id": "cn-002475",
+      "type": "peer_comparison",
+      "split": "test",
+      "gold_evidence_ids": [],
+      "retrieved_ids": [
+        "002475-2025FY-p42-m0",
+        "002475-2025FY-p142-m0",
+        "002475-2025FY-p56-m0",
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p43-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-041",
+      "company_id": "cn-002241",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [
+        "002241-2025FY-p8-s16"
+      ],
+      "retrieved_ids": [
+        "002241-2025FY-p8-m1",
+        "002241-2025FY-p9-m0",
+        "002241-2025FY-p8-m0",
+        "002241-2025FY-p21-m0",
+        "002241-2025FY-p104-m1"
+      ],
+      "matched_ids": [
+        "002241-2025FY-p8-m1",
+        "002241-2025FY-p8-m0"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-042",
+      "company_id": "cn-002241",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [
+        "002241-2024FY-p8-s16"
+      ],
+      "retrieved_ids": [
+        "002241-2024FY-p9-m0",
+        "002241-2024FY-p8-m0",
+        "002241-2024FY-p8-m1",
+        "002241-2024FY-p60-m0",
+        "002241-2024FY-p20-m0"
+      ],
+      "matched_ids": [
+        "002241-2024FY-p8-m0",
+        "002241-2024FY-p8-m1"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-043",
+      "company_id": "cn-002600",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [
+        "002600-2025FY-p2-s7"
+      ],
+      "retrieved_ids": [
+        "002600-2025FY-p10-m1",
+        "002600-2025FY-p12-m0",
+        "002600-2025FY-p11-m0",
+        "002600-2025FY-p11-m1",
+        "002600-2025FY-p216-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-044",
+      "company_id": "cn-300115",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [
+        "300115-2025FLASH-p1-s14"
+      ],
+      "retrieved_ids": [
+        "300115-2025FLASH-p2-m0",
+        "300115-2025FLASH-p1-m0",
+        "300115-2025FLASH-p3-m0"
+      ],
+      "matched_ids": [
+        "300115-2025FLASH-p1-m0"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-045",
+      "company_id": "cn-300115",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [
+        "300115-2025FLASH-p1-s14"
+      ],
+      "retrieved_ids": [
+        "300115-2025FLASH-p2-m0",
+        "300115-2025FLASH-p1-m0",
+        "300115-2025FLASH-p3-m0"
+      ],
+      "matched_ids": [
+        "300115-2025FLASH-p1-m0"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-046",
+      "company_id": "cn-300433",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [
+        "300433-2024FY-p7-s0"
+      ],
+      "retrieved_ids": [
+        "300433-2024FY-p7-m0",
+        "300433-2024FY-p112-m0",
+        "300433-2024FY-p7-m1",
+        "300433-2024FY-p114-m0",
+        "300433-2024FY-p20-m0"
+      ],
+      "matched_ids": [
+        "300433-2024FY-p7-m0",
+        "300433-2024FY-p7-m1"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-047",
+      "company_id": "cn-300433",
+      "type": "fact_lookup",
+      "split": "test",
+      "gold_evidence_ids": [
+        "300433-2025SUMMARY-p4-s0"
+      ],
+      "retrieved_ids": [
+        "300433-2025SUMMARY-p4-m0",
+        "300433-2025SUMMARY-p1-m0",
+        "300433-2025SUMMARY-p2-m0",
+        "300433-2025SUMMARY-p5-m0",
+        "300433-2025SUMMARY-p6-m0"
+      ],
+      "matched_ids": [
+        "300433-2025SUMMARY-p4-m0"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-048",
+      "company_id": "cn-300115",
+      "type": "fact_lookup",
+      "split": "test",
+      "gold_evidence_ids": [
+        "300115-2024FY-p0-s0"
+      ],
+      "retrieved_ids": [
+        "300115-2024FY-p78-m0",
+        "300115-2024FY-p104-m0",
+        "300115-2024FY-p18-m0",
+        "300115-2024FY-p81-m0",
+        "300115-2024FY-p8-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-049",
+      "company_id": "cn-002241",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [
+        "002241-2025FY-p8-s16"
+      ],
+      "retrieved_ids": [
+        "002241-2025FY-p171-m0",
+        "002241-2025FY-p8-m0",
+        "002241-2025FY-p9-m0",
+        "002241-2025FY-p21-m0",
+        "002241-2025FY-p1-m0"
+      ],
+      "matched_ids": [
+        "002241-2025FY-p8-m0"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-050",
+      "company_id": "cn-002241",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [
+        "002241-2025FY-p8-s16"
+      ],
+      "retrieved_ids": [
+        "002241-2025FY-p171-m0",
+        "002241-2025FY-p8-m0",
+        "002241-2025FY-p9-m0",
+        "002241-2025FY-p21-m0",
+        "002241-2025FY-p1-m0"
+      ],
+      "matched_ids": [
+        "002241-2025FY-p8-m0"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-051",
+      "company_id": "cn-002241",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [
+        "002241-2025FY-p8-s16"
+      ],
+      "retrieved_ids": [
+        "002241-2025FY-p9-m0",
+        "002241-2025FY-p8-m0",
+        "002241-2025FY-p171-m0",
+        "002241-2025FY-p2-m0",
+        "002241-2025FY-p21-m0"
+      ],
+      "matched_ids": [
+        "002241-2025FY-p8-m0"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-052",
+      "company_id": "cn-002241",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [
+        "002241-2024FY-p8-s16"
+      ],
+      "retrieved_ids": [
+        "002241-2024FY-p8-m0",
+        "002241-2024FY-p9-m0",
+        "002241-2024FY-p20-m1",
+        "002241-2024FY-p20-m0",
+        "002241-2024FY-p60-m0"
+      ],
+      "matched_ids": [
+        "002241-2024FY-p8-m0"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-053",
+      "company_id": "cn-002241",
+      "type": "evidence_location",
+      "split": "development",
+      "gold_evidence_ids": [
+        "002241-2024FY-p8-s16"
+      ],
+      "retrieved_ids": [
+        "002241-2024FY-p9-m0",
+        "002241-2024FY-p8-m0",
+        "002241-2024FY-p60-m0",
+        "002241-2024FY-p19-m0",
+        "002241-2024FY-p20-m1"
+      ],
+      "matched_ids": [
+        "002241-2024FY-p8-m0"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-054",
+      "company_id": "cn-002600",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [
+        "002600-2025FY-p2-s7"
+      ],
+      "retrieved_ids": [
+        "002600-2025FY-p10-m1",
+        "002600-2025FY-p11-m1",
+        "002600-2025FY-p11-m0",
+        "002600-2025FY-p12-m0",
+        "002600-2025FY-p257-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-055",
+      "company_id": "cn-002600",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [
+        "002600-2025FY-p2-s7"
+      ],
+      "retrieved_ids": [
+        "002600-2025FY-p10-m1",
+        "002600-2025FY-p11-m1",
+        "002600-2025FY-p216-m0",
+        "002600-2025FY-p257-m0",
+        "002600-2025FY-p11-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-056",
+      "company_id": "cn-002600",
+      "type": "evidence_location",
+      "split": "development",
+      "gold_evidence_ids": [
+        "002600-2025FY-p2-s7"
+      ],
+      "retrieved_ids": [
+        "002600-2025FY-p10-m1",
+        "002600-2025FY-p11-m0",
+        "002600-2025FY-p12-m0",
+        "002600-2025FY-p11-m1",
+        "002600-2025FY-p216-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-057",
+      "company_id": "cn-002600",
+      "type": "scope",
+      "split": "development",
+      "gold_evidence_ids": [
+        "002600-2025FY-p2-s7"
+      ],
+      "retrieved_ids": [
+        "002600-2025FY-p10-m1",
+        "002600-2025FY-p11-m1",
+        "002600-2025FY-p11-m0",
+        "002600-2025FY-p12-m0",
+        "002600-2025FY-p257-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-058",
+      "company_id": "cn-002600",
+      "type": "correct_refusal",
+      "split": "development",
+      "gold_evidence_ids": [
+        "002600-2025FY-p2-s7"
+      ],
+      "retrieved_ids": [
+        "002600-2025FY-p10-m1",
+        "002600-2025FY-p11-m0",
+        "002600-2025FY-p12-m0",
+        "002600-2025FY-p11-m1",
+        "002600-2025FY-p257-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-059",
+      "company_id": "cn-300115",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [
+        "300115-2025FLASH-p1-s14"
+      ],
+      "retrieved_ids": [
+        "300115-2025FLASH-p2-m0",
+        "300115-2025FLASH-p1-m0",
+        "300115-2025FLASH-p3-m0"
+      ],
+      "matched_ids": [
+        "300115-2025FLASH-p1-m0"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-060",
+      "company_id": "cn-300115",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [
+        "300115-2025FLASH-p1-s14"
+      ],
+      "retrieved_ids": [
+        "300115-2025FLASH-p2-m0",
+        "300115-2025FLASH-p1-m0",
+        "300115-2025FLASH-p3-m0"
+      ],
+      "matched_ids": [
+        "300115-2025FLASH-p1-m0"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-061",
+      "company_id": "cn-300115",
+      "type": "scope",
+      "split": "development",
+      "gold_evidence_ids": [
+        "300115-2025FLASH-p1-s14"
+      ],
+      "retrieved_ids": [
+        "300115-2025FLASH-p2-m0",
+        "300115-2025FLASH-p1-m0",
+        "300115-2025FLASH-p3-m0"
+      ],
+      "matched_ids": [
+        "300115-2025FLASH-p1-m0"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-062",
+      "company_id": "cn-300115",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [
+        "300115-2024FY-p0-s0"
+      ],
+      "retrieved_ids": [
+        "300115-2024FY-p8-m1",
+        "300115-2024FY-p8-m0",
+        "300115-2024FY-p18-m0",
+        "300115-2024FY-p78-m0",
+        "300115-2024FY-p17-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-063",
+      "company_id": "cn-300115",
+      "type": "evidence_location",
+      "split": "development",
+      "gold_evidence_ids": [
+        "300115-2025FLASH-p1-s14"
+      ],
+      "retrieved_ids": [
+        "300115-2025FLASH-p2-m0",
+        "300115-2025FLASH-p1-m0",
+        "300115-2025FLASH-p3-m0"
+      ],
+      "matched_ids": [
+        "300115-2025FLASH-p1-m0"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-064",
+      "company_id": "cn-300433",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [
+        "300433-2024FY-p7-s0"
+      ],
+      "retrieved_ids": [
+        "300433-2024FY-p7-m0",
+        "300433-2024FY-p112-m0",
+        "300433-2024FY-p7-m1",
+        "300433-2024FY-p114-m0",
+        "300433-2024FY-p20-m0"
+      ],
+      "matched_ids": [
+        "300433-2024FY-p7-m0",
+        "300433-2024FY-p7-m1"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-065",
+      "company_id": "cn-300433",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [
+        "300433-2024FY-p7-s0"
+      ],
+      "retrieved_ids": [
+        "300433-2024FY-p7-m0",
+        "300433-2024FY-p112-m0",
+        "300433-2024FY-p7-m1",
+        "300433-2024FY-p114-m0",
+        "300433-2024FY-p20-m0"
+      ],
+      "matched_ids": [
+        "300433-2024FY-p7-m0",
+        "300433-2024FY-p7-m1"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-066",
+      "company_id": "cn-300433",
+      "type": "evidence_location",
+      "split": "development",
+      "gold_evidence_ids": [
+        "300433-2024FY-p7-s0"
+      ],
+      "retrieved_ids": [
+        "300433-2024FY-p7-m0",
+        "300433-2024FY-p112-m0",
+        "300433-2024FY-p7-m1",
+        "300433-2024FY-p2-m0",
+        "300433-2024FY-p114-m0"
+      ],
+      "matched_ids": [
+        "300433-2024FY-p7-m0",
+        "300433-2024FY-p7-m1"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-067",
+      "company_id": "cn-300433",
+      "type": "fact_lookup",
+      "split": "development",
+      "gold_evidence_ids": [
+        "300433-2025SUMMARY-p4-s0"
+      ],
+      "retrieved_ids": [
+        "300433-2025SUMMARY-p4-m0",
+        "300433-2025SUMMARY-p1-m0",
+        "300433-2025SUMMARY-p2-m0",
+        "300433-2025SUMMARY-p5-m0",
+        "300433-2025SUMMARY-p6-m0"
+      ],
+      "matched_ids": [
+        "300433-2025SUMMARY-p4-m0"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-068",
+      "company_id": "cn-300433",
+      "type": "evidence_location",
+      "split": "development",
+      "gold_evidence_ids": [
+        "300433-2025SUMMARY-p4-s0"
+      ],
+      "retrieved_ids": [
+        "300433-2025SUMMARY-p4-m0",
+        "300433-2025SUMMARY-p1-m0",
+        "300433-2025SUMMARY-p2-m0",
+        "300433-2025SUMMARY-p5-m0",
+        "300433-2025SUMMARY-p6-m0"
+      ],
+      "matched_ids": [
+        "300433-2025SUMMARY-p4-m0"
+      ],
+      "hit": true,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": null
+    },
+    {
+      "case_id": "case-069",
+      "company_id": "cn-300433",
+      "type": "announcement_event",
+      "split": "development",
+      "gold_evidence_ids": [
+        "week10-event-impairment-001"
+      ],
+      "retrieved_ids": [
+        "300433-2023FY-p18-m0",
+        "300433-2023FY-p99-m0",
+        "300433-2023FY-p97-m0",
+        "300433-2023FY-p101-m1",
+        "300433-2023FY-p27-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-070",
+      "company_id": "cn-002600",
+      "type": "correct_refusal",
+      "split": "development",
+      "gold_evidence_ids": [
+        "week10-event-litigation-001"
+      ],
+      "retrieved_ids": [
+        "002600-2025FY-p230-m0",
+        "002600-2025FY-p225-m0",
+        "002600-2025FY-p224-m0",
+        "002600-2025FY-p104-m0",
+        "002600-2025FY-p11-m1"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-071",
+      "company_id": "cn-300433",
+      "type": "risk_explanation",
+      "split": "development",
+      "gold_evidence_ids": [
+        "week10-risk-customer-concentration-001"
+      ],
+      "retrieved_ids": [
+        "300433-2024FY-p30-m1",
+        "300433-2024FY-p30-m0",
+        "300433-2024FY-p112-m0",
+        "300433-2024FY-p20-m0",
+        "300433-2024FY-p20-m1"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-072",
+      "company_id": "cn-002475",
+      "type": "announcement_event",
+      "split": "development",
+      "gold_evidence_ids": [
+        "week10-event-related-party-001"
+      ],
+      "retrieved_ids": [],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-073",
+      "company_id": "cn-002600",
+      "type": "announcement_event",
+      "split": "development",
+      "gold_evidence_ids": [
+        "week10-event-buyback-001"
+      ],
+      "retrieved_ids": [
+        "002600-2025FY-p216-m0",
+        "002600-2025FY-p225-m0",
+        "002600-2025FY-p104-m0",
+        "002600-2025FY-p257-m0",
+        "002600-2025FY-p224-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-074",
+      "company_id": "cn-002600",
+      "type": "risk_explanation",
+      "split": "development",
+      "gold_evidence_ids": [
+        "week10-event-guarantee-001"
+      ],
+      "retrieved_ids": [
+        "002600-2025FY-p104-m0",
+        "002600-2025FY-p225-m0",
+        "002600-2025FY-p257-m0",
+        "002600-2025FY-p230-m0",
+        "002600-2025FY-p216-m0"
+      ],
+      "matched_ids": [],
+      "hit": false,
+      "match_rule": "exact_id_or_document_page",
+      "miss_reason": "query_or_chunk_mismatch"
+    }
+  ]
+}
