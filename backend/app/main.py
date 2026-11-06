@@ -58,7 +58,19 @@ def create_app(database_url=None, data_mode=None):
     tools = Tools(store)
     request_stats = {'total': 0, 'errors': 0, 'total_ms': 0.0}
     recent_requests = deque(maxlen=50)
+    latency_samples = deque(maxlen=500)
+    status_counts = {}
     logger = logging.getLogger('finsentinel.api')
+
+    def record_request(method, path, status_code, elapsed_ms):
+        request_stats['total'] += 1
+        request_stats['total_ms'] += elapsed_ms
+        if status_code >= 400:
+            request_stats['errors'] += 1
+        latency_samples.append(elapsed_ms)
+        status_key = str(status_code)
+        status_counts[status_key] = status_counts.get(status_key, 0) + 1
+        recent_requests.append({'method': method, 'path': path, 'status_code': status_code, 'duration_ms': elapsed_ms})
 
     @asynccontextmanager
     async def lifespan(app):
@@ -72,13 +84,15 @@ def create_app(database_url=None, data_mode=None):
     @app.middleware('http')
     async def request_observability(request: Request, call_next):
         started = perf_counter()
-        response = await call_next(request)
+        try:
+            response = await call_next(request)
+        except Exception:
+            elapsed_ms = round((perf_counter() - started) * 1000, 2)
+            record_request(request.method, request.url.path, 500, elapsed_ms)
+            logger.exception('%s %s 500 %.2fms', request.method, request.url.path, elapsed_ms)
+            raise
         elapsed_ms = round((perf_counter() - started) * 1000, 2)
-        request_stats['total'] += 1
-        request_stats['total_ms'] += elapsed_ms
-        if response.status_code >= 400:
-            request_stats['errors'] += 1
-        recent_requests.append({'method': request.method, 'path': request.url.path, 'status_code': response.status_code, 'duration_ms': elapsed_ms})
+        record_request(request.method, request.url.path, response.status_code, elapsed_ms)
         logger.info('%s %s %s %.2fms', request.method, request.url.path, response.status_code, elapsed_ms)
         response.headers['X-Process-Time-Ms'] = str(elapsed_ms)
         return response
@@ -96,7 +110,21 @@ def create_app(database_url=None, data_mode=None):
     @app.get('/api/v1/observability')
     def observability():
         total = request_stats['total']
-        return {'requests_total': total, 'errors_total': request_stats['errors'], 'error_rate': round(request_stats['errors'] / total, 4) if total else 0.0, 'avg_duration_ms': round(request_stats['total_ms'] / total, 2) if total else 0.0, 'recent_requests': list(recent_requests), 'retention': 50}
+        samples = sorted(latency_samples)
+        p95_index = max(0, int(len(samples) * 0.95 + 0.9999) - 1) if samples else 0
+        return {
+            'requests_total': total,
+            'errors_total': request_stats['errors'],
+            'error_rate': round(request_stats['errors'] / total, 4) if total else 0.0,
+            'avg_duration_ms': round(request_stats['total_ms'] / total, 2) if total else 0.0,
+            'p95_duration_ms': samples[p95_index] if samples else 0.0,
+            'max_duration_ms': samples[-1] if samples else 0.0,
+            'sample_size': len(samples),
+            'status_counts': dict(status_counts),
+            'recent_requests': list(recent_requests),
+            'retention': 50,
+            'latency_retention': 500,
+        }
 
     @app.get('/api/v1/companies')
     def companies():

@@ -35,7 +35,11 @@ def test_week12_observability_tracks_latency_and_errors(tmp_path):
     assert client.get("/health").headers["x-process-time-ms"]
     assert client.get("/api/v1/companies/missing").status_code == 404
     body = client.get("/api/v1/observability").json()
-    assert body["requests_total"] >= 3
+    # The metrics endpoint returns the snapshot collected before its own response is recorded.
+    assert body["requests_total"] >= 2
     assert body["errors_total"] >= 1
     assert body["error_rate"] > 0
+    assert body["p95_duration_ms"] >= body["avg_duration_ms"]
+    assert body["status_counts"]["404"] >= 1
+    assert body["sample_size"] >= 2
     assert body["recent_requests"]
