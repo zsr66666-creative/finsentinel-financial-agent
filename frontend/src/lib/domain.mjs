@@ -48,3 +48,9 @@ export function metricStateLabel({ loading = false, error = '', hasData = false 
   if (error) return '指标加载失败，请重试。';
   return hasData ? '' : '该公司暂无已入库指标。';
 }
+
+export function alertEmptyLabel({ total = 0, filtered = 0, review = false } = {}) {
+  if (filtered > 0) return '';
+  if (total === 0) return review ? '当前没有待复核告警。' : '当前没有风险告警。';
+  return '没有匹配的告警，请调整筛选条件。';
+}

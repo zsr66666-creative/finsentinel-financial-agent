@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { filterAlerts, normalizeAlert, normalizeCollection, formatMetric, connectionStatusLabel, refreshLabel, metricStateLabel } from '../src/lib/domain.mjs';
+import { filterAlerts, normalizeAlert, normalizeCollection, formatMetric, connectionStatusLabel, refreshLabel, metricStateLabel, alertEmptyLabel } from '../src/lib/domain.mjs';
 
 test('severity, company, status and keyword filters combine rather than replace each other', () => {
   const rows = [
@@ -39,4 +39,9 @@ test('company metric state distinguishes loading, error and empty data', () => {
   assert.equal(metricStateLabel({ error: 'timeout' }), '指标加载失败，请重试。');
   assert.equal(metricStateLabel({ hasData: false }), '该公司暂无已入库指标。');
   assert.equal(metricStateLabel({ hasData: true }), '');
+});
+test('alert empty state distinguishes no data from filters with no matches', () => {
+  assert.equal(alertEmptyLabel({ total: 0, filtered: 0 }), '当前没有风险告警。');
+  assert.equal(alertEmptyLabel({ total: 0, filtered: 0, review: true }), '当前没有待复核告警。');
+  assert.equal(alertEmptyLabel({ total: 3, filtered: 0 }), '没有匹配的告警，请调整筛选条件。');
 });

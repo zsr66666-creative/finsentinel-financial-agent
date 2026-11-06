@@ -5,3 +5,4 @@ export function formatMetric(value: unknown, unit?: string): string;
 export function connectionStatusLabel(options?: { loading?: boolean; connected?: boolean; error?: string }): string;
 export function refreshLabel(refreshing?: boolean): string;
 export function metricStateLabel(options?: { loading?: boolean; error?: string; hasData?: boolean }): string;
+export function alertEmptyLabel(options?: { total?: number; filtered?: number; review?: boolean }): string;
