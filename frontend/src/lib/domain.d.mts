@@ -4,3 +4,4 @@ export function filterAlerts(rows: any[], filters: { query?: string; company?: s
 export function formatMetric(value: unknown, unit?: string): string;
 export function connectionStatusLabel(options?: { loading?: boolean; connected?: boolean; error?: string }): string;
 export function refreshLabel(refreshing?: boolean): string;
+export function metricStateLabel(options?: { loading?: boolean; error?: string; hasData?: boolean }): string;

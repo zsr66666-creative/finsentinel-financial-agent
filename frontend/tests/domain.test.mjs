@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { filterAlerts, normalizeAlert, normalizeCollection, formatMetric, connectionStatusLabel, refreshLabel } from '../src/lib/domain.mjs';
+import { filterAlerts, normalizeAlert, normalizeCollection, formatMetric, connectionStatusLabel, refreshLabel, metricStateLabel } from '../src/lib/domain.mjs';
 
 test('severity, company, status and keyword filters combine rather than replace each other', () => {
   const rows = [
@@ -33,4 +33,10 @@ test('connection state exposes loading, connected and recoverable error messages
 test('refresh label distinguishes idle and active refresh', () => {
   assert.equal(refreshLabel(false), '刷新数据');
   assert.equal(refreshLabel(true), '刷新中…');
+});
+test('company metric state distinguishes loading, error and empty data', () => {
+  assert.equal(metricStateLabel({ loading: true }), '正在加载指标…');
+  assert.equal(metricStateLabel({ error: 'timeout' }), '指标加载失败，请重试。');
+  assert.equal(metricStateLabel({ hasData: false }), '该公司暂无已入库指标。');
+  assert.equal(metricStateLabel({ hasData: true }), '');
 });

@@ -42,3 +42,9 @@ export function connectionStatusLabel({ loading = false, connected = false, erro
 export function refreshLabel(refreshing = false) {
   return refreshing ? '刷新中…' : '刷新数据';
 }
+
+export function metricStateLabel({ loading = false, error = '', hasData = false } = {}) {
+  if (loading) return '正在加载指标…';
+  if (error) return '指标加载失败，请重试。';
+  return hasData ? '' : '该公司暂无已入库指标。';
+}
