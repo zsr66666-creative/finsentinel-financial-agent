@@ -1,9 +1,11 @@
 import os
+import logging
+from collections import deque
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 from time import perf_counter
 from uuid import uuid4
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from app.schemas import AnalysisRequest, FeedbackRequest, IngestionRequest, EvalRequest, RiskEvaluationRequest, EventEvaluationRequest
 from app.seed import seed
@@ -54,6 +56,9 @@ def create_app(database_url=None, data_mode=None):
         from app.corpus import load_corpus
         load_corpus(store,os.environ['CORPUS_PATH'])
     tools = Tools(store)
+    request_stats = {'total': 0, 'errors': 0, 'total_ms': 0.0}
+    recent_requests = deque(maxlen=50)
+    logger = logging.getLogger('finsentinel.api')
 
     @asynccontextmanager
     async def lifespan(app):
@@ -64,6 +69,20 @@ def create_app(database_url=None, data_mode=None):
     app.state.store = store
     app.add_middleware(CORSMiddleware,allow_origins=os.getenv('CORS_ORIGINS','http://localhost:3000').split(','),allow_methods=['GET','POST'],allow_headers=['Content-Type'])
 
+    @app.middleware('http')
+    async def request_observability(request: Request, call_next):
+        started = perf_counter()
+        response = await call_next(request)
+        elapsed_ms = round((perf_counter() - started) * 1000, 2)
+        request_stats['total'] += 1
+        request_stats['total_ms'] += elapsed_ms
+        if response.status_code >= 400:
+            request_stats['errors'] += 1
+        recent_requests.append({'method': request.method, 'path': request.url.path, 'status_code': response.status_code, 'duration_ms': elapsed_ms})
+        logger.info('%s %s %s %.2fms', request.method, request.url.path, response.status_code, elapsed_ms)
+        response.headers['X-Process-Time-Ms'] = str(elapsed_ms)
+        return response
+
     def require(table, key):
         item = store.get(table,key)
         if not item:
@@ -73,6 +92,11 @@ def create_app(database_url=None, data_mode=None):
     @app.get('/health')
     def health():
         return {'status':'ok','data_mode':mode,'model':'deterministic-demo','database':'connected'}
+
+    @app.get('/api/v1/observability')
+    def observability():
+        total = request_stats['total']
+        return {'requests_total': total, 'errors_total': request_stats['errors'], 'error_rate': round(request_stats['errors'] / total, 4) if total else 0.0, 'avg_duration_ms': round(request_stats['total_ms'] / total, 2) if total else 0.0, 'recent_requests': list(recent_requests), 'retention': 50}
 
     @app.get('/api/v1/companies')
     def companies():

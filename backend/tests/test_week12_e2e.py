@@ -28,3 +28,14 @@ def test_week12_core_api_contract(tmp_path):
 def test_week12_missing_company_and_metric_are_explicit(tmp_path):
     client = TestClient(create_app(f"sqlite:///{tmp_path / 'e2e-errors.db'}", data_mode="synthetic_demo"))
     assert client.get("/api/v1/companies/missing/metrics").status_code == 404
+
+
+def test_week12_observability_tracks_latency_and_errors(tmp_path):
+    client = TestClient(create_app(f"sqlite:///{tmp_path / 'observability.db'}", data_mode="synthetic_demo"))
+    assert client.get("/health").headers["x-process-time-ms"]
+    assert client.get("/api/v1/companies/missing").status_code == 404
+    body = client.get("/api/v1/observability").json()
+    assert body["requests_total"] >= 3
+    assert body["errors_total"] >= 1
+    assert body["error_rate"] > 0
+    assert body["recent_requests"]
