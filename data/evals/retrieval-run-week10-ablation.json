@@ -1,0 +1,117 @@
+{
+  "run_id": "week10-retrieval-ablation-001",
+  "generated_at_utc": "2026-11-06T01:22:24Z",
+  "code_version": "dc79d73c64aea0d5adadd7abc0435fce7ada89a2",
+  "corpus_version": "week10-multi-company-v3",
+  "question_set": "data/evals/golden_questions.jsonl",
+  "question_count": 74,
+  "top_k": 5,
+  "embedding_status": "not_configured",
+  "experiments": [
+    {
+      "name": "retrieval-run-week10-bm25",
+      "artifact": "data/evals/retrieval-run-week10-bm25.json",
+      "retrieval_mode": "bm25",
+      "status": "completed",
+      "results": {
+        "cases": 74,
+        "scored_cases": 43,
+        "hits": 24,
+        "recall_at_5": 0.5581395348837209
+      },
+      "by_split": {
+        "development": {
+          "cases": 62,
+          "scored_cases": 39,
+          "hits": 22,
+          "recall_at_5": 0.5641025641025641
+        },
+        "test": {
+          "cases": 12,
+          "scored_cases": 4,
+          "hits": 2,
+          "recall_at_5": 0.5
+        }
+      },
+      "code_version": "e59953ffaa7bad4d94ecfc93e20160f5a0b81694",
+      "generated_at_utc": "2026-11-06T01:00:23Z"
+    },
+    {
+      "name": "retrieval-run-week10-query-expansion",
+      "artifact": "data/evals/retrieval-run-week10-query-expansion.json",
+      "retrieval_mode": "query_expansion",
+      "status": "completed",
+      "results": {
+        "cases": 74,
+        "scored_cases": 43,
+        "hits": 29,
+        "recall_at_5": 0.6744186046511628
+      },
+      "by_split": {
+        "development": {
+          "cases": 62,
+          "scored_cases": 39,
+          "hits": 26,
+          "recall_at_5": 0.6666666666666666
+        },
+        "test": {
+          "cases": 12,
+          "scored_cases": 4,
+          "hits": 3,
+          "recall_at_5": 0.75
+        }
+      },
+      "code_version": "e59953ffaa7bad4d94ecfc93e20160f5a0b81694",
+      "generated_at_utc": "2026-11-06T01:00:23Z"
+    },
+    {
+      "name": "retrieval-run-week10-chunk-merge",
+      "artifact": "data/evals/retrieval-run-week10-chunk-merge.json",
+      "retrieval_mode": "weighted",
+      "status": "completed",
+      "results": {
+        "cases": 74,
+        "scored_cases": 43,
+        "hits": 29,
+        "recall_at_5": 0.6744186046511628
+      },
+      "by_split": {
+        "development": {
+          "cases": 62,
+          "scored_cases": 39,
+          "hits": 26,
+          "recall_at_5": 0.6666666666666666
+        },
+        "test": {
+          "cases": 12,
+          "scored_cases": 4,
+          "hits": 3,
+          "recall_at_5": 0.75
+        }
+      },
+      "code_version": "e59953ffaa7bad4d94ecfc93e20160f5a0b81694",
+      "generated_at_utc": "2026-11-06T01:00:23Z"
+    },
+    {
+      "name": "vector_retrieval",
+      "artifact": null,
+      "retrieval_mode": "vector",
+      "status": "not_configured",
+      "results": null,
+      "reason": "No embedding model or vector service is configured in the current environment; no vector score was fabricated."
+    },
+    {
+      "name": "hybrid_bm25_vector_rrf",
+      "artifact": null,
+      "retrieval_mode": "bm25_vector_rrf",
+      "status": "not_run",
+      "results": null,
+      "reason": "Hybrid mode requires a real embedding provider. The injected test embedder is not an evaluation corpus model and was not used for metrics."
+    }
+  ],
+  "selection": "query_expansion",
+  "selection_reason": "Highest completed Recall@5 among available real-corpus runs; tied with weighted chunk-merge at 0.6744.",
+  "warnings": [
+    "embeddings_not_configured"
+  ]
+}
