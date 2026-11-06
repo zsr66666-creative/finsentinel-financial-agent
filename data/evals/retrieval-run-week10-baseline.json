@@ -1,0 +1,222 @@
+{
+  "baseline_id": "week10-baseline-001",
+  "baseline_for": "week10",
+  "frozen_at_utc": "2026-11-06T00:51:43Z",
+  "code_version": "0c4802fe4f02f4e2f4a31bec3aa75ea391de172f",
+  "source_run_id": "week09-multi-company-bm25-001",
+  "corpus_version": "week8-multi-company-v2",
+  "question_set": "data/evals/golden_questions.jsonl",
+  "question_count": 48,
+  "retrieval_mode": "bm25_only",
+  "top_k": 5,
+  "embedding_status": "not_configured",
+  "results": {
+    "cases": 48,
+    "scored_cases": 17,
+    "hits": 9,
+    "recall_at_5": 0.5294117647058824
+  },
+  "by_company": {
+    "cn-002475": {
+      "cases": 40,
+      "scored_cases": 9,
+      "hits": 9,
+      "recall_at_5": 1.0
+    },
+    "cn-002241": {
+      "cases": 2,
+      "scored_cases": 2,
+      "hits": 0,
+      "recall_at_5": 0.0
+    },
+    "cn-002600": {
+      "cases": 1,
+      "scored_cases": 1,
+      "hits": 0,
+      "recall_at_5": 0.0
+    },
+    "cn-300115": {
+      "cases": 3,
+      "scored_cases": 3,
+      "hits": 0,
+      "recall_at_5": 0.0
+    },
+    "cn-300433": {
+      "cases": 2,
+      "scored_cases": 2,
+      "hits": 0,
+      "recall_at_5": 0.0
+    }
+  },
+  "by_type": {
+    "fact_lookup": {
+      "cases": 18,
+      "scored_cases": 11,
+      "hits": 3,
+      "recall_at_5": 0.2727272727272727
+    },
+    "calculation": {
+      "cases": 9,
+      "scored_cases": 2,
+      "hits": 2,
+      "recall_at_5": 1.0
+    },
+    "scope": {
+      "cases": 1,
+      "scored_cases": 1,
+      "hits": 1,
+      "recall_at_5": 1.0
+    },
+    "correct_refusal": {
+      "cases": 1,
+      "scored_cases": 1,
+      "hits": 1,
+      "recall_at_5": 1.0
+    },
+    "evidence_location": {
+      "cases": 6,
+      "scored_cases": 1,
+      "hits": 1,
+      "recall_at_5": 1.0
+    },
+    "evidence_support": {
+      "cases": 1,
+      "scored_cases": 0,
+      "hits": 0,
+      "recall_at_5": null
+    },
+    "rule": {
+      "cases": 1,
+      "scored_cases": 1,
+      "hits": 1,
+      "recall_at_5": 1.0
+    },
+    "announcement_event": {
+      "cases": 4,
+      "scored_cases": 0,
+      "hits": 0,
+      "recall_at_5": null
+    },
+    "risk_explanation": {
+      "cases": 4,
+      "scored_cases": 0,
+      "hits": 0,
+      "recall_at_5": null
+    },
+    "peer_comparison": {
+      "cases": 3,
+      "scored_cases": 0,
+      "hits": 0,
+      "recall_at_5": null
+    }
+  },
+  "by_split": {
+    "development": {
+      "cases": 36,
+      "scored_cases": 13,
+      "hits": 7,
+      "recall_at_5": 0.5384615384615384
+    },
+    "test": {
+      "cases": 12,
+      "scored_cases": 4,
+      "hits": 2,
+      "recall_at_5": 0.5
+    }
+  },
+  "warnings": [
+    "embeddings_not_configured"
+  ],
+  "scored_miss_count": 8,
+  "scored_misses": [
+    {
+      "case_id": "case-041",
+      "company_id": "cn-002241",
+      "type": "fact_lookup",
+      "split": "development",
+      "question": "歌尔股份2025年归属于上市公司股东的净利润是多少？",
+      "gold_evidence_ids": [
+        "002241-2025FY-p8-s16"
+      ],
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-042",
+      "company_id": "cn-002241",
+      "type": "fact_lookup",
+      "split": "development",
+      "question": "歌尔股份2024年归属于上市公司股东的净利润是多少？",
+      "gold_evidence_ids": [
+        "002241-2024FY-p8-s16"
+      ],
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-043",
+      "company_id": "cn-002600",
+      "type": "fact_lookup",
+      "split": "development",
+      "question": "领益智造2025年年度报告披露的归母净利润约为多少亿元？",
+      "gold_evidence_ids": [
+        "002600-2025FY-p2-s7"
+      ],
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-044",
+      "company_id": "cn-300115",
+      "type": "fact_lookup",
+      "split": "development",
+      "question": "长盈精密2025年度业绩快报归母净利润是多少万元？",
+      "gold_evidence_ids": [
+        "300115-2025FLASH-p1-s14"
+      ],
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-045",
+      "company_id": "cn-300115",
+      "type": "fact_lookup",
+      "split": "development",
+      "question": "长盈精密2025年度业绩快报归母净利润同比增减幅度是多少？",
+      "gold_evidence_ids": [
+        "300115-2025FLASH-p1-s14"
+      ],
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-046",
+      "company_id": "cn-300433",
+      "type": "fact_lookup",
+      "split": "development",
+      "question": "蓝思科技2024年营业收入是多少？",
+      "gold_evidence_ids": [
+        "300433-2024FY-p7-s0"
+      ],
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-047",
+      "company_id": "cn-300433",
+      "type": "fact_lookup",
+      "split": "test",
+      "question": "蓝思科技2025年年度报告摘要营业收入是多少？",
+      "gold_evidence_ids": [
+        "300433-2025SUMMARY-p4-s0"
+      ],
+      "miss_reason": "query_or_chunk_mismatch"
+    },
+    {
+      "case_id": "case-048",
+      "company_id": "cn-300115",
+      "type": "fact_lookup",
+      "split": "test",
+      "question": "长盈精密2024年末存货账面价值是多少？",
+      "gold_evidence_ids": [
+        "300115-2024FY-p0-s0"
+      ],
+      "miss_reason": "query_or_chunk_mismatch"
+    }
+  ],
+  "source_artifact": "data/evals/retrieval-run-week09.json"
+}
