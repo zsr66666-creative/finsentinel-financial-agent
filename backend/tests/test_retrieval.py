@@ -49,3 +49,27 @@ def test_empty_scope_never_calls_embedding_api():
 def test_chinese_bigrams_and_financial_identifiers():
     assert '存货' in tokenize('存货减值 revenue_2025')
     assert 'revenue_2025' in tokenize('存货减值 revenue_2025')
+
+
+def test_local_embedding_adapter_exposes_model_metadata_and_vectors():
+    from app.embeddings import LocalSentenceTransformerEmbeddings
+    class FakeModel:
+        def encode(self, texts, normalize_embeddings=True):
+            return [[1.0, 0.0] for _ in texts]
+    adapter = LocalSentenceTransformerEmbeddings(model_name='fake', model=FakeModel())
+    assert len(adapter.embed_documents(['a', 'b'])) == 2
+    assert adapter.dimension == 2
+    assert len(adapter.embed_query('q')) == 2
+    assert adapter.metadata()['model_name'] == 'fake'
+
+
+def test_embedding_failure_is_reported_for_bm25_fallback():
+    from app.retrieval import HybridRetriever
+    class Broken:
+        def embed_documents(self, texts):
+            raise RuntimeError('offline')
+        def embed_query(self, text):
+            raise RuntimeError('offline')
+    result = HybridRetriever(embeddings=Broken()).search([{'id':'a','text':'收入','company_id':'c'}], '收入', 'c')
+    assert result['retrieval_mode'] == 'bm25'
+    assert any(w.startswith('embedding_unavailable:') for w in result['warnings'])

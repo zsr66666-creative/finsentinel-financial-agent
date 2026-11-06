@@ -9,3 +9,4 @@ requests>=2.32,<3
 # Install this backend package so legacy ``import fitz`` and ``import app``
 # callers work even in minimal CI workflows.
 -e ./backend
+sentence-transformers>=3.0,<6

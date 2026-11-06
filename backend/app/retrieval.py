@@ -65,10 +65,15 @@ class HybridRetriever:
             try:
                 vectors = self.embeddings.embed_documents([row.get("text", "") for row in scoped])
                 query_vector = self.embeddings.embed_query(query)
-                if not lexical:
-                    def similarity(vector):
-                        return sum(a * b for a, b in zip(vector, query_vector))
-                    lexical = [row for _, row in sorted(zip(vectors, scoped), key=lambda pair: -similarity(pair[0]))]
+                def similarity(vector):
+                    return sum(a * b for a, b in zip(vector, query_vector))
+                vector_ranked = [row for _, row in sorted(zip(vectors, scoped), key=lambda pair: -similarity(pair[0]))]
+                if lexical:
+                    fused = reciprocal_rank_fusion([[row["id"] for row in lexical], [row["id"] for row in vector_ranked]])
+                    by_id = {row["id"]: row for row in scoped}
+                    lexical = [by_id[item_id] for item_id, _ in fused]
+                else:
+                    lexical = vector_ranked
                 mode = "bm25_vector_rrf"
             except Exception as exc:
                 warnings.append(f"embedding_unavailable:{type(exc).__name__}")
