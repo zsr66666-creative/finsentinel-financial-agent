@@ -1,20 +1,20 @@
 {
-  "run_id": "week10-multi-company-query-expansion-001",
-  "generated_at_utc": "2026-11-06T01:27:08Z",
-  "code_version": "0867290936e646734c81a869b32e2b198ed3e030",
-  "corpus_version": "week10-multi-company-v3",
+  "run_id": "week10-multi-company-query-expansion-reviewed-002",
+  "generated_at_utc": "2026-11-06T05:25:09Z",
+  "code_version": "0850105bf97317b56753ec97191bad17aef334fc",
+  "corpus_version": "week10-reviewed",
   "question_set": "data/evals/golden_questions.jsonl",
   "question_count": 74,
   "retrieval_mode": "query_expansion",
   "top_k": 10,
-  "matching_rule": "exact evidence ID or normalized document-page key (document_id-pN)",
+  "matching_rule": "exact evidence ID or normalized document-page key",
   "results": {
     "cases": 74,
-    "scored_cases": 43,
-    "hits_at_5": 34,
-    "recall_at_5": 0.7906976744186046,
-    "hits_at_10": 35,
-    "recall_at_10": 0.813953488372093
+    "scored_cases": 59,
+    "hits_at_5": 47,
+    "recall_at_5": 0.7966101694915254,
+    "hits_at_10": 50,
+    "recall_at_10": 0.847457627118644
   },
   "details_at_5": [
     {
@@ -38,6 +38,7 @@
         "002475-2026H1-p8-m1"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -60,6 +61,7 @@
         "002475-2026H1-p8-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -82,6 +84,7 @@
         "002475-2026H1-p60-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -105,6 +108,7 @@
         "002475-2026H1-p8-m1"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -127,6 +131,7 @@
         "002475-2026H1-p8-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -149,6 +154,7 @@
         "002475-2026H1-p8-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -171,6 +177,7 @@
         "002475-2026H1-p60-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -193,6 +200,7 @@
         "002475-2026H1-p8-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -211,7 +219,8 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-010",
@@ -233,6 +242,7 @@
         "002475-2026H1-p60-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -241,7 +251,9 @@
       "type": "fact_lookup",
       "split": "development",
       "question": "立讯精密2024年营业收入是多少？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2024FY-p8-s16"
+      ],
       "retrieved_ids": [
         "002475-2024FY-p39-m0",
         "002475-2024FY-p9-m0",
@@ -249,9 +261,12 @@
         "002475-2024FY-p50-m0",
         "002475-2024FY-p1-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2024FY-p8-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-012",
@@ -259,7 +274,9 @@
       "type": "fact_lookup",
       "split": "development",
       "question": "立讯精密2025年营业收入是多少？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2025FY-p8-s16"
+      ],
       "retrieved_ids": [
         "002475-2025FY-p111-m1",
         "002475-2025FY-p42-m1",
@@ -267,9 +284,12 @@
         "002475-2025FY-p8-m0",
         "002475-2025FY-p226-m1"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2025FY-p8-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-013",
@@ -277,7 +297,9 @@
       "type": "fact_lookup",
       "split": "development",
       "question": "立讯精密2025年经营活动产生的现金流量净额是多少？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2025FY-p8-s20"
+      ],
       "retrieved_ids": [
         "002475-2025FY-p42-m0",
         "002475-2025FY-p142-m0",
@@ -285,9 +307,12 @@
         "002475-2025FY-p8-m0",
         "002475-2025FY-p43-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2025FY-p8-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-014",
@@ -295,7 +320,9 @@
       "type": "fact_lookup",
       "split": "development",
       "question": "立讯精密2024年末存货是多少？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2024FY-p8-s28"
+      ],
       "retrieved_ids": [
         "002475-2024FY-p39-m0",
         "002475-2024FY-p122-m0",
@@ -303,9 +330,12 @@
         "002475-2024FY-p50-m0",
         "002475-2024FY-p8-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2024FY-p8-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-015",
@@ -313,7 +343,9 @@
       "type": "fact_lookup",
       "split": "development",
       "question": "立讯精密2025年末应收账款是多少？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2025FY-p43-s9"
+      ],
       "retrieved_ids": [
         "002475-2025FY-p116-m0",
         "002475-2025FY-p119-m0",
@@ -323,15 +355,18 @@
       ],
       "matched_ids": [],
       "hit": false,
+      "status": "human_reviewed",
       "miss_reason": "query_or_chunk_mismatch"
     },
     {
       "case_id": "case-016",
       "company_id": "cn-002475",
-      "type": "fact_lookup",
+      "type": "scope",
       "split": "development",
       "question": "立讯精密2026年上半年归母净利润是否包含扣除非经常性损益后的净利润？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-s17"
+      ],
       "retrieved_ids": [
         "002475-2026H1-p8-m0",
         "002475-2026H1-p11-m0",
@@ -339,17 +374,23 @@
         "002475-2026H1-p8-m1",
         "002475-2026H1-p81-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p8-m1"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-017",
       "company_id": "cn-002475",
-      "type": "fact_lookup",
+      "type": "scope",
       "split": "development",
       "question": "立讯精密2025年年度报告财务报表金额单位是什么？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2025FY-p8-s16"
+      ],
       "retrieved_ids": [
         "002475-2025FY-p111-m1",
         "002475-2025FY-p111-m0",
@@ -359,6 +400,7 @@
       ],
       "matched_ids": [],
       "hit": false,
+      "status": "human_reviewed",
       "miss_reason": "query_or_chunk_mismatch"
     },
     {
@@ -367,7 +409,9 @@
       "type": "calculation",
       "split": "development",
       "question": "立讯精密2025年营业收入同比增长多少？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2025FY-p8-s16"
+      ],
       "retrieved_ids": [
         "002475-2025FY-p111-m1",
         "002475-2025FY-p42-m1",
@@ -375,9 +419,12 @@
         "002475-2025FY-p8-m0",
         "002475-2025FY-p226-m1"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2025FY-p8-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-019",
@@ -385,7 +432,9 @@
       "type": "calculation",
       "split": "development",
       "question": "立讯精密2025年归母净利润同比增长多少？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2025FY-p8-s17"
+      ],
       "retrieved_ids": [
         "002475-2025FY-p8-m0",
         "002475-2025FY-p8-m1",
@@ -393,9 +442,13 @@
         "002475-2025FY-p111-m0",
         "002475-2025FY-p42-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p8-m1"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-020",
@@ -403,7 +456,9 @@
       "type": "calculation",
       "split": "development",
       "question": "立讯精密2025年末存货较2024年末增长多少？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2025FY-p8-s28"
+      ],
       "retrieved_ids": [
         "002475-2025FY-p111-m1",
         "002475-2025FY-p8-m0",
@@ -411,9 +466,12 @@
         "002475-2025FY-p43-m0",
         "002475-2025FY-p140-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2025FY-p8-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-021",
@@ -421,7 +479,9 @@
       "type": "calculation",
       "split": "development",
       "question": "立讯精密2026年上半年经营现金流与上年同期相比如何？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2025FY-p8-s20"
+      ],
       "retrieved_ids": [
         "002475-2026H1-p82-m0",
         "002475-2026H1-p8-m0",
@@ -431,12 +491,13 @@
       ],
       "matched_ids": [],
       "hit": false,
+      "status": "human_reviewed",
       "miss_reason": "query_or_chunk_mismatch"
     },
     {
       "case_id": "case-022",
       "company_id": "cn-002475",
-      "type": "calculation",
+      "type": "correct_refusal",
       "split": "development",
       "question": "立讯精密2025年存货周转率需要哪些输入？",
       "gold_evidence_ids": [],
@@ -449,12 +510,13 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-023",
       "company_id": "cn-002475",
-      "type": "calculation",
+      "type": "correct_refusal",
       "split": "development",
       "question": "立讯精密2025年应收账款周转率的分母如何计算？",
       "gold_evidence_ids": [],
@@ -467,12 +529,13 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-024",
       "company_id": "cn-002475",
-      "type": "calculation",
+      "type": "correct_refusal",
       "split": "development",
       "question": "立讯精密经营现金流质量比率的分子和分母分别是什么？",
       "gold_evidence_ids": [],
@@ -485,7 +548,8 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-025",
@@ -493,7 +557,9 @@
       "type": "evidence_location",
       "split": "development",
       "question": "2025年年度报告中营业收入位于哪一页？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2025FY-p8-s16"
+      ],
       "retrieved_ids": [
         "002475-2025FY-p42-m1",
         "002475-2025FY-p226-m1",
@@ -501,9 +567,12 @@
         "002475-2025FY-p140-m0",
         "002475-2025FY-p111-m1"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2025FY-p8-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-026",
@@ -511,7 +580,9 @@
       "type": "evidence_location",
       "split": "development",
       "question": "2025年年度报告中经营现金流净额位于哪一页？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2025FY-p42-s7"
+      ],
       "retrieved_ids": [
         "002475-2025FY-p42-m0",
         "002475-2025FY-p142-m0",
@@ -519,9 +590,12 @@
         "002475-2025FY-p111-m1",
         "002475-2025FY-p43-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2025FY-p42-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-027",
@@ -529,7 +603,9 @@
       "type": "evidence_location",
       "split": "development",
       "question": "2026年半年度报告中存货所在报表的页码是多少？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2026H1-p60-s8"
+      ],
       "retrieved_ids": [
         "002475-2026H1-p21-m1",
         "002475-2026H1-p60-m0",
@@ -537,9 +613,12 @@
         "002475-2026H1-p8-m0",
         "002475-2026H1-p1-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2026H1-p60-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-028",
@@ -547,7 +626,9 @@
       "type": "evidence_location",
       "split": "development",
       "question": "2025年末应收账款的期末和期初数值来自哪一页？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2025FY-p43-s9"
+      ],
       "retrieved_ids": [
         "002475-2025FY-p116-m0",
         "002475-2025FY-p119-m0",
@@ -555,9 +636,12 @@
         "002475-2025FY-p111-m1",
         "002475-2025FY-p43-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2025FY-p43-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-029",
@@ -565,7 +649,9 @@
       "type": "evidence_location",
       "split": "development",
       "question": "2024年年度报告主要会计数据所在页码是多少？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2024FY-p8-s11"
+      ],
       "retrieved_ids": [
         "002475-2024FY-p2-m0",
         "002475-2024FY-p1-m0",
@@ -573,14 +659,17 @@
         "002475-2024FY-p39-m0",
         "002475-2024FY-p8-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2024FY-p8-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-030",
       "company_id": "cn-002475",
-      "type": "announcement_event",
+      "type": "correct_refusal",
       "split": "development",
       "question": "现有三份报告是否披露重大诉讼及其金额？",
       "gold_evidence_ids": [],
@@ -593,12 +682,13 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-031",
       "company_id": "cn-002475",
-      "type": "announcement_event",
+      "type": "correct_refusal",
       "split": "development",
       "question": "现有三份报告是否披露重大客户依赖事项？",
       "gold_evidence_ids": [],
@@ -611,12 +701,13 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-032",
       "company_id": "cn-002475",
-      "type": "announcement_event",
+      "type": "correct_refusal",
       "split": "development",
       "question": "现有三份报告是否披露关联交易事项？",
       "gold_evidence_ids": [],
@@ -629,12 +720,13 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-033",
       "company_id": "cn-002475",
-      "type": "announcement_event",
+      "type": "correct_refusal",
       "split": "development",
       "question": "现有三份报告是否披露存货跌价准备或减值事项？",
       "gold_evidence_ids": [],
@@ -647,12 +739,13 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-034",
       "company_id": "cn-002475",
-      "type": "risk_explanation",
+      "type": "correct_refusal",
       "split": "test",
       "question": "存货增长是否必然表示经营状况恶化？",
       "gold_evidence_ids": [],
@@ -665,12 +758,13 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-035",
       "company_id": "cn-002475",
-      "type": "risk_explanation",
+      "type": "correct_refusal",
       "split": "test",
       "question": "经营现金流为负而净利润为正时应如何解释？",
       "gold_evidence_ids": [],
@@ -683,12 +777,13 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-036",
       "company_id": "cn-002475",
-      "type": "risk_explanation",
+      "type": "correct_refusal",
       "split": "test",
       "question": "毛利率下降是否可以单独证明存在重大经营风险？",
       "gold_evidence_ids": [],
@@ -701,24 +796,26 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-037",
       "company_id": "cn-002475",
-      "type": "risk_explanation",
+      "type": "correct_refusal",
       "split": "test",
       "question": "没有可比期数据时系统应如何处理同比问题？",
       "gold_evidence_ids": [],
       "retrieved_ids": [],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-038",
       "company_id": "cn-002475",
-      "type": "peer_comparison",
+      "type": "correct_refusal",
       "split": "test",
       "question": "立讯精密与歌尔股份2025年营业收入谁更高？",
       "gold_evidence_ids": [],
@@ -731,12 +828,13 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-039",
       "company_id": "cn-002475",
-      "type": "peer_comparison",
+      "type": "correct_refusal",
       "split": "test",
       "question": "立讯精密与蓝思科技2025年存货周转率如何比较？",
       "gold_evidence_ids": [],
@@ -749,12 +847,13 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-040",
       "company_id": "cn-002475",
-      "type": "peer_comparison",
+      "type": "correct_refusal",
       "split": "test",
       "question": "五家公司中谁的经营现金流质量最好？",
       "gold_evidence_ids": [],
@@ -767,7 +866,8 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-041",
@@ -790,6 +890,7 @@
         "002241-2025FY-p8-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -813,6 +914,7 @@
         "002241-2024FY-p8-m1"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -835,6 +937,7 @@
         "002600-2025FY-p2-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -854,6 +957,7 @@
         "300115-2025FLASH-p1-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -873,6 +977,7 @@
         "300115-2025FLASH-p1-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -896,6 +1001,7 @@
         "300433-2024FY-p7-m1"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -918,6 +1024,7 @@
         "300433-2025SUMMARY-p4-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -938,6 +1045,7 @@
       ],
       "matched_ids": [],
       "hit": false,
+      "status": "human_reviewed",
       "miss_reason": "query_or_chunk_mismatch"
     },
     {
@@ -960,6 +1068,7 @@
         "002241-2025FY-p8-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -982,6 +1091,7 @@
         "002241-2025FY-p8-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1004,6 +1114,7 @@
         "002241-2025FY-p8-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1026,6 +1137,7 @@
         "002241-2024FY-p8-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1048,6 +1160,7 @@
         "002241-2024FY-p8-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1070,6 +1183,7 @@
         "002600-2025FY-p2-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1090,6 +1204,7 @@
       ],
       "matched_ids": [],
       "hit": false,
+      "status": "human_reviewed",
       "miss_reason": "query_or_chunk_mismatch"
     },
     {
@@ -1112,6 +1227,7 @@
         "002600-2025FY-p2-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1134,6 +1250,7 @@
         "002600-2025FY-p2-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1156,6 +1273,7 @@
         "002600-2025FY-p2-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1175,6 +1293,7 @@
         "300115-2025FLASH-p1-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1194,6 +1313,7 @@
         "300115-2025FLASH-p1-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1213,6 +1333,7 @@
         "300115-2025FLASH-p1-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1233,6 +1354,7 @@
       ],
       "matched_ids": [],
       "hit": false,
+      "status": "human_reviewed",
       "miss_reason": "query_or_chunk_mismatch"
     },
     {
@@ -1252,6 +1374,7 @@
         "300115-2025FLASH-p1-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1275,6 +1398,7 @@
         "300433-2024FY-p7-m1"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1298,6 +1422,7 @@
         "300433-2024FY-p7-m1"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1321,6 +1446,7 @@
         "300433-2024FY-p7-m1"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1343,6 +1469,7 @@
         "300433-2025SUMMARY-p4-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1365,6 +1492,7 @@
         "300433-2025SUMMARY-p4-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1385,6 +1513,7 @@
       ],
       "matched_ids": [],
       "hit": false,
+      "status": "human_reviewed",
       "miss_reason": "query_or_chunk_mismatch"
     },
     {
@@ -1405,6 +1534,7 @@
       ],
       "matched_ids": [],
       "hit": false,
+      "status": "human_reviewed",
       "miss_reason": "query_or_chunk_mismatch"
     },
     {
@@ -1425,6 +1555,7 @@
       ],
       "matched_ids": [],
       "hit": false,
+      "status": "human_reviewed",
       "miss_reason": "query_or_chunk_mismatch"
     },
     {
@@ -1439,6 +1570,7 @@
       "retrieved_ids": [],
       "matched_ids": [],
       "hit": false,
+      "status": "human_reviewed",
       "miss_reason": "query_or_chunk_mismatch"
     },
     {
@@ -1459,6 +1591,7 @@
       ],
       "matched_ids": [],
       "hit": false,
+      "status": "human_reviewed",
       "miss_reason": "query_or_chunk_mismatch"
     },
     {
@@ -1479,6 +1612,7 @@
       ],
       "matched_ids": [],
       "hit": false,
+      "status": "human_reviewed",
       "miss_reason": "query_or_chunk_mismatch"
     }
   ],
@@ -1509,6 +1643,7 @@
         "002475-2026H1-p8-m1"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1536,6 +1671,7 @@
         "002475-2026H1-p8-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1563,6 +1699,7 @@
         "002475-2026H1-p60-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1591,6 +1728,7 @@
         "002475-2026H1-p8-m1"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1618,6 +1756,7 @@
         "002475-2026H1-p8-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1645,6 +1784,7 @@
         "002475-2026H1-p8-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1672,6 +1812,7 @@
         "002475-2026H1-p60-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1700,6 +1841,7 @@
         "002475-2026H1-p8-m1"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1723,7 +1865,8 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-010",
@@ -1750,6 +1893,7 @@
         "002475-2026H1-p60-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -1758,7 +1902,9 @@
       "type": "fact_lookup",
       "split": "development",
       "question": "立讯精密2024年营业收入是多少？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2024FY-p8-s16"
+      ],
       "retrieved_ids": [
         "002475-2024FY-p39-m0",
         "002475-2024FY-p9-m0",
@@ -1771,9 +1917,12 @@
         "002475-2024FY-p9-m1",
         "002475-2024FY-p119-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2024FY-p8-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-012",
@@ -1781,7 +1930,9 @@
       "type": "fact_lookup",
       "split": "development",
       "question": "立讯精密2025年营业收入是多少？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2025FY-p8-s16"
+      ],
       "retrieved_ids": [
         "002475-2025FY-p111-m1",
         "002475-2025FY-p42-m1",
@@ -1794,9 +1945,12 @@
         "002475-2025FY-p1-m0",
         "002475-2025FY-p116-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2025FY-p8-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-013",
@@ -1804,7 +1958,9 @@
       "type": "fact_lookup",
       "split": "development",
       "question": "立讯精密2025年经营活动产生的现金流量净额是多少？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2025FY-p8-s20"
+      ],
       "retrieved_ids": [
         "002475-2025FY-p42-m0",
         "002475-2025FY-p142-m0",
@@ -1817,9 +1973,12 @@
         "002475-2025FY-p116-m0",
         "002475-2025FY-p140-m1"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2025FY-p8-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-014",
@@ -1827,7 +1986,9 @@
       "type": "fact_lookup",
       "split": "development",
       "question": "立讯精密2024年末存货是多少？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2024FY-p8-s28"
+      ],
       "retrieved_ids": [
         "002475-2024FY-p39-m0",
         "002475-2024FY-p122-m0",
@@ -1840,9 +2001,12 @@
         "002475-2024FY-p9-m0",
         "002475-2024FY-p119-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2024FY-p8-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-015",
@@ -1850,7 +2014,9 @@
       "type": "fact_lookup",
       "split": "development",
       "question": "立讯精密2025年末应收账款是多少？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2025FY-p43-s9"
+      ],
       "retrieved_ids": [
         "002475-2025FY-p116-m0",
         "002475-2025FY-p119-m0",
@@ -1863,17 +2029,22 @@
         "002475-2025FY-p1-m0",
         "002475-2025FY-p111-m2"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2025FY-p43-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-016",
       "company_id": "cn-002475",
-      "type": "fact_lookup",
+      "type": "scope",
       "split": "development",
       "question": "立讯精密2026年上半年归母净利润是否包含扣除非经常性损益后的净利润？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-s17"
+      ],
       "retrieved_ids": [
         "002475-2026H1-p8-m0",
         "002475-2026H1-p11-m0",
@@ -1886,17 +2057,23 @@
         "002475-2026H1-p59-m0",
         "002475-2026H1-p60-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2026H1-p8-m0",
+        "002475-2026H1-p8-m1"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-017",
       "company_id": "cn-002475",
-      "type": "fact_lookup",
+      "type": "scope",
       "split": "development",
       "question": "立讯精密2025年年度报告财务报表金额单位是什么？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2025FY-p8-s16"
+      ],
       "retrieved_ids": [
         "002475-2025FY-p111-m1",
         "002475-2025FY-p111-m0",
@@ -1909,9 +2086,12 @@
         "002475-2025FY-p112-m0",
         "002475-2025FY-p119-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2025FY-p8-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-018",
@@ -1919,7 +2099,9 @@
       "type": "calculation",
       "split": "development",
       "question": "立讯精密2025年营业收入同比增长多少？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2025FY-p8-s16"
+      ],
       "retrieved_ids": [
         "002475-2025FY-p111-m1",
         "002475-2025FY-p42-m1",
@@ -1932,9 +2114,12 @@
         "002475-2025FY-p1-m0",
         "002475-2025FY-p116-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2025FY-p8-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-019",
@@ -1942,7 +2127,9 @@
       "type": "calculation",
       "split": "development",
       "question": "立讯精密2025年归母净利润同比增长多少？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2025FY-p8-s17"
+      ],
       "retrieved_ids": [
         "002475-2025FY-p8-m0",
         "002475-2025FY-p8-m1",
@@ -1955,9 +2142,13 @@
         "002475-2025FY-p56-m1",
         "002475-2025FY-p112-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2025FY-p8-m0",
+        "002475-2025FY-p8-m1"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-020",
@@ -1965,7 +2156,9 @@
       "type": "calculation",
       "split": "development",
       "question": "立讯精密2025年末存货较2024年末增长多少？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2025FY-p8-s28"
+      ],
       "retrieved_ids": [
         "002475-2025FY-p111-m1",
         "002475-2025FY-p8-m0",
@@ -1978,9 +2171,12 @@
         "002475-2025FY-p1-m0",
         "002475-2025FY-p42-m1"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2025FY-p8-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-021",
@@ -1988,7 +2184,9 @@
       "type": "calculation",
       "split": "development",
       "question": "立讯精密2026年上半年经营现金流与上年同期相比如何？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2025FY-p8-s20"
+      ],
       "retrieved_ids": [
         "002475-2026H1-p82-m0",
         "002475-2026H1-p8-m0",
@@ -2003,12 +2201,13 @@
       ],
       "matched_ids": [],
       "hit": false,
+      "status": "human_reviewed",
       "miss_reason": "query_or_chunk_mismatch"
     },
     {
       "case_id": "case-022",
       "company_id": "cn-002475",
-      "type": "calculation",
+      "type": "correct_refusal",
       "split": "development",
       "question": "立讯精密2025年存货周转率需要哪些输入？",
       "gold_evidence_ids": [],
@@ -2026,12 +2225,13 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-023",
       "company_id": "cn-002475",
-      "type": "calculation",
+      "type": "correct_refusal",
       "split": "development",
       "question": "立讯精密2025年应收账款周转率的分母如何计算？",
       "gold_evidence_ids": [],
@@ -2049,12 +2249,13 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-024",
       "company_id": "cn-002475",
-      "type": "calculation",
+      "type": "correct_refusal",
       "split": "development",
       "question": "立讯精密经营现金流质量比率的分子和分母分别是什么？",
       "gold_evidence_ids": [],
@@ -2072,7 +2273,8 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-025",
@@ -2080,7 +2282,9 @@
       "type": "evidence_location",
       "split": "development",
       "question": "2025年年度报告中营业收入位于哪一页？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2025FY-p8-s16"
+      ],
       "retrieved_ids": [
         "002475-2025FY-p42-m1",
         "002475-2025FY-p226-m1",
@@ -2093,9 +2297,12 @@
         "002475-2025FY-p1-m0",
         "002475-2025FY-p116-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2025FY-p8-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-026",
@@ -2103,7 +2310,9 @@
       "type": "evidence_location",
       "split": "development",
       "question": "2025年年度报告中经营现金流净额位于哪一页？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2025FY-p42-s7"
+      ],
       "retrieved_ids": [
         "002475-2025FY-p42-m0",
         "002475-2025FY-p142-m0",
@@ -2116,9 +2325,12 @@
         "002475-2025FY-p1-m0",
         "002475-2025FY-p116-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2025FY-p42-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-027",
@@ -2126,7 +2338,9 @@
       "type": "evidence_location",
       "split": "development",
       "question": "2026年半年度报告中存货所在报表的页码是多少？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2026H1-p60-s8"
+      ],
       "retrieved_ids": [
         "002475-2026H1-p21-m1",
         "002475-2026H1-p60-m0",
@@ -2139,9 +2353,12 @@
         "002475-2026H1-p59-m0",
         "002475-2026H1-p63-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2026H1-p60-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-028",
@@ -2149,7 +2366,9 @@
       "type": "evidence_location",
       "split": "development",
       "question": "2025年末应收账款的期末和期初数值来自哪一页？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2025FY-p43-s9"
+      ],
       "retrieved_ids": [
         "002475-2025FY-p116-m0",
         "002475-2025FY-p119-m0",
@@ -2162,9 +2381,13 @@
         "002475-2025FY-p116-m1",
         "002475-2025FY-p42-m1"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2025FY-p43-m0",
+        "002475-2025FY-p43-m1"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-029",
@@ -2172,7 +2395,9 @@
       "type": "evidence_location",
       "split": "development",
       "question": "2024年年度报告主要会计数据所在页码是多少？",
-      "gold_evidence_ids": [],
+      "gold_evidence_ids": [
+        "002475-2024FY-p8-s11"
+      ],
       "retrieved_ids": [
         "002475-2024FY-p2-m0",
         "002475-2024FY-p1-m0",
@@ -2185,14 +2410,17 @@
         "002475-2024FY-p147-m0",
         "002475-2024FY-p3-m0"
       ],
-      "matched_ids": [],
-      "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "matched_ids": [
+        "002475-2024FY-p8-m0"
+      ],
+      "hit": true,
+      "status": "human_reviewed",
+      "miss_reason": null
     },
     {
       "case_id": "case-030",
       "company_id": "cn-002475",
-      "type": "announcement_event",
+      "type": "correct_refusal",
       "split": "development",
       "question": "现有三份报告是否披露重大诉讼及其金额？",
       "gold_evidence_ids": [],
@@ -2210,12 +2438,13 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-031",
       "company_id": "cn-002475",
-      "type": "announcement_event",
+      "type": "correct_refusal",
       "split": "development",
       "question": "现有三份报告是否披露重大客户依赖事项？",
       "gold_evidence_ids": [],
@@ -2233,12 +2462,13 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-032",
       "company_id": "cn-002475",
-      "type": "announcement_event",
+      "type": "correct_refusal",
       "split": "development",
       "question": "现有三份报告是否披露关联交易事项？",
       "gold_evidence_ids": [],
@@ -2256,12 +2486,13 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-033",
       "company_id": "cn-002475",
-      "type": "announcement_event",
+      "type": "correct_refusal",
       "split": "development",
       "question": "现有三份报告是否披露存货跌价准备或减值事项？",
       "gold_evidence_ids": [],
@@ -2279,12 +2510,13 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-034",
       "company_id": "cn-002475",
-      "type": "risk_explanation",
+      "type": "correct_refusal",
       "split": "test",
       "question": "存货增长是否必然表示经营状况恶化？",
       "gold_evidence_ids": [],
@@ -2302,12 +2534,13 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-035",
       "company_id": "cn-002475",
-      "type": "risk_explanation",
+      "type": "correct_refusal",
       "split": "test",
       "question": "经营现金流为负而净利润为正时应如何解释？",
       "gold_evidence_ids": [],
@@ -2325,12 +2558,13 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-036",
       "company_id": "cn-002475",
-      "type": "risk_explanation",
+      "type": "correct_refusal",
       "split": "test",
       "question": "毛利率下降是否可以单独证明存在重大经营风险？",
       "gold_evidence_ids": [],
@@ -2345,24 +2579,26 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-037",
       "company_id": "cn-002475",
-      "type": "risk_explanation",
+      "type": "correct_refusal",
       "split": "test",
       "question": "没有可比期数据时系统应如何处理同比问题？",
       "gold_evidence_ids": [],
       "retrieved_ids": [],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-038",
       "company_id": "cn-002475",
-      "type": "peer_comparison",
+      "type": "correct_refusal",
       "split": "test",
       "question": "立讯精密与歌尔股份2025年营业收入谁更高？",
       "gold_evidence_ids": [],
@@ -2380,12 +2616,13 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-039",
       "company_id": "cn-002475",
-      "type": "peer_comparison",
+      "type": "correct_refusal",
       "split": "test",
       "question": "立讯精密与蓝思科技2025年存货周转率如何比较？",
       "gold_evidence_ids": [],
@@ -2403,12 +2640,13 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-040",
       "company_id": "cn-002475",
-      "type": "peer_comparison",
+      "type": "correct_refusal",
       "split": "test",
       "question": "五家公司中谁的经营现金流质量最好？",
       "gold_evidence_ids": [],
@@ -2426,7 +2664,8 @@
       ],
       "matched_ids": [],
       "hit": false,
-      "miss_reason": "query_or_chunk_mismatch"
+      "status": "human_reviewed_correct_refusal",
+      "miss_reason": "correct_refusal_no_gold"
     },
     {
       "case_id": "case-041",
@@ -2454,6 +2693,7 @@
         "002241-2025FY-p8-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -2482,6 +2722,7 @@
         "002241-2024FY-p8-m1"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -2509,6 +2750,7 @@
         "002600-2025FY-p2-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -2528,6 +2770,7 @@
         "300115-2025FLASH-p1-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -2547,6 +2790,7 @@
         "300115-2025FLASH-p1-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -2575,6 +2819,7 @@
         "300433-2024FY-p7-m1"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -2601,6 +2846,7 @@
         "300433-2025SUMMARY-p4-m1"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -2626,6 +2872,7 @@
       ],
       "matched_ids": [],
       "hit": false,
+      "status": "human_reviewed",
       "miss_reason": "query_or_chunk_mismatch"
     },
     {
@@ -2654,6 +2901,7 @@
         "002241-2025FY-p8-m1"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -2681,6 +2929,7 @@
         "002241-2025FY-p8-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -2709,6 +2958,7 @@
         "002241-2025FY-p8-m1"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -2736,6 +2986,7 @@
         "002241-2024FY-p8-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -2763,6 +3014,7 @@
         "002241-2024FY-p8-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -2790,6 +3042,7 @@
         "002600-2025FY-p2-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -2817,6 +3070,7 @@
         "002600-2025FY-p2-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -2844,6 +3098,7 @@
         "002600-2025FY-p2-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -2871,6 +3126,7 @@
         "002600-2025FY-p2-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -2898,6 +3154,7 @@
         "002600-2025FY-p2-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -2917,6 +3174,7 @@
         "300115-2025FLASH-p1-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -2936,6 +3194,7 @@
         "300115-2025FLASH-p1-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -2955,6 +3214,7 @@
         "300115-2025FLASH-p1-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -2980,6 +3240,7 @@
       ],
       "matched_ids": [],
       "hit": false,
+      "status": "human_reviewed",
       "miss_reason": "query_or_chunk_mismatch"
     },
     {
@@ -2999,6 +3260,7 @@
         "300115-2025FLASH-p1-m0"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -3027,6 +3289,7 @@
         "300433-2024FY-p7-m1"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -3055,6 +3318,7 @@
         "300433-2024FY-p7-m1"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -3083,6 +3347,7 @@
         "300433-2024FY-p7-m1"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -3109,6 +3374,7 @@
         "300433-2025SUMMARY-p4-m1"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -3135,6 +3401,7 @@
         "300433-2025SUMMARY-p4-m1"
       ],
       "hit": true,
+      "status": "human_reviewed",
       "miss_reason": null
     },
     {
@@ -3160,6 +3427,7 @@
       ],
       "matched_ids": [],
       "hit": false,
+      "status": "human_reviewed",
       "miss_reason": "query_or_chunk_mismatch"
     },
     {
@@ -3185,6 +3453,7 @@
       ],
       "matched_ids": [],
       "hit": false,
+      "status": "human_reviewed",
       "miss_reason": "query_or_chunk_mismatch"
     },
     {
@@ -3210,6 +3479,7 @@
       ],
       "matched_ids": [],
       "hit": false,
+      "status": "human_reviewed",
       "miss_reason": "query_or_chunk_mismatch"
     },
     {
@@ -3224,6 +3494,7 @@
       "retrieved_ids": [],
       "matched_ids": [],
       "hit": false,
+      "status": "human_reviewed",
       "miss_reason": "query_or_chunk_mismatch"
     },
     {
@@ -3249,6 +3520,7 @@
       ],
       "matched_ids": [],
       "hit": false,
+      "status": "human_reviewed",
       "miss_reason": "query_or_chunk_mismatch"
     },
     {
@@ -3274,6 +3546,7 @@
       ],
       "matched_ids": [],
       "hit": false,
+      "status": "human_reviewed",
       "miss_reason": "query_or_chunk_mismatch"
     }
   ],
