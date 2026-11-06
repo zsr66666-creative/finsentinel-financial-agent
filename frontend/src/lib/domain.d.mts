@@ -6,3 +6,4 @@ export function connectionStatusLabel(options?: { loading?: boolean; connected?:
 export function refreshLabel(refreshing?: boolean): string;
 export function metricStateLabel(options?: { loading?: boolean; error?: string; hasData?: boolean }): string;
 export function alertEmptyLabel(options?: { total?: number; filtered?: number; review?: boolean }): string;
+export function evidenceStatusLabel(evidence?: any): string;

@@ -54,3 +54,10 @@ export function alertEmptyLabel({ total = 0, filtered = 0, review = false } = {}
   if (total === 0) return review ? '当前没有待复核告警。' : '当前没有风险告警。';
   return '没有匹配的告警，请调整筛选条件。';
 }
+
+export function evidenceStatusLabel(evidence = {}) {
+  if (evidence.source_url && evidence.page != null) return '原文与页码已定位';
+  if (evidence.page != null) return '页码已定位';
+  if (evidence.source_url) return '已提供原文链接';
+  return '需要补充来源定位';
+}

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { filterAlerts, normalizeAlert, normalizeCollection, formatMetric, connectionStatusLabel, refreshLabel, metricStateLabel, alertEmptyLabel } from '../src/lib/domain.mjs';
+import { filterAlerts, normalizeAlert, normalizeCollection, formatMetric, connectionStatusLabel, refreshLabel, metricStateLabel, alertEmptyLabel, evidenceStatusLabel } from '../src/lib/domain.mjs';
 
 test('severity, company, status and keyword filters combine rather than replace each other', () => {
   const rows = [
@@ -44,4 +44,9 @@ test('alert empty state distinguishes no data from filters with no matches', () 
   assert.equal(alertEmptyLabel({ total: 0, filtered: 0 }), '当前没有风险告警。');
   assert.equal(alertEmptyLabel({ total: 0, filtered: 0, review: true }), '当前没有待复核告警。');
   assert.equal(alertEmptyLabel({ total: 3, filtered: 0 }), '没有匹配的告警，请调整筛选条件。');
+});
+test('evidence status reports the strongest available source locator', () => {
+  assert.equal(evidenceStatusLabel({ source_url: 'https://example.test', page: 4 }), '原文与页码已定位');
+  assert.equal(evidenceStatusLabel({ page: 4 }), '页码已定位');
+  assert.equal(evidenceStatusLabel({}), '需要补充来源定位');
 });
