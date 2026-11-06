@@ -44,7 +44,7 @@ class MetricRecord(BaseModel):
     company_id: str
     document_id: str
     metric: Literal["revenue", "net_profit_attributable", "inventory"]
-    value: Decimal | None
+    value: Decimal | str | None
     currency: str = "CNY"
     unit: str
     period: str
