@@ -1,0 +1,8 @@
+{
+  "release": "v0.1.0-rc1",
+  "code_version": "pending_commit",
+  "backend": {"command": "python -m pytest -q", "passed": 50, "failed": 0, "environment": "Windows workspace"},
+  "frontend": {"test_command": "npm test", "passed": 10, "failed": 0, "typecheck": "passed", "build": "passed", "build_flag": "NEXT_PRIVATE_BUILD_WORKER=1", "environment": "Windows sandbox external"},
+  "container": {"compose_config": "blocked", "reason": "Podman machine connection unavailable", "end_to_end": "not measured"},
+  "limitations": ["real LLM provider not configured", "browser visual acceptance requires manual execution", "synthetic fixture and real corpus metrics remain separate"]
+}
