@@ -65,4 +65,6 @@ npm run dev
 
 架构和第十六周可复现交付清单见 [`docs/architecture.md`](docs/architecture.md) 与 [`docs/week16-day01-release-readiness.md`](docs/week16-day01-release-readiness.md)。
 
+发布检查清单见 [`docs/release-v0.1-checklist.md`](docs/release-v0.1-checklist.md)，版本变更见 [`CHANGELOG.md`](CHANGELOG.md)。
+
 代码采用 MIT License。第三方数据、PDF、模型和依赖遵守其各自许可。项目用于学习和研究辅助，不构成证券投资建议。详见 `docs/implementation-roadmap.md`、`DATA_LICENSE.md` 和 `SECURITY.md`。
