@@ -85,6 +85,7 @@ def create_app(database_url=None, data_mode=None):
     @app.middleware('http')
     async def request_observability(request: Request, call_next):
         started = perf_counter()
+        request.state.observability_started = started
         try:
             response = await call_next(request)
         except Exception:
@@ -112,20 +113,27 @@ def create_app(database_url=None, data_mode=None):
         return {'status':'ok','data_mode':mode,'model':'deterministic-demo','database':'connected'}
 
     @app.get('/api/v1/observability')
-    def observability():
-        total = request_stats['total']
-        samples = sorted(latency_samples)
+    def observability(request: Request):
+        # Include this successful snapshot request in the response.  The
+        # middleware records it after the handler returns, so reading the
+        # counters directly here otherwise produces an off-by-one snapshot.
+        current_ms = round((perf_counter() - getattr(request.state, 'observability_started', perf_counter())) * 1000, 2)
+        total = request_stats['total'] + 1
+        total_ms = request_stats['total_ms'] + current_ms
+        samples = sorted([*latency_samples, current_ms])
+        current_status_counts = dict(status_counts)
+        current_status_counts['200'] = current_status_counts.get('200', 0) + 1
         p95_index = max(0, int(len(samples) * 0.95 + 0.9999) - 1) if samples else 0
         return {
             'requests_total': total,
             'errors_total': request_stats['errors'],
             'error_rate': round(request_stats['errors'] / total, 4) if total else 0.0,
-            'avg_duration_ms': round(request_stats['total_ms'] / total, 2) if total else 0.0,
+            'avg_duration_ms': round(total_ms / total, 2) if total else 0.0,
             'p95_duration_ms': samples[p95_index] if samples else 0.0,
             'max_duration_ms': samples[-1] if samples else 0.0,
             'sample_size': len(samples),
-            'status_counts': dict(status_counts),
-            'recent_requests': list(recent_requests),
+            'status_counts': current_status_counts,
+            'recent_requests': [*list(recent_requests), {'method': request.method, 'path': request.url.path, 'status_code': 200, 'duration_ms': current_ms}],
             'retention': 50,
             'latency_retention': 500,
         }
