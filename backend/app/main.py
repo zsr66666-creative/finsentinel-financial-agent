@@ -95,6 +95,9 @@ def create_app(database_url=None, data_mode=None):
         record_request(request.method, request.url.path, response.status_code, elapsed_ms)
         logger.info('%s %s %s %.2fms', request.method, request.url.path, response.status_code, elapsed_ms)
         response.headers['X-Process-Time-Ms'] = str(elapsed_ms)
+        response.headers['X-Content-Type-Options'] = 'nosniff'
+        response.headers['X-Frame-Options'] = 'DENY'
+        response.headers['Referrer-Policy'] = 'same-origin'
         return response
 
     def require(table, key):

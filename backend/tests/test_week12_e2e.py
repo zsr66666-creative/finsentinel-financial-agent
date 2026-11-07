@@ -43,3 +43,16 @@ def test_week12_observability_tracks_latency_and_errors(tmp_path):
     assert body["status_counts"]["404"] >= 1
     assert body["sample_size"] >= 2
     assert body["recent_requests"]
+
+
+def test_week12_security_headers_and_cors_boundary(tmp_path):
+    client = TestClient(create_app(f"sqlite:///{tmp_path / 'security.db'}", data_mode="synthetic_demo"))
+    response = client.get("/health", headers={"Origin": "http://localhost:3000"})
+    assert response.status_code == 200
+    assert response.headers["x-content-type-options"] == "nosniff"
+    assert response.headers["x-frame-options"] == "DENY"
+    assert response.headers["referrer-policy"] == "same-origin"
+    assert response.headers["access-control-allow-origin"] == "http://localhost:3000"
+
+    external = client.get("/health", headers={"Origin": "https://example.invalid"})
+    assert "access-control-allow-origin" not in external.headers
