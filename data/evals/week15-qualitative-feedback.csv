@@ -1,0 +1,5 @@
+participant_id,environment,priority,area,feedback
+P01,synthetic_demo,P0,workflow_evidence,"工作流五步与运行面板六阶段不一致，状态和证据锚点不可追溯"
+P01,synthetic_demo,P0,risk_distribution,"风险分布显示为0但告警列表有20条，统计口径不一致"
+P01,synthetic_demo,P0,synthetic_disclosure,"合成数据视觉上像真实财报，页码和数字提示不够醒目"
+P01,synthetic_demo,P1,next_action,"completed后新建分析、运行分析、复核和刷新之间主次不明确"

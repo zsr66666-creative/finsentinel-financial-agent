@@ -1,0 +1,11 @@
+export function alertEmptyLabel(input?: { total?: number; filtered?: number; review?: boolean }): string;
+  export function connectionStatusLabel(input?: { loading?: boolean; connected?: boolean; error?: string }): string;
+  export function evidenceStatusLabel(input?: Record<string, unknown>): string;
+  export function filterAlerts(rows: Array<Record<string, unknown>>, filters: Record<string, unknown>): Array<Record<string, unknown>>;
+  export function formatMetric(value: unknown, unit?: string): string;
+  export function metricStateLabel(input?: { loading?: boolean; error?: string; hasData?: boolean }): string;
+  export function normalizeAlert(row: Record<string, any>): Record<string, any>;
+  export function normalizeCollection(payload: unknown, key?: string): Array<any>;
+  export function refreshLabel(refreshing?: boolean): string;
+  export function riskCategory(row?: Record<string, unknown>): string;
+export const workflowStages: Array<{ id: string; label: string }>;

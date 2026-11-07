@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { filterAlerts, normalizeAlert, normalizeCollection, formatMetric, connectionStatusLabel, refreshLabel, metricStateLabel, alertEmptyLabel, evidenceStatusLabel } from '../src/lib/domain.mjs';
+import { filterAlerts, normalizeAlert, normalizeCollection, formatMetric, connectionStatusLabel, refreshLabel, metricStateLabel, alertEmptyLabel, evidenceStatusLabel, riskCategory, workflowStages } from '../src/lib/domain.mjs';
 
 test('severity, company, status and keyword filters combine rather than replace each other', () => {
   const rows = [
@@ -49,4 +49,10 @@ test('evidence status reports the strongest available source locator', () => {
   assert.equal(evidenceStatusLabel({ source_url: 'https://example.test', page: 4 }), '原文与页码已定位');
   assert.equal(evidenceStatusLabel({ page: 4 }), '页码已定位');
   assert.equal(evidenceStatusLabel({}), '需要补充来源定位');
+});
+test('risk categories and workflow stages are shared by the dashboard', () => {
+  assert.equal(riskCategory({ category: '现金流质量' }), '营运与现金流质量');
+  assert.equal(riskCategory({ category: '盈利能力' }), '业绩与盈利能力');
+  assert.equal(riskCategory({ category: '公告事件' }), '重大公告事件');
+  assert.deepEqual(workflowStages.map(stage => stage.id), ['Planner', 'DataQuality', 'Retriever', 'QuantAnalyst', 'EvidenceVerifier', 'ReportComposer']);
 });
