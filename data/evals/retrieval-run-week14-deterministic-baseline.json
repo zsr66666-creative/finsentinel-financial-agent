@@ -1,0 +1,26 @@
+{
+  "run_id": "week14-deterministic-baseline-001",
+  "condition": "deterministic_tools",
+  "dataset_manifest": "week14-agent-comparison-v1",
+  "dataset_total_questions": 74,
+  "dataset_scorable_questions": 59,
+  "evaluated_case_count": 40,
+  "hit_count": 40,
+  "metrics": {
+    "numeric_accuracy": 1.0,
+    "citation_coverage": 1.0,
+    "tool_success_rate": 1.0,
+    "p50_latency_ms": null,
+    "p95_latency_ms": 2.68,
+    "timeout_rate": 0.0,
+    "cost_usd": 0.0
+  },
+  "elapsed_ms": 101.41,
+  "model_version": "deterministic-demo-v1",
+  "prompt_version": "evidence-v1",
+  "corpus_version": "week10-multi-company-v3",
+  "notes": [
+    "This is a deterministic synthetic fixture baseline.",
+    "It is not an Agent benchmark and is not substituted for the 59-question frozen comparison set."
+  ]
+}

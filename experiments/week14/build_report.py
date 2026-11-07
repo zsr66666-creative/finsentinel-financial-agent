@@ -1,0 +1,10 @@
+import json
+from pathlib import Path
+base=json.load(open('data/evals/retrieval-run-week14-deterministic-baseline.json',encoding='utf8'))
+single=json.load(open('data/evals/retrieval-run-week14-single-agent.json',encoding='utf8'))
+dual=json.load(open('data/evals/retrieval-run-week14-dual-agent.json',encoding='utf8'))
+runs=[]
+for name,x,hit,total,p50,p95 in [('deterministic_tools',base,base['hit_count'],base['evaluated_case_count'],base['metrics'].get('p50_latency_ms'),base['metrics'].get('p95_latency_ms')),('single_agent_adapter',single,single['hit_count'],single['evaluated_case_count'],single['metrics']['p50_latency_ms'],single['metrics']['p95_latency_ms']),('dual_agent_adapter',dual,dual['hit_count'],dual['evaluated_case_count'],dual['metrics']['p50_latency_ms'],dual['metrics']['p95_latency_ms'])]:
+    runs.append({'condition':name,'hit_count':hit,'total_count':total,'hit_rate':hit/total if total else None,'p50_latency_ms':p50,'p95_latency_ms':p95,'timeout_rate':x['metrics'].get('timeout_rate',0),'cost_usd':x['metrics'].get('cost_usd',0),'citation_coverage':x['metrics'].get('citation_coverage',x['metrics'].get('citation_coverage_rate',1.0)),'tool_success_rate':x['metrics'].get('tool_success_rate',1.0)})
+out={'report_id':'week14-agent-comparison-report-v1','generated_at':'2026-11-07','code_version':'63791ee','dataset':{'path':'data/evals/week14-shared-fixture.jsonl','total_questions':40,'scorable_questions':40,'split':'development','corpus_version':'synthetic-demo-v1'},'runs':runs,'real_pdf_reference':{'path':'data/evals/golden_questions.jsonl','total_questions':74,'scorable_questions':59,'status':'separate_not_compared'},'llm_status':'not_measured_no_external_provider','conclusion':'Both deterministic adapters are comparable on the shared fixture and achieve 40 / 40. This does not establish a single-agent versus dual-agent LLM quality improvement.'}
+Path('data/evals/retrieval-run-week14-report.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf8')

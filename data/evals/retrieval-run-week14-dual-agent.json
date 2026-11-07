@@ -1,0 +1,1074 @@
+{
+  "run_id": "week14-dual-agent-001",
+  "condition": "dual_agent_deterministic_review_adapter",
+  "dataset_manifest": "week14-agent-comparison-v1",
+  "dataset_total_questions": 40,
+  "dataset_scorable_questions": 40,
+  "evaluated_case_count": 40,
+  "comparable_case_count": 40,
+  "hit_count": 40,
+  "metrics": {
+    "evidence_hit_rate_comparable": 1.0,
+    "review_pass_rate": 1.0,
+    "p50_latency_ms": 17.7,
+    "p95_latency_ms": 23.03,
+    "timeout_rate": 0.0,
+    "cost_usd": 0.0
+  },
+  "model_version": "deterministic-demo-v1",
+  "prompt_version": "evidence-v1",
+  "corpus_version": "synthetic-demo-v1",
+  "results": [
+    {
+      "case_id": "fixture-002055-2025-revenue",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002055-2025-annual-revenue"
+      ],
+      "returned_evidence_ids": [
+        "002055-2024-annual-inventory",
+        "002055-2024-annual-net_profit",
+        "002055-2024-annual-operating_cash_flow",
+        "002055-2024-annual-receivables",
+        "002055-2024-annual-revenue",
+        "002055-2025-annual-gross_margin",
+        "002055-2025-annual-inventory",
+        "002055-2025-annual-net_profit",
+        "002055-2025-annual-operating_cash_flow",
+        "002055-2025-annual-receivables",
+        "002055-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 23.92,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002055-2025-net_profit",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002055-2025-annual-net_profit"
+      ],
+      "returned_evidence_ids": [
+        "002055-2024-annual-inventory",
+        "002055-2024-annual-net_profit",
+        "002055-2024-annual-operating_cash_flow",
+        "002055-2024-annual-receivables",
+        "002055-2024-annual-revenue",
+        "002055-2025-annual-gross_margin",
+        "002055-2025-annual-inventory",
+        "002055-2025-annual-net_profit",
+        "002055-2025-annual-operating_cash_flow",
+        "002055-2025-annual-receivables",
+        "002055-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 17.77,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002241-2025-revenue",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002241-2025-annual-revenue"
+      ],
+      "returned_evidence_ids": [
+        "002241-2024-annual-inventory",
+        "002241-2024-annual-net_profit",
+        "002241-2024-annual-operating_cash_flow",
+        "002241-2024-annual-receivables",
+        "002241-2024-annual-revenue",
+        "002241-2025-annual-gross_margin",
+        "002241-2025-annual-inventory",
+        "002241-2025-annual-net_profit",
+        "002241-2025-annual-operating_cash_flow",
+        "002241-2025-annual-receivables",
+        "002241-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 17.41,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002241-2025-net_profit",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002241-2025-annual-net_profit"
+      ],
+      "returned_evidence_ids": [
+        "002241-2024-annual-inventory",
+        "002241-2024-annual-net_profit",
+        "002241-2024-annual-operating_cash_flow",
+        "002241-2024-annual-receivables",
+        "002241-2024-annual-revenue",
+        "002241-2025-annual-gross_margin",
+        "002241-2025-annual-inventory",
+        "002241-2025-annual-net_profit",
+        "002241-2025-annual-operating_cash_flow",
+        "002241-2025-annual-receivables",
+        "002241-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 19.12,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002273-2025-revenue",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002273-2025-annual-revenue"
+      ],
+      "returned_evidence_ids": [
+        "002273-2024-annual-inventory",
+        "002273-2024-annual-net_profit",
+        "002273-2024-annual-operating_cash_flow",
+        "002273-2024-annual-receivables",
+        "002273-2024-annual-revenue",
+        "002273-2025-annual-gross_margin",
+        "002273-2025-annual-inventory",
+        "002273-2025-annual-net_profit",
+        "002273-2025-annual-operating_cash_flow",
+        "002273-2025-annual-receivables",
+        "002273-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 18.19,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002273-2025-net_profit",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002273-2025-annual-net_profit"
+      ],
+      "returned_evidence_ids": [
+        "002273-2024-annual-inventory",
+        "002273-2024-annual-net_profit",
+        "002273-2024-annual-operating_cash_flow",
+        "002273-2024-annual-receivables",
+        "002273-2024-annual-revenue",
+        "002273-2025-annual-gross_margin",
+        "002273-2025-annual-inventory",
+        "002273-2025-annual-net_profit",
+        "002273-2025-annual-operating_cash_flow",
+        "002273-2025-annual-receivables",
+        "002273-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 17.7,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002351-2025-revenue",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002351-2025-annual-revenue"
+      ],
+      "returned_evidence_ids": [
+        "002351-2024-annual-inventory",
+        "002351-2024-annual-net_profit",
+        "002351-2024-annual-operating_cash_flow",
+        "002351-2024-annual-receivables",
+        "002351-2024-annual-revenue",
+        "002351-2025-annual-gross_margin",
+        "002351-2025-annual-inventory",
+        "002351-2025-annual-net_profit",
+        "002351-2025-annual-operating_cash_flow",
+        "002351-2025-annual-receivables",
+        "002351-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 16.87,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002351-2025-net_profit",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002351-2025-annual-net_profit"
+      ],
+      "returned_evidence_ids": [
+        "002351-2024-annual-inventory",
+        "002351-2024-annual-net_profit",
+        "002351-2024-annual-operating_cash_flow",
+        "002351-2024-annual-receivables",
+        "002351-2024-annual-revenue",
+        "002351-2025-annual-gross_margin",
+        "002351-2025-annual-inventory",
+        "002351-2025-annual-net_profit",
+        "002351-2025-annual-operating_cash_flow",
+        "002351-2025-annual-receivables",
+        "002351-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 17.8,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002384-2025-revenue",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002384-2025-annual-revenue"
+      ],
+      "returned_evidence_ids": [
+        "002384-2024-annual-inventory",
+        "002384-2024-annual-net_profit",
+        "002384-2024-annual-operating_cash_flow",
+        "002384-2024-annual-receivables",
+        "002384-2024-annual-revenue",
+        "002384-2025-annual-gross_margin",
+        "002384-2025-annual-inventory",
+        "002384-2025-annual-net_profit",
+        "002384-2025-annual-operating_cash_flow",
+        "002384-2025-annual-receivables",
+        "002384-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 17.85,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002384-2025-net_profit",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002384-2025-annual-net_profit"
+      ],
+      "returned_evidence_ids": [
+        "002384-2024-annual-inventory",
+        "002384-2024-annual-net_profit",
+        "002384-2024-annual-operating_cash_flow",
+        "002384-2024-annual-receivables",
+        "002384-2024-annual-revenue",
+        "002384-2025-annual-gross_margin",
+        "002384-2025-annual-inventory",
+        "002384-2025-annual-net_profit",
+        "002384-2025-annual-operating_cash_flow",
+        "002384-2025-annual-receivables",
+        "002384-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 17.69,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002402-2025-revenue",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002402-2025-annual-revenue"
+      ],
+      "returned_evidence_ids": [
+        "002402-2024-annual-inventory",
+        "002402-2024-annual-net_profit",
+        "002402-2024-annual-operating_cash_flow",
+        "002402-2024-annual-receivables",
+        "002402-2024-annual-revenue",
+        "002402-2025-annual-gross_margin",
+        "002402-2025-annual-inventory",
+        "002402-2025-annual-net_profit",
+        "002402-2025-annual-operating_cash_flow",
+        "002402-2025-annual-receivables",
+        "002402-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 16.78,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002402-2025-net_profit",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002402-2025-annual-net_profit"
+      ],
+      "returned_evidence_ids": [
+        "002402-2024-annual-inventory",
+        "002402-2024-annual-net_profit",
+        "002402-2024-annual-operating_cash_flow",
+        "002402-2024-annual-receivables",
+        "002402-2024-annual-revenue",
+        "002402-2025-annual-gross_margin",
+        "002402-2025-annual-inventory",
+        "002402-2025-annual-net_profit",
+        "002402-2025-annual-operating_cash_flow",
+        "002402-2025-annual-receivables",
+        "002402-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 17.45,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002456-2025-revenue",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002456-2025-annual-revenue"
+      ],
+      "returned_evidence_ids": [
+        "002456-2024-annual-inventory",
+        "002456-2024-annual-net_profit",
+        "002456-2024-annual-operating_cash_flow",
+        "002456-2024-annual-receivables",
+        "002456-2024-annual-revenue",
+        "002456-2025-annual-gross_margin",
+        "002456-2025-annual-inventory",
+        "002456-2025-annual-net_profit",
+        "002456-2025-annual-operating_cash_flow",
+        "002456-2025-annual-receivables",
+        "002456-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 16.43,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002456-2025-net_profit",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002456-2025-annual-net_profit"
+      ],
+      "returned_evidence_ids": [
+        "002456-2024-annual-inventory",
+        "002456-2024-annual-net_profit",
+        "002456-2024-annual-operating_cash_flow",
+        "002456-2024-annual-receivables",
+        "002456-2024-annual-revenue",
+        "002456-2025-annual-gross_margin",
+        "002456-2025-annual-inventory",
+        "002456-2025-annual-net_profit",
+        "002456-2025-annual-operating_cash_flow",
+        "002456-2025-annual-receivables",
+        "002456-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 16.65,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002463-2025-revenue",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002463-2025-annual-revenue"
+      ],
+      "returned_evidence_ids": [
+        "002463-2024-annual-inventory",
+        "002463-2024-annual-net_profit",
+        "002463-2024-annual-operating_cash_flow",
+        "002463-2024-annual-receivables",
+        "002463-2024-annual-revenue",
+        "002463-2025-annual-gross_margin",
+        "002463-2025-annual-inventory",
+        "002463-2025-annual-net_profit",
+        "002463-2025-annual-operating_cash_flow",
+        "002463-2025-annual-receivables",
+        "002463-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 16.89,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002463-2025-net_profit",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002463-2025-annual-net_profit"
+      ],
+      "returned_evidence_ids": [
+        "002463-2024-annual-inventory",
+        "002463-2024-annual-net_profit",
+        "002463-2024-annual-operating_cash_flow",
+        "002463-2024-annual-receivables",
+        "002463-2024-annual-revenue",
+        "002463-2025-annual-gross_margin",
+        "002463-2025-annual-inventory",
+        "002463-2025-annual-net_profit",
+        "002463-2025-annual-operating_cash_flow",
+        "002463-2025-annual-receivables",
+        "002463-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 20.4,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002475-2025-revenue",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002475-2025-annual-revenue"
+      ],
+      "returned_evidence_ids": [
+        "002475-2024-annual-inventory",
+        "002475-2024-annual-net_profit",
+        "002475-2024-annual-operating_cash_flow",
+        "002475-2024-annual-receivables",
+        "002475-2024-annual-revenue",
+        "002475-2025-annual-gross_margin",
+        "002475-2025-annual-inventory",
+        "002475-2025-annual-net_profit",
+        "002475-2025-annual-operating_cash_flow",
+        "002475-2025-annual-receivables",
+        "002475-2025-annual-revenue",
+        "002475-2025-litigation"
+      ],
+      "analysis_duration_ms": 17.48,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002475-2025-net_profit",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002475-2025-annual-net_profit"
+      ],
+      "returned_evidence_ids": [
+        "002475-2024-annual-inventory",
+        "002475-2024-annual-net_profit",
+        "002475-2024-annual-operating_cash_flow",
+        "002475-2024-annual-receivables",
+        "002475-2024-annual-revenue",
+        "002475-2025-annual-gross_margin",
+        "002475-2025-annual-inventory",
+        "002475-2025-annual-net_profit",
+        "002475-2025-annual-operating_cash_flow",
+        "002475-2025-annual-receivables",
+        "002475-2025-annual-revenue",
+        "002475-2025-litigation"
+      ],
+      "analysis_duration_ms": 17.11,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002600-2025-revenue",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002600-2025-annual-revenue"
+      ],
+      "returned_evidence_ids": [
+        "002600-2024-annual-inventory",
+        "002600-2024-annual-net_profit",
+        "002600-2024-annual-operating_cash_flow",
+        "002600-2024-annual-receivables",
+        "002600-2024-annual-revenue",
+        "002600-2025-annual-gross_margin",
+        "002600-2025-annual-inventory",
+        "002600-2025-annual-net_profit",
+        "002600-2025-annual-operating_cash_flow",
+        "002600-2025-annual-receivables",
+        "002600-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 17.77,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002600-2025-net_profit",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002600-2025-annual-net_profit"
+      ],
+      "returned_evidence_ids": [
+        "002600-2024-annual-inventory",
+        "002600-2024-annual-net_profit",
+        "002600-2024-annual-operating_cash_flow",
+        "002600-2024-annual-receivables",
+        "002600-2024-annual-revenue",
+        "002600-2025-annual-gross_margin",
+        "002600-2025-annual-inventory",
+        "002600-2025-annual-net_profit",
+        "002600-2025-annual-operating_cash_flow",
+        "002600-2025-annual-receivables",
+        "002600-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 19.11,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002635-2025-revenue",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002635-2025-annual-revenue"
+      ],
+      "returned_evidence_ids": [
+        "002635-2024-annual-inventory",
+        "002635-2024-annual-net_profit",
+        "002635-2024-annual-operating_cash_flow",
+        "002635-2024-annual-receivables",
+        "002635-2024-annual-revenue",
+        "002635-2025-annual-gross_margin",
+        "002635-2025-annual-inventory",
+        "002635-2025-annual-net_profit",
+        "002635-2025-annual-operating_cash_flow",
+        "002635-2025-annual-receivables",
+        "002635-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 18.78,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002635-2025-net_profit",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002635-2025-annual-net_profit"
+      ],
+      "returned_evidence_ids": [
+        "002635-2024-annual-inventory",
+        "002635-2024-annual-net_profit",
+        "002635-2024-annual-operating_cash_flow",
+        "002635-2024-annual-receivables",
+        "002635-2024-annual-revenue",
+        "002635-2025-annual-gross_margin",
+        "002635-2025-annual-inventory",
+        "002635-2025-annual-net_profit",
+        "002635-2025-annual-operating_cash_flow",
+        "002635-2025-annual-receivables",
+        "002635-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 23.03,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002681-2025-revenue",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002681-2025-annual-revenue"
+      ],
+      "returned_evidence_ids": [
+        "002681-2024-annual-inventory",
+        "002681-2024-annual-net_profit",
+        "002681-2024-annual-operating_cash_flow",
+        "002681-2024-annual-receivables",
+        "002681-2024-annual-revenue",
+        "002681-2025-annual-gross_margin",
+        "002681-2025-annual-inventory",
+        "002681-2025-annual-net_profit",
+        "002681-2025-annual-operating_cash_flow",
+        "002681-2025-annual-receivables",
+        "002681-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 46.11,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002681-2025-net_profit",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002681-2025-annual-net_profit"
+      ],
+      "returned_evidence_ids": [
+        "002681-2024-annual-inventory",
+        "002681-2024-annual-net_profit",
+        "002681-2024-annual-operating_cash_flow",
+        "002681-2024-annual-receivables",
+        "002681-2024-annual-revenue",
+        "002681-2025-annual-gross_margin",
+        "002681-2025-annual-inventory",
+        "002681-2025-annual-net_profit",
+        "002681-2025-annual-operating_cash_flow",
+        "002681-2025-annual-receivables",
+        "002681-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 15.76,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002916-2025-revenue",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002916-2025-annual-revenue"
+      ],
+      "returned_evidence_ids": [
+        "002916-2024-annual-inventory",
+        "002916-2024-annual-net_profit",
+        "002916-2024-annual-operating_cash_flow",
+        "002916-2024-annual-receivables",
+        "002916-2024-annual-revenue",
+        "002916-2025-annual-gross_margin",
+        "002916-2025-annual-inventory",
+        "002916-2025-annual-net_profit",
+        "002916-2025-annual-operating_cash_flow",
+        "002916-2025-annual-receivables",
+        "002916-2025-annual-revenue",
+        "002916-2025-litigation"
+      ],
+      "analysis_duration_ms": 16.69,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002916-2025-net_profit",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002916-2025-annual-net_profit"
+      ],
+      "returned_evidence_ids": [
+        "002916-2024-annual-inventory",
+        "002916-2024-annual-net_profit",
+        "002916-2024-annual-operating_cash_flow",
+        "002916-2024-annual-receivables",
+        "002916-2024-annual-revenue",
+        "002916-2025-annual-gross_margin",
+        "002916-2025-annual-inventory",
+        "002916-2025-annual-net_profit",
+        "002916-2025-annual-operating_cash_flow",
+        "002916-2025-annual-receivables",
+        "002916-2025-annual-revenue",
+        "002916-2025-litigation"
+      ],
+      "analysis_duration_ms": 17.43,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002938-2025-revenue",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002938-2025-annual-revenue"
+      ],
+      "returned_evidence_ids": [
+        "002938-2024-annual-inventory",
+        "002938-2024-annual-net_profit",
+        "002938-2024-annual-operating_cash_flow",
+        "002938-2024-annual-receivables",
+        "002938-2024-annual-revenue",
+        "002938-2025-annual-gross_margin",
+        "002938-2025-annual-inventory",
+        "002938-2025-annual-net_profit",
+        "002938-2025-annual-operating_cash_flow",
+        "002938-2025-annual-receivables",
+        "002938-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 17.09,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002938-2025-net_profit",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002938-2025-annual-net_profit"
+      ],
+      "returned_evidence_ids": [
+        "002938-2024-annual-inventory",
+        "002938-2024-annual-net_profit",
+        "002938-2024-annual-operating_cash_flow",
+        "002938-2024-annual-receivables",
+        "002938-2024-annual-revenue",
+        "002938-2025-annual-gross_margin",
+        "002938-2025-annual-inventory",
+        "002938-2025-annual-net_profit",
+        "002938-2025-annual-operating_cash_flow",
+        "002938-2025-annual-receivables",
+        "002938-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 16.75,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002947-2025-revenue",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002947-2025-annual-revenue"
+      ],
+      "returned_evidence_ids": [
+        "002947-2024-annual-inventory",
+        "002947-2024-annual-net_profit",
+        "002947-2024-annual-operating_cash_flow",
+        "002947-2024-annual-receivables",
+        "002947-2024-annual-revenue",
+        "002947-2025-annual-gross_margin",
+        "002947-2025-annual-inventory",
+        "002947-2025-annual-net_profit",
+        "002947-2025-annual-operating_cash_flow",
+        "002947-2025-annual-receivables",
+        "002947-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 16.23,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-002947-2025-net_profit",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "002947-2025-annual-net_profit"
+      ],
+      "returned_evidence_ids": [
+        "002947-2024-annual-inventory",
+        "002947-2024-annual-net_profit",
+        "002947-2024-annual-operating_cash_flow",
+        "002947-2024-annual-receivables",
+        "002947-2024-annual-revenue",
+        "002947-2025-annual-gross_margin",
+        "002947-2025-annual-inventory",
+        "002947-2025-annual-net_profit",
+        "002947-2025-annual-operating_cash_flow",
+        "002947-2025-annual-receivables",
+        "002947-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 16.36,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-300115-2025-revenue",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "300115-2025-annual-revenue"
+      ],
+      "returned_evidence_ids": [
+        "300115-2024-annual-inventory",
+        "300115-2024-annual-net_profit",
+        "300115-2024-annual-operating_cash_flow",
+        "300115-2024-annual-receivables",
+        "300115-2024-annual-revenue",
+        "300115-2025-annual-gross_margin",
+        "300115-2025-annual-inventory",
+        "300115-2025-annual-net_profit",
+        "300115-2025-annual-operating_cash_flow",
+        "300115-2025-annual-receivables",
+        "300115-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 15.99,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-300115-2025-net_profit",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "300115-2025-annual-net_profit"
+      ],
+      "returned_evidence_ids": [
+        "300115-2024-annual-inventory",
+        "300115-2024-annual-net_profit",
+        "300115-2024-annual-operating_cash_flow",
+        "300115-2024-annual-receivables",
+        "300115-2024-annual-revenue",
+        "300115-2025-annual-gross_margin",
+        "300115-2025-annual-inventory",
+        "300115-2025-annual-net_profit",
+        "300115-2025-annual-operating_cash_flow",
+        "300115-2025-annual-receivables",
+        "300115-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 19.38,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-300136-2025-revenue",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "300136-2025-annual-revenue"
+      ],
+      "returned_evidence_ids": [
+        "300136-2024-annual-inventory",
+        "300136-2024-annual-net_profit",
+        "300136-2024-annual-operating_cash_flow",
+        "300136-2024-annual-receivables",
+        "300136-2024-annual-revenue",
+        "300136-2025-annual-gross_margin",
+        "300136-2025-annual-inventory",
+        "300136-2025-annual-net_profit",
+        "300136-2025-annual-operating_cash_flow",
+        "300136-2025-annual-receivables",
+        "300136-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 18.29,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-300136-2025-net_profit",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "300136-2025-annual-net_profit"
+      ],
+      "returned_evidence_ids": [
+        "300136-2024-annual-inventory",
+        "300136-2024-annual-net_profit",
+        "300136-2024-annual-operating_cash_flow",
+        "300136-2024-annual-receivables",
+        "300136-2024-annual-revenue",
+        "300136-2025-annual-gross_margin",
+        "300136-2025-annual-inventory",
+        "300136-2025-annual-net_profit",
+        "300136-2025-annual-operating_cash_flow",
+        "300136-2025-annual-receivables",
+        "300136-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 17.97,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-300207-2025-revenue",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "300207-2025-annual-revenue"
+      ],
+      "returned_evidence_ids": [
+        "300207-2024-annual-inventory",
+        "300207-2024-annual-net_profit",
+        "300207-2024-annual-operating_cash_flow",
+        "300207-2024-annual-receivables",
+        "300207-2024-annual-revenue",
+        "300207-2025-annual-gross_margin",
+        "300207-2025-annual-inventory",
+        "300207-2025-annual-net_profit",
+        "300207-2025-annual-operating_cash_flow",
+        "300207-2025-annual-receivables",
+        "300207-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 18.15,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-300207-2025-net_profit",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "300207-2025-annual-net_profit"
+      ],
+      "returned_evidence_ids": [
+        "300207-2024-annual-inventory",
+        "300207-2024-annual-net_profit",
+        "300207-2024-annual-operating_cash_flow",
+        "300207-2024-annual-receivables",
+        "300207-2024-annual-revenue",
+        "300207-2025-annual-gross_margin",
+        "300207-2025-annual-inventory",
+        "300207-2025-annual-net_profit",
+        "300207-2025-annual-operating_cash_flow",
+        "300207-2025-annual-receivables",
+        "300207-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 17.88,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-300408-2025-revenue",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "300408-2025-annual-revenue"
+      ],
+      "returned_evidence_ids": [
+        "300408-2024-annual-inventory",
+        "300408-2024-annual-net_profit",
+        "300408-2024-annual-operating_cash_flow",
+        "300408-2024-annual-receivables",
+        "300408-2024-annual-revenue",
+        "300408-2025-annual-gross_margin",
+        "300408-2025-annual-inventory",
+        "300408-2025-annual-net_profit",
+        "300408-2025-annual-operating_cash_flow",
+        "300408-2025-annual-receivables",
+        "300408-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 18.45,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-300408-2025-net_profit",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "300408-2025-annual-net_profit"
+      ],
+      "returned_evidence_ids": [
+        "300408-2024-annual-inventory",
+        "300408-2024-annual-net_profit",
+        "300408-2024-annual-operating_cash_flow",
+        "300408-2024-annual-receivables",
+        "300408-2024-annual-revenue",
+        "300408-2025-annual-gross_margin",
+        "300408-2025-annual-inventory",
+        "300408-2025-annual-net_profit",
+        "300408-2025-annual-operating_cash_flow",
+        "300408-2025-annual-receivables",
+        "300408-2025-annual-revenue"
+      ],
+      "analysis_duration_ms": 18.73,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-300433-2025-revenue",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "300433-2025-annual-revenue"
+      ],
+      "returned_evidence_ids": [
+        "300433-2024-annual-inventory",
+        "300433-2024-annual-net_profit",
+        "300433-2024-annual-operating_cash_flow",
+        "300433-2024-annual-receivables",
+        "300433-2024-annual-revenue",
+        "300433-2025-annual-gross_margin",
+        "300433-2025-annual-inventory",
+        "300433-2025-annual-net_profit",
+        "300433-2025-annual-operating_cash_flow",
+        "300433-2025-annual-receivables",
+        "300433-2025-annual-revenue",
+        "300433-2025-litigation"
+      ],
+      "analysis_duration_ms": 17.59,
+      "review_duration_ms": 0.0,
+      "error": null
+    },
+    {
+      "case_id": "fixture-300433-2025-net_profit",
+      "split": "development",
+      "type": "fact_lookup",
+      "analysis_status": "completed",
+      "review_status": "passed",
+      "gold_evidence_ids": [
+        "300433-2025-annual-net_profit"
+      ],
+      "returned_evidence_ids": [
+        "300433-2024-annual-inventory",
+        "300433-2024-annual-net_profit",
+        "300433-2024-annual-operating_cash_flow",
+        "300433-2024-annual-receivables",
+        "300433-2024-annual-revenue",
+        "300433-2025-annual-gross_margin",
+        "300433-2025-annual-inventory",
+        "300433-2025-annual-net_profit",
+        "300433-2025-annual-operating_cash_flow",
+        "300433-2025-annual-receivables",
+        "300433-2025-annual-revenue",
+        "300433-2025-litigation"
+      ],
+      "analysis_duration_ms": 17.62,
+      "review_duration_ms": 0.0,
+      "error": null
+    }
+  ],
+  "limitations": [
+    "No external LLM provider configured.",
+    "This shared fixture is intentionally separate from the real PDF golden test set.",
+    "This adapter demonstrates independent verification stages, not measured LLM dual-agent quality."
+  ]
+}
