@@ -2,13 +2,13 @@
 
 ## 发布前必须完成
 
-- [ ] `git status` 干净，远程 `main` 与本地提交一致。
-- [ ] CI backend 通过：依赖安装、导入检查、pytest。
-- [ ] CI frontend 通过：`npm ci`、`npm test`、`npm run build`。
-- [ ] README 启动命令可复制执行。
-- [ ] 架构图、数据许可、贡献规范和安全边界已提交。
-- [ ] 评测报告写明命中数/总题数、数据集、语料版本、运行时间和代码版本。
-- [ ] synthetic fixture 与真实 PDF 黄金集没有混合计分。
+- [x] `git status` 干净，远程 `main` 与本地提交一致。
+- [ ] CI backend 通过：依赖安装、导入检查、pytest（待 GitHub Actions 页面确认）。
+- [ ] CI frontend 通过：`npm ci`、`npm test`、`npm run build`（待 GitHub Actions 页面确认）。
+- [x] README 启动命令可复制执行。
+- [x] 架构图、数据许可、贡献规范和安全边界已提交。
+- [x] 评测报告写明命中数/总题数、数据集、语料版本、运行时间和代码版本。
+- [x] synthetic fixture 与真实 PDF 黄金集没有混合计分。
 
 ## 发布时明确说明
 
