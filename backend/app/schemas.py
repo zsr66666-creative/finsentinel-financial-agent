@@ -17,6 +17,9 @@ class FeedbackRequest(StrictModel):
     action: Literal['confirm', 'reject', 'modify']
     error_type: Literal['data_error', 'calculation_error', 'citation_error', 'period_error', 'overstatement', 'other'] | None = None
     comment: str = Field(default='', max_length=2000)
+    reason: str | None = Field(default=None, max_length=2000)
+    modification: dict[str, str | int | float | bool | None] | None = None
+    idempotency_key: str | None = Field(default=None, min_length=8, max_length=128)
 
 
 class IngestionRequest(StrictModel):

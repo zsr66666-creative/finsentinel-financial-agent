@@ -44,5 +44,16 @@ class Store:
                 session.add(MODELS[table](id=value['id'], payload=value))
         return value
 
+    def feedback_transaction(self, *, feedback, alert, candidate=None):
+        with self.sessions.begin() as session:
+            session.add(MODELS['feedback'](id=feedback['id'], payload=feedback))
+            alert_record = session.get(MODELS['alerts'], alert['id'])
+            if alert_record is None:
+                raise ValueError('alert not found')
+            alert_record.payload = alert
+            if candidate is not None:
+                session.add(MODELS['eval_cases'](id=candidate['id'], payload=candidate))
+        return feedback
     def close(self):
         self.engine.dispose()
+

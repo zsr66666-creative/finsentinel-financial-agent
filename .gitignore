@@ -31,3 +31,5 @@ backend/data/
 .browser-config/
 .pytest-tmp/
 .tmp/
+.pytest-of-*
+.test-tmp-week13/

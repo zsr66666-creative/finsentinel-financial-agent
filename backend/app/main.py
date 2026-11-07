@@ -22,6 +22,7 @@ from app.financial_calculations import (
 from app.risk_rules import evaluate_event_rule, evaluate_rules
 from app.retrieval import search_chunks
 from app.evaluation import recall_at_k
+from app.review import next_alert_status, validate_feedback
 
 
 def now():
@@ -274,20 +275,31 @@ def create_app(database_url=None, data_mode=None):
 
     @app.post('/api/v1/alerts/{alert_id}/feedback',status_code=201)
     def feedback(alert_id: str, request: FeedbackRequest):
-        item = require('alerts',alert_id)
-        if request.action in ('reject','modify') and not request.error_type:
-            raise HTTPException(422,'error_type is required for reject/modify')
-        if request.action=='modify' and not request.comment.strip():
-            raise HTTPException(422,'comment is required for modify')
+        item = require('alerts', alert_id)
+        existing = next((f for f in store.all('feedback') if request.idempotency_key and f.get('idempotency_key') == request.idempotency_key), None)
+        if existing:
+            return existing
+        try:
+            validate_feedback(request.action, reason=request.reason, comment=request.comment, modification=request.modification)
+            next_status = next_alert_status(item.get('status', 'pending'), request.action)
+        except ValueError as exc:
+            raise HTTPException(422, str(exc)) from exc
         fid, case_id = str(uuid4()), None
         if request.action != 'confirm':
             case_id = f'feedback-{fid}'
-            store.put('eval_cases',{'id':case_id,'company_id':item['company_id'],'question':item['title'],'source':'human_feedback','status':'pending_review','error_type':request.error_type,'comment':request.comment,'alert_id':alert_id})
-        record = {'id':fid,'alert_id':alert_id,**request.model_dump(),'regression_case_id':case_id,'created_at':now()}
-        store.put('feedback',record)
-        store.put('alerts',{**item,'status':{'confirm':'confirmed','reject':'rejected','modify':'modified'}[request.action]})
+        candidate = {'id':case_id,'company_id':item['company_id'],'question':item['title'],'source':'human_feedback','status':'pending_review','error_type':request.error_type,'comment':request.comment,'reason':request.reason,'modification':request.modification,'alert_id':alert_id} if case_id else None
+        record = {'id':fid,'alert_id':alert_id,**request.model_dump(),'regression_case_id':case_id,'created_at':now(),'original_status':item.get('status')}
+        store.feedback_transaction(feedback=record, alert={**item,'status':next_status}, candidate=candidate)
         return record
+    @app.get('/api/v1/alerts/{alert_id}/feedback')
+    def alert_feedback(alert_id: str):
+        require('alerts', alert_id)
+        items = [f for f in store.all('feedback') if f['alert_id'] == alert_id]
+        return envelope(items)
 
+    @app.get('/api/v1/review/candidates')
+    def review_candidates():
+        return envelope([c for c in store.all('eval_cases') if c.get('status') == 'pending_review'])
     @app.get('/api/v1/evals/summary')
     def eval_summary():
         cases = store.all('eval_cases')
@@ -329,3 +341,6 @@ def create_app(database_url=None, data_mode=None):
 
 
 app = create_app()
+
+
+
