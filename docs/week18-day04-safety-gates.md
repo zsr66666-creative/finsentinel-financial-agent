@@ -17,3 +17,5 @@ python experiments/week17_llm_comparison.py --execute --confirm-real-run --max-c
 - 必须设置正数 `LLM_EVAL_BUDGET_USD`；
 - 未满足任一条件时立即退出，不写入真实结果；
 - dry-run 默认保持离线，质量、延迟和成本为 `null`。
+
+真实执行分支现在会对 development 题集逐题调用 Provider，分别执行单调用和双调用条件，记录每题状态、失败原因、耗时和 token 数。由于模型输出中的证据 ID 尚未自动与黄金证据独立核验，`hits` 保持 `null`，不能把“返回了文本”当成命中。

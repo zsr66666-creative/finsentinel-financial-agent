@@ -19,8 +19,8 @@
     "failure_rate": null,
     "cost_usd": null
   },
-  "code_version": "cdd4456267a9f4acb4aae710ce43ccb659af7b6f",
-  "generated_at": "2026-11-08T05:01:35.684287+00:00",
+  "code_version": "2e0d67041ae2b4db7cb87070f6a19ea1164e93d4",
+  "generated_at": "2026-11-08T05:14:39.983215+00:00",
   "limitations": [
     "dry run has no quality or latency measurements",
     "synthetic fixtures and real corpus remain separate"
