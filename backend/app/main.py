@@ -8,6 +8,10 @@ from uuid import uuid4
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from app.schemas import AnalysisRequest, FeedbackRequest, IngestionRequest, EvalRequest, RiskEvaluationRequest, EventEvaluationRequest
+from app.model_config import ModelSettings
+from app.model_provider import ModelResponse
+from app.providers.fake import FakeModelProvider
+from app.providers.openai_compatible import ModelProviderError, OpenAICompatibleProvider
 from app.seed import seed
 from app.store import Store
 from app.tools import Tools
@@ -80,6 +84,7 @@ def create_app(database_url=None, data_mode=None):
 
     app = FastAPI(title='FinSentinel API',version='0.1.0',lifespan=lifespan,description='Evidence-first finance research workbench. Synthetic fixtures are explicitly labeled.')
     app.state.store = store
+    app.state.model_settings = ModelSettings.from_env()
     app.add_middleware(CORSMiddleware,allow_origins=os.getenv('CORS_ORIGINS','http://localhost:3000').split(','),allow_methods=['GET','POST'],allow_headers=['Content-Type'])
 
     @app.middleware('http')
@@ -269,7 +274,15 @@ def create_app(database_url=None, data_mode=None):
             state = run_workflow(store,tools,request.company_id,request.question,request.period,request.mode)
         except ValueError as exc:
             raise HTTPException(422,str(exc)) from exc
-        run = {'id':run_id,'run_id':run_id,'company_id':request.company_id,'company_name':company['name'],'question':request.question,'period':request.period,'mode':request.mode,'status':'completed' if state.verification['status']=='passed' else 'needs_review','summary':state.summary,'metrics':state.metrics,'evidence':state.evidence,'agent_steps':state.steps,'tool_calls':state.tool_calls,'verification':state.verification,'prompt_version':'evidence-v1','model_version':'deterministic-demo-v1','token_usage':0,'cost_usd':0.0,'duration_ms':round((perf_counter()-started)*1000,2),'created_at':now(),'data_mode':company['data_mode'],'human_review_required':True}
+        settings = app.state.model_settings
+        model_error = None
+        model_response: ModelResponse | None = None
+        try:
+            provider = FakeModelProvider() if settings.provider == 'fake' else OpenAICompatibleProvider(api_key=settings.api_key, model=settings.model, base_url=settings.base_url, timeout_seconds=settings.timeout_seconds)
+            model_response = provider.generate(request.question, tools=[{'name': call['tool'], 'description': 'approved deterministic finance tool'} for call in state.tool_calls if call.get('tool')])
+        except ModelProviderError as exc:
+            model_error = str(exc)
+        run = {'id':run_id,'run_id':run_id,'company_id':request.company_id,'company_name':company['name'],'question':request.question,'period':request.period,'mode':request.mode,'status':'needs_review' if model_error else ('completed' if state.verification['status']=='passed' else 'needs_review'),'summary':state.summary,'metrics':state.metrics,'evidence':state.evidence,'agent_steps':state.steps,'tool_calls':state.tool_calls,'verification':state.verification,'prompt_version':'evidence-v1','model_version':settings.model,'model_provider':settings.provider,'model_error':model_error,'model_latency_ms':model_response.latency_ms if model_response else None,'token_usage':model_response.token_usage if model_response else {'input':0,'output':0},'cost_usd':0.0,'duration_ms':round((perf_counter()-started)*1000,2),'created_at':now(),'data_mode':company['data_mode'],'human_review_required':True}
         store.put('analysis_runs',run)
         for step in state.steps:
             store.put('agent_steps',{**step,'run_id':run_id})
