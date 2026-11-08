@@ -25,11 +25,10 @@ def git_version() -> str:
 def load_cases(path: str, max_cases: int) -> list[dict]:
     cases = [json.loads(line) for line in Path(path).read_text(encoding="utf-8").splitlines() if line.strip()]
     cases = [case for case in cases if case.get("split") == "development" and case.get("type") != "correct_refusal"]
+    context_path = Path("data/evals/week17-evidence-context.json")
+    context_map = json.loads(context_path.read_text(encoding="utf-8")) if context_path.exists() else {}
     for case in cases:
-        # The model must choose citations from an explicit allow-list. Full
-        # source text can be supplied by a corpus adapter later; IDs are still
-        # useful for preventing fabricated citations in this protocol.
-        case["evidence_context"] = [{"id": evidence_id} for evidence_id in case.get("gold_evidence_ids", [])]
+        case["evidence_context"] = [{"id": evidence_id, **context_map[evidence_id]} for evidence_id in case.get("gold_evidence_ids", []) if evidence_id in context_map]
     return cases[:max_cases]
 
 
