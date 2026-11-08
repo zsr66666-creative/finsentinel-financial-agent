@@ -11,6 +11,7 @@ class ModelResponse:
     token_usage: dict[str, int] = field(default_factory=dict)
     tool_calls: list[dict[str, Any]] = field(default_factory=list)
     status: str = "success"
+    retry_count: int = 0
 
 
 class ModelProvider(Protocol):

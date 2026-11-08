@@ -28,6 +28,7 @@ def test_fake_provider_is_deterministic_and_does_not_execute_tools():
     assert first.tool_calls == []
     assert first.token_usage == {"input": 0, "output": 0}
     assert first.status == "success"
+    assert first.retry_count == 0
 
 
 def test_real_provider_requires_api_key():
@@ -54,4 +55,4 @@ def test_real_provider_retries_429_then_succeeds():
     ok = httpx.Response(200, json={"choices": [{"message": {"content": "ok"}}]}, request=httpx.Request("POST", "https://example.test"))
     client = _FakeClient([failed, ok])
     result = OpenAICompatibleProvider(api_key="secret", model="m", base_url="https://example.test/v1", retry_backoff_seconds=0, client=client).generate("hi")
-    assert result.text == "ok" and client.calls == 2
+    assert result.text == "ok" and client.calls == 2 and result.retry_count == 1

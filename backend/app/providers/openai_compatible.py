@@ -31,7 +31,7 @@ class OpenAICompatibleProvider:
                 response = self.client.post(f"{self.base_url}/chat/completions", headers={"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"}, json=payload)
                 response.raise_for_status()
                 body = response.json(); choice = (body.get("choices") or [{}])[0]; message = choice.get("message") or {}; usage = body.get("usage") or {}
-                return ModelResponse(text=message.get("content") or "", provider=self.provider, model=self.model, latency_ms=round((perf_counter() - started) * 1000, 3), token_usage={"input": int(usage.get("prompt_tokens", 0)), "output": int(usage.get("completion_tokens", 0))}, tool_calls=message.get("tool_calls") or [])
+                return ModelResponse(text=message.get("content") or "", provider=self.provider, model=self.model, latency_ms=round((perf_counter() - started) * 1000, 3), token_usage={"input": int(usage.get("prompt_tokens", 0)), "output": int(usage.get("completion_tokens", 0))}, tool_calls=message.get("tool_calls") or [], retry_count=attempt)
             except httpx.TimeoutException as exc:
                 if attempt < self.max_retries:
                     sleep(self.retry_backoff_seconds * (2 ** attempt)); continue
