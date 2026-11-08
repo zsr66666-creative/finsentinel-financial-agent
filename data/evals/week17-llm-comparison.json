@@ -1,0 +1,28 @@
+{
+  "status": "ready",
+  "mode": "dry_run",
+  "provider": "fake",
+  "model": "deterministic-demo-v1",
+  "dataset": "data/evals/golden_questions.jsonl",
+  "dataset_split": "development only until protocol is frozen",
+  "corpus_version": "week10-multi-company-v3",
+  "conditions": [
+    "deterministic_baseline",
+    "single_agent",
+    "dual_agent"
+  ],
+  "metrics": {
+    "hits": null,
+    "total": null,
+    "p50_latency_ms": null,
+    "p95_latency_ms": null,
+    "failure_rate": null,
+    "cost_usd": null
+  },
+  "code_version": "d721c5a0238cfd8eeab3ec97bb0995be71e5c3e3",
+  "generated_at": "2026-11-08T04:55:01.306749+00:00",
+  "limitations": [
+    "dry run has no quality or latency measurements",
+    "synthetic fixtures and real corpus remain separate"
+  ]
+}
