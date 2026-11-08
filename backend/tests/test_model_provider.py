@@ -1,5 +1,6 @@
 from app.model_provider import ModelResponse
 from app.providers.fake import FakeModelProvider
+from app.providers.openai_compatible import ModelProviderError, OpenAICompatibleProvider
 
 
 def test_model_response_contract_has_runtime_metadata():
@@ -26,3 +27,12 @@ def test_fake_provider_is_deterministic_and_does_not_execute_tools():
     assert first.tool_calls == []
     assert first.token_usage == {"input": 0, "output": 0}
     assert first.status == "success"
+
+
+def test_real_provider_requires_api_key():
+    try:
+        OpenAICompatibleProvider(api_key="", model="m", base_url="https://example.test/v1")
+    except ModelProviderError as exc:
+        assert "MODEL_API_KEY" in str(exc)
+    else:
+        raise AssertionError("missing API key must fail")
