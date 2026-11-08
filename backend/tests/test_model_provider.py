@@ -56,3 +56,32 @@ def test_real_provider_retries_429_then_succeeds():
     client = _FakeClient([failed, ok])
     result = OpenAICompatibleProvider(api_key="secret", model="m", base_url="https://example.test/v1", retry_backoff_seconds=0, client=client).generate("hi")
     assert result.text == "ok" and client.calls == 2 and result.retry_count == 1
+
+
+def test_real_provider_retries_5xx_until_limit():
+    failed = httpx.Response(503, request=httpx.Request("POST", "https://example.test"))
+    client = _FakeClient([failed, failed, failed])
+    try:
+        OpenAICompatibleProvider(api_key="secret", model="m", base_url="https://example.test/v1", retry_backoff_seconds=0, client=client).generate("hi")
+    except ModelProviderError as exc:
+        assert "503" in str(exc) and "retries" in str(exc) and client.calls == 3
+    else:
+        raise AssertionError("5xx should fail after retry limit")
+
+
+def test_real_provider_does_not_retry_client_error():
+    failed = httpx.Response(401, request=httpx.Request("POST", "https://example.test"))
+    client = _FakeClient([failed])
+    try:
+        OpenAICompatibleProvider(api_key="secret", model="m", base_url="https://example.test/v1", retry_backoff_seconds=0, client=client).generate("hi")
+    except ModelProviderError as exc:
+        assert "401" in str(exc) and client.calls == 1
+    else:
+        raise AssertionError("4xx should fail without retry")
+
+
+def test_real_provider_rejects_invalid_json_shape():
+    response = httpx.Response(200, json={"choices": []}, request=httpx.Request("POST", "https://example.test"))
+    client = _FakeClient([response])
+    result = OpenAICompatibleProvider(api_key="secret", model="m", base_url="https://example.test/v1", client=client).generate("hi")
+    assert result.text == ""
