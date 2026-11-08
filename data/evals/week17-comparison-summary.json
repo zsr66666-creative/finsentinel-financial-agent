@@ -1,0 +1,59 @@
+{
+  "status": "adapter_only",
+  "generated_at": "2026-11-08T04:59:51.618702+00:00",
+  "code_version": "bb721bc91effe5222330ef92d1b68196484203f2",
+  "conditions": [
+    {
+      "condition": "deterministic_baseline",
+      "hits": 40,
+      "total": 59,
+      "evaluated": 40,
+      "failure_count": 0,
+      "failure_rate": 0.0,
+      "p50_latency_ms": null,
+      "p95_latency_ms": 3.3,
+      "cost_usd": 0.0,
+      "provider": "deterministic-demo-v1",
+      "model_version": "deterministic-demo-v1",
+      "prompt_version": "evidence-v1",
+      "corpus_version": "week10-multi-company-v3",
+      "dataset_manifest": "week14-agent-comparison-v1"
+    },
+    {
+      "condition": "single_agent",
+      "hits": 40,
+      "total": 40,
+      "evaluated": 40,
+      "failure_count": 0,
+      "failure_rate": 0.0,
+      "p50_latency_ms": 17.52,
+      "p95_latency_ms": 21.46,
+      "cost_usd": 0.0,
+      "provider": "deterministic-demo-v1",
+      "model_version": "deterministic-demo-v1",
+      "prompt_version": "evidence-v1",
+      "corpus_version": "synthetic-demo-v1",
+      "dataset_manifest": "week14-agent-comparison-v1"
+    },
+    {
+      "condition": "dual_agent",
+      "hits": 40,
+      "total": 40,
+      "evaluated": 40,
+      "failure_count": 0,
+      "failure_rate": 0.0,
+      "p50_latency_ms": 17.15,
+      "p95_latency_ms": 19.91,
+      "cost_usd": 0.0,
+      "provider": "deterministic-demo-v1",
+      "model_version": "deterministic-demo-v1",
+      "prompt_version": "evidence-v1",
+      "corpus_version": "synthetic-demo-v1",
+      "dataset_manifest": "week14-agent-comparison-v1"
+    }
+  ],
+  "limitations": [
+    "Deterministic adapters only; no real LLM quality measurement.",
+    "Synthetic fixture remains separate from real PDF golden set."
+  ]
+}

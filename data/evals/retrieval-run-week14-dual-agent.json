@@ -10,8 +10,8 @@
   "metrics": {
     "evidence_hit_rate_comparable": 1.0,
     "review_pass_rate": 1.0,
-    "p50_latency_ms": 17.26,
-    "p95_latency_ms": 19.67,
+    "p50_latency_ms": 17.15,
+    "p95_latency_ms": 19.91,
     "timeout_rate": 0.0,
     "cost_usd": 0.0
   },
@@ -41,7 +41,7 @@
         "002055-2025-annual-receivables",
         "002055-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 23.57,
+      "analysis_duration_ms": 22.19,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -67,8 +67,8 @@
         "002055-2025-annual-receivables",
         "002055-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 16.64,
-      "review_duration_ms": 0.05,
+      "analysis_duration_ms": 16.36,
+      "review_duration_ms": 0.0,
       "error": null
     },
     {
@@ -93,7 +93,7 @@
         "002241-2025-annual-receivables",
         "002241-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 17.29,
+      "analysis_duration_ms": 16.47,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -119,7 +119,7 @@
         "002241-2025-annual-receivables",
         "002241-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 16.95,
+      "analysis_duration_ms": 16.43,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -145,7 +145,7 @@
         "002273-2025-annual-receivables",
         "002273-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 16.81,
+      "analysis_duration_ms": 17.52,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -171,7 +171,7 @@
         "002273-2025-annual-receivables",
         "002273-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 15.76,
+      "analysis_duration_ms": 16.34,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -197,7 +197,7 @@
         "002351-2025-annual-receivables",
         "002351-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 15.49,
+      "analysis_duration_ms": 16.25,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -223,7 +223,7 @@
         "002351-2025-annual-receivables",
         "002351-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 16.58,
+      "analysis_duration_ms": 16.53,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -249,7 +249,7 @@
         "002384-2025-annual-receivables",
         "002384-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 15.93,
+      "analysis_duration_ms": 16.88,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -275,7 +275,7 @@
         "002384-2025-annual-receivables",
         "002384-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 16.65,
+      "analysis_duration_ms": 17.73,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -301,7 +301,7 @@
         "002402-2025-annual-receivables",
         "002402-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 16.28,
+      "analysis_duration_ms": 17.88,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -327,7 +327,7 @@
         "002402-2025-annual-receivables",
         "002402-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 16.8,
+      "analysis_duration_ms": 17.41,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -353,7 +353,7 @@
         "002456-2025-annual-receivables",
         "002456-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 15.85,
+      "analysis_duration_ms": 16.56,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -379,7 +379,7 @@
         "002456-2025-annual-receivables",
         "002456-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 17.61,
+      "analysis_duration_ms": 16.25,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -405,7 +405,7 @@
         "002463-2025-annual-receivables",
         "002463-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 16.94,
+      "analysis_duration_ms": 16.55,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -431,7 +431,7 @@
         "002463-2025-annual-receivables",
         "002463-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 16.41,
+      "analysis_duration_ms": 17.71,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -458,7 +458,7 @@
         "002475-2025-annual-revenue",
         "002475-2025-litigation"
       ],
-      "analysis_duration_ms": 48.01,
+      "analysis_duration_ms": 51.93,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -485,7 +485,7 @@
         "002475-2025-annual-revenue",
         "002475-2025-litigation"
       ],
-      "analysis_duration_ms": 15.58,
+      "analysis_duration_ms": 16.68,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -511,7 +511,7 @@
         "002600-2025-annual-receivables",
         "002600-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 17.37,
+      "analysis_duration_ms": 17.01,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -537,7 +537,7 @@
         "002600-2025-annual-receivables",
         "002600-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 16.58,
+      "analysis_duration_ms": 18.1,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -563,8 +563,8 @@
         "002635-2025-annual-receivables",
         "002635-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 16.86,
-      "review_duration_ms": 0.0,
+      "analysis_duration_ms": 17.95,
+      "review_duration_ms": 0.01,
       "error": null
     },
     {
@@ -589,7 +589,7 @@
         "002635-2025-annual-receivables",
         "002635-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 16.01,
+      "analysis_duration_ms": 17.52,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -615,7 +615,7 @@
         "002681-2025-annual-receivables",
         "002681-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 15.61,
+      "analysis_duration_ms": 17.23,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -641,7 +641,7 @@
         "002681-2025-annual-receivables",
         "002681-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 16.18,
+      "analysis_duration_ms": 17.1,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -668,7 +668,7 @@
         "002916-2025-annual-revenue",
         "002916-2025-litigation"
       ],
-      "analysis_duration_ms": 16.99,
+      "analysis_duration_ms": 18.25,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -695,7 +695,7 @@
         "002916-2025-annual-revenue",
         "002916-2025-litigation"
       ],
-      "analysis_duration_ms": 18.22,
+      "analysis_duration_ms": 17.17,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -721,7 +721,7 @@
         "002938-2025-annual-receivables",
         "002938-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 17.26,
+      "analysis_duration_ms": 18.24,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -747,7 +747,7 @@
         "002938-2025-annual-receivables",
         "002938-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 17.71,
+      "analysis_duration_ms": 17.17,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -773,7 +773,7 @@
         "002947-2025-annual-receivables",
         "002947-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 17.87,
+      "analysis_duration_ms": 17.95,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -799,7 +799,7 @@
         "002947-2025-annual-receivables",
         "002947-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 18.1,
+      "analysis_duration_ms": 15.87,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -825,7 +825,7 @@
         "300115-2025-annual-receivables",
         "300115-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 18.64,
+      "analysis_duration_ms": 15.57,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -851,7 +851,7 @@
         "300115-2025-annual-receivables",
         "300115-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 19.57,
+      "analysis_duration_ms": 16.52,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -877,7 +877,7 @@
         "300136-2025-annual-receivables",
         "300136-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 18.66,
+      "analysis_duration_ms": 17.15,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -903,7 +903,7 @@
         "300136-2025-annual-receivables",
         "300136-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 17.97,
+      "analysis_duration_ms": 16.02,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -929,7 +929,7 @@
         "300207-2025-annual-receivables",
         "300207-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 19.17,
+      "analysis_duration_ms": 16.73,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -955,7 +955,7 @@
         "300207-2025-annual-receivables",
         "300207-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 17.75,
+      "analysis_duration_ms": 18.34,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -981,7 +981,7 @@
         "300408-2025-annual-receivables",
         "300408-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 19.67,
+      "analysis_duration_ms": 16.72,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -1007,7 +1007,7 @@
         "300408-2025-annual-receivables",
         "300408-2025-annual-revenue"
       ],
-      "analysis_duration_ms": 18.26,
+      "analysis_duration_ms": 16.4,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -1034,7 +1034,7 @@
         "300433-2025-annual-revenue",
         "300433-2025-litigation"
       ],
-      "analysis_duration_ms": 18.67,
+      "analysis_duration_ms": 18.1,
       "review_duration_ms": 0.0,
       "error": null
     },
@@ -1061,7 +1061,7 @@
         "300433-2025-annual-revenue",
         "300433-2025-litigation"
       ],
-      "analysis_duration_ms": 17.34,
+      "analysis_duration_ms": 19.91,
       "review_duration_ms": 0.0,
       "error": null
     }
