@@ -42,7 +42,7 @@ def execute_condition(provider, cases: list[dict], dual: bool, price_per_1k: flo
                 break
         tokens = sum(r.token_usage.get("input", 0) + r.token_usage.get("output", 0) for r in responses)
         text_ok = bool(responses and all(r.text.strip() for r in responses))
-        rows.append({"case_id": case["id"], "status": "success" if error is None and text_ok else "failed", "failure_reason": "provider_error" if error else (None if text_ok else "invalid_output"), "duration_ms": round((__import__("time").perf_counter() - started) * 1000, 2), "token_count": tokens, "error": error})
+        rows.append({"case_id": case["id"], "question": case["question"], "gold_answer": case.get("answer"), "gold_evidence_ids": case.get("gold_evidence_ids", []), "model_text": responses[-1].text if responses else None, "status": "success" if error is None and text_ok else "failed", "failure_reason": "provider_error" if error else (None if text_ok else "invalid_output"), "duration_ms": round((__import__("time").perf_counter() - started) * 1000, 2), "token_count": tokens, "error": error})
     durations = sorted(r["duration_ms"] for r in rows)
     failures = sum(r["status"] != "success" for r in rows)
     tokens = sum(r["token_count"] for r in rows)
