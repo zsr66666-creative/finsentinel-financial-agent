@@ -8,14 +8,15 @@
   "corpus_version": "week10-multi-company-v3",
   "conditions": {
     "single_agent": {
+      "evidence_hits": 10,
       "hits": null,
       "total": 10,
       "evaluated": 10,
       "failure_count": 0,
       "failure_rate": 0.0,
-      "p50_latency_ms": 964.02,
-      "p95_latency_ms": 1052.3,
-      "cost_usd": 0.2597,
+      "p50_latency_ms": 877.4,
+      "p95_latency_ms": 927.08,
+      "cost_usd": 3.80653,
       "results": [
         {
           "case_id": "case-001",
@@ -27,11 +28,17 @@
           "gold_evidence_ids": [
             "002475-2026H1-p8-m1"
           ],
-          "model_text": "{\"answer\": \"无法确定：现有信息未提供立讯精密2026年上半年营业收入数据。\", \"evidence_ids\": []}",
+          "model_text": "{\"answer\": \"立讯精密2026年上半年营业收入为174,504,335,921.25元。\", \"evidence_ids\": [\"002475-2026H1-p8-m1\"]}",
+          "parsed_answer": "立讯精密2026年上半年营业收入为174,504,335,921.25元。",
+          "returned_evidence_ids": [
+            "002475-2026H1-p8-m1"
+          ],
+          "evidence_hit": true,
+          "valid_json": true,
           "status": "success",
           "failure_reason": null,
-          "duration_ms": 964.02,
-          "token_count": 57,
+          "duration_ms": 994.72,
+          "token_count": 867,
           "error": null
         },
         {
@@ -44,11 +51,17 @@
           "gold_evidence_ids": [
             "002475-2026H1-p8-m0"
           ],
-          "model_text": "{\"answer\": \"无法确定。立讯精密2026年上半年的归属于上市公司股东的净利润尚未披露，需以公司后续正式公告或定期报告为准。\", \"evidence_ids\": []}",
+          "model_text": "{\"answer\": \"7,842,698,288.86元\", \"evidence_ids\": [\"002475-2026H1-p8-m0\"]}",
+          "parsed_answer": "7,842,698,288.86元",
+          "returned_evidence_ids": [
+            "002475-2026H1-p8-m0"
+          ],
+          "evidence_hit": true,
+          "valid_json": true,
           "status": "success",
           "failure_reason": null,
-          "duration_ms": 970.03,
-          "token_count": 73,
+          "duration_ms": 600.21,
+          "token_count": 861,
           "error": null
         },
         {
@@ -61,11 +74,17 @@
           "gold_evidence_ids": [
             "002475-2026H1-p60-m0"
           ],
-          "model_text": "{\"answer\": \"无法确定。提供的材料中没有立讯精密2026年6月30日的存货数据；该日期属于未来，相关财务报告尚未披露。\", \"evidence_ids\": []}",
+          "model_text": "{\"answer\": \"50,367,311,994.53元\", \"evidence_ids\": [\"002475-2026H1-p60-m0\"]}",
+          "parsed_answer": "50,367,311,994.53元",
+          "returned_evidence_ids": [
+            "002475-2026H1-p60-m0"
+          ],
+          "evidence_hit": true,
+          "valid_json": true,
           "status": "success",
           "failure_reason": null,
-          "duration_ms": 1052.3,
-          "token_count": 75,
+          "duration_ms": 775.99,
+          "token_count": 613,
           "error": null
         },
         {
@@ -80,11 +99,17 @@
           "gold_evidence_ids": [
             "002475-2026H1-p8-m1"
           ],
-          "model_text": "{\"answer\": \"无法确定。提供的资料中没有立讯精密2026年上半年营业收入数据。\", \"evidence_ids\": []}",
+          "model_text": "{\"answer\": \"40.16%\", \"evidence_ids\": [\"002475-2026H1-p8-m1\"]}",
+          "parsed_answer": "40.16%",
+          "returned_evidence_ids": [
+            "002475-2026H1-p8-m1"
+          ],
+          "evidence_hit": true,
+          "valid_json": true,
           "status": "success",
           "failure_reason": null,
-          "duration_ms": 1043.95,
-          "token_count": 57,
+          "duration_ms": 661.15,
+          "token_count": 853,
           "error": null
         },
         {
@@ -99,11 +124,17 @@
           "gold_evidence_ids": [
             "002475-2026H1-p8-m0"
           ],
-          "model_text": "{\"answer\": \"无法确定\", \"evidence_ids\": []}",
+          "model_text": "{\"answer\": \"18.04%\", \"evidence_ids\": [\"002475-2026H1-p8-m0\"]}",
+          "parsed_answer": "18.04%",
+          "returned_evidence_ids": [
+            "002475-2026H1-p8-m0"
+          ],
+          "evidence_hit": true,
+          "valid_json": true,
           "status": "success",
           "failure_reason": null,
-          "duration_ms": 617.3,
-          "token_count": 46,
+          "duration_ms": 877.4,
+          "token_count": 855,
           "error": null
         },
         {
@@ -115,11 +146,17 @@
           "gold_evidence_ids": [
             "002475-2026H1-p8-m0"
           ],
-          "model_text": "{\"answer\": \"无法确定\", \"evidence_ids\": []}",
+          "model_text": "{\"answer\": \"元\", \"evidence_ids\": [\"002475-2026H1-p8-m0\"]}",
+          "parsed_answer": "元",
+          "returned_evidence_ids": [
+            "002475-2026H1-p8-m0"
+          ],
+          "evidence_hit": true,
+          "valid_json": true,
           "status": "success",
           "failure_reason": null,
-          "duration_ms": 744.58,
-          "token_count": 45,
+          "duration_ms": 682.96,
+          "token_count": 851,
           "error": null
         },
         {
@@ -132,11 +169,17 @@
           "gold_evidence_ids": [
             "002475-2024FY-p8-s16"
           ],
-          "model_text": "{answer: \"2687.95亿元\", evidence_ids: []}",
+          "model_text": "{\"answer\": \"268,794,737,612.58元\", \"evidence_ids\": [\"002475-2024FY-p8-s16\"]}",
+          "parsed_answer": "268,794,737,612.58元",
+          "returned_evidence_ids": [
+            "002475-2024FY-p8-s16"
+          ],
+          "evidence_hit": true,
+          "valid_json": true,
           "status": "success",
           "failure_reason": null,
-          "duration_ms": 963.03,
-          "token_count": 45,
+          "duration_ms": 927.08,
+          "token_count": 807,
           "error": null
         },
         {
@@ -149,11 +192,17 @@
           "gold_evidence_ids": [
             "002475-2025FY-p8-s16"
           ],
-          "model_text": "{\"answer\": \"未提供\", \"evidence_ids\": []}",
+          "model_text": "{\"answer\": \"332,344,443,143.39元\", \"evidence_ids\": [\"002475-2025FY-p8-s16\"]}",
+          "parsed_answer": "332,344,443,143.39元",
+          "returned_evidence_ids": [
+            "002475-2025FY-p8-s16"
+          ],
+          "evidence_hit": true,
+          "valid_json": true,
           "status": "success",
           "failure_reason": null,
-          "duration_ms": 961.91,
-          "token_count": 43,
+          "duration_ms": 583.02,
+          "token_count": 789,
           "error": null
         },
         {
@@ -166,11 +215,17 @@
           "gold_evidence_ids": [
             "002475-2025FY-p8-s20"
           ],
-          "model_text": "{\"answer\": \"未提供\", \"evidence_ids\": []}",
+          "model_text": "{\"answer\": \"17,325,329,533.97元\", \"evidence_ids\": [\"002475-2025FY-p8-s20\"]}",
+          "parsed_answer": "17,325,329,533.97元",
+          "returned_evidence_ids": [
+            "002475-2025FY-p8-s20"
+          ],
+          "evidence_hit": true,
+          "valid_json": true,
           "status": "success",
           "failure_reason": null,
-          "duration_ms": 877.46,
-          "token_count": 47,
+          "duration_ms": 912.85,
+          "token_count": 793,
           "error": null
         },
         {
@@ -183,24 +238,31 @@
           "gold_evidence_ids": [
             "002475-2024FY-p8-s28"
           ],
-          "model_text": "{answer: \"未提供\", evidence_ids: []}",
+          "model_text": "{\"answer\": \"证据中未提供立讯精密2024年末存货数据。\", \"evidence_ids\": [\"002475-2024FY-p8-s28\"]}",
+          "parsed_answer": "证据中未提供立讯精密2024年末存货数据。",
+          "returned_evidence_ids": [
+            "002475-2024FY-p8-s28"
+          ],
+          "evidence_hit": true,
+          "valid_json": true,
           "status": "success",
           "failure_reason": null,
-          "duration_ms": 1083.67,
-          "token_count": 42,
+          "duration_ms": 886.57,
+          "token_count": 810,
           "error": null
         }
       ]
     },
     "dual_agent": {
+      "evidence_hits": 10,
       "hits": null,
       "total": 10,
       "evaluated": 10,
       "failure_count": 0,
       "failure_rate": 0.0,
-      "p50_latency_ms": 1562.26,
-      "p95_latency_ms": 1660.51,
-      "cost_usd": 0.50176,
+      "p50_latency_ms": 1502.05,
+      "p95_latency_ms": 1627.14,
+      "cost_usd": 7.615409999999999,
       "results": [
         {
           "case_id": "case-001",
@@ -212,11 +274,17 @@
           "gold_evidence_ids": [
             "002475-2026H1-p8-m1"
           ],
-          "model_text": "{\"answer\": \"未提供\", \"evidence_ids\": []}",
+          "model_text": "{\"answer\":\"174,504,335,921.25元\",\"evidence_ids\":[\"002475-2026H1-p8-m1\"]}",
+          "parsed_answer": "174,504,335,921.25元",
+          "returned_evidence_ids": [
+            "002475-2026H1-p8-m1"
+          ],
+          "evidence_hit": true,
+          "valid_json": true,
           "status": "success",
           "failure_reason": null,
-          "duration_ms": 1660.51,
-          "token_count": 116,
+          "duration_ms": 1291.86,
+          "token_count": 1714,
           "error": null
         },
         {
@@ -229,11 +297,17 @@
           "gold_evidence_ids": [
             "002475-2026H1-p8-m0"
           ],
-          "model_text": "{\"answer\": \"无法确定\", \"evidence_ids\": []}",
+          "model_text": "{\"answer\": \"7,842,698,288.86元\", \"evidence_ids\": [\"002475-2026H1-p8-m0\"]}",
+          "parsed_answer": "7,842,698,288.86元",
+          "returned_evidence_ids": [
+            "002475-2026H1-p8-m0"
+          ],
+          "evidence_hit": true,
+          "valid_json": true,
           "status": "success",
           "failure_reason": null,
-          "duration_ms": 1645.84,
-          "token_count": 119,
+          "duration_ms": 1804.42,
+          "token_count": 1722,
           "error": null
         },
         {
@@ -246,11 +320,17 @@
           "gold_evidence_ids": [
             "002475-2026H1-p60-m0"
           ],
-          "model_text": "{\"answer\": \"无法确定。提供的资料中没有立讯精密2026年6月30日的存货数据。\", \"evidence_ids\": []}",
+          "model_text": "{\"answer\": \"立讯精密2026年6月30日存货为50,367,311,994.53元。\", \"evidence_ids\": [\"002475-2026H1-p60-m0\"]}",
+          "parsed_answer": "立讯精密2026年6月30日存货为50,367,311,994.53元。",
+          "returned_evidence_ids": [
+            "002475-2026H1-p60-m0"
+          ],
+          "evidence_hit": true,
+          "valid_json": true,
           "status": "success",
           "failure_reason": null,
-          "duration_ms": 1640.17,
-          "token_count": 128,
+          "duration_ms": 1369.25,
+          "token_count": 1239,
           "error": null
         },
         {
@@ -265,11 +345,17 @@
           "gold_evidence_ids": [
             "002475-2026H1-p8-m1"
           ],
-          "model_text": "{\"answer\": \"无法确定\", \"evidence_ids\": []}",
+          "model_text": "{\"answer\": \"40.16%\", \"evidence_ids\": [\"002475-2026H1-p8-m1\"]}",
+          "parsed_answer": "40.16%",
+          "returned_evidence_ids": [
+            "002475-2026H1-p8-m1"
+          ],
+          "evidence_hit": true,
+          "valid_json": true,
           "status": "success",
           "failure_reason": null,
-          "duration_ms": 1463.7,
-          "token_count": 88,
+          "duration_ms": 1627.14,
+          "token_count": 1706,
           "error": null
         },
         {
@@ -284,11 +370,17 @@
           "gold_evidence_ids": [
             "002475-2026H1-p8-m0"
           ],
-          "model_text": "{\"answer\": \"无法确定\", \"evidence_ids\": []}",
+          "model_text": "{\"answer\": \"18.04%\", \"evidence_ids\": [\"002475-2026H1-p8-m0\"]}",
+          "parsed_answer": "18.04%",
+          "returned_evidence_ids": [
+            "002475-2026H1-p8-m0"
+          ],
+          "evidence_hit": true,
+          "valid_json": true,
           "status": "success",
           "failure_reason": null,
-          "duration_ms": 1724.12,
-          "token_count": 92,
+          "duration_ms": 1572.78,
+          "token_count": 1710,
           "error": null
         },
         {
@@ -300,11 +392,17 @@
           "gold_evidence_ids": [
             "002475-2026H1-p8-m0"
           ],
-          "model_text": "{\"answer\": \"无法确定\", \"evidence_ids\": []}",
+          "model_text": "{\"answer\": \"元\", \"evidence_ids\": [\"002475-2026H1-p8-m0\"]}",
+          "parsed_answer": "元",
+          "returned_evidence_ids": [
+            "002475-2026H1-p8-m0"
+          ],
+          "evidence_hit": true,
+          "valid_json": true,
           "status": "success",
           "failure_reason": null,
-          "duration_ms": 1323.9,
-          "token_count": 99,
+          "duration_ms": 1355.9,
+          "token_count": 1702,
           "error": null
         },
         {
@@ -317,11 +415,17 @@
           "gold_evidence_ids": [
             "002475-2024FY-p8-s16"
           ],
-          "model_text": "{\"answer\": \"2687.95亿元\", \"evidence_ids\": []}",
+          "model_text": "{\"answer\": \"268,794,737,612.58元\", \"evidence_ids\": [\"002475-2024FY-p8-s16\"]}",
+          "parsed_answer": "268,794,737,612.58元",
+          "returned_evidence_ids": [
+            "002475-2024FY-p8-s16"
+          ],
+          "evidence_hit": true,
+          "valid_json": true,
           "status": "success",
           "failure_reason": null,
-          "duration_ms": 1562.26,
-          "token_count": 91,
+          "duration_ms": 1353.79,
+          "token_count": 1623,
           "error": null
         },
         {
@@ -334,11 +438,17 @@
           "gold_evidence_ids": [
             "002475-2025FY-p8-s16"
           ],
-          "model_text": "{\"answer\": \"未提供\", \"evidence_ids\": []}",
+          "model_text": "{\"answer\": \"332,344,443,143.39元\", \"evidence_ids\": [\"002475-2025FY-p8-s16\"]}",
+          "parsed_answer": "332,344,443,143.39元",
+          "returned_evidence_ids": [
+            "002475-2025FY-p8-s16"
+          ],
+          "evidence_hit": true,
+          "valid_json": true,
           "status": "success",
           "failure_reason": null,
-          "duration_ms": 1501.63,
-          "token_count": 99,
+          "duration_ms": 1064.6,
+          "token_count": 1578,
           "error": null
         },
         {
@@ -351,11 +461,17 @@
           "gold_evidence_ids": [
             "002475-2025FY-p8-s20"
           ],
-          "model_text": "{\"answer\": \"未提供\", \"evidence_ids\": []}",
+          "model_text": "{\"answer\": \"173.25亿元（17,325,329,533.97元）\", \"evidence_ids\": [\"002475-2025FY-p8-s20\"]}",
+          "parsed_answer": "173.25亿元（17,325,329,533.97元）",
+          "returned_evidence_ids": [
+            "002475-2025FY-p8-s20"
+          ],
+          "evidence_hit": true,
+          "valid_json": true,
           "status": "success",
           "failure_reason": null,
-          "duration_ms": 1395.09,
-          "token_count": 94,
+          "duration_ms": 1502.05,
+          "token_count": 1592,
           "error": null
         },
         {
@@ -368,11 +484,17 @@
           "gold_evidence_ids": [
             "002475-2024FY-p8-s28"
           ],
-          "model_text": "{\"answer\": \"无法从提供的资料中确认立讯精密2024年末存货金额。\", \"evidence_ids\": []}",
+          "model_text": "{\"answer\": \"所提供的证据中未披露2024年末存货金额。\", \"evidence_ids\": [\"002475-2024FY-p8-s28\"]}",
+          "parsed_answer": "所提供的证据中未披露2024年末存货金额。",
+          "returned_evidence_ids": [
+            "002475-2024FY-p8-s28"
+          ],
+          "evidence_hit": true,
+          "valid_json": true,
           "status": "success",
           "failure_reason": null,
-          "duration_ms": 1444.83,
-          "token_count": 98,
+          "duration_ms": 1547.36,
+          "token_count": 1617,
           "error": null
         }
       ]
@@ -384,10 +506,10 @@
     "p50_latency_ms": null,
     "p95_latency_ms": null,
     "failure_rate": null,
-    "cost_usd": 0.76146
+    "cost_usd": 11.42194
   },
-  "code_version": "98aa07d75a1b50e39994d4fe26eec264c0d9abbf",
-  "generated_at": "2026-11-08T13:10:31.781403+00:00",
+  "code_version": "1327da8adfc04bfea94e0f07c66d24d045e735b6",
+  "generated_at": "2026-11-08T15:34:18.539276+00:00",
   "limitations": [
     "Quality hits remain null until evidence IDs are independently scored.",
     "Real provider results require human review of model evidence."
