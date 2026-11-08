@@ -10,8 +10,8 @@
     "evidence_hit_rate": 1.0,
     "citation_coverage_rate": 1.0,
     "tool_success_rate": 1.0,
-    "p50_latency_ms": 17.55,
-    "p95_latency_ms": 20.37,
+    "p50_latency_ms": 17.32,
+    "p95_latency_ms": 19.95,
     "timeout_rate": 0.0,
     "cost_usd": 0.0
   },
@@ -27,7 +27,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 21.34,
+      "duration_ms": 24.56,
       "error": null
     },
     {
@@ -38,7 +38,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 17.76,
+      "duration_ms": 17.11,
       "error": null
     },
     {
@@ -49,7 +49,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 17.27,
+      "duration_ms": 16.21,
       "error": null
     },
     {
@@ -60,7 +60,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 17.59,
+      "duration_ms": 16.32,
       "error": null
     },
     {
@@ -71,7 +71,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 17.64,
+      "duration_ms": 17.48,
       "error": null
     },
     {
@@ -82,7 +82,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 16.17,
+      "duration_ms": 17.53,
       "error": null
     },
     {
@@ -93,7 +93,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 16.07,
+      "duration_ms": 16.31,
       "error": null
     },
     {
@@ -104,7 +104,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 17.01,
+      "duration_ms": 16.59,
       "error": null
     },
     {
@@ -115,7 +115,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 18.09,
+      "duration_ms": 17.01,
       "error": null
     },
     {
@@ -126,7 +126,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 18.5,
+      "duration_ms": 17.89,
       "error": null
     },
     {
@@ -137,7 +137,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 16.85,
+      "duration_ms": 17.48,
       "error": null
     },
     {
@@ -148,7 +148,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 19.62,
+      "duration_ms": 17.47,
       "error": null
     },
     {
@@ -159,7 +159,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 17.72,
+      "duration_ms": 16.72,
       "error": null
     },
     {
@@ -170,7 +170,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 20.37,
+      "duration_ms": 19.39,
       "error": null
     },
     {
@@ -181,7 +181,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 19.42,
+      "duration_ms": 16.71,
       "error": null
     },
     {
@@ -192,7 +192,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 17.79,
+      "duration_ms": 18.94,
       "error": null
     },
     {
@@ -203,7 +203,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 17.12,
+      "duration_ms": 54.23,
       "error": null
     },
     {
@@ -214,7 +214,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 18.51,
+      "duration_ms": 19.95,
       "error": null
     },
     {
@@ -225,7 +225,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 17.94,
+      "duration_ms": 19.05,
       "error": null
     },
     {
@@ -236,7 +236,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 17.46,
+      "duration_ms": 17.93,
       "error": null
     },
     {
@@ -247,7 +247,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 16.96,
+      "duration_ms": 17.92,
       "error": null
     },
     {
@@ -258,7 +258,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 16.75,
+      "duration_ms": 17.22,
       "error": null
     },
     {
@@ -269,7 +269,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 50.08,
+      "duration_ms": 17.19,
       "error": null
     },
     {
@@ -280,7 +280,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 17.43,
+      "duration_ms": 17.65,
       "error": null
     },
     {
@@ -291,7 +291,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 17.81,
+      "duration_ms": 17.76,
       "error": null
     },
     {
@@ -302,7 +302,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 17.55,
+      "duration_ms": 18.36,
       "error": null
     },
     {
@@ -313,7 +313,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 16.99,
+      "duration_ms": 18.68,
       "error": null
     },
     {
@@ -324,7 +324,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 16.89,
+      "duration_ms": 17.03,
       "error": null
     },
     {
@@ -335,7 +335,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 16.44,
+      "duration_ms": 17.01,
       "error": null
     },
     {
@@ -346,7 +346,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 17.68,
+      "duration_ms": 16.8,
       "error": null
     },
     {
@@ -357,7 +357,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 17.96,
+      "duration_ms": 18.03,
       "error": null
     },
     {
@@ -368,7 +368,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 18.05,
+      "duration_ms": 16.94,
       "error": null
     },
     {
@@ -379,7 +379,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 16.55,
+      "duration_ms": 16.87,
       "error": null
     },
     {
@@ -390,7 +390,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 17.5,
+      "duration_ms": 16.79,
       "error": null
     },
     {
@@ -401,7 +401,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 16.42,
+      "duration_ms": 17.52,
       "error": null
     },
     {
@@ -412,7 +412,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 16.35,
+      "duration_ms": 16.57,
       "error": null
     },
     {
@@ -423,7 +423,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 17.67,
+      "duration_ms": 16.74,
       "error": null
     },
     {
@@ -434,7 +434,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 17.17,
+      "duration_ms": 16.93,
       "error": null
     },
     {
@@ -445,7 +445,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 16.87,
+      "duration_ms": 17.32,
       "error": null
     },
     {
@@ -456,7 +456,7 @@
       "status": "completed",
       "hit": true,
       "citation_covered": true,
-      "duration_ms": 16.27,
+      "duration_ms": 16.81,
       "error": null
     }
   ],
