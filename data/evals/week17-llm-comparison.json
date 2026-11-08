@@ -1,33 +1,400 @@
 {
-  "status": "ready",
-  "mode": "dry_run",
-  "provider": "fake",
-  "model": "deterministic-demo-v1",
+  "status": "measured",
+  "mode": "real_provider",
+  "provider": "openai-compatible",
+  "model": "deepseek-chat",
   "dataset": "data/evals/golden_questions.jsonl",
-  "dataset_split": "development only until protocol is frozen",
+  "dataset_split": "development",
   "corpus_version": "week10-multi-company-v3",
-  "conditions": [
-    "deterministic_baseline",
-    "single_agent",
-    "dual_agent"
-  ],
+  "conditions": {
+    "single_agent": {
+      "hits": null,
+      "total": 10,
+      "evaluated": 10,
+      "failure_count": 0,
+      "failure_rate": 0.0,
+      "p50_latency_ms": 964.02,
+      "p95_latency_ms": 1052.3,
+      "cost_usd": 0.2597,
+      "results": [
+        {
+          "case_id": "case-001",
+          "question": "立讯精密2026年上半年营业收入是多少？",
+          "gold_answer": {
+            "value": "174504335921.25",
+            "unit": "CNY"
+          },
+          "gold_evidence_ids": [
+            "002475-2026H1-p8-m1"
+          ],
+          "model_text": "{\"answer\": \"无法确定：现有信息未提供立讯精密2026年上半年营业收入数据。\", \"evidence_ids\": []}",
+          "status": "success",
+          "failure_reason": null,
+          "duration_ms": 964.02,
+          "token_count": 57,
+          "error": null
+        },
+        {
+          "case_id": "case-002",
+          "question": "立讯精密2026年上半年归属于上市公司股东的净利润是多少？",
+          "gold_answer": {
+            "value": "7842698288.86",
+            "unit": "CNY"
+          },
+          "gold_evidence_ids": [
+            "002475-2026H1-p8-m0"
+          ],
+          "model_text": "{\"answer\": \"无法确定。立讯精密2026年上半年的归属于上市公司股东的净利润尚未披露，需以公司后续正式公告或定期报告为准。\", \"evidence_ids\": []}",
+          "status": "success",
+          "failure_reason": null,
+          "duration_ms": 970.03,
+          "token_count": 73,
+          "error": null
+        },
+        {
+          "case_id": "case-003",
+          "question": "立讯精密2026年6月30日存货是多少？",
+          "gold_answer": {
+            "value": "50367311994.53",
+            "unit": "CNY"
+          },
+          "gold_evidence_ids": [
+            "002475-2026H1-p60-m0"
+          ],
+          "model_text": "{\"answer\": \"无法确定。提供的材料中没有立讯精密2026年6月30日的存货数据；该日期属于未来，相关财务报告尚未披露。\", \"evidence_ids\": []}",
+          "status": "success",
+          "failure_reason": null,
+          "duration_ms": 1052.3,
+          "token_count": 75,
+          "error": null
+        },
+        {
+          "case_id": "case-004",
+          "question": "立讯精密2026年上半年营业收入同比增长多少？",
+          "gold_answer": {
+            "value": "40.16",
+            "unit": "percent",
+            "formula": "(174504335921.25-124503174115.60)/124503174115.60*100",
+            "allowed_error": "0.01"
+          },
+          "gold_evidence_ids": [
+            "002475-2026H1-p8-m1"
+          ],
+          "model_text": "{\"answer\": \"无法确定。提供的资料中没有立讯精密2026年上半年营业收入数据。\", \"evidence_ids\": []}",
+          "status": "success",
+          "failure_reason": null,
+          "duration_ms": 1043.95,
+          "token_count": 57,
+          "error": null
+        },
+        {
+          "case_id": "case-005",
+          "question": "立讯精密2026年上半年归母净利润同比增长多少？",
+          "gold_answer": {
+            "value": "18.04",
+            "unit": "percent",
+            "formula": "(7842698288.86-6644272049.46)/6644272049.46*100",
+            "allowed_error": "0.01"
+          },
+          "gold_evidence_ids": [
+            "002475-2026H1-p8-m0"
+          ],
+          "model_text": "{\"answer\": \"无法确定\", \"evidence_ids\": []}",
+          "status": "success",
+          "failure_reason": null,
+          "duration_ms": 617.3,
+          "token_count": 46,
+          "error": null
+        },
+        {
+          "case_id": "case-006",
+          "question": "2026年半年度报告的财务报表金额单位是什么？",
+          "gold_answer": {
+            "text": "元"
+          },
+          "gold_evidence_ids": [
+            "002475-2026H1-p8-m0"
+          ],
+          "model_text": "{\"answer\": \"无法确定\", \"evidence_ids\": []}",
+          "status": "success",
+          "failure_reason": null,
+          "duration_ms": 744.58,
+          "token_count": 45,
+          "error": null
+        },
+        {
+          "case_id": "case-011",
+          "question": "立讯精密2024年营业收入是多少？",
+          "gold_answer": {
+            "value": "268794737612.58",
+            "unit": "CNY"
+          },
+          "gold_evidence_ids": [
+            "002475-2024FY-p8-s16"
+          ],
+          "model_text": "{answer: \"2687.95亿元\", evidence_ids: []}",
+          "status": "success",
+          "failure_reason": null,
+          "duration_ms": 963.03,
+          "token_count": 45,
+          "error": null
+        },
+        {
+          "case_id": "case-012",
+          "question": "立讯精密2025年营业收入是多少？",
+          "gold_answer": {
+            "value": "332344443143.39",
+            "unit": "CNY"
+          },
+          "gold_evidence_ids": [
+            "002475-2025FY-p8-s16"
+          ],
+          "model_text": "{\"answer\": \"未提供\", \"evidence_ids\": []}",
+          "status": "success",
+          "failure_reason": null,
+          "duration_ms": 961.91,
+          "token_count": 43,
+          "error": null
+        },
+        {
+          "case_id": "case-013",
+          "question": "立讯精密2025年经营活动产生的现金流量净额是多少？",
+          "gold_answer": {
+            "value": "17325329533.97",
+            "unit": "CNY"
+          },
+          "gold_evidence_ids": [
+            "002475-2025FY-p8-s20"
+          ],
+          "model_text": "{\"answer\": \"未提供\", \"evidence_ids\": []}",
+          "status": "success",
+          "failure_reason": null,
+          "duration_ms": 877.46,
+          "token_count": 47,
+          "error": null
+        },
+        {
+          "case_id": "case-014",
+          "question": "立讯精密2024年末存货是多少？",
+          "gold_answer": {
+            "value": "69327010925.99",
+            "unit": "CNY"
+          },
+          "gold_evidence_ids": [
+            "002475-2024FY-p8-s28"
+          ],
+          "model_text": "{answer: \"未提供\", evidence_ids: []}",
+          "status": "success",
+          "failure_reason": null,
+          "duration_ms": 1083.67,
+          "token_count": 42,
+          "error": null
+        }
+      ]
+    },
+    "dual_agent": {
+      "hits": null,
+      "total": 10,
+      "evaluated": 10,
+      "failure_count": 0,
+      "failure_rate": 0.0,
+      "p50_latency_ms": 1562.26,
+      "p95_latency_ms": 1660.51,
+      "cost_usd": 0.50176,
+      "results": [
+        {
+          "case_id": "case-001",
+          "question": "立讯精密2026年上半年营业收入是多少？",
+          "gold_answer": {
+            "value": "174504335921.25",
+            "unit": "CNY"
+          },
+          "gold_evidence_ids": [
+            "002475-2026H1-p8-m1"
+          ],
+          "model_text": "{\"answer\": \"未提供\", \"evidence_ids\": []}",
+          "status": "success",
+          "failure_reason": null,
+          "duration_ms": 1660.51,
+          "token_count": 116,
+          "error": null
+        },
+        {
+          "case_id": "case-002",
+          "question": "立讯精密2026年上半年归属于上市公司股东的净利润是多少？",
+          "gold_answer": {
+            "value": "7842698288.86",
+            "unit": "CNY"
+          },
+          "gold_evidence_ids": [
+            "002475-2026H1-p8-m0"
+          ],
+          "model_text": "{\"answer\": \"无法确定\", \"evidence_ids\": []}",
+          "status": "success",
+          "failure_reason": null,
+          "duration_ms": 1645.84,
+          "token_count": 119,
+          "error": null
+        },
+        {
+          "case_id": "case-003",
+          "question": "立讯精密2026年6月30日存货是多少？",
+          "gold_answer": {
+            "value": "50367311994.53",
+            "unit": "CNY"
+          },
+          "gold_evidence_ids": [
+            "002475-2026H1-p60-m0"
+          ],
+          "model_text": "{\"answer\": \"无法确定。提供的资料中没有立讯精密2026年6月30日的存货数据。\", \"evidence_ids\": []}",
+          "status": "success",
+          "failure_reason": null,
+          "duration_ms": 1640.17,
+          "token_count": 128,
+          "error": null
+        },
+        {
+          "case_id": "case-004",
+          "question": "立讯精密2026年上半年营业收入同比增长多少？",
+          "gold_answer": {
+            "value": "40.16",
+            "unit": "percent",
+            "formula": "(174504335921.25-124503174115.60)/124503174115.60*100",
+            "allowed_error": "0.01"
+          },
+          "gold_evidence_ids": [
+            "002475-2026H1-p8-m1"
+          ],
+          "model_text": "{\"answer\": \"无法确定\", \"evidence_ids\": []}",
+          "status": "success",
+          "failure_reason": null,
+          "duration_ms": 1463.7,
+          "token_count": 88,
+          "error": null
+        },
+        {
+          "case_id": "case-005",
+          "question": "立讯精密2026年上半年归母净利润同比增长多少？",
+          "gold_answer": {
+            "value": "18.04",
+            "unit": "percent",
+            "formula": "(7842698288.86-6644272049.46)/6644272049.46*100",
+            "allowed_error": "0.01"
+          },
+          "gold_evidence_ids": [
+            "002475-2026H1-p8-m0"
+          ],
+          "model_text": "{\"answer\": \"无法确定\", \"evidence_ids\": []}",
+          "status": "success",
+          "failure_reason": null,
+          "duration_ms": 1724.12,
+          "token_count": 92,
+          "error": null
+        },
+        {
+          "case_id": "case-006",
+          "question": "2026年半年度报告的财务报表金额单位是什么？",
+          "gold_answer": {
+            "text": "元"
+          },
+          "gold_evidence_ids": [
+            "002475-2026H1-p8-m0"
+          ],
+          "model_text": "{\"answer\": \"无法确定\", \"evidence_ids\": []}",
+          "status": "success",
+          "failure_reason": null,
+          "duration_ms": 1323.9,
+          "token_count": 99,
+          "error": null
+        },
+        {
+          "case_id": "case-011",
+          "question": "立讯精密2024年营业收入是多少？",
+          "gold_answer": {
+            "value": "268794737612.58",
+            "unit": "CNY"
+          },
+          "gold_evidence_ids": [
+            "002475-2024FY-p8-s16"
+          ],
+          "model_text": "{\"answer\": \"2687.95亿元\", \"evidence_ids\": []}",
+          "status": "success",
+          "failure_reason": null,
+          "duration_ms": 1562.26,
+          "token_count": 91,
+          "error": null
+        },
+        {
+          "case_id": "case-012",
+          "question": "立讯精密2025年营业收入是多少？",
+          "gold_answer": {
+            "value": "332344443143.39",
+            "unit": "CNY"
+          },
+          "gold_evidence_ids": [
+            "002475-2025FY-p8-s16"
+          ],
+          "model_text": "{\"answer\": \"未提供\", \"evidence_ids\": []}",
+          "status": "success",
+          "failure_reason": null,
+          "duration_ms": 1501.63,
+          "token_count": 99,
+          "error": null
+        },
+        {
+          "case_id": "case-013",
+          "question": "立讯精密2025年经营活动产生的现金流量净额是多少？",
+          "gold_answer": {
+            "value": "17325329533.97",
+            "unit": "CNY"
+          },
+          "gold_evidence_ids": [
+            "002475-2025FY-p8-s20"
+          ],
+          "model_text": "{\"answer\": \"未提供\", \"evidence_ids\": []}",
+          "status": "success",
+          "failure_reason": null,
+          "duration_ms": 1395.09,
+          "token_count": 94,
+          "error": null
+        },
+        {
+          "case_id": "case-014",
+          "question": "立讯精密2024年末存货是多少？",
+          "gold_answer": {
+            "value": "69327010925.99",
+            "unit": "CNY"
+          },
+          "gold_evidence_ids": [
+            "002475-2024FY-p8-s28"
+          ],
+          "model_text": "{\"answer\": \"无法从提供的资料中确认立讯精密2024年末存货金额。\", \"evidence_ids\": []}",
+          "status": "success",
+          "failure_reason": null,
+          "duration_ms": 1444.83,
+          "token_count": 98,
+          "error": null
+        }
+      ]
+    }
+  },
   "metrics": {
     "hits": null,
-    "total": null,
+    "total": 10,
     "p50_latency_ms": null,
     "p95_latency_ms": null,
     "failure_rate": null,
-    "cost_usd": null
+    "cost_usd": 0.76146
   },
-  "code_version": "2e0d67041ae2b4db7cb87070f6a19ea1164e93d4",
-  "generated_at": "2026-11-08T05:14:39.983215+00:00",
+  "code_version": "98aa07d75a1b50e39994d4fe26eec264c0d9abbf",
+  "generated_at": "2026-11-08T13:10:31.781403+00:00",
   "limitations": [
-    "dry run has no quality or latency measurements",
-    "synthetic fixtures and real corpus remain separate"
+    "Quality hits remain null until evidence IDs are independently scored.",
+    "Real provider results require human review of model evidence."
   ],
   "safety": {
-    "max_cases": null,
-    "budget_usd": null,
+    "max_cases": 10,
+    "budget_usd": 5.0,
     "api_key_source": "process_environment_only"
   }
 }
