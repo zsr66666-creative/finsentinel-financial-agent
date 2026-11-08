@@ -1,6 +1,7 @@
 from app.model_provider import ModelResponse
 from app.providers.fake import FakeModelProvider
 from app.providers.openai_compatible import ModelProviderError, OpenAICompatibleProvider
+import httpx
 
 
 def test_model_response_contract_has_runtime_metadata():
@@ -36,3 +37,21 @@ def test_real_provider_requires_api_key():
         assert "MODEL_API_KEY" in str(exc)
     else:
         raise AssertionError("missing API key must fail")
+
+
+class _FakeClient:
+    def __init__(self, responses):
+        self.responses = iter(responses)
+        self.calls = 0
+
+    def post(self, *args, **kwargs):
+        self.calls += 1
+        return next(self.responses)
+
+
+def test_real_provider_retries_429_then_succeeds():
+    failed = httpx.Response(429, request=httpx.Request("POST", "https://example.test"))
+    ok = httpx.Response(200, json={"choices": [{"message": {"content": "ok"}}]}, request=httpx.Request("POST", "https://example.test"))
+    client = _FakeClient([failed, ok])
+    result = OpenAICompatibleProvider(api_key="secret", model="m", base_url="https://example.test/v1", retry_backoff_seconds=0, client=client).generate("hi")
+    assert result.text == "ok" and client.calls == 2
