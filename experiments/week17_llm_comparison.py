@@ -24,10 +24,21 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", default="data/evals/week17-llm-comparison.json")
     parser.add_argument("--execute", action="store_true", help="allow configured real provider; no API key is read from files")
+    parser.add_argument("--confirm-real-run", action="store_true", help="required together with --execute")
+    parser.add_argument("--max-cases", type=int, default=0, help="explicit maximum number of cases; required for real runs")
     args = parser.parse_args()
     settings = ModelSettings.from_env()
+    if args.execute and not args.confirm_real_run:
+        raise SystemExit("real runs require --confirm-real-run")
     if args.execute and settings.provider == "fake":
         raise SystemExit("--execute requires MODEL_PROVIDER=openai-compatible")
+    if args.execute and not settings.api_key:
+        raise SystemExit("real runs require MODEL_API_KEY from the process environment")
+    if args.execute and args.max_cases <= 0:
+        raise SystemExit("real runs require --max-cases > 0 to cap spend")
+    budget_usd = float(os.getenv("LLM_EVAL_BUDGET_USD", "0"))
+    if args.execute and budget_usd <= 0:
+        raise SystemExit("real runs require LLM_EVAL_BUDGET_USD > 0")
     result = {
         "status": "ready" if not args.execute else "not_run",
         "mode": "real_provider" if args.execute else "dry_run",
@@ -41,6 +52,7 @@ def main() -> None:
         "code_version": git_version(),
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "limitations": ["dry run has no quality or latency measurements", "synthetic fixtures and real corpus remain separate"],
+        "safety": {"max_cases": args.max_cases if args.execute else None, "budget_usd": budget_usd if args.execute else None, "api_key_source": "process_environment_only"},
     }
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
