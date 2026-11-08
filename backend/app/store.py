@@ -18,12 +18,13 @@ MODELS = {table: record_model(''.join(w.title() for w in table.split('_')), tabl
 
 
 class Store:
-    def __init__(self, url):
+    def __init__(self, url, create_schema=True):
         options = {'connect_args': {'check_same_thread': False}} if url.startswith('sqlite') else {}
         if url in ('sqlite://', 'sqlite:///:memory:'):
             options['poolclass'] = StaticPool
         self.engine = create_engine(url, **options)
-        Base.metadata.create_all(self.engine)
+        if create_schema:
+            Base.metadata.create_all(self.engine)
         self.sessions = sessionmaker(self.engine, expire_on_commit=False)
 
     def all(self, table):
