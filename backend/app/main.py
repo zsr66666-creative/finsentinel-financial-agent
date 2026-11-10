@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from time import perf_counter
 from uuid import uuid4
 from fastapi import FastAPI, HTTPException, Request
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from app.schemas import AnalysisRequest, FeedbackRequest, IngestionRequest, EvalRequest, RiskEvaluationRequest, EventEvaluationRequest
 from app.model_config import ModelSettings
@@ -14,6 +15,7 @@ from app.providers.fake import FakeModelProvider
 from app.providers.openai_compatible import ModelProviderError, OpenAICompatibleProvider
 from app.seed import seed
 from app.store import Store
+from app.database_config import DatabaseConfig
 from app.tools import Tools
 from app.workflow import run_workflow
 from app.financial_calculations import (
@@ -51,21 +53,47 @@ def _metric_response(store, metric, mode):
     }
 
 
+class _UnavailableStore:
+    def all(self, table):
+        raise HTTPException(status_code=503, detail="Database unavailable")
+
+    def get(self, table, key):
+        raise HTTPException(status_code=503, detail="Database unavailable")
+
+    def put(self, table, value):
+        raise HTTPException(status_code=503, detail="Database unavailable")
+
+    def close(self):
+        return None
+
+
 def create_app(database_url=None, data_mode=None):
     url = database_url or os.getenv('DATABASE_URL','sqlite:///./finsentinel.db')
     mode = data_mode or os.getenv('DATA_MODE','synthetic_demo')
-    store = Store(url)
-    if mode == 'synthetic_demo':
-        seed(store)
-    elif mode == 'real_corpus' and os.getenv('CORPUS_PATH'):
-        from app.corpus import load_corpus
-        load_corpus(store,os.environ['CORPUS_PATH'])
+    database_config = DatabaseConfig.from_url(url)
+    logger = logging.getLogger('finsentinel.api')
+    database_error = None
+    try:
+        store = Store(url)
+        if mode == 'synthetic_demo':
+            seed(store)
+        elif mode == 'real_corpus' and os.getenv('CORPUS_PATH'):
+            from app.corpus import load_corpus
+            load_corpus(store,os.environ['CORPUS_PATH'])
+    except Exception as exc:
+        if 'store' in locals():
+            try:
+                store.close()
+            except Exception:
+                pass
+        store = _UnavailableStore()
+        database_error = type(exc).__name__
+        logger.error('Database initialization failed (%s)', database_error)
     tools = Tools(store)
     request_stats = {'total': 0, 'errors': 0, 'total_ms': 0.0}
     recent_requests = deque(maxlen=50)
     latency_samples = deque(maxlen=500)
     status_counts = {}
-    logger = logging.getLogger('finsentinel.api')
 
     def record_request(method, path, status_code, elapsed_ms):
         request_stats['total'] += 1
@@ -115,7 +143,14 @@ def create_app(database_url=None, data_mode=None):
 
     @app.get('/health')
     def health():
-        return {'status':'ok','data_mode':mode,'model':'deterministic-demo','database':'connected'}
+        if database_error is not None:
+            return JSONResponse(status_code=503, content={
+                'status': 'degraded',
+                'data_mode': mode,
+                'model': 'deterministic-demo',
+                'database': {'status': 'unavailable', 'error': 'database_connection_failed'},
+            })
+        return {'status':'ok','data_mode':mode,'model':'deterministic-demo','database':{'status':'connected','dialect':database_config.url.split(':',1)[0].split('+',1)[0]}}
 
     @app.get('/api/v1/observability')
     def observability(request: Request):

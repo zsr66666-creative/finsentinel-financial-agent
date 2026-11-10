@@ -53,11 +53,13 @@
 - Modify: `backend/app/store.py`
 - Test: `backend/tests/test_database_startup.py`
 
-- [ ] Initialize the store from `DATABASE_URL` without changing API routes.
-- [ ] Catch connection failures during startup and expose a safe `/health` response with database status.
-- [ ] Ensure error responses never include passwords or full connection URLs.
-- [ ] Keep synthetic SQLite startup unchanged for local tests.
-- [ ] Run `python -m pytest backend/tests/test_database_startup.py backend/tests/test_backend.py -q`.
+- [x] Initialize the store from `DATABASE_URL` without changing API routes.
+- [x] Catch connection failures during startup and expose a safe `/health` response with database status.
+- [x] Ensure error responses never include passwords or full connection URLs.
+- [x] Keep synthetic SQLite startup unchanged for local tests.
+- [x] Run `python -m pytest backend/tests/test_database_startup.py backend/tests/test_backend.py -q` (8 passed).
+
+PostgreSQL server connectivity and API parity remain unverified; they are covered by Task 4 and later deployment acceptance.
 
 ### Task 4: API parity regression
 
