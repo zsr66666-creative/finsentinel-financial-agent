@@ -70,4 +70,5 @@ PostgreSQL API 对照、迁移回滚和容器启动验收边界见 [`docs/week03
 发布检查清单见 [`docs/release-v0.1-checklist.md`](docs/release-v0.1-checklist.md)，版本变更见 [`CHANGELOG.md`](CHANGELOG.md)。
 
 代码采用 MIT License。第三方数据、PDF、模型和依赖遵守其各自许可。项目用于学习和研究辅助，不构成证券投资建议。详见 `docs/implementation-roadmap.md`、`DATA_LICENSE.md` 和 `SECURITY.md`。
-`nECS deployment and rollback: [deployment guide](docs/ecs-native-deployment.md).
+
+ECS deployment and rollback: [deployment guide](docs/ecs-native-deployment.md).
