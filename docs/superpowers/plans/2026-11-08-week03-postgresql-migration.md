@@ -67,10 +67,10 @@ PostgreSQL server connectivity and API parity remain unverified; they are covere
 - Create: `backend/tests/test_sqlite_postgres_parity.py`
 - Modify: `docs/week03-postgresql-migration.md`
 
-- [ ] Seed the same fixture through SQLite and PostgreSQL stores when `TEST_POSTGRES_URL` is set.
-- [ ] Compare `/api/v1/companies`, `/api/v1/alerts`, `/api/v1/evals/summary`, and evidence responses after normalization of ordering and timestamps.
-- [ ] Skip only the PostgreSQL half when `TEST_POSTGRES_URL` is absent, and report that limitation explicitly.
-- [ ] Record migration command, database versions, table count, and parity result.
+- [x] Add a parity test that seeds the same fixture through SQLite and PostgreSQL stores when `TEST_POSTGRES_URL` is set.
+- [ ] Run and compare `/api/v1/companies`, `/api/v1/alerts`, `/api/v1/evals/summary`, and evidence responses against a real PostgreSQL instance.
+- [x] Skip only the PostgreSQL half when `TEST_POSTGRES_URL` is absent, and report that limitation explicitly.
+- [ ] Record PostgreSQL database version, table count, and measured parity result.
 
 ### Task 5: Compose and rollback acceptance
 
