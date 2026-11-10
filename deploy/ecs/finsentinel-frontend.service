@@ -1,0 +1,18 @@
+[Unit]
+Description=FinSentinel Frontend
+After=network.target finsentinel-backend.service
+
+[Service]
+User=finsentinel
+Group=finsentinel
+WorkingDirectory=/opt/finsentinel/frontend/.next/standalone
+Environment="NODE_ENV=production"
+Environment="HOSTNAME=127.0.0.1"
+Environment="PORT=3000"
+Environment="NEXT_TELEMETRY_DISABLED=1"
+ExecStart=/usr/bin/node /opt/finsentinel/frontend/.next/standalone/server.js
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,18 @@
+[Unit]
+Description=FinSentinel Backend
+After=network.target postgresql.service
+Requires=postgresql.service
+
+[Service]
+User=finsentinel
+Group=finsentinel
+WorkingDirectory=/opt/finsentinel
+Environment="DATABASE_URL=postgresql+psycopg:///finsentinel?host=/var/run/postgresql"
+Environment="DATA_MODE=synthetic_demo"
+Environment="PYTHONUNBUFFERED=1"
+ExecStart=/opt/finsentinel/.venv/bin/python -m uvicorn app.main:app --app-dir /opt/finsentinel/backend --host 127.0.0.1 --port 8000
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
