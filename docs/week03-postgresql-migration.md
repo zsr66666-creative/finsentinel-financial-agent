@@ -23,12 +23,12 @@ of committed files and logs.
 | Check | Status | Evidence |
 |---|---|---|
 | SQLite API contract | PASS | Companies, alerts, evaluation summary, and evidence returned expected data. |
-| PostgreSQL API parity | NOT RUN | No PostgreSQL service or `TEST_POSTGRES_URL` is available in this environment. |
-| PostgreSQL migration on empty database | NOT RUN | Requires a running PostgreSQL instance. |
+| PostgreSQL API parity | PASS | PostgreSQL 18.6, `test_sqlite_postgres_parity.py`: 2 passed, 0 skipped. |
+| PostgreSQL migration on empty database | NOT RUN | The parity test creates tables through `Store`; the versioned migration runner has not been run on PostgreSQL. |
 | SQLite migration up/down | PASS | Covered by `backend/tests/test_migrations.py`. |
 
-The local Podman socket at `127.0.0.1:50078` refused connections and port
-`127.0.0.1:5432` was closed. An attempt to start the existing Podman machine
-from Codex was not executed because the automatic approval service returned
-HTTP 413. PostgreSQL API parity and database version remain unverified.
-PostgreSQL production readiness is not established.
+The local Windows PostgreSQL 18.6 service was used for parity verification.
+The disposable test database contained 14 application tables after the test.
+This proves the selected API responses match SQLite for the synthetic fixture;
+the versioned migration on PostgreSQL, rollback, deployment, and recovery
+checks remain unverified. PostgreSQL production readiness is not established.
