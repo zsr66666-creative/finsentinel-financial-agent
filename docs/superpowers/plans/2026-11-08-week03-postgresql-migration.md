@@ -26,11 +26,11 @@
 - Create: `backend/app/database_config.py`
 - Test: `backend/tests/test_database_config.py`
 
-- [ ] Add the PostgreSQL SQLAlchemy driver and a parser for `DATABASE_URL`.
-- [ ] Preserve `sqlite:///...` and `sqlite:///:memory:` behavior.
-- [ ] Reject unsupported schemes with a clear `ValueError`.
-- [ ] Redact passwords in diagnostic strings.
-- [ ] Run `python -m pytest backend/tests/test_database_config.py -q`.
+- [x] Add the PostgreSQL SQLAlchemy driver and a parser for `DATABASE_URL`.
+- [x] Preserve `sqlite:///...` and `sqlite:///:memory:` behavior.
+- [x] Reject unsupported schemes with a clear `ValueError`.
+- [x] Redact passwords in diagnostic strings.
+- [x] Run `python -m pytest backend/tests/test_database_config.py -q` (2 passed).
 
 ### Task 2: Versioned migration runner
 
@@ -40,11 +40,11 @@
 - Modify: `backend/app/store.py`
 - Test: `backend/tests/test_migrations.py`
 
-- [ ] Add a `schema_migrations` table with migration name and applied timestamp.
-- [ ] Make the initial migration create all existing tables and indexes.
-- [ ] Make repeated migration runs no-op successfully.
-- [ ] Add `migrate_up()` and `migrate_down()` APIs with explicit migration names.
-- [ ] Verify up, second up, down, and up again against a temporary SQLite database.
+- [x] Add a `schema_migrations` table with migration name and applied timestamp.
+- [x] Make the initial migration create all existing tables and indexes.
+- [x] Make repeated migration runs no-op successfully.
+- [x] Add `migrate_up()` and `migrate_down()` APIs with explicit migration names.
+- [x] Verify up, second up, down, and up again against a temporary SQLite database (1 passed).
 
 ### Task 3: PostgreSQL connection and failure handling
 
