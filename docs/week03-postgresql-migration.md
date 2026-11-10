@@ -26,12 +26,20 @@ of committed files and logs.
 | PostgreSQL API parity | PASS | PostgreSQL 18.6, `test_sqlite_postgres_parity.py`: 2 passed, 0 skipped. |
 | PostgreSQL migration on isolated schema | PASS | PostgreSQL 18.6; table count 0 -> 15 -> 0 -> 15; repeated up is a no-op. |
 | SQLite migration up/down | PASS | Covered by `backend/tests/test_migrations.py`. |
+| Backend regression suite | PASS | 2026-11-10: `python -m pytest backend/tests -q` exited 0. The optional PostgreSQL parity half was skipped because `TEST_POSTGRES_URL` was not set in this test process; the PostgreSQL-specific PASS above is from the separately recorded PostgreSQL 18.6 run. |
+| SQLite migration round trip | PASS | 2026-11-10: SQLite 3.50.4; `0 -> 15 -> 0 -> 15`, `idempotent: true`. |
+| Native PostgreSQL application smoke | PASS | 2026-11-10: user confirmed `/health` returned 200 and the Risk Alerts and Company Research pages loaded against local PostgreSQL; the app used `synthetic_demo` data. |
+| Podman Compose container startup | WARN | Not verified. Pulls for `postgres:18-alpine`, `python:3.12-slim`, and `node:22-alpine` timed out at `registry-1.docker.io:443`; no application containers were created. |
 
 The local Windows PostgreSQL 18.6 service was used for parity verification.
 The disposable test database contained 14 application tables after the test.
 This proves the selected API responses match SQLite for the synthetic fixture;
 deployment and recovery checks remain unverified. PostgreSQL production
 readiness is not established.
+
+The native PostgreSQL smoke check confirms local connectivity and page loading
+only. It uses synthetic demo records and does not establish real-corpus or
+production readiness.
 
 ## Task 5: migration and Compose
 
@@ -60,6 +68,6 @@ podman compose -f compose.yaml -f compose.postgres.yaml --profile postgres up --
 
 The PostgreSQL service has `pg_isready` health checks; the PostgreSQL overlay
 makes the backend wait for a healthy database. Both YAML files parsed and the
-dependency contract was checked locally. A container start was not verified:
-Podman machine was unavailable to this Codex environment, and
-`podman_compose` failed to spawn a child process with WinError 5.
+dependency contract was checked locally. A container start remains unverified:
+Podman reaches the image-pull step, but the current network times out connecting
+to Docker Hub on port 443. The failure occurs before application image builds.

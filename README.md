@@ -51,6 +51,8 @@ npm run dev
 
 从仓库根目录运行后端和前端后，先确认 `http://localhost:8000/health` 返回 `200`，再打开 `http://localhost:3000`。页面顶部应显示“数据服务已连接”和 `API ONLINE`。容器启动时使用 `NEXT_PUBLIC_API_URL` 指向后端服务；前端请求失败会保留明确标注的离线演示数据。
 
+PostgreSQL API 对照、迁移回滚和容器启动验收边界见 [`docs/week03-postgresql-migration.md`](docs/week03-postgresql-migration.md)。当前容器镜像拉取受本机到 Docker Hub 的网络连接影响，详见该记录。
+
 ### 真实资料模式
 
 真实资料需要先通过官方来源采集脚本生成本地语料，并设置 `DATA_MODE=real_corpus` 与 `CORPUS_PATH`。仓库默认不上传 PDF、完整提取文本、索引或向量库。上传前请核对来源许可。

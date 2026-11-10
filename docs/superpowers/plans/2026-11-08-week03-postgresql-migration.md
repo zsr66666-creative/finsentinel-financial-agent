@@ -59,7 +59,7 @@
 - [x] Keep synthetic SQLite startup unchanged for local tests.
 - [x] Run `python -m pytest backend/tests/test_database_startup.py backend/tests/test_backend.py -q` (8 passed).
 
-PostgreSQL server connectivity and API parity remain unverified; they are covered by Task 4 and later deployment acceptance.
+At the end of Task 3, PostgreSQL connectivity and API parity were still unverified. Task 4 later verified both against the local PostgreSQL 18.6 service; container deployment remains a separate acceptance item.
 
 ### Task 4: API parity regression
 
@@ -90,7 +90,7 @@ PostgreSQL server connectivity and API parity remain unverified; they are covere
 - Modify: `README.md`
 - Modify: `docs/week03-postgresql-migration.md`
 
-- [ ] Run backend tests and migration checks.
-- [ ] Run `git diff --check`.
-- [ ] Record PASS/WARN/FAIL separately for SQLite, PostgreSQL, rollback, and API parity.
+- [x] Run backend tests and migration checks (backend suite exited 0; SQLite migration round trip passed; PostgreSQL-specific runs are recorded in the status document).
+- [x] Run `git diff --check`.
+- [x] Record PASS/WARN separately for SQLite, PostgreSQL, rollback, API parity, native application smoke, and container startup.
 - [ ] Commit only the Week 03 files and push after verification.
