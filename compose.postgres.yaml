@@ -1,0 +1,7 @@
+services:
+  backend:
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-finsentinel}:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD for PostgreSQL mode}@postgres:5432/${POSTGRES_DB:-finsentinel}

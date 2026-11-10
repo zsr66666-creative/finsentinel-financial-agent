@@ -79,10 +79,10 @@ PostgreSQL server connectivity and API parity remain unverified; they are covere
 - Create: `scripts/week03_migration_check.py`
 - Create: `docs/week03-postgresql-migration.md`
 
-- [ ] Add PostgreSQL service configuration with a health check and a non-secret development password supplied by environment substitution.
-- [ ] Add backend dependency on the database health check.
-- [ ] Make the script run migration up, verify table count, run rollback, and migrate up again.
-- [ ] Run static Compose validation when Podman/Docker is available; otherwise record the exact environment limitation.
+- [x] Add PostgreSQL service configuration with a health check and a password supplied by environment substitution.
+- [x] Add backend dependency on the database health check in the PostgreSQL Compose overlay.
+- [x] Make the script run migration up, verify table count, run rollback, and migrate up again (PostgreSQL 18.6: 0 -> 15 -> 0 -> 15).
+- [x] Parse both Compose YAML files and check dependencies; record that container startup remains unverified in this environment.
 
 ### Task 6: Verification and release checkpoint
 
