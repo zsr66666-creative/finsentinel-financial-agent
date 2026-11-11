@@ -9,7 +9,8 @@ PREFIX = '为这个句子生成表示以用于检索相关文章：'
 
 def main():
     p=argparse.ArgumentParser()
-    p.add_argument('mode',choices=['export','search'])
+    p.add_argument('mode',choices=['export','search','hybrid'])
+    p.add_argument('--disable-vector',action='store_true')
     p.add_argument('--file',required=True)
     p.add_argument('--question',default='立讯精密半年度报告中，董事会对报告真实性作出了什么声明？')
     p.add_argument('--company',default='002475')
@@ -38,7 +39,13 @@ def main():
             raise ValueError('query model mismatch')
         engine=create_engine(os.environ['DATABASE_URL'])
         try:
-            result=search_vectors(engine,package['embedding'],model=package['model'],
+            search=search_vectors
+            positional=[package['embedding']]
+            if args.mode=='hybrid':
+                from app.persisted_hybrid import search_persisted
+                search=search_persisted
+                positional=[package['question'],None if args.disable_vector else package['embedding']]
+            result=search(engine,*positional,model=package['model'],
                 company_code=args.company,period=args.period,top_k=args.top_k,as_of=args.as_of)
             print(json.dumps(result,ensure_ascii=False,indent=2))
         finally:
