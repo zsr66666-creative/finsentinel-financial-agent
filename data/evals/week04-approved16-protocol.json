@@ -1,0 +1,305 @@
+{
+  "cases": [
+    {
+      "id": "Q01",
+      "question": "立讯精密2026年上半年的经营现金流净额，是否足以覆盖同期归母净利润？",
+      "company_code": "002475",
+      "period": "2026H1",
+      "document_id": "002475-2026H1",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s8"
+      ],
+      "allowed_ids": null,
+      "category": "paraphrase",
+      "split": "development",
+      "annotation_status": "human_reviewed",
+      "review_basis": "user approved complete 16-case Markdown and negative scope in this conversation"
+    },
+    {
+      "id": "Q02",
+      "question": "立讯精密2026年上半年末的资产规模和归属于上市公司股东的权益分别是多少？",
+      "company_code": "002475",
+      "period": "2026H1",
+      "document_id": "002475-2026H1",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-s13",
+        "002475-2026H1-p8-s14"
+      ],
+      "allowed_ids": null,
+      "category": "paraphrase",
+      "split": "development",
+      "annotation_status": "human_reviewed",
+      "review_basis": "user approved complete 16-case Markdown and negative scope in this conversation"
+    },
+    {
+      "id": "Q03",
+      "question": "歌尔股份2026年上半年的日常经营活动是现金净流入还是净流出？",
+      "company_code": "002241",
+      "period": "2026H1",
+      "document_id": "002241-2026H1",
+      "gold_evidence_ids": [
+        "002241-2026H1-p8-s8"
+      ],
+      "allowed_ids": null,
+      "category": "paraphrase",
+      "split": "development",
+      "annotation_status": "human_reviewed",
+      "review_basis": "user approved complete 16-case Markdown and negative scope in this conversation"
+    },
+    {
+      "id": "Q04",
+      "question": "立讯精密2025年的营业规模相较2024年有没有扩大？增长比例是多少？",
+      "company_code": "002475",
+      "period": "2025FY",
+      "document_id": "002475-2025FY",
+      "gold_evidence_ids": [
+        "002475-2025FY-p8-s15"
+      ],
+      "allowed_ids": null,
+      "category": "paraphrase",
+      "split": "development",
+      "annotation_status": "human_reviewed",
+      "review_basis": "user approved complete 16-case Markdown and negative scope in this conversation"
+    },
+    {
+      "id": "Q05",
+      "question": "立讯精密2024年全年营业收入是多少？不要使用2026年半年度数据。",
+      "company_code": "002475",
+      "period": "2024FY",
+      "document_id": "002475-2024FY",
+      "gold_evidence_ids": [
+        "002475-2024FY-p8-s15"
+      ],
+      "allowed_ids": null,
+      "category": "scope",
+      "split": "development",
+      "annotation_status": "human_reviewed",
+      "review_basis": "user approved complete 16-case Markdown and negative scope in this conversation"
+    },
+    {
+      "id": "Q06",
+      "question": "歌尔股份2026年上半年营业收入是多少？不要引用立讯精密的同名指标。",
+      "company_code": "002241",
+      "period": "2026H1",
+      "document_id": "002241-2026H1",
+      "gold_evidence_ids": [
+        "002241-2026H1-p8-s5"
+      ],
+      "allowed_ids": null,
+      "category": "scope",
+      "split": "development",
+      "annotation_status": "human_reviewed",
+      "review_basis": "user approved complete 16-case Markdown and negative scope in this conversation"
+    },
+    {
+      "id": "Q07",
+      "question": "立讯精密2025年全年营业收入是多少？",
+      "company_code": "002475",
+      "period": "2025FY",
+      "document_id": "002475-2025FY",
+      "gold_evidence_ids": [
+        "002475-2025FY-p8-s15"
+      ],
+      "allowed_ids": null,
+      "category": "scope",
+      "split": "development",
+      "annotation_status": "human_reviewed",
+      "review_basis": "user approved complete 16-case Markdown and negative scope in this conversation"
+    },
+    {
+      "id": "Q08",
+      "question": "立讯精密2024年全年经营活动产生的现金流量净额是多少？",
+      "company_code": "002475",
+      "period": "2024FY",
+      "document_id": "002475-2024FY",
+      "gold_evidence_ids": [
+        "002475-2024FY-p8-s18"
+      ],
+      "allowed_ids": null,
+      "category": "scope",
+      "split": "development",
+      "annotation_status": "human_reviewed",
+      "review_basis": "user approved complete 16-case Markdown and negative scope in this conversation"
+    },
+    {
+      "id": "Q09",
+      "question": "立讯精密2026年上半年营业收入同比增长时，期末应收账款和存货相较年初分别增加还是减少？",
+      "company_code": "002475",
+      "period": "2026H1",
+      "document_id": "002475-2026H1",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p60-s20",
+        "002475-2026H1-p60-s30"
+      ],
+      "allowed_ids": null,
+      "category": "multi_evidence",
+      "split": "development",
+      "annotation_status": "human_reviewed",
+      "review_basis": "user approved complete 16-case Markdown and negative scope in this conversation"
+    },
+    {
+      "id": "Q10",
+      "question": "立讯精密2026年上半年基本每股收益与稀释每股收益分别是多少，哪项较低？",
+      "company_code": "002475",
+      "period": "2026H1",
+      "document_id": "002475-2026H1",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-s9",
+        "002475-2026H1-p8-s10"
+      ],
+      "allowed_ids": null,
+      "category": "multi_evidence",
+      "split": "development",
+      "annotation_status": "human_reviewed",
+      "review_basis": "user approved complete 16-case Markdown and negative scope in this conversation"
+    },
+    {
+      "id": "Q11",
+      "question": "立讯精密2026年上半年营业收入与归母净利润是否均同比增长？哪项增速更高？",
+      "company_code": "002475",
+      "period": "2026H1",
+      "document_id": "002475-2026H1",
+      "gold_evidence_ids": [
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p8-s6"
+      ],
+      "allowed_ids": null,
+      "category": "multi_evidence",
+      "split": "development",
+      "annotation_status": "human_reviewed",
+      "review_basis": "user approved complete 16-case Markdown and negative scope in this conversation"
+    },
+    {
+      "id": "Q12",
+      "question": "歌尔股份2026年上半年是否出现归母净利润为正、经营现金流净额为负的情况？请分别列出金额。",
+      "company_code": "002241",
+      "period": "2026H1",
+      "document_id": "002241-2026H1",
+      "gold_evidence_ids": [
+        "002241-2026H1-p8-s6",
+        "002241-2026H1-p8-s8"
+      ],
+      "allowed_ids": null,
+      "category": "multi_evidence",
+      "split": "development",
+      "annotation_status": "human_reviewed",
+      "review_basis": "user approved complete 16-case Markdown and negative scope in this conversation"
+    },
+    {
+      "id": "Q13",
+      "question": "仅凭证据包 N，能否确定某客户2027年的采购金额？",
+      "company_code": "002475",
+      "period": "2026H1",
+      "document_id": "002475-2026H1",
+      "gold_evidence_ids": [],
+      "allowed_ids": [
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s8",
+        "002475-2026H1-p60-s20",
+        "002475-2026H1-p60-s30"
+      ],
+      "category": "insufficient",
+      "split": "development",
+      "annotation_status": "human_reviewed",
+      "review_basis": "user approved complete 16-case Markdown and negative scope in this conversation"
+    },
+    {
+      "id": "Q14",
+      "question": "仅凭证据包 N，能否给出立讯精密2026年7月单月营业收入？",
+      "company_code": "002475",
+      "period": "2026H1",
+      "document_id": "002475-2026H1",
+      "gold_evidence_ids": [],
+      "allowed_ids": [
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s8",
+        "002475-2026H1-p60-s20",
+        "002475-2026H1-p60-s30"
+      ],
+      "category": "insufficient",
+      "split": "development",
+      "annotation_status": "human_reviewed",
+      "review_basis": "user approved complete 16-case Markdown and negative scope in this conversation"
+    },
+    {
+      "id": "Q15",
+      "question": "仅凭证据包 N，能否确定某型号产品的毛利率？",
+      "company_code": "002475",
+      "period": "2026H1",
+      "document_id": "002475-2026H1",
+      "gold_evidence_ids": [],
+      "allowed_ids": [
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s8",
+        "002475-2026H1-p60-s20",
+        "002475-2026H1-p60-s30"
+      ],
+      "category": "insufficient",
+      "split": "development",
+      "annotation_status": "human_reviewed",
+      "review_basis": "user approved complete 16-case Markdown and negative scope in this conversation"
+    },
+    {
+      "id": "Q16",
+      "question": "仅凭证据包 N，能否确定立讯精密2027年全年归母净利润预测金额？",
+      "company_code": "002475",
+      "period": "2026H1",
+      "document_id": "002475-2026H1",
+      "gold_evidence_ids": [],
+      "allowed_ids": [
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s8",
+        "002475-2026H1-p60-s20",
+        "002475-2026H1-p60-s30"
+      ],
+      "category": "insufficient",
+      "split": "development",
+      "annotation_status": "human_reviewed",
+      "review_basis": "user approved complete 16-case Markdown and negative scope in this conversation"
+    }
+  ],
+  "documents": [
+    {
+      "id": "002241-2026H1",
+      "pdf_sha256": "272bf426ad236cb7bab8f8b0fbd6c2c5eca718f8e0edaf0b9a27256f42dae908",
+      "extracted_json_sha256": "4c75a01804d1db9474e4357379a023b4d860fb9c4b712aefc0eb0575eaf8d91a"
+    },
+    {
+      "id": "002475-2024FY",
+      "pdf_sha256": "e436b5ab1775cfa05aacb4a16dd8e5c6b89e926ed18a7a55a86728bab6fcb1da",
+      "extracted_json_sha256": "952adc504cf49d6430d27ddd65e8bf1600f77745606339e0b33d997eade06bab"
+    },
+    {
+      "id": "002475-2025FY",
+      "pdf_sha256": "957556c331a237cc3235b63659e884c7e1e877b6460f06d5039159f1598e4e46",
+      "extracted_json_sha256": "8afb9526cb546b8ca84a4861457029ec605689740fd93796ca7f68a244fd643f"
+    },
+    {
+      "id": "002475-2026H1",
+      "pdf_sha256": "841a3271cddd0e0e6bf9d60e39bda69fa48de13c67300c313395d849bddfa588",
+      "extracted_json_sha256": "fd4cec0bdd461ea893309efefd97f138244d34398459a8c613f5814127ae8f5f"
+    }
+  ],
+  "question_source_sha256": "9fcb11c8f3918994e2e4b382f5f6505d3e3a07ed462ed9783b82941e227022f6",
+  "corpus_sha256": "145ff3dc16149f250bcf4fc23dfcbcf7a233d81ed2b73ac08979cf6046878466",
+  "model": "BAAI/bge-small-zh-v1.5",
+  "revision": "7999e1d3359715c523056ef9478215996d62a620",
+  "dimensions": 512,
+  "query_prefix": "为这个句子生成表示以用于检索相关文章：",
+  "bm25": {
+    "k1": 1.2,
+    "b": 0.75,
+    "query_expansion": true
+  },
+  "rrf_k": 60,
+  "candidate_depth": 20,
+  "scope": "filter before ranking, negatives restricted to evidence packet N",
+  "source_code_sha256": "03509c2dffbe70a6c28c927b8d753004ec576c7990fbedb42de7639ba6232995",
+  "retrieval_code_sha256": "682c0e13241b8d304803fda5938ed8513ca958d79fb77edbbb76aa592116a95c"
+}
