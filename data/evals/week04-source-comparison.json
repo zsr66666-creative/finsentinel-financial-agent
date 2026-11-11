@@ -1,0 +1,117 @@
+{
+  "pdf_sha256": "841a3271cddd0e0e6bf9d60e39bda69fa48de13c67300c313395d849bddfa588",
+  "human_review": "user confirmed physical pages 62-63, dates and CNY unit in chat",
+  "evidence": {
+    "parent": {
+      "current": "5313841643.82",
+      "previous": "5620343695.37",
+      "evidence_ids": [
+        "002475-2026H1-p62-scope",
+        "002475-2026H1-p63-line11"
+      ]
+    },
+    "consolidated": {
+      "current": "47666294604.50",
+      "previous": "48438796114.12",
+      "evidence_ids": [
+        "002475-2026H1-p60-scope",
+        "002475-2026H1-p60-line37"
+      ]
+    }
+  },
+  "cases": [
+    {
+      "case_id": "parent-greater",
+      "passed": true,
+      "result": {
+        "status": "supported",
+        "claim_true": false,
+        "difference": "-306502051.55",
+        "unit": "CNY",
+        "evidence_ids": [
+          "002475-2026H1-p62-scope",
+          "002475-2026H1-p63-line11"
+        ]
+      }
+    },
+    {
+      "case_id": "parent-not_greater",
+      "passed": true,
+      "result": {
+        "status": "supported",
+        "claim_true": true,
+        "difference": "-306502051.55",
+        "unit": "CNY",
+        "evidence_ids": [
+          "002475-2026H1-p62-scope",
+          "002475-2026H1-p63-line11"
+        ]
+      }
+    },
+    {
+      "case_id": "consolidated-greater",
+      "passed": true,
+      "result": {
+        "status": "supported",
+        "claim_true": false,
+        "difference": "-772501509.62",
+        "unit": "CNY",
+        "evidence_ids": [
+          "002475-2026H1-p60-scope",
+          "002475-2026H1-p60-line37"
+        ]
+      }
+    },
+    {
+      "case_id": "consolidated-not_greater",
+      "passed": true,
+      "result": {
+        "status": "supported",
+        "claim_true": true,
+        "difference": "-772501509.62",
+        "unit": "CNY",
+        "evidence_ids": [
+          "002475-2026H1-p60-scope",
+          "002475-2026H1-p60-line37"
+        ]
+      }
+    },
+    {
+      "case_id": "mixed-scope",
+      "passed": true,
+      "result": {
+        "status": "needs_review",
+        "claim_true": null,
+        "evidence_ids": [],
+        "reason": "unsupported_or_incompatible_evidence"
+      }
+    },
+    {
+      "case_id": "missing-source",
+      "passed": true,
+      "result": {
+        "status": "needs_review",
+        "claim_true": null,
+        "evidence_ids": [],
+        "reason": "unsupported_or_incompatible_evidence"
+      }
+    },
+    {
+      "case_id": "forecast",
+      "passed": true,
+      "result": {
+        "status": "needs_review",
+        "claim_true": null,
+        "evidence_ids": [],
+        "reason": "unsupported_or_incompatible_evidence"
+      }
+    }
+  ],
+  "passed": 7,
+  "limitations": [
+    "explicit metric/scope/relation inputs; no natural-language parser",
+    "source line IDs are audit anchors, not persisted chunk IDs",
+    "single reviewed PDF, no independent generalization measurement",
+    "production API and Alibaba database unchanged"
+  ]
+}
