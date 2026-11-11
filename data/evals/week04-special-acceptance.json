@@ -1,0 +1,114 @@
+{
+  "date": "2026-11-11",
+  "source_pdf_sha256": "841a3271cddd0e0e6bf9d60e39bda69fa48de13c67300c313395d849bddfa588",
+  "algorithm_sha256": "543769a51ef7f024a7280e957b3e5387859683b2c982f614851d3a883b2ecccf",
+  "conditions": "real local sparse extracted pages for scope; injected failures for degradation, no live provider fault",
+  "production_default_change": "blocked by scope and support gaps; no deployment performed",
+  "counts": {
+    "PASS": 6,
+    "FAIL": 2,
+    "NOT_MEASURED": 2
+  },
+  "checks": [
+    {
+      "check": "statement_scope_consolidated",
+      "status": "PASS",
+      "question": "合并资产负债表应收账款是多少？",
+      "expected_first": "002475-2026H1-p60-s20",
+      "actual_ids": [
+        "002475-2026H1-p60-s20",
+        "002475-2026H1-p13-s28",
+        "002475-2026H1-p63-s4",
+        "002475-2026H1-p60-s24",
+        "002475-2026H1-p63-s5"
+      ],
+      "scope_note": "same-page consolidated title"
+    },
+    {
+      "check": "statement_scope_parent",
+      "status": "FAIL",
+      "question": "母公司资产负债表应收账款是多少？",
+      "expected_first": null,
+      "actual_ids": [
+        "002475-2026H1-p60-s20",
+        "002475-2026H1-p13-s28",
+        "002475-2026H1-p63-s4",
+        "002475-2026H1-p60-s24",
+        "002475-2026H1-p63-s5"
+      ],
+      "scope_note": "parent query must not prioritize explicitly consolidated row; p63 candidate scope remains unverified"
+    },
+    {
+      "check": "unknown_continuation_scope",
+      "status": "FAIL",
+      "actual_ids": [
+        "002475-2026H1-p63-s4"
+      ],
+      "reason": "retriever returns unclassified row without scope warning; missing page context"
+    },
+    {
+      "check": "negation",
+      "status": "NOT_MEASURED",
+      "question": "营业收入是否没有增长？",
+      "returned_ids": [
+        "002475-2026H1-p11-s34",
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p13-s9",
+        "002475-2026H1-p82-s18",
+        "002475-2026H1-p13-s18"
+      ],
+      "reason": "candidate-only interface has no answer support/negation decision; cannot score correct refusal"
+    },
+    {
+      "check": "missing_evidence",
+      "status": "NOT_MEASURED",
+      "question": "2027年7月营业收入预测是多少？",
+      "returned_ids": [
+        "002475-2026H1-p11-s34",
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p13-s9",
+        "002475-2026H1-p82-s18",
+        "002475-2026H1-p13-s18"
+      ],
+      "reason": "candidate-only interface has no answer support/negation decision; cannot score correct refusal"
+    },
+    {
+      "check": "fallback_timeout",
+      "status": "PASS",
+      "mode": "bm25_only",
+      "warnings": [
+        "vector_unavailable:TimeoutError"
+      ]
+    },
+    {
+      "check": "fallback_invalid_vector",
+      "status": "PASS",
+      "mode": "bm25_only",
+      "warnings": [
+        "vector_unavailable:ValueError"
+      ]
+    },
+    {
+      "check": "fallback_provider_failure",
+      "status": "PASS",
+      "mode": "bm25_only",
+      "warnings": [
+        "vector_unavailable:RuntimeError"
+      ]
+    },
+    {
+      "check": "fallback_disabled",
+      "status": "PASS",
+      "warnings": [
+        "vector_not_configured"
+      ]
+    },
+    {
+      "check": "fallback_empty",
+      "status": "PASS",
+      "warnings": [
+        "vector_empty"
+      ]
+    }
+  ]
+}
