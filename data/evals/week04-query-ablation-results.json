@@ -1,0 +1,1269 @@
+{
+  "protocol": {
+    "base_protocol_sha256": "434401b920f4a3a45de174e6d2fdb6dd787aa2ae2860e5e990d60a352ca2896b",
+    "baseline_results_sha256": "42c9d2f2e4cb75c8fefb1ae3f97415a2c7f4aafd626da262859ae6b2b4746cf0",
+    "query_code_sha256": "af94410df12e1ba9fe2379cf8f84adc8beef7f98ff8e8f9a49866eab579e5739",
+    "script_sha256": "f08e10c27aff5daa2e1a2dee062cca02a34b65c9661bfed41e42f0bb4ea5688f",
+    "candidate_depth": 20,
+    "rrf_k": 60,
+    "design": "alias rewrite vs metric round-robin; same corpus and scope; unchanged original-query vector ranking",
+    "status": "development tuning after observing approved16 failures, NOT independent validation"
+  },
+  "summary": {
+    "alias_bm25": {
+      "recall_at_5": 0.9444444444444445,
+      "recall_at_10": 0.9722222222222222,
+      "all_gold_at_5": 11,
+      "all_gold_at_10": 11,
+      "answerable_cases": 12,
+      "multi_all_at_5": 5,
+      "multi_all_at_10": 5,
+      "multi_cases": 6,
+      "negative_candidates": 2,
+      "scope_violations": 0,
+      "p50_stage_ms": 24.1565
+    },
+    "balanced_bm25": {
+      "recall_at_5": 0.9444444444444445,
+      "recall_at_10": 0.9444444444444445,
+      "all_gold_at_5": 11,
+      "all_gold_at_10": 11,
+      "answerable_cases": 12,
+      "multi_all_at_5": 5,
+      "multi_all_at_10": 5,
+      "multi_cases": 6,
+      "negative_candidates": 2,
+      "scope_violations": 0,
+      "p50_stage_ms": 26.707500000000003
+    },
+    "balanced_rrf_depth10": {
+      "recall_at_5": 0.9027777777777778,
+      "recall_at_10": 0.9444444444444445,
+      "all_gold_at_5": 10,
+      "all_gold_at_10": 11,
+      "answerable_cases": 12,
+      "multi_all_at_5": 4,
+      "multi_all_at_10": 5,
+      "multi_cases": 6,
+      "negative_candidates": 4,
+      "scope_violations": 0,
+      "p50_stage_ms": 26.729
+    }
+  },
+  "details": [
+    {
+      "case_id": "Q01",
+      "method": "alias_bm25",
+      "queries": [
+        "归属于上市公司股东的净利润",
+        "经营活动产生的现金流量净额"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-s8",
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p8-s14",
+        "002475-2026H1-p82-s19",
+        "002475-2026H1-p82-s23",
+        "002475-2026H1-p21-s21",
+        "002475-2026H1-p82-s22",
+        "002475-2026H1-p82-s13",
+        "002475-2026H1-p59-s15"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 120.814,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q01",
+      "method": "balanced_bm25",
+      "queries": [
+        "归属于上市公司股东的净利润",
+        "经营活动产生的现金流量净额"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s8",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p82-s19",
+        "002475-2026H1-p8-s14",
+        "002475-2026H1-p82-s23",
+        "002475-2026H1-p21-s23",
+        "002475-2026H1-p82-s22",
+        "002475-2026H1-p59-s12",
+        "002475-2026H1-p82-s13"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 125.692,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q01",
+      "method": "balanced_rrf_depth10",
+      "queries": [
+        "归属于上市公司股东的净利润",
+        "经营活动产生的现金流量净额"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-s8",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p21-s23",
+        "002475-2026H1-p1-s1",
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p60-s9",
+        "002475-2026H1-p21-s21",
+        "002475-2026H1-p82-s19",
+        "002475-2026H1-p8-s14",
+        "002475-2026H1-p11-s13"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 125.716,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q02",
+      "method": "alias_bm25",
+      "queries": [
+        "总资产",
+        "归属于上市公司股东的净资产"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-s14",
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p8-s13",
+        "002475-2026H1-p8-s11",
+        "002475-2026H1-p81-s14",
+        "002475-2026H1-p21-s2",
+        "002475-2026H1-p21-s28",
+        "002475-2026H1-p82-s2",
+        "002475-2026H1-p81-s1"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 49.92,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q02",
+      "method": "balanced_bm25",
+      "queries": [
+        "总资产",
+        "归属于上市公司股东的净资产"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-s13",
+        "002475-2026H1-p8-s14",
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p8-s11",
+        "002475-2026H1-p81-s14",
+        "002475-2026H1-p21-s2",
+        "002475-2026H1-p21-s28",
+        "002475-2026H1-p82-s2",
+        "002475-2026H1-p81-s1"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 51.607,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q02",
+      "method": "balanced_rrf_depth10",
+      "queries": [
+        "总资产",
+        "归属于上市公司股东的净资产"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-s14",
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p1-s1",
+        "002475-2026H1-p8-s13",
+        "002475-2026H1-p60-s9",
+        "002475-2026H1-p21-s23",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p21-s19",
+        "002475-2026H1-p8-s11",
+        "002475-2026H1-p81-s14"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 51.629,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q03",
+      "method": "alias_bm25",
+      "queries": [
+        "经营活动产生的现金流量净额"
+      ],
+      "retrieved_ids": [
+        "002241-2026H1-p8-s8",
+        "002241-2026H1-p12-s30",
+        "002241-2026H1-p12-s31",
+        "002241-2026H1-p66-s29",
+        "002241-2026H1-p130-s3",
+        "002241-2026H1-p130-s7",
+        "002241-2026H1-p39-s16",
+        "002241-2026H1-p66-s25",
+        "002241-2026H1-p66-s27",
+        "002241-2026H1-p130-s9"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 31.495,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q03",
+      "method": "balanced_bm25",
+      "queries": [
+        "经营活动产生的现金流量净额"
+      ],
+      "retrieved_ids": [
+        "002241-2026H1-p8-s8",
+        "002241-2026H1-p12-s30",
+        "002241-2026H1-p12-s31",
+        "002241-2026H1-p66-s29",
+        "002241-2026H1-p130-s3",
+        "002241-2026H1-p130-s7",
+        "002241-2026H1-p39-s16",
+        "002241-2026H1-p66-s25",
+        "002241-2026H1-p66-s27",
+        "002241-2026H1-p130-s9"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 32.972,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q03",
+      "method": "balanced_rrf_depth10",
+      "queries": [
+        "经营活动产生的现金流量净额"
+      ],
+      "retrieved_ids": [
+        "002241-2026H1-p8-s8",
+        "002241-2026H1-p12-s30",
+        "002241-2026H1-p12-s31",
+        "002241-2026H1-p66-s25",
+        "002241-2026H1-p1-s1",
+        "002241-2026H1-p66-s29",
+        "002241-2026H1-p130-s3",
+        "002241-2026H1-p40-s9",
+        "002241-2026H1-p130-s7",
+        "002241-2026H1-p8-s6"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 32.995,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q04",
+      "method": "alias_bm25",
+      "queries": [
+        "营业收入"
+      ],
+      "retrieved_ids": [
+        "002475-2025FY-p8-s15",
+        "002475-2025FY-p42-s29",
+        "002475-2025FY-p140-s2",
+        "002475-2025FY-p226-s20",
+        "002475-2025FY-p226-s27",
+        "002475-2025FY-p42-s21",
+        "002475-2025FY-p142-s12",
+        "002475-2025FY-p42-s30",
+        "002475-2025FY-p226-s24"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 20.443,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q04",
+      "method": "balanced_bm25",
+      "queries": [
+        "营业收入"
+      ],
+      "retrieved_ids": [
+        "002475-2025FY-p8-s15",
+        "002475-2025FY-p42-s29",
+        "002475-2025FY-p140-s2",
+        "002475-2025FY-p226-s20",
+        "002475-2025FY-p226-s27",
+        "002475-2025FY-p42-s21",
+        "002475-2025FY-p142-s12",
+        "002475-2025FY-p42-s30",
+        "002475-2025FY-p226-s24"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 20.443,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q04",
+      "method": "balanced_rrf_depth10",
+      "queries": [
+        "营业收入"
+      ],
+      "retrieved_ids": [
+        "002475-2025FY-p1-s1",
+        "002475-2025FY-p8-s15",
+        "002475-2025FY-p42-s29",
+        "002475-2025FY-p43-s14",
+        "002475-2025FY-p116-s11",
+        "002475-2025FY-p140-s2",
+        "002475-2025FY-p111-s25",
+        "002475-2025FY-p226-s20",
+        "002475-2025FY-p226-s27",
+        "002475-2025FY-p42-s3"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 20.463,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q05",
+      "method": "alias_bm25",
+      "queries": [
+        "营业收入"
+      ],
+      "retrieved_ids": [
+        "002475-2024FY-p39-s2",
+        "002475-2024FY-p8-s15",
+        "002475-2024FY-p9-s7",
+        "002475-2024FY-p39-s3",
+        "002475-2024FY-p9-s23",
+        "002475-2024FY-p9-s19"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 14.434,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q05",
+      "method": "balanced_bm25",
+      "queries": [
+        "营业收入"
+      ],
+      "retrieved_ids": [
+        "002475-2024FY-p39-s2",
+        "002475-2024FY-p8-s15",
+        "002475-2024FY-p9-s7",
+        "002475-2024FY-p39-s3",
+        "002475-2024FY-p9-s23",
+        "002475-2024FY-p9-s19"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 13.794,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q05",
+      "method": "balanced_rrf_depth10",
+      "queries": [
+        "营业收入"
+      ],
+      "retrieved_ids": [
+        "002475-2024FY-p8-s15",
+        "002475-2024FY-p9-s7",
+        "002475-2024FY-p1-s1",
+        "002475-2024FY-p39-s2",
+        "002475-2024FY-p122-s4",
+        "002475-2024FY-p50-s7",
+        "002475-2024FY-p39-s3",
+        "002475-2024FY-p9-s16",
+        "002475-2024FY-p1-s2",
+        "002475-2024FY-p9-s23"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 13.812,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q06",
+      "method": "alias_bm25",
+      "queries": [
+        "营业收入"
+      ],
+      "retrieved_ids": [
+        "002241-2026H1-p12-s23",
+        "002241-2026H1-p8-s5",
+        "002241-2026H1-p14-s1",
+        "002241-2026H1-p14-s10",
+        "002241-2026H1-p12-s24",
+        "002241-2026H1-p14-s11",
+        "002241-2026H1-p8-s31",
+        "002241-2026H1-p8-s29"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 12.333,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q06",
+      "method": "balanced_bm25",
+      "queries": [
+        "营业收入"
+      ],
+      "retrieved_ids": [
+        "002241-2026H1-p12-s23",
+        "002241-2026H1-p8-s5",
+        "002241-2026H1-p14-s1",
+        "002241-2026H1-p14-s10",
+        "002241-2026H1-p12-s24",
+        "002241-2026H1-p14-s11",
+        "002241-2026H1-p8-s31",
+        "002241-2026H1-p8-s29"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 13.06,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q06",
+      "method": "balanced_rrf_depth10",
+      "queries": [
+        "营业收入"
+      ],
+      "retrieved_ids": [
+        "002241-2026H1-p12-s23",
+        "002241-2026H1-p8-s5",
+        "002241-2026H1-p14-s10",
+        "002241-2026H1-p1-s1",
+        "002241-2026H1-p40-s9",
+        "002241-2026H1-p14-s1",
+        "002241-2026H1-p14-s44",
+        "002241-2026H1-p14-s43",
+        "002241-2026H1-p12-s24",
+        "002241-2026H1-p8-s6"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 13.079,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q07",
+      "method": "alias_bm25",
+      "queries": [
+        "营业收入"
+      ],
+      "retrieved_ids": [
+        "002475-2025FY-p8-s15",
+        "002475-2025FY-p42-s29",
+        "002475-2025FY-p140-s2",
+        "002475-2025FY-p226-s20",
+        "002475-2025FY-p226-s27",
+        "002475-2025FY-p42-s21",
+        "002475-2025FY-p142-s12",
+        "002475-2025FY-p42-s30",
+        "002475-2025FY-p226-s24"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 20.69,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q07",
+      "method": "balanced_bm25",
+      "queries": [
+        "营业收入"
+      ],
+      "retrieved_ids": [
+        "002475-2025FY-p8-s15",
+        "002475-2025FY-p42-s29",
+        "002475-2025FY-p140-s2",
+        "002475-2025FY-p226-s20",
+        "002475-2025FY-p226-s27",
+        "002475-2025FY-p42-s21",
+        "002475-2025FY-p142-s12",
+        "002475-2025FY-p42-s30",
+        "002475-2025FY-p226-s24"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 19.794,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q07",
+      "method": "balanced_rrf_depth10",
+      "queries": [
+        "营业收入"
+      ],
+      "retrieved_ids": [
+        "002475-2025FY-p1-s1",
+        "002475-2025FY-p8-s15",
+        "002475-2025FY-p116-s11",
+        "002475-2025FY-p42-s29",
+        "002475-2025FY-p111-s25",
+        "002475-2025FY-p140-s2",
+        "002475-2025FY-p111-s22",
+        "002475-2025FY-p226-s20",
+        "002475-2025FY-p111-s12",
+        "002475-2025FY-p226-s27"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 19.814,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q08",
+      "method": "alias_bm25",
+      "queries": [
+        "经营活动产生的现金流量净额"
+      ],
+      "retrieved_ids": [
+        "002475-2024FY-p8-s18",
+        "002475-2024FY-p9-s10",
+        "002475-2024FY-p147-s41",
+        "002475-2024FY-p119-s14",
+        "002475-2024FY-p118-s39",
+        "002475-2024FY-p147-s42",
+        "002475-2024FY-p50-s33",
+        "002475-2024FY-p147-s5",
+        "002475-2024FY-p39-s10",
+        "002475-2024FY-p39-s16"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 38.605,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q08",
+      "method": "balanced_bm25",
+      "queries": [
+        "经营活动产生的现金流量净额"
+      ],
+      "retrieved_ids": [
+        "002475-2024FY-p8-s18",
+        "002475-2024FY-p9-s10",
+        "002475-2024FY-p147-s41",
+        "002475-2024FY-p119-s14",
+        "002475-2024FY-p118-s39",
+        "002475-2024FY-p147-s42",
+        "002475-2024FY-p50-s33",
+        "002475-2024FY-p147-s5",
+        "002475-2024FY-p39-s10",
+        "002475-2024FY-p39-s16"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 37.438,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q08",
+      "method": "balanced_rrf_depth10",
+      "queries": [
+        "经营活动产生的现金流量净额"
+      ],
+      "retrieved_ids": [
+        "002475-2024FY-p8-s18",
+        "002475-2024FY-p9-s10",
+        "002475-2024FY-p122-s4",
+        "002475-2024FY-p147-s41",
+        "002475-2024FY-p1-s1",
+        "002475-2024FY-p119-s14",
+        "002475-2024FY-p118-s39",
+        "002475-2024FY-p39-s26",
+        "002475-2024FY-p147-s42",
+        "002475-2024FY-p50-s7"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 37.458,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q09",
+      "method": "alias_bm25",
+      "queries": [
+        "营业收入",
+        "应收账款",
+        "存货"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p60-s24",
+        "002475-2026H1-p60-s12",
+        "002475-2026H1-p81-s27",
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p63-s5",
+        "002475-2026H1-p160-s20",
+        "002475-2026H1-p60-s20",
+        "002475-2026H1-p63-s4",
+        "002475-2026H1-p60-s21",
+        "002475-2026H1-p11-s34"
+      ],
+      "recall_at_5": 0.3333333333333333,
+      "all_gold_at_5": false,
+      "missing_at_5": [
+        "002475-2026H1-p60-s20",
+        "002475-2026H1-p60-s30"
+      ],
+      "recall_at_10": 0.6666666666666666,
+      "all_gold_at_10": false,
+      "missing_at_10": [
+        "002475-2026H1-p60-s30"
+      ],
+      "duration_ms": 67.377,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q09",
+      "method": "balanced_bm25",
+      "queries": [
+        "营业收入",
+        "应收账款",
+        "存货"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p60-s24",
+        "002475-2026H1-p60-s12",
+        "002475-2026H1-p11-s34",
+        "002475-2026H1-p63-s5",
+        "002475-2026H1-p81-s27",
+        "002475-2026H1-p13-s9",
+        "002475-2026H1-p160-s20",
+        "002475-2026H1-p63-s10",
+        "002475-2026H1-p82-s18"
+      ],
+      "recall_at_5": 0.3333333333333333,
+      "all_gold_at_5": false,
+      "missing_at_5": [
+        "002475-2026H1-p60-s20",
+        "002475-2026H1-p60-s30"
+      ],
+      "recall_at_10": 0.3333333333333333,
+      "all_gold_at_10": false,
+      "missing_at_10": [
+        "002475-2026H1-p60-s20",
+        "002475-2026H1-p60-s30"
+      ],
+      "duration_ms": 71.484,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q09",
+      "method": "balanced_rrf_depth10",
+      "queries": [
+        "营业收入",
+        "应收账款",
+        "存货"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p11-s34",
+        "002475-2026H1-p11-s13",
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p1-s1",
+        "002475-2026H1-p60-s24",
+        "002475-2026H1-p11-s25",
+        "002475-2026H1-p60-s12",
+        "002475-2026H1-p60-s9",
+        "002475-2026H1-p11-s8",
+        "002475-2026H1-p63-s5"
+      ],
+      "recall_at_5": 0.3333333333333333,
+      "all_gold_at_5": false,
+      "missing_at_5": [
+        "002475-2026H1-p60-s20",
+        "002475-2026H1-p60-s30"
+      ],
+      "recall_at_10": 0.3333333333333333,
+      "all_gold_at_10": false,
+      "missing_at_10": [
+        "002475-2026H1-p60-s20",
+        "002475-2026H1-p60-s30"
+      ],
+      "duration_ms": 71.504,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q10",
+      "method": "alias_bm25",
+      "queries": [
+        "基本每股收益",
+        "稀释每股收益"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-s10",
+        "002475-2026H1-p8-s9",
+        "002475-2026H1-p160-s5",
+        "002475-2026H1-p160-s31",
+        "002475-2026H1-p160-s33",
+        "002475-2026H1-p13-s20",
+        "002475-2026H1-p13-s15",
+        "002475-2026H1-p160-s12",
+        "002475-2026H1-p160-s2",
+        "002475-2026H1-p160-s8"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 27.623,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q10",
+      "method": "balanced_bm25",
+      "queries": [
+        "基本每股收益",
+        "稀释每股收益"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-s9",
+        "002475-2026H1-p8-s10",
+        "002475-2026H1-p160-s5",
+        "002475-2026H1-p160-s31",
+        "002475-2026H1-p160-s33",
+        "002475-2026H1-p13-s20",
+        "002475-2026H1-p13-s15",
+        "002475-2026H1-p160-s12",
+        "002475-2026H1-p160-s2",
+        "002475-2026H1-p160-s8"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 43.648,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q10",
+      "method": "balanced_rrf_depth10",
+      "queries": [
+        "基本每股收益",
+        "稀释每股收益"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-s10",
+        "002475-2026H1-p8-s9",
+        "002475-2026H1-p13-s20",
+        "002475-2026H1-p1-s1",
+        "002475-2026H1-p160-s5",
+        "002475-2026H1-p60-s9",
+        "002475-2026H1-p160-s31",
+        "002475-2026H1-p21-s23",
+        "002475-2026H1-p160-s33",
+        "002475-2026H1-p11-s9"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 43.668,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q11",
+      "method": "alias_bm25",
+      "queries": [
+        "营业收入",
+        "归属于上市公司股东的净利润"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p8-s14",
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p11-s34",
+        "002475-2026H1-p13-s9",
+        "002475-2026H1-p82-s18",
+        "002475-2026H1-p21-s23",
+        "002475-2026H1-p13-s18",
+        "002475-2026H1-p13-s19"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 82.17,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q11",
+      "method": "balanced_bm25",
+      "queries": [
+        "营业收入",
+        "归属于上市公司股东的净利润"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p11-s34",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p13-s9",
+        "002475-2026H1-p8-s14",
+        "002475-2026H1-p82-s18",
+        "002475-2026H1-p21-s23",
+        "002475-2026H1-p13-s18",
+        "002475-2026H1-p59-s12"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 83.906,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q11",
+      "method": "balanced_rrf_depth10",
+      "queries": [
+        "营业收入",
+        "归属于上市公司股东的净利润"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p11-s34",
+        "002475-2026H1-p21-s23",
+        "002475-2026H1-p1-s1",
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p60-s9",
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p11-s13",
+        "002475-2026H1-p11-s25",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p13-s9"
+      ],
+      "recall_at_5": 0.5,
+      "all_gold_at_5": false,
+      "missing_at_5": [
+        "002475-2026H1-p8-s6"
+      ],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 83.928,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q12",
+      "method": "alias_bm25",
+      "queries": [
+        "归属于上市公司股东的净利润",
+        "经营活动产生的现金流量净额"
+      ],
+      "retrieved_ids": [
+        "002241-2026H1-p8-s8",
+        "002241-2026H1-p8-s6",
+        "002241-2026H1-p8-s7",
+        "002241-2026H1-p8-s14",
+        "002241-2026H1-p12-s30",
+        "002241-2026H1-p12-s31",
+        "002241-2026H1-p66-s25",
+        "002241-2026H1-p66-s27",
+        "002241-2026H1-p66-s29",
+        "002241-2026H1-p130-s3"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 67.782,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q12",
+      "method": "balanced_bm25",
+      "queries": [
+        "归属于上市公司股东的净利润",
+        "经营活动产生的现金流量净额"
+      ],
+      "retrieved_ids": [
+        "002241-2026H1-p8-s6",
+        "002241-2026H1-p8-s8",
+        "002241-2026H1-p8-s7",
+        "002241-2026H1-p12-s30",
+        "002241-2026H1-p8-s14",
+        "002241-2026H1-p12-s31",
+        "002241-2026H1-p8-s15",
+        "002241-2026H1-p66-s29",
+        "002241-2026H1-p8-s17",
+        "002241-2026H1-p130-s3"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 67.869,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q12",
+      "method": "balanced_rrf_depth10",
+      "queries": [
+        "归属于上市公司股东的净利润",
+        "经营活动产生的现金流量净额"
+      ],
+      "retrieved_ids": [
+        "002241-2026H1-p8-s6",
+        "002241-2026H1-p8-s14",
+        "002241-2026H1-p8-s7",
+        "002241-2026H1-p8-s8",
+        "002241-2026H1-p12-s30",
+        "002241-2026H1-p8-s17",
+        "002241-2026H1-p8-s15",
+        "002241-2026H1-p1-s1",
+        "002241-2026H1-p40-s9",
+        "002241-2026H1-p14-s44"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "duration_ms": 67.89,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q13",
+      "method": "alias_bm25",
+      "queries": [],
+      "retrieved_ids": [],
+      "recall_at_5": null,
+      "all_gold_at_5": null,
+      "missing_at_5": [],
+      "recall_at_10": null,
+      "all_gold_at_10": null,
+      "missing_at_10": [],
+      "duration_ms": 0.104,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q13",
+      "method": "balanced_bm25",
+      "queries": [],
+      "retrieved_ids": [],
+      "recall_at_5": null,
+      "all_gold_at_5": null,
+      "missing_at_5": [],
+      "recall_at_10": null,
+      "all_gold_at_10": null,
+      "missing_at_10": [],
+      "duration_ms": 0.074,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q13",
+      "method": "balanced_rrf_depth10",
+      "queries": [],
+      "retrieved_ids": [
+        "002475-2026H1-p60-s30",
+        "002475-2026H1-p60-s20",
+        "002475-2026H1-p8-s8",
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p8-s6"
+      ],
+      "recall_at_5": null,
+      "all_gold_at_5": null,
+      "missing_at_5": [],
+      "recall_at_10": null,
+      "all_gold_at_10": null,
+      "missing_at_10": [],
+      "duration_ms": 0.081,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q14",
+      "method": "alias_bm25",
+      "queries": [
+        "营业收入"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-s5"
+      ],
+      "recall_at_5": null,
+      "all_gold_at_5": null,
+      "missing_at_5": [],
+      "recall_at_10": null,
+      "all_gold_at_10": null,
+      "missing_at_10": [],
+      "duration_ms": 0.049,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q14",
+      "method": "balanced_bm25",
+      "queries": [
+        "营业收入"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-s5"
+      ],
+      "recall_at_5": null,
+      "all_gold_at_5": null,
+      "missing_at_5": [],
+      "recall_at_10": null,
+      "all_gold_at_10": null,
+      "missing_at_10": [],
+      "duration_ms": 0.056,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q14",
+      "method": "balanced_rrf_depth10",
+      "queries": [
+        "营业收入"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p8-s8",
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p60-s30",
+        "002475-2026H1-p60-s20"
+      ],
+      "recall_at_5": null,
+      "all_gold_at_5": null,
+      "missing_at_5": [],
+      "recall_at_10": null,
+      "all_gold_at_10": null,
+      "missing_at_10": [],
+      "duration_ms": 0.061,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q15",
+      "method": "alias_bm25",
+      "queries": [],
+      "retrieved_ids": [],
+      "recall_at_5": null,
+      "all_gold_at_5": null,
+      "missing_at_5": [],
+      "recall_at_10": null,
+      "all_gold_at_10": null,
+      "missing_at_10": [],
+      "duration_ms": 0.068,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q15",
+      "method": "balanced_bm25",
+      "queries": [],
+      "retrieved_ids": [],
+      "recall_at_5": null,
+      "all_gold_at_5": null,
+      "missing_at_5": [],
+      "recall_at_10": null,
+      "all_gold_at_10": null,
+      "missing_at_10": [],
+      "duration_ms": 0.064,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q15",
+      "method": "balanced_rrf_depth10",
+      "queries": [],
+      "retrieved_ids": [
+        "002475-2026H1-p60-s30",
+        "002475-2026H1-p8-s8",
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p60-s20"
+      ],
+      "recall_at_5": null,
+      "all_gold_at_5": null,
+      "missing_at_5": [],
+      "recall_at_10": null,
+      "all_gold_at_10": null,
+      "missing_at_10": [],
+      "duration_ms": 0.069,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q16",
+      "method": "alias_bm25",
+      "queries": [
+        "归属于上市公司股东的净利润"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-s6"
+      ],
+      "recall_at_5": null,
+      "all_gold_at_5": null,
+      "missing_at_5": [],
+      "recall_at_10": null,
+      "all_gold_at_10": null,
+      "missing_at_10": [],
+      "duration_ms": 0.078,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q16",
+      "method": "balanced_bm25",
+      "queries": [
+        "归属于上市公司股东的净利润"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-s6"
+      ],
+      "recall_at_5": null,
+      "all_gold_at_5": null,
+      "missing_at_5": [],
+      "recall_at_10": null,
+      "all_gold_at_10": null,
+      "missing_at_10": [],
+      "duration_ms": 0.073,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q16",
+      "method": "balanced_rrf_depth10",
+      "queries": [
+        "归属于上市公司股东的净利润"
+      ],
+      "retrieved_ids": [
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s8",
+        "002475-2026H1-p60-s30",
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p60-s20"
+      ],
+      "recall_at_5": null,
+      "all_gold_at_5": null,
+      "missing_at_5": [],
+      "recall_at_10": null,
+      "all_gold_at_10": null,
+      "missing_at_10": [],
+      "duration_ms": 0.078,
+      "scope_violations": 0
+    }
+  ],
+  "limitations": [
+    "development tuning, not generalization",
+    "RRF uses cached baseline Top-10 vector IDs, not live vector retrieval",
+    "stage timing excludes query encoding/vector search; not comparable with baseline end-to-end timing",
+    "four negative cases do not measure answer/refusal quality; no production changes"
+  ]
+}

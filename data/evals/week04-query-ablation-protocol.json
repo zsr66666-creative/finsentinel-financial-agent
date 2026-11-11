@@ -1,0 +1,10 @@
+{
+  "base_protocol_sha256": "434401b920f4a3a45de174e6d2fdb6dd787aa2ae2860e5e990d60a352ca2896b",
+  "baseline_results_sha256": "42c9d2f2e4cb75c8fefb1ae3f97415a2c7f4aafd626da262859ae6b2b4746cf0",
+  "query_code_sha256": "af94410df12e1ba9fe2379cf8f84adc8beef7f98ff8e8f9a49866eab579e5739",
+  "script_sha256": "f08e10c27aff5daa2e1a2dee062cca02a34b65c9661bfed41e42f0bb4ea5688f",
+  "candidate_depth": 20,
+  "rrf_k": 60,
+  "design": "alias rewrite vs metric round-robin; same corpus and scope; unchanged original-query vector ranking",
+  "status": "development tuning after observing approved16 failures, NOT independent validation"
+}
