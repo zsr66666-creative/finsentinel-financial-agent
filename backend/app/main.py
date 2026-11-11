@@ -29,6 +29,9 @@ from app.risk_rules import evaluate_event_rule, evaluate_rules
 from app.retrieval import search_chunks
 from app.evaluation import recall_at_k
 from app.review import next_alert_status, validate_feedback
+from app.schemas import EvidenceComparisonRequest
+from app.persisted_comparison import compare_persisted, compare_rows
+from app.comparison_query import parse_comparison
 
 
 def now():
@@ -114,6 +117,17 @@ def create_app(database_url=None, data_mode=None):
     app.state.store = store
     app.state.model_settings = ModelSettings.from_env()
     app.add_middleware(CORSMiddleware,allow_origins=os.getenv('CORS_ORIGINS','http://localhost:3000').split(','),allow_methods=['GET','POST'],allow_headers=['Content-Type'])
+
+    @app.post('/api/v1/evidence/compare')
+    def evidence_compare(payload: EvidenceComparisonRequest):
+        plan = parse_comparison(payload.question)
+        if plan['status'] != 'parsed' or (plan.get('current_period'), plan.get('previous_period')) != ('2026-06-30', '2025-12-31'):
+            return compare_rows(payload.question, [])
+        try:
+            return compare_persisted(store.engine, payload.question)
+        except Exception:
+            logger.warning('Comparison evidence unavailable')
+            raise HTTPException(status_code=503, detail='comparison_evidence_unavailable')
 
     @app.middleware('http')
     async def request_observability(request: Request, call_next):

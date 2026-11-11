@@ -6,6 +6,10 @@ class StrictModel(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
 
+class EvidenceComparisonRequest(StrictModel):
+    question: str = Field(min_length=1, max_length=500)
+
+
 class AnalysisRequest(StrictModel):
     company_id: str
     question: str = Field(min_length=1, max_length=2000)
