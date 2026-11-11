@@ -1,0 +1,109 @@
+{
+  "source_sha256": "841a3271cddd0e0e6bf9d60e39bda69fa48de13c67300c313395d849bddfa588",
+  "cases": [
+    {
+      "question": "立讯精密2026年6月30日母公司应收账款较2025年12月31日是否增加？",
+      "plan": {
+        "status": "parsed",
+        "company": "002475",
+        "metric": "receivables",
+        "scope": "parent",
+        "current_period": "2026-06-30",
+        "previous_period": "2025-12-31",
+        "relation": "greater"
+      },
+      "result": {
+        "status": "supported",
+        "claim_true": false,
+        "difference": "-306502051.55",
+        "unit": "CNY",
+        "evidence_ids": [
+          "002475-2026H1-p63-s4"
+        ]
+      },
+      "scope_source": "002475-2026H1-p62-scope",
+      "local_chunk_aligned": true,
+      "database_presence": "not_verified"
+    },
+    {
+      "question": "立讯精密2026年6月30日母公司应收账款较2025年12月31日是否未增加？",
+      "plan": {
+        "status": "parsed",
+        "company": "002475",
+        "metric": "receivables",
+        "scope": "parent",
+        "current_period": "2026-06-30",
+        "previous_period": "2025-12-31",
+        "relation": "not_greater"
+      },
+      "result": {
+        "status": "supported",
+        "claim_true": true,
+        "difference": "-306502051.55",
+        "unit": "CNY",
+        "evidence_ids": [
+          "002475-2026H1-p63-s4"
+        ]
+      },
+      "scope_source": "002475-2026H1-p62-scope",
+      "local_chunk_aligned": true,
+      "database_presence": "not_verified"
+    },
+    {
+      "question": "立讯精密2026年6月30日合并应收账款较2025年12月31日是否增加？",
+      "plan": {
+        "status": "parsed",
+        "company": "002475",
+        "metric": "receivables",
+        "scope": "consolidated",
+        "current_period": "2026-06-30",
+        "previous_period": "2025-12-31",
+        "relation": "greater"
+      },
+      "result": {
+        "status": "supported",
+        "claim_true": false,
+        "difference": "-772501509.62",
+        "unit": "CNY",
+        "evidence_ids": [
+          "002475-2026H1-p60-s20"
+        ]
+      },
+      "scope_source": "002475-2026H1-p60-scope",
+      "local_chunk_aligned": true,
+      "database_presence": "not_verified"
+    },
+    {
+      "question": "立讯精密2026年6月30日合并应收账款较2025年12月31日是否未增加？",
+      "plan": {
+        "status": "parsed",
+        "company": "002475",
+        "metric": "receivables",
+        "scope": "consolidated",
+        "current_period": "2026-06-30",
+        "previous_period": "2025-12-31",
+        "relation": "not_greater"
+      },
+      "result": {
+        "status": "supported",
+        "claim_true": true,
+        "difference": "-772501509.62",
+        "unit": "CNY",
+        "evidence_ids": [
+          "002475-2026H1-p60-s20"
+        ]
+      },
+      "scope_source": "002475-2026H1-p60-scope",
+      "local_chunk_aligned": true,
+      "database_presence": "not_verified"
+    }
+  ],
+  "passed": 4,
+  "limitations": [
+    "bounded grammar, not general language understanding",
+    "dates and unit are the human-reviewed exact-document contract",
+    "scope title audit anchor is not a persisted chunk ID",
+    "local span alignment only; Alibaba database presence not verified",
+    "production website and API unchanged"
+  ]
+}
