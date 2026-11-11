@@ -1,0 +1,60 @@
+{
+  "date": "2026-11-11",
+  "pdf_sha256": "841a3271cddd0e0e6bf9d60e39bda69fa48de13c67300c313395d849bddfa588",
+  "fix_code_sha256": "cc272dc1a4f6e314a4266257069c18830012d18afeb059c1324c6c5aeb2e3560",
+  "checks": [
+    {
+      "name": "consolidated_metric",
+      "passed": true,
+      "result": {
+        "items": [
+          {
+            "chunk_id": "002475-2026H1-p60-s20",
+            "statement_scope": "consolidated",
+            "scope_evidence_id": "002475-2026H1-p60-s8"
+          }
+        ],
+        "status": "candidates",
+        "requested_scope": "consolidated",
+        "answer_verified": false,
+        "retrieval_mode": "scope_guarded_exact_metric",
+        "warnings": [],
+        "duration_ms": 1.062
+      }
+    },
+    {
+      "name": "parent_without_verified_header_blocks",
+      "passed": true,
+      "result": {
+        "items": [],
+        "status": "needs_review",
+        "requested_scope": "parent",
+        "answer_verified": false,
+        "retrieval_mode": "scope_guarded_exact_metric",
+        "warnings": [
+          "statement_scope_unverified"
+        ]
+      }
+    },
+    {
+      "name": "unknown_continuation_blocks",
+      "passed": true,
+      "result": {
+        "items": [],
+        "status": "needs_review",
+        "requested_scope": "consolidated",
+        "answer_verified": false,
+        "retrieval_mode": "scope_guarded_exact_metric",
+        "warnings": [
+          "statement_scope_unverified"
+        ]
+      }
+    }
+  ],
+  "passed": 3,
+  "limitations": [
+    "parent amount not verified: sparse corpus lacks required header context",
+    "candidate scope checks do not verify answer semantics, negation or refusal quality",
+    "new opt-in module; production and frozen historical ranking unchanged"
+  ]
+}
