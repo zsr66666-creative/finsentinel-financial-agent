@@ -1,0 +1,736 @@
+{
+  "protocol": {
+    "model": "BAAI/bge-small-zh-v1.5",
+    "revision": "7999e1d3359715c523056ef9478215996d62a620",
+    "dimensions": 512,
+    "corpus_sha256": "bcaf7cf9b590baffd18caa6fa000d8c65a8514225f5295eaf1a897567ef853f2",
+    "cases": [
+      {
+        "id": "w04dev-01",
+        "question": "董事会对半年度报告真实性作出了什么保证？",
+        "gold_evidence_ids": [
+          "002475-2026H1-p2-s2"
+        ],
+        "split": "development",
+        "annotation_status": "assistant_source_checked_pending_human_review"
+      },
+      {
+        "id": "w04dev-02",
+        "question": "营业收入是多少？",
+        "gold_evidence_ids": [
+          "002475-2026H1-p8-s5"
+        ],
+        "split": "development",
+        "annotation_status": "assistant_source_checked_pending_human_review"
+      },
+      {
+        "id": "w04dev-03",
+        "question": "归属于上市公司股东的净利润是多少？",
+        "gold_evidence_ids": [
+          "002475-2026H1-p8-s6"
+        ],
+        "split": "development",
+        "annotation_status": "assistant_source_checked_pending_human_review"
+      },
+      {
+        "id": "w04dev-04",
+        "question": "扣除非经常性损益的净利润是多少？",
+        "gold_evidence_ids": [
+          "002475-2026H1-p8-s7"
+        ],
+        "split": "development",
+        "annotation_status": "assistant_source_checked_pending_human_review"
+      },
+      {
+        "id": "w04dev-05",
+        "question": "经营活动产生的现金流量净额是多少？",
+        "gold_evidence_ids": [
+          "002475-2026H1-p8-s8"
+        ],
+        "split": "development",
+        "annotation_status": "assistant_source_checked_pending_human_review"
+      },
+      {
+        "id": "w04dev-06",
+        "question": "基本每股收益是多少？",
+        "gold_evidence_ids": [
+          "002475-2026H1-p8-s9"
+        ],
+        "split": "development",
+        "annotation_status": "assistant_source_checked_pending_human_review"
+      },
+      {
+        "id": "w04dev-07",
+        "question": "稀释每股收益是多少？",
+        "gold_evidence_ids": [
+          "002475-2026H1-p8-s10"
+        ],
+        "split": "development",
+        "annotation_status": "assistant_source_checked_pending_human_review"
+      },
+      {
+        "id": "w04dev-08",
+        "question": "加权平均净资产收益率是多少？",
+        "gold_evidence_ids": [
+          "002475-2026H1-p8-s11"
+        ],
+        "split": "development",
+        "annotation_status": "assistant_source_checked_pending_human_review"
+      },
+      {
+        "id": "w04dev-09",
+        "question": "总资产是多少？",
+        "gold_evidence_ids": [
+          "002475-2026H1-p8-s13"
+        ],
+        "split": "development",
+        "annotation_status": "assistant_source_checked_pending_human_review"
+      },
+      {
+        "id": "w04dev-10",
+        "question": "归属于上市公司股东的净资产是多少？",
+        "gold_evidence_ids": [
+          "002475-2026H1-p8-s14"
+        ],
+        "split": "development",
+        "annotation_status": "assistant_source_checked_pending_human_review"
+      }
+    ],
+    "bm25": {
+      "k1": 1.2,
+      "b": 0.75
+    },
+    "rrf_k": 60,
+    "candidate_depth": 20,
+    "top_k": 10,
+    "limitations": [
+      "development only; questions selected after source inspection",
+      "gold labels pending human review",
+      "single local PDF copy; official link not independently verified",
+      "no held-out/generalization claim"
+    ]
+  },
+  "code_version": "9c86698fe2f4f2f682266001f4f7d55cb624bbcc",
+  "corpus_chunks": 359,
+  "model_load_ms": 311.223,
+  "document_encoding_ms": 1907.971,
+  "timing": "local CPU, sequential single pass; query encoding included for vector/RRF; no DB/network",
+  "summary": {
+    "bm25": {
+      "cases": 10,
+      "hits_at_5": 10,
+      "hits_at_10": 10,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "p50_ms": 38.824,
+      "p95_ms": 67.379
+    },
+    "vector": {
+      "cases": 10,
+      "hits_at_5": 10,
+      "hits_at_10": 10,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "p50_ms": 10.0405,
+      "p95_ms": 14.694
+    },
+    "rrf": {
+      "cases": 10,
+      "hits_at_5": 10,
+      "hits_at_10": 10,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "p50_ms": 47.9795,
+      "p95_ms": 79.513
+    }
+  },
+  "details": [
+    {
+      "case_id": "w04dev-01",
+      "method": "bm25",
+      "retrieved_ids": [
+        "002475-2026H1-p60-s3",
+        "002475-2026H1-p2-s2",
+        "002475-2026H1-p60-s5",
+        "002475-2026H1-p2-s7",
+        "002475-2026H1-p11-s27",
+        "002475-2026H1-p11-s6",
+        "002475-2026H1-p11-s25",
+        "002475-2026H1-p21-s1",
+        "002475-2026H1-p11-s13",
+        "002475-2026H1-p21-s2"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 67.379,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-01",
+      "method": "vector",
+      "retrieved_ids": [
+        "002475-2026H1-p2-s2",
+        "002475-2026H1-p2-s6",
+        "002475-2026H1-p60-s3",
+        "002475-2026H1-p2-s7",
+        "002475-2026H1-p21-s21",
+        "002475-2026H1-p21-s37",
+        "002475-2026H1-p21-s22",
+        "002475-2026H1-p21-s2",
+        "002475-2026H1-p60-s5",
+        "002475-2026H1-p59-s1"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 14.694,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-01",
+      "method": "rrf",
+      "retrieved_ids": [
+        "002475-2026H1-p2-s2",
+        "002475-2026H1-p60-s3",
+        "002475-2026H1-p2-s7",
+        "002475-2026H1-p60-s5",
+        "002475-2026H1-p21-s21",
+        "002475-2026H1-p21-s2",
+        "002475-2026H1-p21-s1",
+        "002475-2026H1-p2-s6",
+        "002475-2026H1-p11-s27",
+        "002475-2026H1-p11-s6"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 79.513,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-02",
+      "method": "bm25",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p11-s34",
+        "002475-2026H1-p13-s9",
+        "002475-2026H1-p82-s18",
+        "002475-2026H1-p13-s18",
+        "002475-2026H1-p13-s19",
+        "002475-2026H1-p11-s35",
+        "002475-2026H1-p8-s25",
+        "002475-2026H1-p8-s27"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 22.469,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-02",
+      "method": "vector",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p13-s18",
+        "002475-2026H1-p11-s34",
+        "002475-2026H1-p13-s19",
+        "002475-2026H1-p11-s13",
+        "002475-2026H1-p8-s27",
+        "002475-2026H1-p11-s25",
+        "002475-2026H1-p11-s35",
+        "002475-2026H1-p11-s36",
+        "002475-2026H1-p21-s21"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 10.712,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-02",
+      "method": "rrf",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p11-s34",
+        "002475-2026H1-p13-s18",
+        "002475-2026H1-p13-s19",
+        "002475-2026H1-p8-s27",
+        "002475-2026H1-p11-s35",
+        "002475-2026H1-p82-s18",
+        "002475-2026H1-p13-s9",
+        "002475-2026H1-p11-s13",
+        "002475-2026H1-p11-s25"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 32.137,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-03",
+      "method": "bm25",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p8-s14",
+        "002475-2026H1-p21-s23",
+        "002475-2026H1-p59-s12",
+        "002475-2026H1-p81-s14",
+        "002475-2026H1-p21-s2",
+        "002475-2026H1-p21-s28",
+        "002475-2026H1-p11-s39",
+        "002475-2026H1-p8-s16"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 64.065,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-03",
+      "method": "vector",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p8-s14",
+        "002475-2026H1-p81-s15",
+        "002475-2026H1-p21-s19",
+        "002475-2026H1-p2-s8",
+        "002475-2026H1-p81-s14",
+        "002475-2026H1-p21-s24",
+        "002475-2026H1-p59-s12",
+        "002475-2026H1-p21-s23"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 12.684,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-03",
+      "method": "rrf",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p8-s14",
+        "002475-2026H1-p81-s14",
+        "002475-2026H1-p21-s23",
+        "002475-2026H1-p59-s12",
+        "002475-2026H1-p81-s15",
+        "002475-2026H1-p21-s21",
+        "002475-2026H1-p21-s19",
+        "002475-2026H1-p2-s8"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 76.987,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-04",
+      "method": "bm25",
+      "retrieved_ids": [
+        "002475-2026H1-p59-s12",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p8-s22",
+        "002475-2026H1-p8-s28",
+        "002475-2026H1-p8-s27",
+        "002475-2026H1-p21-s23",
+        "002475-2026H1-p13-s16",
+        "002475-2026H1-p82-s3",
+        "002475-2026H1-p82-s7",
+        "002475-2026H1-p81-s23"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 42.842,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-04",
+      "method": "vector",
+      "retrieved_ids": [
+        "002475-2026H1-p59-s12",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p8-s28",
+        "002475-2026H1-p8-s27",
+        "002475-2026H1-p8-s22",
+        "002475-2026H1-p8-s26",
+        "002475-2026H1-p8-s25",
+        "002475-2026H1-p81-s15",
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p13-s16"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 12.786,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-04",
+      "method": "rrf",
+      "retrieved_ids": [
+        "002475-2026H1-p59-s12",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p8-s28",
+        "002475-2026H1-p8-s22",
+        "002475-2026H1-p8-s27",
+        "002475-2026H1-p13-s16",
+        "002475-2026H1-p8-s26",
+        "002475-2026H1-p81-s15",
+        "002475-2026H1-p21-s23",
+        "002475-2026H1-p8-s25"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 55.572,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-05",
+      "method": "bm25",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s8",
+        "002475-2026H1-p82-s19",
+        "002475-2026H1-p82-s23",
+        "002475-2026H1-p82-s22",
+        "002475-2026H1-p82-s13",
+        "002475-2026H1-p59-s15",
+        "002475-2026H1-p82-s24",
+        "002475-2026H1-p11-s19",
+        "002475-2026H1-p160-s10",
+        "002475-2026H1-p21-s25"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 56.339,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-05",
+      "method": "vector",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s8",
+        "002475-2026H1-p63-s16",
+        "002475-2026H1-p63-s38",
+        "002475-2026H1-p8-s25",
+        "002475-2026H1-p13-s12",
+        "002475-2026H1-p81-s11",
+        "002475-2026H1-p60-s13",
+        "002475-2026H1-p63-s15",
+        "002475-2026H1-p60-s36",
+        "002475-2026H1-p63-s23"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 10.102,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-05",
+      "method": "rrf",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s8",
+        "002475-2026H1-p82-s24",
+        "002475-2026H1-p81-s11",
+        "002475-2026H1-p63-s16",
+        "002475-2026H1-p82-s19",
+        "002475-2026H1-p63-s38",
+        "002475-2026H1-p82-s23",
+        "002475-2026H1-p8-s25",
+        "002475-2026H1-p82-s22",
+        "002475-2026H1-p13-s12"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 66.987,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-06",
+      "method": "bm25",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s9",
+        "002475-2026H1-p8-s10",
+        "002475-2026H1-p160-s5",
+        "002475-2026H1-p160-s31",
+        "002475-2026H1-p160-s33",
+        "002475-2026H1-p13-s20",
+        "002475-2026H1-p13-s15",
+        "002475-2026H1-p160-s12",
+        "002475-2026H1-p160-s2",
+        "002475-2026H1-p160-s8"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 21.828,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-06",
+      "method": "vector",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s9",
+        "002475-2026H1-p21-s24",
+        "002475-2026H1-p2-s9",
+        "002475-2026H1-p8-s10",
+        "002475-2026H1-p160-s5",
+        "002475-2026H1-p8-s27",
+        "002475-2026H1-p60-s28",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p13-s15",
+        "002475-2026H1-p160-s31"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 9.019,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-06",
+      "method": "rrf",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s9",
+        "002475-2026H1-p8-s10",
+        "002475-2026H1-p160-s5",
+        "002475-2026H1-p160-s31",
+        "002475-2026H1-p13-s15",
+        "002475-2026H1-p13-s32",
+        "002475-2026H1-p21-s24",
+        "002475-2026H1-p2-s9",
+        "002475-2026H1-p160-s33",
+        "002475-2026H1-p13-s20"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 29.952,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-07",
+      "method": "bm25",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s10",
+        "002475-2026H1-p8-s9",
+        "002475-2026H1-p160-s5",
+        "002475-2026H1-p160-s31",
+        "002475-2026H1-p160-s33",
+        "002475-2026H1-p13-s20",
+        "002475-2026H1-p13-s15",
+        "002475-2026H1-p160-s12",
+        "002475-2026H1-p160-s2",
+        "002475-2026H1-p160-s8"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 22.01,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-07",
+      "method": "vector",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s10",
+        "002475-2026H1-p8-s9",
+        "002475-2026H1-p2-s9",
+        "002475-2026H1-p21-s24",
+        "002475-2026H1-p60-s28",
+        "002475-2026H1-p160-s31",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p81-s32",
+        "002475-2026H1-p2-s8",
+        "002475-2026H1-p21-s20"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 8.509,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-07",
+      "method": "rrf",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s10",
+        "002475-2026H1-p8-s9",
+        "002475-2026H1-p160-s31",
+        "002475-2026H1-p13-s15",
+        "002475-2026H1-p160-s2",
+        "002475-2026H1-p81-s14",
+        "002475-2026H1-p160-s5",
+        "002475-2026H1-p2-s9",
+        "002475-2026H1-p21-s24",
+        "002475-2026H1-p160-s33"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 29.563,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-08",
+      "method": "bm25",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s11",
+        "002475-2026H1-p8-s14",
+        "002475-2026H1-p82-s2",
+        "002475-2026H1-p81-s1",
+        "002475-2026H1-p81-s22",
+        "002475-2026H1-p81-s33",
+        "002475-2026H1-p82-s10"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 35.169,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-08",
+      "method": "vector",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s11",
+        "002475-2026H1-p13-s32",
+        "002475-2026H1-p8-s14",
+        "002475-2026H1-p63-s22",
+        "002475-2026H1-p59-s9",
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p59-s12",
+        "002475-2026H1-p8-s27",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p160-s8"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 9.979,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-08",
+      "method": "rrf",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s11",
+        "002475-2026H1-p8-s14",
+        "002475-2026H1-p13-s32",
+        "002475-2026H1-p82-s2",
+        "002475-2026H1-p63-s22",
+        "002475-2026H1-p81-s1",
+        "002475-2026H1-p59-s9",
+        "002475-2026H1-p81-s22",
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p81-s33"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 44.371,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-09",
+      "method": "bm25",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s13"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 8.246,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-09",
+      "method": "vector",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s13",
+        "002475-2026H1-p63-s39",
+        "002475-2026H1-p63-s30",
+        "002475-2026H1-p63-s12",
+        "002475-2026H1-p63-s25",
+        "002475-2026H1-p60-s13",
+        "002475-2026H1-p63-s13",
+        "002475-2026H1-p59-s9",
+        "002475-2026H1-p13-s26",
+        "002475-2026H1-p160-s31"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 9.46,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-09",
+      "method": "rrf",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s13",
+        "002475-2026H1-p63-s39",
+        "002475-2026H1-p63-s30",
+        "002475-2026H1-p63-s12",
+        "002475-2026H1-p63-s25",
+        "002475-2026H1-p60-s13",
+        "002475-2026H1-p63-s13",
+        "002475-2026H1-p59-s9",
+        "002475-2026H1-p13-s26",
+        "002475-2026H1-p160-s31"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 17.729,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-10",
+      "method": "bm25",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s14",
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p8-s11",
+        "002475-2026H1-p81-s14",
+        "002475-2026H1-p21-s2",
+        "002475-2026H1-p21-s28",
+        "002475-2026H1-p82-s2",
+        "002475-2026H1-p81-s1",
+        "002475-2026H1-p81-s22"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 42.479,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-10",
+      "method": "vector",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s14",
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p21-s19",
+        "002475-2026H1-p81-s14",
+        "002475-2026H1-p82-s7",
+        "002475-2026H1-p82-s2",
+        "002475-2026H1-p82-s10",
+        "002475-2026H1-p21-s24",
+        "002475-2026H1-p81-s15"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 9.444,
+      "miss_reason": null
+    },
+    {
+      "case_id": "w04dev-10",
+      "method": "rrf",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s14",
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p81-s14",
+        "002475-2026H1-p82-s2",
+        "002475-2026H1-p82-s10",
+        "002475-2026H1-p81-s33",
+        "002475-2026H1-p81-s1",
+        "002475-2026H1-p21-s19",
+        "002475-2026H1-p8-s11"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "duration_ms": 51.588,
+      "miss_reason": null
+    }
+  ]
+}
