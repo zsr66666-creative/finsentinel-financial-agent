@@ -1,0 +1,127 @@
+{
+  "cases": [
+    {
+      "id": "T01",
+      "question": "歌尔股份2024年营业规模是多少？",
+      "document_id": "002241-2024FY",
+      "company_code": "002241",
+      "period": "2024FY",
+      "gold_evidence_ids": [
+        "002241-2024FY-p8-s15"
+      ],
+      "label_status": "assistant_source_checked_pending_human_review"
+    },
+    {
+      "id": "T02",
+      "question": "歌尔股份2024年经营现金流净额是多少？",
+      "document_id": "002241-2024FY",
+      "company_code": "002241",
+      "period": "2024FY",
+      "gold_evidence_ids": [
+        "002241-2024FY-p8-s18"
+      ],
+      "label_status": "assistant_source_checked_pending_human_review"
+    },
+    {
+      "id": "T03",
+      "question": "歌尔股份2024年基本每股收益和稀释每股收益分别是多少？",
+      "document_id": "002241-2024FY",
+      "company_code": "002241",
+      "period": "2024FY",
+      "gold_evidence_ids": [
+        "002241-2024FY-p8-s19",
+        "002241-2024FY-p8-s20"
+      ],
+      "label_status": "assistant_source_checked_pending_human_review"
+    },
+    {
+      "id": "T04",
+      "question": "长盈精密2024年营业收入是多少？",
+      "document_id": "300115-2024FY",
+      "company_code": "300115",
+      "period": "2024FY",
+      "gold_evidence_ids": [
+        "300115-2024FY-p8-s10"
+      ],
+      "label_status": "assistant_source_checked_pending_human_review"
+    },
+    {
+      "id": "T05",
+      "question": "长盈精密2024年经营现金流是多少？",
+      "document_id": "300115-2024FY",
+      "company_code": "300115",
+      "period": "2024FY",
+      "gold_evidence_ids": [
+        "300115-2024FY-p8-s13"
+      ],
+      "label_status": "assistant_source_checked_pending_human_review"
+    },
+    {
+      "id": "T06",
+      "question": "长盈精密2024年基本每股收益与稀释每股收益分别是多少？",
+      "document_id": "300115-2024FY",
+      "company_code": "300115",
+      "period": "2024FY",
+      "gold_evidence_ids": [
+        "300115-2024FY-p8-s14",
+        "300115-2024FY-p8-s15"
+      ],
+      "label_status": "assistant_source_checked_pending_human_review"
+    },
+    {
+      "id": "T07",
+      "question": "领益智造2024年营业规模是多少？",
+      "document_id": "002600-2024FY",
+      "company_code": "002600",
+      "period": "2024FY",
+      "gold_evidence_ids": [
+        "002600-2024FY-p10-s20"
+      ],
+      "label_status": "assistant_source_checked_pending_human_review"
+    },
+    {
+      "id": "T08",
+      "question": "蓝思科技2024年营业收入是多少？",
+      "document_id": "300433-2024FY",
+      "company_code": "300433",
+      "period": "2024FY",
+      "gold_evidence_ids": [
+        "300433-2024FY-p7-s7"
+      ],
+      "label_status": "assistant_source_checked_pending_human_review"
+    }
+  ],
+  "documents": [
+    {
+      "id": "002241-2024FY",
+      "pdf_sha256": "da3d961d0b66aa4f4d483266dd6229975416b15dde297c3099a55499aa3bbf33",
+      "json_sha256": "86bff008d3ee4eeffdafb057d4a0ecaba75a499a8411e7289ff4c8b8bcf8997f"
+    },
+    {
+      "id": "002600-2024FY",
+      "pdf_sha256": "a887614b3b2268e7d2c719cddd5355156e06a3ce61dc2b6725c3283137a58e91",
+      "json_sha256": "6e7ee70ccb3f8c1ac2276b1c12273279e599038406e54204a936ac8c5366a79d"
+    },
+    {
+      "id": "300115-2024FY",
+      "pdf_sha256": "f44fc8ab2ea04592ad52abea5cb073208f5a6e81e683659fbd83e4df9fcf7854",
+      "json_sha256": "d6f8eda287b2b57234287b99672a4487c10744af7cc47201f73ffadaa4f9106c"
+    },
+    {
+      "id": "300433-2024FY",
+      "pdf_sha256": "66ae669e4e2f007f1e93745f31ce5a439bbb80219e2c1a47c498c4d96473b984",
+      "json_sha256": "e5fb0f8eb4cf5e3711a59b076600c775c058cd776967157ff026ef22f11017e8"
+    }
+  ],
+  "algorithm_sha256": "543769a51ef7f024a7280e957b3e5387859683b2c982f614851d3a883b2ecccf",
+  "alias_code_sha256": "af94410df12e1ba9fe2379cf8f84adc8beef7f98ff8e8f9a49866eab579e5739",
+  "corpus_sha256": "e3f1ea7c038db981806bbd2a152d6642da9d1a0eab4f86c22ae556b63a7f399a",
+  "script_sha256": "9ca71341561bf14fc1951095fe9fca87aaaea558d8dcb0059a26343ff0b67eeb",
+  "status": "exploratory cross-document transfer; NOT independently curated blind test",
+  "limitations": [
+    "same question templates as development",
+    "documents may have appeared in historical project data",
+    "no algorithm tuning after results",
+    "no negative/table-continuation/negation cases"
+  ]
+}

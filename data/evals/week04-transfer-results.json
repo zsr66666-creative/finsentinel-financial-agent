@@ -1,0 +1,381 @@
+{
+  "summary": {
+    "baseline_bm25": {
+      "cases": 8,
+      "recall_at_5": 0.6875,
+      "recall_at_10": 0.75,
+      "all_gold_at_5": 5,
+      "all_gold_at_10": 6,
+      "scope_violations": 0
+    },
+    "fixed_exact_metric": {
+      "cases": 8,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "all_gold_at_5": 8,
+      "all_gold_at_10": 8,
+      "scope_violations": 0
+    }
+  },
+  "details": [
+    {
+      "case_id": "T01",
+      "method": "baseline_bm25",
+      "retrieved_ids": [
+        "002241-2024FY-p1-s1",
+        "002241-2024FY-p85-s4",
+        "002241-2024FY-p60-s1",
+        "002241-2024FY-p60-s10",
+        "002241-2024FY-p21-s35",
+        "002241-2024FY-p20-s29",
+        "002241-2024FY-p21-s1",
+        "002241-2024FY-p1-s2",
+        "002241-2024FY-p2-s1",
+        "002241-2024FY-p19-s11"
+      ],
+      "recall_at_5": 0.0,
+      "all_gold_at_5": false,
+      "missing_at_5": [
+        "002241-2024FY-p8-s15"
+      ],
+      "recall_at_10": 0.0,
+      "all_gold_at_10": false,
+      "missing_at_10": [
+        "002241-2024FY-p8-s15"
+      ],
+      "scope_violations": 0
+    },
+    {
+      "case_id": "T01",
+      "method": "fixed_exact_metric",
+      "retrieved_ids": [
+        "002241-2024FY-p8-s15",
+        "002241-2024FY-p9-s7",
+        "002241-2024FY-p186-s31",
+        "002241-2024FY-p20-s16",
+        "002241-2024FY-p20-s24",
+        "002241-2024FY-p20-s23",
+        "002241-2024FY-p9-s23"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "scope_violations": 0
+    },
+    {
+      "case_id": "T02",
+      "method": "baseline_bm25",
+      "retrieved_ids": [
+        "002241-2024FY-p19-s39",
+        "002241-2024FY-p8-s18",
+        "002241-2024FY-p9-s10",
+        "002241-2024FY-p19-s42",
+        "002241-2024FY-p20-s2",
+        "002241-2024FY-p20-s6",
+        "002241-2024FY-p21-s5",
+        "002241-2024FY-p1-s1",
+        "002241-2024FY-p20-s11",
+        "002241-2024FY-p20-s9"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "scope_violations": 0
+    },
+    {
+      "case_id": "T02",
+      "method": "fixed_exact_metric",
+      "retrieved_ids": [
+        "002241-2024FY-p19-s39",
+        "002241-2024FY-p8-s18",
+        "002241-2024FY-p9-s10",
+        "002241-2024FY-p19-s42",
+        "002241-2024FY-p20-s2",
+        "002241-2024FY-p20-s6",
+        "002241-2024FY-p21-s5",
+        "002241-2024FY-p20-s11",
+        "002241-2024FY-p20-s9",
+        "002241-2024FY-p20-s13"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "scope_violations": 0
+    },
+    {
+      "case_id": "T03",
+      "method": "baseline_bm25",
+      "retrieved_ids": [
+        "002241-2024FY-p8-s20",
+        "002241-2024FY-p1-s1",
+        "002241-2024FY-p85-s4",
+        "002241-2024FY-p60-s1",
+        "002241-2024FY-p60-s10",
+        "002241-2024FY-p8-s19",
+        "002241-2024FY-p21-s35",
+        "002241-2024FY-p20-s29",
+        "002241-2024FY-p21-s1",
+        "002241-2024FY-p1-s2"
+      ],
+      "recall_at_5": 0.5,
+      "all_gold_at_5": false,
+      "missing_at_5": [
+        "002241-2024FY-p8-s19"
+      ],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "scope_violations": 0
+    },
+    {
+      "case_id": "T03",
+      "method": "fixed_exact_metric",
+      "retrieved_ids": [
+        "002241-2024FY-p8-s19",
+        "002241-2024FY-p8-s20",
+        "002241-2024FY-p21-s30",
+        "002241-2024FY-p186-s1",
+        "002241-2024FY-p186-s24",
+        "002241-2024FY-p20-s20",
+        "002241-2024FY-p9-s30",
+        "002241-2024FY-p186-s26",
+        "002241-2024FY-p186-s28",
+        "002241-2024FY-p186-s27"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "scope_violations": 0
+    },
+    {
+      "case_id": "T04",
+      "method": "baseline_bm25",
+      "retrieved_ids": [
+        "300115-2024FY-p78-s9",
+        "300115-2024FY-p78-s28",
+        "300115-2024FY-p8-s10",
+        "300115-2024FY-p8-s33",
+        "300115-2024FY-p18-s15",
+        "300115-2024FY-p18-s1",
+        "300115-2024FY-p1-s2",
+        "300115-2024FY-p17-s7",
+        "300115-2024FY-p2-s1",
+        "300115-2024FY-p17-s6"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "scope_violations": 0
+    },
+    {
+      "case_id": "T04",
+      "method": "fixed_exact_metric",
+      "retrieved_ids": [
+        "300115-2024FY-p8-s10",
+        "300115-2024FY-p8-s33",
+        "300115-2024FY-p18-s1",
+        "300115-2024FY-p18-s10",
+        "300115-2024FY-p18-s11",
+        "300115-2024FY-p27-s20"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "scope_violations": 0
+    },
+    {
+      "case_id": "T05",
+      "method": "baseline_bm25",
+      "retrieved_ids": [
+        "300115-2024FY-p17-s24",
+        "300115-2024FY-p8-s13",
+        "300115-2024FY-p17-s30",
+        "300115-2024FY-p17-s27",
+        "300115-2024FY-p17-s36",
+        "300115-2024FY-p17-s34",
+        "300115-2024FY-p17-s38",
+        "300115-2024FY-p78-s9",
+        "300115-2024FY-p17-s22",
+        "300115-2024FY-p17-s23"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "scope_violations": 0
+    },
+    {
+      "case_id": "T05",
+      "method": "fixed_exact_metric",
+      "retrieved_ids": [
+        "300115-2024FY-p17-s24",
+        "300115-2024FY-p8-s13",
+        "300115-2024FY-p17-s30",
+        "300115-2024FY-p17-s27",
+        "300115-2024FY-p17-s36",
+        "300115-2024FY-p17-s34",
+        "300115-2024FY-p17-s38",
+        "300115-2024FY-p17-s22",
+        "300115-2024FY-p17-s23",
+        "300115-2024FY-p17-s25"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "scope_violations": 0
+    },
+    {
+      "case_id": "T06",
+      "method": "baseline_bm25",
+      "retrieved_ids": [
+        "300115-2024FY-p8-s15",
+        "300115-2024FY-p78-s9",
+        "300115-2024FY-p8-s29",
+        "300115-2024FY-p8-s14",
+        "300115-2024FY-p78-s28",
+        "300115-2024FY-p18-s15",
+        "300115-2024FY-p1-s2",
+        "300115-2024FY-p17-s7",
+        "300115-2024FY-p2-s1",
+        "300115-2024FY-p8-s8"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "scope_violations": 0
+    },
+    {
+      "case_id": "T06",
+      "method": "fixed_exact_metric",
+      "retrieved_ids": [
+        "300115-2024FY-p8-s14",
+        "300115-2024FY-p8-s15",
+        "300115-2024FY-p8-s29",
+        "300115-2024FY-p18-s7"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "scope_violations": 0
+    },
+    {
+      "case_id": "T07",
+      "method": "baseline_bm25",
+      "retrieved_ids": [
+        "002600-2024FY-p244-s24",
+        "002600-2024FY-p239-s23",
+        "002600-2024FY-p242-s15",
+        "002600-2024FY-p244-s10",
+        "002600-2024FY-p244-s7",
+        "002600-2024FY-p3-s20",
+        "002600-2024FY-p3-s25",
+        "002600-2024FY-p5-s1",
+        "002600-2024FY-p84-s1",
+        "002600-2024FY-p84-s6"
+      ],
+      "recall_at_5": 0.0,
+      "all_gold_at_5": false,
+      "missing_at_5": [
+        "002600-2024FY-p10-s20"
+      ],
+      "recall_at_10": 0.0,
+      "all_gold_at_10": false,
+      "missing_at_10": [
+        "002600-2024FY-p10-s20"
+      ],
+      "scope_violations": 0
+    },
+    {
+      "case_id": "T07",
+      "method": "fixed_exact_metric",
+      "retrieved_ids": [
+        "002600-2024FY-p10-s20",
+        "002600-2024FY-p2-s4",
+        "002600-2024FY-p271-s32",
+        "002600-2024FY-p103-s17",
+        "002600-2024FY-p104-s12",
+        "002600-2024FY-p242-s27",
+        "002600-2024FY-p242-s24",
+        "002600-2024FY-p242-s18",
+        "002600-2024FY-p270-s24",
+        "002600-2024FY-p270-s31"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "scope_violations": 0
+    },
+    {
+      "case_id": "T08",
+      "method": "baseline_bm25",
+      "retrieved_ids": [
+        "300433-2024FY-p1-s0",
+        "300433-2024FY-p114-s2",
+        "300433-2024FY-p112-s7",
+        "300433-2024FY-p112-s25",
+        "300433-2024FY-p7-s7",
+        "300433-2024FY-p7-s25",
+        "300433-2024FY-p1-s1",
+        "300433-2024FY-p114-s3",
+        "300433-2024FY-p112-s3",
+        "300433-2024FY-p30-s32"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "scope_violations": 0
+    },
+    {
+      "case_id": "T08",
+      "method": "fixed_exact_metric",
+      "retrieved_ids": [
+        "300433-2024FY-p7-s25",
+        "300433-2024FY-p7-s7",
+        "300433-2024FY-p30-s32",
+        "300433-2024FY-p112-s1"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "scope_violations": 0
+    }
+  ]
+}
