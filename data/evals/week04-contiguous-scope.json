@@ -1,0 +1,31 @@
+{
+  "pdf_sha256": "841a3271cddd0e0e6bf9d60e39bda69fa48de13c67300c313395d849bddfa588",
+  "pages": [
+    60,
+    61,
+    62,
+    63
+  ],
+  "hits": [
+    {
+      "document_id": "002475-2026H1",
+      "page": 60,
+      "line": 37,
+      "text": "应收账款",
+      "statement_scope": "consolidated",
+      "scope_title_page": 60
+    },
+    {
+      "document_id": "002475-2026H1",
+      "page": 63,
+      "line": 11,
+      "text": "应收账款",
+      "statement_scope": "parent",
+      "scope_title_page": 62
+    }
+  ],
+  "limitations": [
+    "text extraction checked, not visual/human verified",
+    "not integrated into production"
+  ]
+}
