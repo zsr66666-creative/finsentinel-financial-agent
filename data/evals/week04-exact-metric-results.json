@@ -1,0 +1,393 @@
+{
+  "protocol": {
+    "base_protocol_sha256": "434401b920f4a3a45de174e6d2fdb6dd787aa2ae2860e5e990d60a352ca2896b",
+    "algorithm_sha256": "543769a51ef7f024a7280e957b3e5387859683b2c982f614851d3a883b2ecccf",
+    "script_sha256": "f9e8a5998b40c29736d5acd629e3fc351e214e5e224c69c7645536829280bda4",
+    "rule": "exact numeric row label; explicit same-page consolidated balance-sheet title; round-robin then lexical fallback",
+    "scope": "same corpus and negative allowlist; development tuning, not held-out validation"
+  },
+  "summary": {
+    "answerable_cases": 12,
+    "recall_at_5": 1.0,
+    "recall_at_10": 1.0,
+    "all_gold_at_5": 12,
+    "all_gold_at_10": 12,
+    "multi_all_at_5": 6,
+    "multi_cases": 6,
+    "negative_candidates": 2,
+    "scope_violations": 0
+  },
+  "details": [
+    {
+      "case_id": "Q01",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s8",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p82-s19",
+        "002475-2026H1-p8-s14",
+        "002475-2026H1-p82-s23",
+        "002475-2026H1-p21-s23",
+        "002475-2026H1-p82-s22",
+        "002475-2026H1-p59-s12",
+        "002475-2026H1-p82-s13"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "queries": [
+        "归属于上市公司股东的净利润",
+        "经营活动产生的现金流量净额"
+      ],
+      "duration_ms": 126.113,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q02",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s13",
+        "002475-2026H1-p8-s14",
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p8-s11",
+        "002475-2026H1-p81-s14",
+        "002475-2026H1-p21-s2",
+        "002475-2026H1-p21-s28",
+        "002475-2026H1-p82-s2",
+        "002475-2026H1-p81-s1"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "queries": [
+        "总资产",
+        "归属于上市公司股东的净资产"
+      ],
+      "duration_ms": 53.315,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q03",
+      "retrieved_ids": [
+        "002241-2026H1-p8-s8",
+        "002241-2026H1-p12-s30",
+        "002241-2026H1-p12-s31",
+        "002241-2026H1-p66-s29",
+        "002241-2026H1-p130-s3",
+        "002241-2026H1-p130-s7",
+        "002241-2026H1-p39-s16",
+        "002241-2026H1-p66-s25",
+        "002241-2026H1-p66-s27",
+        "002241-2026H1-p130-s9"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "queries": [
+        "经营活动产生的现金流量净额"
+      ],
+      "duration_ms": 35.034,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q04",
+      "retrieved_ids": [
+        "002475-2025FY-p8-s15",
+        "002475-2025FY-p42-s29",
+        "002475-2025FY-p140-s2",
+        "002475-2025FY-p226-s20",
+        "002475-2025FY-p226-s27",
+        "002475-2025FY-p42-s21",
+        "002475-2025FY-p142-s12",
+        "002475-2025FY-p42-s30",
+        "002475-2025FY-p226-s24"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "queries": [
+        "营业收入"
+      ],
+      "duration_ms": 22.593,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q05",
+      "retrieved_ids": [
+        "002475-2024FY-p8-s15",
+        "002475-2024FY-p9-s7",
+        "002475-2024FY-p39-s2",
+        "002475-2024FY-p39-s3",
+        "002475-2024FY-p9-s23",
+        "002475-2024FY-p9-s19"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "queries": [
+        "营业收入"
+      ],
+      "duration_ms": 15.167,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q06",
+      "retrieved_ids": [
+        "002241-2026H1-p12-s23",
+        "002241-2026H1-p8-s5",
+        "002241-2026H1-p14-s1",
+        "002241-2026H1-p14-s10",
+        "002241-2026H1-p12-s24",
+        "002241-2026H1-p14-s11",
+        "002241-2026H1-p8-s31",
+        "002241-2026H1-p8-s29"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "queries": [
+        "营业收入"
+      ],
+      "duration_ms": 12.836,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q07",
+      "retrieved_ids": [
+        "002475-2025FY-p8-s15",
+        "002475-2025FY-p42-s29",
+        "002475-2025FY-p140-s2",
+        "002475-2025FY-p226-s20",
+        "002475-2025FY-p226-s27",
+        "002475-2025FY-p42-s21",
+        "002475-2025FY-p142-s12",
+        "002475-2025FY-p42-s30",
+        "002475-2025FY-p226-s24"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "queries": [
+        "营业收入"
+      ],
+      "duration_ms": 21.454,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q08",
+      "retrieved_ids": [
+        "002475-2024FY-p8-s18",
+        "002475-2024FY-p9-s10",
+        "002475-2024FY-p147-s41",
+        "002475-2024FY-p119-s14",
+        "002475-2024FY-p118-s39",
+        "002475-2024FY-p147-s42",
+        "002475-2024FY-p50-s33",
+        "002475-2024FY-p147-s5",
+        "002475-2024FY-p39-s10",
+        "002475-2024FY-p39-s16"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "queries": [
+        "经营活动产生的现金流量净额"
+      ],
+      "duration_ms": 39.38,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q09",
+      "retrieved_ids": [
+        "002475-2026H1-p11-s34",
+        "002475-2026H1-p60-s20",
+        "002475-2026H1-p60-s30",
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p13-s28",
+        "002475-2026H1-p13-s30",
+        "002475-2026H1-p63-s4",
+        "002475-2026H1-p63-s10",
+        "002475-2026H1-p60-s24",
+        "002475-2026H1-p60-s12"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "queries": [
+        "营业收入",
+        "应收账款",
+        "存货"
+      ],
+      "duration_ms": 75.629,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q10",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s9",
+        "002475-2026H1-p8-s10",
+        "002475-2026H1-p160-s5",
+        "002475-2026H1-p160-s31",
+        "002475-2026H1-p160-s33",
+        "002475-2026H1-p13-s20",
+        "002475-2026H1-p13-s15",
+        "002475-2026H1-p160-s12",
+        "002475-2026H1-p160-s2",
+        "002475-2026H1-p160-s8"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "queries": [
+        "基本每股收益",
+        "稀释每股收益"
+      ],
+      "duration_ms": 44.879,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q11",
+      "retrieved_ids": [
+        "002475-2026H1-p11-s34",
+        "002475-2026H1-p8-s6",
+        "002475-2026H1-p8-s5",
+        "002475-2026H1-p8-s7",
+        "002475-2026H1-p13-s9",
+        "002475-2026H1-p8-s14",
+        "002475-2026H1-p82-s18",
+        "002475-2026H1-p21-s23",
+        "002475-2026H1-p13-s18",
+        "002475-2026H1-p59-s12"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "queries": [
+        "营业收入",
+        "归属于上市公司股东的净利润"
+      ],
+      "duration_ms": 87.966,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q12",
+      "retrieved_ids": [
+        "002241-2026H1-p8-s6",
+        "002241-2026H1-p8-s8",
+        "002241-2026H1-p8-s7",
+        "002241-2026H1-p12-s30",
+        "002241-2026H1-p8-s14",
+        "002241-2026H1-p12-s31",
+        "002241-2026H1-p8-s15",
+        "002241-2026H1-p66-s29",
+        "002241-2026H1-p8-s17",
+        "002241-2026H1-p130-s3"
+      ],
+      "recall_at_5": 1.0,
+      "all_gold_at_5": true,
+      "missing_at_5": [],
+      "recall_at_10": 1.0,
+      "all_gold_at_10": true,
+      "missing_at_10": [],
+      "queries": [
+        "归属于上市公司股东的净利润",
+        "经营活动产生的现金流量净额"
+      ],
+      "duration_ms": 72.112,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q13",
+      "retrieved_ids": [],
+      "recall_at_5": null,
+      "all_gold_at_5": null,
+      "missing_at_5": [],
+      "recall_at_10": null,
+      "all_gold_at_10": null,
+      "missing_at_10": [],
+      "queries": [],
+      "duration_ms": 0.125,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q14",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s5"
+      ],
+      "recall_at_5": null,
+      "all_gold_at_5": null,
+      "missing_at_5": [],
+      "recall_at_10": null,
+      "all_gold_at_10": null,
+      "missing_at_10": [],
+      "queries": [
+        "营业收入"
+      ],
+      "duration_ms": 0.077,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q15",
+      "retrieved_ids": [],
+      "recall_at_5": null,
+      "all_gold_at_5": null,
+      "missing_at_5": [],
+      "recall_at_10": null,
+      "all_gold_at_10": null,
+      "missing_at_10": [],
+      "queries": [],
+      "duration_ms": 0.076,
+      "scope_violations": 0
+    },
+    {
+      "case_id": "Q16",
+      "retrieved_ids": [
+        "002475-2026H1-p8-s6"
+      ],
+      "recall_at_5": null,
+      "all_gold_at_5": null,
+      "missing_at_5": [],
+      "recall_at_10": null,
+      "all_gold_at_10": null,
+      "missing_at_10": [],
+      "queries": [
+        "归属于上市公司股东的净利润"
+      ],
+      "duration_ms": 0.097,
+      "scope_violations": 0
+    }
+  ]
+}

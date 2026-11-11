@@ -1,0 +1,7 @@
+{
+  "base_protocol_sha256": "434401b920f4a3a45de174e6d2fdb6dd787aa2ae2860e5e990d60a352ca2896b",
+  "algorithm_sha256": "543769a51ef7f024a7280e957b3e5387859683b2c982f614851d3a883b2ecccf",
+  "script_sha256": "f9e8a5998b40c29736d5acd629e3fc351e214e5e224c69c7645536829280bda4",
+  "rule": "exact numeric row label; explicit same-page consolidated balance-sheet title; round-robin then lexical fallback",
+  "scope": "same corpus and negative allowlist; development tuning, not held-out validation"
+}
