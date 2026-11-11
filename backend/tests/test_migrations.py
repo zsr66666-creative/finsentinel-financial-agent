@@ -19,6 +19,19 @@ def test_migration_up_is_idempotent_and_down_can_be_reapplied(tmp_path):
     assert count == 1
     store.close()
 
+def test_vector_dimension_mismatch_and_initial_rollback_are_rejected():
+    import pytest
+    store = Store('sqlite://')
+    migrate_vector_up(store.engine, 512)
+    with pytest.raises(ValueError, match='dimension'):
+        migrate_vector_up(store.engine, 768)
+    with pytest.raises(ValueError, match='002'):
+        migrate_down(store.engine)
+    with pytest.raises(Exception):
+        with store.engine.begin() as connection:
+            connection.execute(text("INSERT INTO document_chunk_embeddings VALUES ('c','m',3,'[]','hash','now')"))
+    store.close()
+
 def test_vector_migration_is_idempotent_and_reversible_on_sqlite(tmp_path):
     store = Store(f"sqlite:///{tmp_path / 'vector.db'}", create_schema=False)
     assert migrate_vector_up(store.engine, dimensions=3) == ["002_document_chunk_embeddings"]
