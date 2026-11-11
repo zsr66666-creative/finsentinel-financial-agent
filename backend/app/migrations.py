@@ -3,6 +3,7 @@ from sqlalchemy import inspect, text
 from app.store import Base, MODELS
 
 MIGRATION_NAME = "001_initial_schema"
+VECTOR_MIGRATION_NAME = "002_document_chunk_embeddings"
 
 def _ensure_version_table(connection):
     connection.execute(text("CREATE TABLE IF NOT EXISTS schema_migrations (name VARCHAR(100) PRIMARY KEY, applied_at VARCHAR(40) NOT NULL)"))
@@ -17,7 +18,37 @@ def migrate_up(engine) -> list[str]:
         connection.execute(text("INSERT INTO schema_migrations (name, applied_at) VALUES (:name, :applied_at)"), {"name": MIGRATION_NAME, "applied_at": datetime.now(timezone.utc).isoformat()})
         return [MIGRATION_NAME]
 
+def migrate_vector_up(engine, dimensions: int = 512) -> list[str]:
+    """Create the pgvector-ready embedding store without changing chunks."""
+    if not isinstance(dimensions, int) or dimensions <= 0:
+        raise ValueError("embedding dimensions must be a positive integer")
+    with engine.begin() as connection:
+        _ensure_version_table(connection)
+        applied = {row[0] for row in connection.execute(text("SELECT name FROM schema_migrations"))}
+        if VECTOR_MIGRATION_NAME in applied:
+            return []
+        if connection.dialect.name == "postgresql":
+            connection.execute(text("CREATE EXTENSION IF NOT EXISTS vector"))
+            embedding_type = f"VECTOR({dimensions})"
+        else:
+            embedding_type = "TEXT"
+        connection.execute(text(f"""CREATE TABLE IF NOT EXISTS document_chunk_embeddings (
+            chunk_id VARCHAR(200) PRIMARY KEY, model VARCHAR(200) NOT NULL,
+            dimensions INTEGER NOT NULL, embedding {embedding_type} NOT NULL,
+            text_sha256 VARCHAR(64) NOT NULL, created_at VARCHAR(40) NOT NULL)"""))
+        if connection.dialect.name == "postgresql":
+            connection.execute(text("CREATE INDEX IF NOT EXISTS ix_chunk_embeddings_vector ON document_chunk_embeddings USING ivfflat (embedding vector_cosine_ops)"))
+        connection.execute(text("INSERT INTO schema_migrations (name, applied_at) VALUES (:name, :applied_at)"), {"name": VECTOR_MIGRATION_NAME, "applied_at": datetime.now(timezone.utc).isoformat()})
+        return [VECTOR_MIGRATION_NAME]
+
 def migrate_down(engine, name: str = MIGRATION_NAME) -> bool:
+    if name == VECTOR_MIGRATION_NAME:
+        with engine.begin() as connection:
+            if "schema_migrations" not in inspect(connection).get_table_names():
+                return False
+            connection.execute(text("DROP TABLE IF EXISTS document_chunk_embeddings"))
+            connection.execute(text("DELETE FROM schema_migrations WHERE name = :name"), {"name": name})
+            return True
     if name != MIGRATION_NAME:
         raise ValueError(f"Unknown migration: {name}")
     with engine.begin() as connection:
