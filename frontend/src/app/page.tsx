@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import Link from 'next/link';
 import { alertEmptyLabel, connectionStatusLabel, evidenceStatusLabel, filterAlerts, formatMetric, metricStateLabel, normalizeAlert, normalizeCollection, refreshLabel } from '@/lib/domain.mjs';
 import { riskCategory, workflowStages } from '@/lib/workflow';
 import { fixtureAlerts, fixtureCompanies, fixtureTrend } from '@/lib/fixtures';
@@ -135,7 +136,7 @@ export default function Workbench() {
       <a className="brand" href="#" onClick={e => { e.preventDefault(); setView('overview'); }}><span className="brand-mark">F<span /></span><span>FinSentinel<small>金融证据链研判平台</small></span></a>
       <div className="workspace"><span className="workspace-icon">研</span><span>消费电子研究组<small>RESEARCH WORKSPACE</small></span><span className="chevron">⌄</span></div>
       <div className="nav-caption">工作台</div>
-      <nav>{nav.map(n => <button key={n.id} className={`nav-item ${view === n.id ? 'active' : ''}`} onClick={() => { setView(n.id as View); setNotice(''); }}><span className="nav-icon">{n.icon}</span>{n.label}{n.id === 'review' && pending > 0 && <span className="nav-count">{pending}</span>}</button>)}</nav>
+      <nav>{nav.map(n => <button key={n.id} className={`nav-item ${view === n.id ? 'active' : ''}`} onClick={() => { setView(n.id as View); setNotice(''); }}><span className="nav-icon">{n.icon}</span>{n.label}{n.id === 'review' && pending > 0 && <span className="nav-count">{pending}</span>}</button>)}<Link className="nav-item" href="/compare"><span className="nav-icon">⇄</span>证据比较 · 真实财报</Link></nav>
       <div className="sidebar-bottom"><div className="health"><i />工作流引擎<span>{connected ? '已连接' : '演示'}</span></div><div className="profile"><span className="avatar">研</span><span>研究员<small>个人研究工作区</small></span><span>⌘</span></div></div>
     </aside>
 
