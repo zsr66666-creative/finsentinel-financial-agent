@@ -1,5 +1,7 @@
 # 限定证据比较接口
 
+2026-11-12 状态更新：后端已部署，母公司、合并、缺口径及服务器经公网 IP/Nginx 请求已有用户提供的通过输出。下文“尚未部署”为实现时历史状态；当前状态及待验收项以 [上线记录](week04-release-acceptance.md) 为准。
+
 POST `/api/v1/evidence/compare`，JSON 请求只允许 `question`（1–500 字）。
 
 ```json

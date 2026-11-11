@@ -1,0 +1,262 @@
+{
+  "evaluation_type": "known_contract_development_boundary_check",
+  "passed": 13,
+  "total": 13,
+  "cases": [
+    {
+      "case_id": "parent-explicit",
+      "question": "立讯精密2026年6月30日母公司应收账款较2025年12月31日是否未增加？",
+      "expected_status": "supported",
+      "expected_claim_true": true,
+      "passed": true,
+      "result": {
+        "status": "supported",
+        "claim_true": true,
+        "difference": "-306502051.55",
+        "unit": "CNY",
+        "evidence_ids": [
+          "002475-2026H1-p63-s4",
+          "002475-2026H1-p62-fulltext-line117"
+        ],
+        "company_code": "002475",
+        "statement_scope": "parent",
+        "current_period": "2026-06-30",
+        "previous_period": "2025-12-31",
+        "current_value": "5313841643.82",
+        "previous_value": "5620343695.37",
+        "relation": "not_greater",
+        "source_sha256": "841a3271cddd0e0e6bf9d60e39bda69fa48de13c67300c313395d849bddfa588",
+        "data_mode": "reviewed_real_pdf",
+        "evidence": [
+          {
+            "chunk_id": "002475-2026H1-p63-s4",
+            "page": 63
+          },
+          {
+            "chunk_id": "002475-2026H1-p62-fulltext-line117",
+            "page": 62
+          }
+        ],
+        "limitations": [
+          "restricted_query_grammar",
+          "dates_and_unit_from_reviewed_document_contract"
+        ]
+      }
+    },
+    {
+      "case_id": "consolidated-positive",
+      "question": "立讯精密2026年6月30日合并应收账款较2025年12月31日是否增加？",
+      "expected_status": "supported",
+      "expected_claim_true": false,
+      "passed": true,
+      "result": {
+        "status": "supported",
+        "claim_true": false,
+        "difference": "-772501509.62",
+        "unit": "CNY",
+        "evidence_ids": [
+          "002475-2026H1-p60-s20",
+          "002475-2026H1-p60-s8"
+        ],
+        "company_code": "002475",
+        "statement_scope": "consolidated",
+        "current_period": "2026-06-30",
+        "previous_period": "2025-12-31",
+        "current_value": "47666294604.50",
+        "previous_value": "48438796114.12",
+        "relation": "greater",
+        "source_sha256": "841a3271cddd0e0e6bf9d60e39bda69fa48de13c67300c313395d849bddfa588",
+        "data_mode": "reviewed_real_pdf",
+        "evidence": [
+          {
+            "chunk_id": "002475-2026H1-p60-s20",
+            "page": 60
+          },
+          {
+            "chunk_id": "002475-2026H1-p60-s8",
+            "page": 60
+          }
+        ],
+        "limitations": [
+          "restricted_query_grammar",
+          "dates_and_unit_from_reviewed_document_contract"
+        ]
+      }
+    },
+    {
+      "case_id": "supported-wording",
+      "question": "立讯精密2026年6月30日母公司报表应收账款相比2025年12月31日是否未增加？",
+      "expected_status": "supported",
+      "expected_claim_true": true,
+      "passed": true,
+      "result": {
+        "status": "supported",
+        "claim_true": true,
+        "difference": "-306502051.55",
+        "unit": "CNY",
+        "evidence_ids": [
+          "002475-2026H1-p63-s4",
+          "002475-2026H1-p62-fulltext-line117"
+        ],
+        "company_code": "002475",
+        "statement_scope": "parent",
+        "current_period": "2026-06-30",
+        "previous_period": "2025-12-31",
+        "current_value": "5313841643.82",
+        "previous_value": "5620343695.37",
+        "relation": "not_greater",
+        "source_sha256": "841a3271cddd0e0e6bf9d60e39bda69fa48de13c67300c313395d849bddfa588",
+        "data_mode": "reviewed_real_pdf",
+        "evidence": [
+          {
+            "chunk_id": "002475-2026H1-p63-s4",
+            "page": 63
+          },
+          {
+            "chunk_id": "002475-2026H1-p62-fulltext-line117",
+            "page": 62
+          }
+        ],
+        "limitations": [
+          "restricted_query_grammar",
+          "dates_and_unit_from_reviewed_document_contract"
+        ]
+      }
+    },
+    {
+      "case_id": "unsupported-synonym",
+      "question": "立讯精密2026年6月30日母公司应收款项较2025年12月31日是否未增加？",
+      "expected_status": "needs_review",
+      "expected_claim_true": null,
+      "passed": true,
+      "result": {
+        "status": "needs_review",
+        "claim_true": null,
+        "evidence_ids": [],
+        "reason": "unsupported_or_ambiguous_query"
+      }
+    },
+    {
+      "case_id": "missing-scope",
+      "question": "立讯精密2026年6月30日应收账款较2025年12月31日是否未增加？",
+      "expected_status": "needs_review",
+      "expected_claim_true": null,
+      "passed": true,
+      "result": {
+        "status": "needs_review",
+        "claim_true": null,
+        "evidence_ids": [],
+        "reason": "unsupported_or_ambiguous_query"
+      }
+    },
+    {
+      "case_id": "conflicting-scope",
+      "question": "立讯精密2026年6月30日母公司与合并应收账款较2025年12月31日是否未增加？",
+      "expected_status": "needs_review",
+      "expected_claim_true": null,
+      "passed": true,
+      "result": {
+        "status": "needs_review",
+        "claim_true": null,
+        "evidence_ids": [],
+        "reason": "unsupported_or_ambiguous_query"
+      }
+    },
+    {
+      "case_id": "unreviewed-date",
+      "question": "立讯精密2027年6月30日母公司应收账款较2025年12月31日是否未增加？",
+      "expected_status": "needs_review",
+      "expected_claim_true": null,
+      "passed": true,
+      "result": {
+        "status": "needs_review",
+        "claim_true": null,
+        "evidence_ids": [],
+        "reason": "period_not_reviewed"
+      }
+    },
+    {
+      "case_id": "invalid-date",
+      "question": "立讯精密2026年2月30日母公司应收账款较2025年12月31日是否未增加？",
+      "expected_status": "needs_review",
+      "expected_claim_true": null,
+      "passed": true,
+      "result": {
+        "status": "needs_review",
+        "claim_true": null,
+        "evidence_ids": [],
+        "reason": "unsupported_or_ambiguous_query"
+      }
+    },
+    {
+      "case_id": "other-company",
+      "question": "长盈精密2026年6月30日母公司应收账款较2025年12月31日是否未增加？",
+      "expected_status": "needs_review",
+      "expected_claim_true": null,
+      "passed": true,
+      "result": {
+        "status": "needs_review",
+        "claim_true": null,
+        "evidence_ids": [],
+        "reason": "unsupported_or_ambiguous_query"
+      }
+    },
+    {
+      "case_id": "double-negation",
+      "question": "立讯精密2026年6月30日母公司应收账款较2025年12月31日是否没有不增加？",
+      "expected_status": "needs_review",
+      "expected_claim_true": null,
+      "passed": true,
+      "result": {
+        "status": "needs_review",
+        "claim_true": null,
+        "evidence_ids": [],
+        "reason": "unsupported_or_ambiguous_query"
+      }
+    },
+    {
+      "case_id": "future-forecast",
+      "question": "立讯精密明年应收账款会增加吗？",
+      "expected_status": "needs_review",
+      "expected_claim_true": null,
+      "passed": true,
+      "result": {
+        "status": "needs_review",
+        "claim_true": null,
+        "evidence_ids": [],
+        "reason": "unsupported_or_ambiguous_query"
+      }
+    },
+    {
+      "case_id": "missing-title",
+      "question": "立讯精密2026年6月30日母公司应收账款较2025年12月31日是否未增加？",
+      "expected_status": "needs_review",
+      "expected_claim_true": null,
+      "passed": true,
+      "result": {
+        "status": "needs_review",
+        "claim_true": null,
+        "evidence_ids": [],
+        "reason": "missing_or_unverified_evidence"
+      }
+    },
+    {
+      "case_id": "missing-metric",
+      "question": "立讯精密2026年6月30日母公司应收账款较2025年12月31日是否未增加？",
+      "expected_status": "needs_review",
+      "expected_claim_true": null,
+      "passed": true,
+      "result": {
+        "status": "needs_review",
+        "claim_true": null,
+        "evidence_ids": [],
+        "reason": "missing_or_unverified_evidence"
+      }
+    }
+  ],
+  "limitations": [
+    "local compare_rows only; not HTTP, PostgreSQL or browser execution",
+    "cases authored with current grammar known; not independent or blind evaluation",
+    "unsupported synonyms are deliberately refused; no semantic generalization claim"
+  ]
+}
