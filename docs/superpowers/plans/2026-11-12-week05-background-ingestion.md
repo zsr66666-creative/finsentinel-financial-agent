@@ -59,7 +59,9 @@ pending→running 由事务领取，`FOR UPDATE SKIP LOCKED`；运行时租约 1
 - [ ] 复跑并在专用 TEST_POSTGRES_URL 测并发及租约回收；SQLite 不能替代这两项，未配置时明确 skipped。
 - [ ] 验证迁移重复运行无新增操作、旧演示记录不变后精确提交。
 
-### Task 2：来源及流式下载边界（未实现）
+### Task 2：来源及流式下载边界（新模块及策略测试完成，联网与硬截止待验收）
+
+见 `docs/week05-task02-source-policy.md`。新模块独立，不修改旧下载路径；固定 IP/SNI/TLS 与流式边界完成本地测试。120 秒检查为协作式，进程级截止由 Task 3 补齐；官方来源联网验收尚未执行，不标记整体完成。
 
 **Files:** 新建 `backend/app/ingestion/source_policy.py`、`backend/tests/test_ingestion_download_policy.py`；修改 `backend/app/ingestion/pipeline.py`。
 
