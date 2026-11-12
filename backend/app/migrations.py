@@ -4,6 +4,21 @@ from app.store import Base, MODELS
 
 MIGRATION_NAME = "001_initial_schema"
 VECTOR_MIGRATION_NAME = "002_document_chunk_embeddings"
+INGESTION_MIGRATION_NAME = "003_source_ingestion_tasks"
+
+def migrate_ingestion_up(engine):
+    from app.ingestion.task_queue import metadata
+    with engine.begin() as connection:
+        _ensure_version_table(connection)
+        if connection.execute(text('SELECT 1 FROM schema_migrations WHERE name=:name'),dict(name=INGESTION_MIGRATION_NAME)).first():
+            if 'source_ingestion_tasks' not in inspect(connection).get_table_names():
+                raise ValueError('ingestion migration/schema mismatch')
+            return []
+        if 'source_ingestion_tasks' in inspect(connection).get_table_names():
+            raise ValueError('unversioned ingestion table exists')
+        metadata.create_all(connection)
+        connection.execute(text('INSERT INTO schema_migrations (name,applied_at) VALUES (:name,:at)'),dict(name=INGESTION_MIGRATION_NAME,at=datetime.now(timezone.utc).isoformat()))
+    return [INGESTION_MIGRATION_NAME]
 
 def _ensure_version_table(connection):
     connection.execute(text("CREATE TABLE IF NOT EXISTS schema_migrations (name VARCHAR(100) PRIMARY KEY, applied_at VARCHAR(40) NOT NULL)"))
@@ -48,6 +63,13 @@ def migrate_vector_up(engine, dimensions: int = 512) -> list[str]:
         return [VECTOR_MIGRATION_NAME]
 
 def migrate_down(engine, name: str = MIGRATION_NAME) -> bool:
+    if name == INGESTION_MIGRATION_NAME:
+        from app.ingestion.task_queue import metadata
+        with engine.begin() as connection:
+            metadata.drop_all(connection)
+            if 'schema_migrations' in inspect(connection).get_table_names():
+                connection.execute(text('DELETE FROM schema_migrations WHERE name=:name'),dict(name=name))
+        return True
     if name == VECTOR_MIGRATION_NAME:
         with engine.begin() as connection:
             if "schema_migrations" not in inspect(connection).get_table_names():
@@ -60,6 +82,8 @@ def migrate_down(engine, name: str = MIGRATION_NAME) -> bool:
     with engine.begin() as connection:
         if "schema_migrations" not in inspect(connection).get_table_names():
             return False
+        if connection.execute(text("SELECT 1 FROM schema_migrations WHERE name = :name"), {'name': INGESTION_MIGRATION_NAME}).first():
+            raise ValueError('roll back 003_source_ingestion_tasks before the initial schema')
         if connection.execute(text("SELECT 1 FROM schema_migrations WHERE name = :name"), {'name': VECTOR_MIGRATION_NAME}).first():
             raise ValueError('roll back 002_document_chunk_embeddings before the initial schema')
         for table in reversed(list(MODELS.values())):
