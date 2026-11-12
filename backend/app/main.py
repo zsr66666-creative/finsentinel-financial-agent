@@ -115,6 +115,8 @@ def create_app(database_url=None, data_mode=None):
 
     app = FastAPI(title='FinSentinel API',version='0.1.0',lifespan=lifespan,description='Evidence-first finance research workbench. Synthetic fixtures are explicitly labeled.')
     app.state.store = store
+    from app.ingestion.routes import build_router
+    app.include_router(build_router(store))
     app.state.model_settings = ModelSettings.from_env()
     app.add_middleware(CORSMiddleware,allow_origins=os.getenv('CORS_ORIGINS','http://localhost:3000').split(','),allow_methods=['GET','POST'],allow_headers=['Content-Type'])
 

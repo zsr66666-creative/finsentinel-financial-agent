@@ -72,9 +72,9 @@ pending→running 由事务领取，`FOR UPDATE SKIP LOCKED`；运行时租约 1
 - [ ] Mock 控制时间和网络，不使用外网不稳定结果作单测依据；再用一条已核实官方 URL 做单独人工联网验收，保存真实 final_url/抓取时间/哈希。
 - [ ] 确认无环境代理、无 TLS 降级、无双层重试后提交。
 
-### Task 3：单 worker、阶段恢复与内容去重（本地实现，故障与 PostgreSQL 验收未齐）
+### Task 3：单 worker、阶段恢复与内容去重（本地关键验收通过，ECS 资源验收归 Task 5）
 
-见 `docs/week05-task03-worker.md`。本地阶段恢复/去重/迁移测试及真实解析子进程超时通过；父进程 kill 恢复、PostgreSQL 产物事务和官方联网仍待验收。不据此勾选整项完成。
+见 `docs/week05-task03-worker.md` 及补充验收结论。真实 PostgreSQL 事务故障回滚、两个阶段进程突然退出恢复、官方联网和实际解析均通过；ECS/RSS/运行中心跳故障边界仍单列，不扩大为生产验收。
 
 **Files:** 新建 `backend/app/ingestion/worker.py`、`backend/app/ingestion/artifacts.py`、`backend/tests/test_ingestion_worker.py`；复用 pipeline 解析逻辑。
 
@@ -85,7 +85,9 @@ pending→running 由事务领取，`FOR UPDATE SKIP LOCKED`；运行时租约 1
 - [ ] 验证下载和解析都不持有领取事务长锁，独立心跳更新；解析子进程超时被清理，临时文件不作为检查点。
 - [ ] 保存两轮运行记录、文件计数及数据库行数，再提交。
 
-### Task 4：管理接口与查询接口（未实现）
+### Task 4：管理接口与查询接口（本地实现及 PostgreSQL HTTP 验证通过，未部署）
+
+见 `docs/week05-task04-admin-api.md`。默认关闭、独立 token、幂等/重试/查询和限流已实现；限流为每进程，重试容量核算限制保留。46 项相关回归通过，未上线。
 
 **Files:** 新建 `backend/app/ingestion/routes.py`、`backend/tests/test_ingestion_task_api.py`；修改 `backend/app/main.py`、`backend/app/schemas.py`。
 
