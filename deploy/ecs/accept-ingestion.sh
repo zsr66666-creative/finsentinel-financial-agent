@@ -10,6 +10,7 @@ out="/var/lib/finsentinel/acceptance-${stamp}"
 install -d -o finsentinel -g finsentinel -m 700 "$out"
 sudo -u postgres createdb -O finsentinel "$testdb"
 sudo -u postgres createdb -O finsentinel "$restoredb"
+sudo -u postgres psql -X -v ON_ERROR_STOP=1 -d "$restoredb" -c 'CREATE EXTENSION IF NOT EXISTS vector;'
 # Test dependencies only; no backend restart, no change to application dependencies.
 python3 -m venv "$out/test-venv"
 "$out/test-venv/bin/python" -m pip install -e './backend[postgres,dev]'
