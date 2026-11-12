@@ -1,0 +1,28 @@
+[Unit]
+Description=FinSentinel single ingestion worker
+After=network-online.target postgresql.service
+Requires=postgresql.service
+
+[Service]
+User=finsentinel
+Group=finsentinel
+WorkingDirectory=/opt/finsentinel
+Environment="DATABASE_URL=postgresql+psycopg:///finsentinel?host=/var/run/postgresql"
+Environment="PYTHONPATH=/opt/finsentinel/backend:/opt/finsentinel"
+Environment="PYTHONUNBUFFERED=1"
+ExecStart=/opt/finsentinel/.venv/bin/python -m app.ingestion.worker --artifact-root /var/lib/finsentinel/ingestion
+Restart=on-failure
+RestartSec=5
+MemoryMax=512M
+TasksMax=32
+KillMode=control-group
+TimeoutStopSec=10
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/finsentinel/ingestion
+
+[Install]
+WantedBy=multi-user.target
