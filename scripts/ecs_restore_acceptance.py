@@ -24,7 +24,9 @@ def main():
         subprocess.run(['pg_dump','-h','/var/run/postgresql','-d','finsentinel','-Fc','--snapshot',snapshot,'-f',str(dump)],check=True,timeout=300)
         c.rollback()
     source.dispose()
-    subprocess.run(['pg_restore','--exit-on-error','--no-owner','--no-privileges','-h','/var/run/postgresql','-d',args.restore_db,str(dump)],check=True,timeout=300)
+    # vector is pre-created by postgres; application role cannot COMMENT on it.
+    # Comments are outside this schema/data restore acceptance contract.
+    subprocess.run(['pg_restore','--exit-on-error','--no-owner','--no-privileges','--no-comments','-h','/var/run/postgresql','-d',args.restore_db,str(dump)],check=True,timeout=300)
     restored=create_engine('postgresql+psycopg:///'+args.restore_db+'?host=/var/run/postgresql')
     with restored.connect() as c:
         actual=counts(c)
