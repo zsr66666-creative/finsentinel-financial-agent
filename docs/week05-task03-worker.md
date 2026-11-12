@@ -1,5 +1,13 @@
 # Task 3 worker 本地实现记录
 
+## 补充验收结论
+
+Task 3 本地关键验收已补齐，结果见 `data/evals/week05-worker-acceptance.json`：隔离 PostgreSQL 18.6 中，真实 worker 子进程在 downloaded、parsed 检查点通过 os._exit 突然退出后均恢复成功且不重复相应工作；产物 INSERT 后最终 UPDATE 注入失败，事务同时回滚，重试复用解析产物并成功提交。租约时间通过显式时钟推进，不是真实等待 180 秒，也不是中途断电测试。
+
+通过新固定 IP/TLS 下载器和真实隔离解析器采集官方 PDF：URL 与最终 URL 均为 https://static.cninfo.com.cn/finalpage/2025-04-26/1223326862.PDF ，SHA256 e436b5ab1775cfa05aacb4a16dd8e5c6b89e926ed18a7a55a86728bab6fcb1da，276 页，既有选页解析 11 页。只证明该 URL 的实际下载和解析，不证明披露归属、报告期或数值经业务复核。测试抓取时间保存在结果 JSON。真实验收发现并修复数据库时间对象不能写解析 JSON的问题，解析元数据现仅含明确字段和 ISO 时间，不再传播租约 token。
+
+补充同 URL 新内容保留新 blob/披露测试；相关最终回归含 Task 4 为 46 passed、0 skipped。测试 schema 无残留，临时实例停止。上述补充覆盖下方旧记录中的事务、阶段退出和官方联网 pending；RSS/资源上限、运行中心跳丢失强杀、ECS 部署仍为后续部署验收边界，不宣称完成。新 Task 4 在这些本地关键验收通过后开始。
+
 新增独立 `python -m app.ingestion.worker --artifact-root <服务器专用目录> --once`；未加 --once 时持续轮询，单 worker。生产 CLI 要求 PostgreSQL，显式先运行队列 003 和产物 004 迁移；不自动迁移或启动线上服务。
 
 下载及解析默认分别在 spawn 子进程执行；父进程每 0.2 秒检查、120 秒阶段截止，超时 terminate 后必要时 kill；每 30 秒独立数据库心跳，租约丢失停止。该截止包含 DNS 阻塞，不仅是下载器协作式时钟检查。进程启动本身、操作系统调度与 terminate 清理会有额外延迟，不承诺精确到毫秒。

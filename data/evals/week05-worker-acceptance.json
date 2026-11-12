@@ -1,0 +1,33 @@
+{
+  "checks": [
+    {
+      "check": "process_exit_after_downloaded",
+      "passed": true
+    },
+    {
+      "check": "process_exit_after_parsed",
+      "passed": true
+    },
+    {
+      "check": "atomic_artifact_and_success_rollback",
+      "passed": true
+    },
+    {
+      "check": "official_download_real_parser",
+      "passed": true,
+      "requested_url": "https://static.cninfo.com.cn/finalpage/2025-04-26/1223326862.PDF",
+      "final_url": "https://static.cninfo.com.cn/finalpage/2025-04-26/1223326862.PDF",
+      "sha256": "e436b5ab1775cfa05aacb4a16dd8e5c6b89e926ed18a7a55a86728bab6fcb1da",
+      "acquired_at": "2026-11-12T14:29:37.835648+08:00",
+      "total_pages": 276,
+      "extracted_pages": 11
+    }
+  ],
+  "postgres_version": "PostgreSQL 18.6 on x86_64-windows, compiled by msvc-19.44.35229, 64-bit",
+  "limitations": [
+    "local PostgreSQL, not ECS deployment",
+    "recovery lease time advanced explicitly",
+    "single-worker acceptance, not throughput or memory-limit verification",
+    "abrupt worker exit injected after committed phase; not mid-syscall power failure"
+  ]
+}

@@ -97,7 +97,8 @@ def run_once(engine,artifact_root,downloader=None,parser=None,now=None):
                 valid=existing['sha256']==task['sha256'] and existing['parser_version']==parser_version
             except (ValueError,KeyError):pass
         if not valid:
-            meta={**task,'id':identity,'source_url':task['source_url'],'acquired_at':str(task['acquired_at'])}
+            meta={k:task[k] for k in ('company_code','report_period','report_type','source_url','sha256','requested_url','final_url')}
+            meta.update(id=identity,acquired_at=task['acquired_at'].isoformat())
             result=parser(blob,meta,work) if parser else bounded_stage('parse',(blob,meta,work),work,pulse)
             if result['sha256']!=task['sha256']:raise DownloadError('parse_hash_mismatch')
             result['parser_version']=parser_version
@@ -112,8 +113,9 @@ def run_once(engine,artifact_root,downloader=None,parser=None,now=None):
             if not owned:raise DownloadError('lease_lost')
             c.execute(insert(documents).values(id=identity,sha256=task['sha256'],company_code=task['company_code'],
                 report_period=task['report_period'],report_type=task['report_type'],artifact_path=str(parsed)).on_conflict_do_nothing())
-            c.execute(update(tasks).where(owner(task['id'],task['lease_token'],current())).values(status='success',stage='committed',
+            updated=c.execute(update(tasks).where(owner(task['id'],task['lease_token'],current())).values(status='success',stage='committed',
                 document_id=identity,finished_at=current(),lease_token=None,lease_until=None,retryable=False))
+            if updated.rowcount!=1:raise DownloadError('lease_lost')
     except Exception as exc:
         finish_task(engine,task['id'],task['lease_token'],dict(error_code=getattr(exc,'code','worker_stage_failed'),
             retryable=getattr(exc,'retryable',False)),now=current())

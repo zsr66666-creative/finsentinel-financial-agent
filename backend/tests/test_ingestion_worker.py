@@ -17,7 +17,11 @@ def test_resume_after_parser_failure_and_duplicate_content(tmp_path):
         calls.append(url); path.write_bytes(b'%PDF-fixture')
         return dict(requested_url=url,final_url=url,acquired_at=NOW.isoformat(),sha256=hashlib.sha256(path.read_bytes()).hexdigest())
     def fail(*args):raise ValueError('private parser error')
-    def parse(source,meta,directory):return {'sha256':meta['sha256'],'pages':[]}
+    def parse(source,meta,directory):
+        import json
+        json.dumps(meta)  # Real parser persists metadata in JSON.
+        assert 'lease_token' not in meta
+        return {'sha256':meta['sha256'],'pages':[]}
     task=enqueue_task(engine,REQUEST,'a',now=NOW)
     assert run_once(engine,tmp_path,downloader=download,parser=fail,now=NOW)
     with engine.connect() as c:
@@ -32,6 +36,13 @@ def test_resume_after_parser_failure_and_duplicate_content(tmp_path):
         assert len(c.execute(select(documents)).all())==1
         assert all(r['status']=='success' for r in c.execute(select(tasks)).mappings())
     assert len(list((tmp_path/'blobs').glob('*.pdf')))==1
+    enqueue_task(engine,REQUEST,'changed',now=NOW)
+    def changed(url,path):
+        path.write_bytes(b'%PDF-changed')
+        return dict(requested_url=url,final_url=url,acquired_at=NOW.isoformat(),sha256=hashlib.sha256(path.read_bytes()).hexdigest())
+    run_once(engine,tmp_path,downloader=changed,parser=parse,now=NOW)
+    with engine.connect() as c:assert len(c.execute(select(documents)).all())==2
+    assert len(list((tmp_path/'blobs').glob('*.pdf')))==2
 
 def test_artifact_migration_is_versioned_and_reversible():
     engine=create_engine('sqlite://')
