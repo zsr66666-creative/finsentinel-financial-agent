@@ -5,6 +5,20 @@ from app.store import Base, MODELS
 MIGRATION_NAME = "001_initial_schema"
 VECTOR_MIGRATION_NAME = "002_document_chunk_embeddings"
 INGESTION_MIGRATION_NAME = "003_source_ingestion_tasks"
+ARTIFACT_MIGRATION_NAME = "004_ingestion_artifacts"
+
+def migrate_artifacts_up(engine):
+    from app.ingestion.worker import worker_metadata
+    with engine.begin() as c:
+        _ensure_version_table(c)
+        if c.execute(text('SELECT 1 FROM schema_migrations WHERE name=:n'),dict(n=ARTIFACT_MIGRATION_NAME)).first():
+            if 'ingestion_artifacts' not in inspect(c).get_table_names():raise ValueError('artifact schema mismatch')
+            return []
+        if 'source_ingestion_tasks' not in inspect(c).get_table_names():raise ValueError('apply queue migration first')
+        if 'ingestion_artifacts' in inspect(c).get_table_names():raise ValueError('unversioned artifacts table')
+        worker_metadata.create_all(c)
+        c.execute(text('INSERT INTO schema_migrations (name,applied_at) VALUES (:n,:t)'),dict(n=ARTIFACT_MIGRATION_NAME,t=datetime.now(timezone.utc).isoformat()))
+    return [ARTIFACT_MIGRATION_NAME]
 
 def migrate_ingestion_up(engine):
     from app.ingestion.task_queue import metadata
@@ -63,9 +77,16 @@ def migrate_vector_up(engine, dimensions: int = 512) -> list[str]:
         return [VECTOR_MIGRATION_NAME]
 
 def migrate_down(engine, name: str = MIGRATION_NAME) -> bool:
+    if name == ARTIFACT_MIGRATION_NAME:
+        from app.ingestion.worker import worker_metadata
+        with engine.begin() as c:
+            worker_metadata.drop_all(c)
+            if 'schema_migrations' in inspect(c).get_table_names():c.execute(text('DELETE FROM schema_migrations WHERE name=:n'),dict(n=name))
+        return True
     if name == INGESTION_MIGRATION_NAME:
         from app.ingestion.task_queue import metadata
         with engine.begin() as connection:
+            if 'ingestion_artifacts' in inspect(connection).get_table_names():raise ValueError('roll back 004 before 003')
             metadata.drop_all(connection)
             if 'schema_migrations' in inspect(connection).get_table_names():
                 connection.execute(text('DELETE FROM schema_migrations WHERE name=:name'),dict(name=name))

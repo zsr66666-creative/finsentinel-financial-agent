@@ -72,7 +72,9 @@ pending→running 由事务领取，`FOR UPDATE SKIP LOCKED`；运行时租约 1
 - [ ] Mock 控制时间和网络，不使用外网不稳定结果作单测依据；再用一条已核实官方 URL 做单独人工联网验收，保存真实 final_url/抓取时间/哈希。
 - [ ] 确认无环境代理、无 TLS 降级、无双层重试后提交。
 
-### Task 3：单 worker、阶段恢复与内容去重（未实现）
+### Task 3：单 worker、阶段恢复与内容去重（本地实现，故障与 PostgreSQL 验收未齐）
+
+见 `docs/week05-task03-worker.md`。本地阶段恢复/去重/迁移测试及真实解析子进程超时通过；父进程 kill 恢复、PostgreSQL 产物事务和官方联网仍待验收。不据此勾选整项完成。
 
 **Files:** 新建 `backend/app/ingestion/worker.py`、`backend/app/ingestion/artifacts.py`、`backend/tests/test_ingestion_worker.py`；复用 pipeline 解析逻辑。
 
