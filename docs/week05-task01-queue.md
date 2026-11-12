@@ -1,5 +1,11 @@
 # 第 5 周 Task 1：持久队列基础
 
+## PostgreSQL 实测补充
+
+已在本地独立临时 PostgreSQL 18.6 实例（127.0.0.1:55439）执行队列及迁移测试：8 passed，0 skipped。并发/租约专项重复 10 次，10/10 通过；两连接争抢一任务只有一个 owner，过期后恢复领取增加 attempts 并更换 token，旧 token 提交拒绝、新 token 提交成功。测试 UUID schema 残留 0，临时实例已关闭。既有 Windows PostgreSQL 服务与阿里云业务库未改动。
+
+结果：`data/evals/week05-queue-postgres-acceptance.json`。租约时间用显式测试时钟推进，未真实等待 180 秒；并发为双线程独立数据库连接，不是 worker 进程崩溃或吞吐压测。版本为本地 18.6，不替代阿里云 16.15 迁移与部署验收。以下未配置连接时跳过的说明保留作为运行要求，不代表本次仍未实测。
+
 新增独立 source_ingestion_tasks 表及 003 迁移，未改动旧 ingestion_jobs 演示记录。迁移需显式调用 migrate_ingestion_up，不在应用启动时自动执行。可回滚本表；初始迁移回滚前须先回滚 003，防止遗失版本记录。
 
 task_queue 提供 enqueue_task、claim_task、heartbeat、finish_task、retry_task。相同幂等键与请求/预算返回原记录；冲突拒绝。状态 pending/running/success/failed，领取计数上限 1–3；失败自动重试间隔 30/120 秒。人工 retry 不重置预算。PostgreSQL 使用事务与 FOR UPDATE SKIP LOCKED；租约 180 秒，心跳仅允许未过期 owner。过期回收保留阶段，旧 token 不可提交。

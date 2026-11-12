@@ -1,0 +1,52 @@
+{
+  "postgres_version": "PostgreSQL 18.6 on x86_64-windows, compiled by msvc-19.44.35229, 64-bit",
+  "isolated_loopback_port": 55439,
+  "repeat_runs": [
+    {
+      "run": 1,
+      "passed": true
+    },
+    {
+      "run": 2,
+      "passed": true
+    },
+    {
+      "run": 3,
+      "passed": true
+    },
+    {
+      "run": 4,
+      "passed": true
+    },
+    {
+      "run": 5,
+      "passed": true
+    },
+    {
+      "run": 6,
+      "passed": true
+    },
+    {
+      "run": 7,
+      "passed": true
+    },
+    {
+      "run": 8,
+      "passed": true
+    },
+    {
+      "run": 9,
+      "passed": true
+    },
+    {
+      "run": 10,
+      "passed": true
+    }
+  ],
+  "leftover_test_schemas": 0,
+  "limitations": [
+    "local PostgreSQL 18.6, not Alibaba PostgreSQL 16.15",
+    "synthetic clock transitions, no 180-second wall-clock wait",
+    "not worker process-crash or throughput acceptance"
+  ]
+}

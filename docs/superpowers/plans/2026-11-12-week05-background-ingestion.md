@@ -46,9 +46,9 @@ pending→running 由事务领取，`FOR UPDATE SKIP LOCKED`；运行时租约 1
 
 ## 执行顺序与验收
 
-### Task 1：持久队列与状态机（代码和本地顺序测试完成，PostgreSQL 并发待实测）
+### Task 1：持久队列与状态机（本地 PostgreSQL 并发与租约验收通过，ECS 未部署）
 
-实现记录见 `docs/week05-task01-queue.md`。本地 16 passed、1 skipped（包含迁移与比较接口回归）；未配置 TEST_POSTGRES_URL，不能勾选 PostgreSQL 并发验收。下方步骤保留完整验收门槛，不代表未提交代码。
+实现记录见 `docs/week05-task01-queue.md`。首次本地回归为 16 passed、1 skipped；补充独立 PostgreSQL 18.6 实例后，队列和迁移测试 8 passed、0 skipped，并发/租约专项重复 10/10 通过，0 残留 schema。实例已停止；不是 ECS 16.15 验收。下方步骤保留完整执行说明。
 
 **Files:** 新建 `backend/app/ingestion/task_queue.py`、`backend/migrations/003_source_ingestion_tasks.py`、`backend/tests/test_ingestion_queue.py`；修改 `backend/app/migrations.py`。
 
