@@ -24,4 +24,14 @@
 
 本地 PostgreSQL 的失败事务和进程退出恢复已验证；ECS 专用测试库中的失败重试、崩溃恢复、非法来源/重定向/超时，以及备份恢复演练尚未执行。保留为 pending；不能将单次正常采集等同这些故障验证，也不宣称第五周全部验收或全站生产可用。限流每 API 进程、人工重试容量核算等限制见 Task 4 文档。
 
-下一项先在 ECS 专用测试库执行故障验收，不在生产表伪造任务状态或故障；通过后再收尾第五周，进入公司扩展。
+## ECS 故障与恢复补验（用户提供完整输出）
+
+专用测试库执行相关 pytest：22 passed，1 warning（Starlette TestClient 的 httpx 弃用提示，不是失败）；worker 故障专项 4/4 通过，包含两个阶段突然退出恢复、事务注入失败回滚及真实官方下载解析。故障注入不在生产任务表执行，租约时间显式推进；不等同真实等待或全机断电演练。
+
+首次恢复因 postgres 拥有的 vector 扩展 COMMENT 权限失败；修改 pg_restore 使用 --no-comments，在新空库重试成功。服务器脚本存在该精确本地修改；后续 git 更新前须核对，不能直接覆盖。
+
+恢复目标 finsentinel_restore_test_20261112231355，PostgreSQL 16.15；同一导出快照的 18 张 public 表记录数与恢复库全部一致。其中 companies=24、filings=48、document_chunks=288、evidence_spans=292、financial_metrics=288、document_chunk_embeddings=14、source_ingestion_tasks=2、ingestion_artifacts=1。production 仅只读导出，未覆盖。后端/前端/worker 均 active，health ok、PostgreSQL connected。
+
+第五周核心交付与上述 ECS 验收已完成。历史 pending 中数据库恢复、专用测试库故障重试/阶段恢复已由本节证据补齐；来源/重定向/超时来自服务器上 mock 单测，不声称真实恶意网络演练。备份仅验证 schema/表计数恢复，不是逐行校验、应用切换或全机灾备。每进程限流、retry 容量核算、无采集网页管理入口等已知限制继续保留。测试库和验收文件暂保留，不自动删除。
+
+下一阶段为第六周真实公司扩展；先核对已有真实来源和覆盖情况，不能将数据库 24 条公司记录全部当作已核验真实公司。
