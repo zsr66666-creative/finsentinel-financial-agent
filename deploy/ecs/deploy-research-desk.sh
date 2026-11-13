@@ -3,7 +3,7 @@
 set -euo pipefail
 umask 022
 
-readonly revision='bbc1fab2e051bd9461ef07ff696599563e92b7ad'
+readonly revision='f385056bf52dc7b521ada6f8e5015c7f77acb904'
 readonly repository='zsr66666-creative/finsentinel-financial-agent'
 readonly live='/opt/finsentinel/frontend/.next'
 readonly service='finsentinel-frontend'
