@@ -357,6 +357,56 @@ button:disabled { cursor: wait; opacity: .62; }
 .review-callout p { margin: 6px 0 0; }
 .result-footnote { margin-bottom: 0; }
 
+.session-loading { display: grid; min-height: 100dvh; place-items: center; color: var(--muted); }
+.profile-link { min-width: 0; min-height: 48px; border-radius: var(--radius-sm); }
+.profile-link:hover { background: rgba(243, 234, 222, .08); }
+.profile-link > span:nth-child(2) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.profile-shortcut { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; border-radius: 50%; }
+.user-avatar { flex: 0 0 34px; width: 34px; height: 34px; overflow: hidden; }
+.user-avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.login-screen { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 100dvh; }
+.login-story { display: flex; flex-direction: column; justify-content: space-between; gap: 36px; padding: clamp(28px, 5vw, 80px); color: var(--rail-text); background: linear-gradient(150deg, var(--navy), var(--navy-bright)); }
+.login-story .brand { margin: 0; }
+.login-story h1 { margin: 20px 0; font-size: clamp(30px, 3.8vw, 54px); line-height: 1.35; letter-spacing: -.04em; }
+.login-story p { max-width: 430px; line-height: 1.9; color: var(--rail-idle-text); }
+.login-kicker { color: var(--tea-highlight); }
+.login-capabilities { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.login-capabilities span { padding: 9px 14px; border: 1px solid rgba(243, 234, 222, .25); border-radius: 99px; font-size: 13px; }
+.login-form-area { display: grid; place-items: center; padding: 32px; }
+.login-card { width: 100%; max-width: 440px; padding: 36px; }
+.login-card h2 { font-size: 27px; margin: 20px 0 10px; }
+.login-card > p, .session-card p { color: var(--muted); line-height: 1.8; font-size: 13px; }
+.login-card label, .settings-card label { display: block; font-size: 13px; font-weight: 700; margin: 22px 0 9px; }
+.login-card input, .settings-card > input { width: 100%; min-height: 46px; padding: 12px 14px; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); background: var(--panel-soft); color: var(--ink); }
+.password-field { display: flex; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); background: var(--panel-soft); }
+.password-field input { border: 0; min-width: 0; }
+.password-field button { flex-shrink: 0; min-width: 50px; border: 0; border-radius: var(--radius-sm); color: var(--accent); background: transparent; font-size: 12px; }
+.login-submit { width: 100%; margin-top: 28px; min-height: 46px; }
+.login-card .login-note { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; }
+.settings-content { max-width: 900px; }
+.settings-card { padding: 28px; margin-bottom: 20px; }
+.settings-card h2 { margin: 0 0 20px; font-size: 19px; }
+.avatar-editor { display: flex; align-items: center; gap: 24px; padding: 8px 0 16px; }
+.avatar-editor .user-avatar { flex-basis: 88px; width: 88px; height: 88px; font-size: 30px; }
+.avatar-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.avatar-actions p, .field-hint { flex-basis: 100%; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+.field-hint { margin-top: 9px; }
+.settings-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); }
+.settings-footer span { color: var(--muted); font-size: 12px; line-height: 1.7; }
+.form-message { padding: 12px; border-radius: var(--radius-sm); line-height: 1.7; }
+.save-message { color: var(--success); font-size: 13px; }
+.session-card { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.session-card h2 { margin-bottom: 8px; }
+@media (max-width: 760px) {
+  .login-screen { grid-template-columns: minmax(0, 1fr); }
+  .login-story { padding: 28px 24px; gap: 20px; }
+  .login-story h1 { font-size: 30px; margin: 12px 0; }
+  .login-story > small, .login-capabilities { display: none; }
+  .login-form-area { padding: 24px 16px; }
+  .login-card, .settings-card { padding: 24px 20px; }
+  .avatar-editor { align-items: flex-start; gap: 16px; }
+  .settings-footer, .session-card { align-items: stretch; flex-direction: column; }
+}
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }
 @media (max-width: 1120px) { .main { padding: 0 24px 28px; } .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .overview-grid, .research-grid { grid-template-columns: 1fr; } .company-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 760px) {

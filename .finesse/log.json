@@ -1,6 +1,14 @@
 [
   {
     "date": "2026-11-13",
+    "target": "Demo login and personal settings",
+    "register": "product",
+    "palette": "warm tea + mineral teal",
+    "shell": "split login and existing research sidebar",
+    "brief": "Arbitrary nonempty credentials; sessionStorage demo entry, localStorage nickname/avatar; never persists password. Avatar center crop, accessible form feedback, logout and route return."
+  },
+  {
+    "date": "2026-11-13",
     "target": "FinSentinel / and /compare",
     "register": "product",
     "shell": "canonical-sidebar-topbar",

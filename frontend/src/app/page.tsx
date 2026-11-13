@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
+import { ProfileLink } from '@/components/demo-session';
 import { alertEmptyLabel, connectionStatusLabel, evidenceStatusLabel, filterAlerts, formatMetric, metricStateLabel, normalizeAlert, normalizeCollection, refreshLabel } from '@/lib/domain.mjs';
 import { riskCategory, workflowStages } from '@/lib/workflow';
 import { fixtureAlerts, fixtureCompanies, fixtureTrend } from '@/lib/fixtures';
@@ -137,11 +138,11 @@ export default function Workbench() {
       <div className="workspace"><span className="workspace-icon">研</span><span>消费电子研究组<small>RESEARCH WORKSPACE</small></span><span className="chevron">⌄</span></div>
       <div className="nav-caption">工作台</div>
       <nav>{nav.map(n => <button key={n.id} className={`nav-item ${view === n.id ? 'active' : ''}`} onClick={() => { setView(n.id as View); setNotice(''); }}><span className="nav-icon">{n.icon}</span>{n.label}{n.id === 'review' && pending > 0 && <span className="nav-count">{pending}</span>}</button>)}<Link className="nav-item" href="/compare"><span className="nav-icon">⇄</span>证据比较 · 真实财报</Link></nav>
-      <div className="sidebar-bottom"><div className="health"><i />工作流引擎<span>{connected ? '已连接' : '演示'}</span></div><div className="profile"><span className="avatar">研</span><span>研究员<small>个人研究工作区</small></span><span>⌘</span></div></div>
+      <div className="sidebar-bottom"><div className="health"><i />工作流引擎<span>{connected ? '已连接' : '演示'}</span></div><ProfileLink /></div>
     </aside>
 
     <main className="main">
-      <header className="topbar"><div className="breadcrumb">研究工作台 <span>/</span> <strong>{nav.find(n => n.id === view)?.label}</strong></div><div className="topbar-right"><span className="live-dot" />日级监测<span className="vertical-rule" /><span>消费电子 / 电子制造</span><button className="icon-button" onClick={() => setNotice('告警通知集中显示在风险告警与人工复核页面。')} aria-label="通知">♧</button><span className="avatar small">研</span></div></header>
+      <header className="topbar"><div className="breadcrumb">研究工作台 <span>/</span> <strong>{nav.find(n => n.id === view)?.label}</strong></div><div className="topbar-right"><span className="live-dot" />日级监测<span className="vertical-rule" /><span>消费电子 / 电子制造</span><button className="icon-button" onClick={() => setNotice('告警通知集中显示在风险告警与人工复核页面。')} aria-label="通知">♧</button><ProfileLink compact /></div></header>
       <div className="content">
         <div className="page-heading"><div><div className="eyebrow">EVIDENCE-DRIVEN RESEARCH</div><h1>{view === 'overview' ? '行业风险监控总览' : nav.find(n => n.id === view)?.label}</h1><p>{view === 'overview' ? '从财务变化到公告事件，让每一条研判都有据可循。' : '查看来源、计算过程与复核记录，形成可追溯的研究闭环。'}</p></div><button className="primary-button" onClick={() => { setAnalysisOpen(true); setRun(null); }}>＋ 新建分析</button></div>
         <div className={`mode-banner ${connected ? 'connected' : ''} ${isFixture ? 'synthetic-banner' : ''}`}><span>{loading ? '◌ ' : connected ? '● ' : '◈ '}{connectionStatusLabel({ loading, connected, error: loadError })}</span><strong>{isFixture ? 'DEMO / 合成数据' : '真实公开材料'}</strong><span>{loadError ? `连接失败：${loadError}。` : isFixture ? '页面中的公司、数字、页码和证据均为合成样例，不能作为真实财报结论。' : '公开材料研究辅助 · 结论需人工复核'}</span><button className="banner-action" onClick={() => loadDashboard({ refresh: true })} disabled={loading || refreshing}>{refreshLabel(refreshing)}</button><span className="banner-end">{connected ? 'API ONLINE' : 'FIXTURE DATA'}</span></div>

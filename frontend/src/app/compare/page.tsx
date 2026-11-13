@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { ProfileLink } from '@/components/demo-session';
 import { FormEvent, useState } from 'react';
 
 const example = (scope: string, relation: string) => `立讯精密2026年6月30日${scope}应收账款较2025年12月31日是否${relation}？`;
@@ -32,8 +33,8 @@ export default function ComparePage() {
     finally { clearTimeout(timeout); setBusy(false); }
   }
   return <div className="shell comparison-shell">
-    <aside className="sidebar"><Link className="brand" href="/"><span className="brand-mark">F<span /></span><span>FinSentinel<small>金融证据链研判平台</small></span></Link><div className="workspace"><span className="workspace-icon">研</span><span>消费电子研究组<small>RESEARCH WORKSPACE</small></span></div><div className="nav-caption">工作台</div><nav><Link className="nav-item" href="/">◈ 监控总览</Link><Link className="nav-item active" href="/compare">⇄ 证据比较</Link></nav><div className="sidebar-bottom"><div className={`health ${connection}`}><i />证据服务<span>{connectionLabel}</span></div></div></aside>
-    <main className="main comparison-main"><header className="topbar"><div className="breadcrumb"><Link href="/">研究工作台</Link> <span>/</span> <strong>证据比较</strong></div><div className="topbar-right"><span className="live-dot" />真实财报证据<span className="vertical-rule" /><span>立讯精密 · 2026 半年度报告</span></div></header><div className="content">
+    <aside className="sidebar"><Link className="brand" href="/"><span className="brand-mark">F<span /></span><span>FinSentinel<small>金融证据链研判平台</small></span></Link><div className="workspace"><span className="workspace-icon">研</span><span>消费电子研究组<small>RESEARCH WORKSPACE</small></span></div><div className="nav-caption">工作台</div><nav><Link className="nav-item" href="/">◈ 监控总览</Link><Link className="nav-item active" href="/compare">⇄ 证据比较</Link></nav><div className="sidebar-bottom"><div className={`health ${connection}`}><i />证据服务<span>{connectionLabel}</span></div><ProfileLink /></div></aside>
+    <main className="main comparison-main"><header className="topbar"><div className="breadcrumb"><Link href="/">研究工作台</Link> <span>/</span> <strong>证据比较</strong></div><div className="topbar-right"><span className="live-dot" />真实财报证据<span className="vertical-rule" /><span>立讯精密 · 2026 半年度报告</span><ProfileLink compact /></div></header><div className="content">
       <div className="page-heading"><div><div className="eyebrow">REVIEWED FINANCIAL EVIDENCE</div><h1>应收账款变动核对</h1><p>用已复核的真实财报证据，比较期间、口径与金额变化。</p></div><Link className="secondary-button" href="/">返回总览</Link></div>
       <div className={`mode-banner connection-banner ${connection}`} role="status"><span>● {bannerLabel}</span><strong>真实公开材料</strong><span>当前支持母公司或合并口径的应收账款期间比较。</span></div>
       <section className="panel comparison-card comparison-form-card"><div className="panel-heading"><div><h2>提出比较问题 <span>COMPARE</span></h2><p>请写清公司、日期、报表口径和“增加／未增加”判断。</p></div><span className="subtle-chip">已复核数据</span></div><div className="comparison-examples">{[['母公司', '未增加'], ['合并', '增加']].map(([scope, relation]) => <button type="button" key={scope} disabled={busy} onClick={() => change(example(scope, relation))}>{scope} · 是否{relation}</button>)}</div><form onSubmit={submit}><label htmlFor="comparison-question">比较问题</label><textarea id="comparison-question" rows={4} maxLength={500} value={question} disabled={busy} onChange={e => change(e.target.value)} /><div className="form-footer"><span>{question.length}/500 字</span><button className="primary-button" type="submit" disabled={busy || !question.trim()}>{busy ? '正在核对证据…' : '核对并比较 →'}</button></div></form></section>
