@@ -25,6 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - run: bash -n deploy/ecs/deploy-research-desk.sh
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
