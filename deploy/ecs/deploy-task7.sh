@@ -30,6 +30,26 @@ chmod 755 "$release"
 printf '%s\n' "$revision" >"$release/SOURCE_REVISION"
 echo "Staging $revision in $release; the current frontend keeps serving."
 
+# A failed HTTP probe may leave a fully built, tested release. Reuse only the
+# pinned build, in a fresh switch/rollback directory; never rebuild unnecessarily.
+if [[ -n "${FINSENTINEL_TASK7_REUSE_RELEASE:-}" ]]; then
+  python3 - "$FINSENTINEL_TASK7_REUSE_RELEASE" "$release" "$revision" <<'PY'
+from pathlib import Path
+import shutil
+import sys
+source, target = (Path(value).resolve(strict=True) for value in sys.argv[1:3])
+if source.parent != Path('/opt/finsentinel-releases') or not source.name.startswith('research-desk-'):
+    raise SystemExit('Unexpected retained release path')
+if (source / 'SOURCE_REVISION').read_text().strip() != sys.argv[3]:
+    raise SystemExit('Retained release revision mismatch')
+build = source / 'frontend/.next'
+if not (build / 'BUILD_ID').is_file() or not (build / 'standalone/server.js').is_file():
+    raise SystemExit('Retained production build incomplete')
+(target / 'frontend').mkdir()
+shutil.copytree(build, target / 'frontend/.next')
+print('Reused retained production build:', source)
+PY
+else
 if git -C /opt/finsentinel cat-file -e "$revision^{commit}" 2>/dev/null; then
   git -C /opt/finsentinel archive "$revision" frontend | tar -xf - -C "$release"
 else
@@ -106,6 +126,22 @@ install -d -o finsentinel -g finsentinel -m 750 /var/lib/finsentinel/npm-cache
 sudo -u finsentinel env NEXT_PUBLIC_API_URL='' NEXT_TELEMETRY_DISABLED=1 \
   bash -c 'cd "$1" && npm ci --cache /var/lib/finsentinel/npm-cache && npm test && npm run build' \
   _ "$release/frontend"
+
+fi
+
+# The heading is client-rendered behind DemoSession, so assert it in the
+# newly built compare bundle, not in unauthenticated server-rendered HTML.
+python3 - "$release/frontend/.next" <<'PY'
+from pathlib import Path
+import sys
+build = Path(sys.argv[1])
+bundles = list((build / 'static/chunks/app/compare').glob('page-*.js'))
+if not bundles or not any('候选证据检索' in path.read_text(encoding='utf-8') for path in bundles):
+    raise SystemExit('Task 7 candidate retrieval UI missing from compare bundle')
+if (build / 'BUILD_ID').read_bytes() != (build / 'standalone/.next/BUILD_ID').read_bytes():
+    raise SystemExit('Standalone production build ID mismatch')
+print('PASS pinned Task 7 compare bundle and standalone build ID')
+PY
 
 standalone="$release/frontend/.next/standalone"
 [[ -f "$standalone/server.js" && -d "$release/frontend/.next/static" ]]
@@ -197,14 +233,14 @@ def fetch(base, path, host=None):
 for attempt in range(25):
     try:
         html = fetch('http://127.0.0.1:3000', '/compare').decode('utf-8')
-        if '候选证据检索' not in html:
+        if 'FinSentinel' not in html:
             raise RuntimeError('Direct /compare did not return the reviewed UI')
         break
     except Exception:
         if attempt == 24:
             raise
         time.sleep(2)
-print('PASS localhost:3000/compare')
+print('PASS localhost:3000/compare application shell (browser login still required)')
 
 class Assets(HTMLParser):
     def __init__(self):
@@ -224,7 +260,7 @@ class Assets(HTMLParser):
             raise RuntimeError(f'Unexpected external CSS/JS reference: {value}')
         self.paths.add(url.path + ('?' + url.query if url.query else ''))
 
-for path, expected in [('/', 'FinSentinel'), ('/compare', '候选证据检索'), ('/login', 'FinSentinel'), ('/settings', 'FinSentinel')]:
+for path, expected in [('/', 'FinSentinel'), ('/compare', 'FinSentinel'), ('/login', 'FinSentinel'), ('/settings', 'FinSentinel')]:
     html = fetch('http://127.0.0.1', path, '120.24.108.60').decode('utf-8')
     if expected not in html:
         raise RuntimeError(f'{path}: expected page content missing')
