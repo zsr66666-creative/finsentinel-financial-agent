@@ -4,6 +4,18 @@
     "target": "FinSentinel / and /compare",
     "register": "product",
     "shell": "canonical-sidebar-topbar",
+    "palette": "warm tea rail + warm paper + mineral teal + slate blue details",
+    "type": "compact sans with tabular numerals",
+    "layout": "existing research desk; differentiated KPI surfaces",
+    "engine": "none; feedback-only motion",
+    "material": "warm paper evidence ledger",
+    "brief": "User requested tea-brown sidebar and less monochrome UI. Fixed native button background causing unreadable inactive navigation. Kept amber risk, green support and red error/negative semantics."
+  },
+  {
+    "date": "2026-11-13",
+    "target": "FinSentinel / and /compare",
+    "register": "product",
+    "shell": "canonical-sidebar-topbar",
     "palette": "light cool-slate + cobalt + sky",
     "type": "compact sans with tabular numerals",
     "layout": "sidebar research desk with weighted evidence panels",
