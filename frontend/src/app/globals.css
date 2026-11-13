@@ -59,7 +59,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .nav-item:hover { transform: translateX(2px); color: #f7fbff; background: rgba(234, 242, 255, .09); }
 .nav-item.active { color: var(--on-accent); border-color: rgba(185, 230, 255, .18); background: linear-gradient(90deg, rgba(59, 130, 246, .35), rgba(59, 130, 246, .12)); box-shadow: inset 3px 0 0 #6de2f4; }
 .nav-icon { display: grid; flex: 0 0 22px; place-items: center; color: #b9e6ff; font-size: 17px; }
-.nav-count { margin-left: auto; min-width: 22px; padding: 3px 6px; border-radius: 99px; color: var(--on-accent); background: var(--danger); font-size: 11px; text-align: center; }
+.nav-count { margin-left: auto; min-width: 22px; padding: 3px 6px; border-radius: 99px; color: var(--warning); background: var(--warning-soft); font-size: 11px; text-align: center; }
 .sidebar-bottom { display: grid; gap: 16px; margin-top: auto; padding-top: 22px; }
 .health { display: flex; align-items: center; gap: 8px; color: rgba(234, 242, 255, .8); font-size: 12px; }
 .health i, .live-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #5ee1b2; box-shadow: 0 0 0 4px rgba(94, 225, 178, .12); }
@@ -172,13 +172,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .alert-row-main > div { min-width: 0; }
 .alert-row-main strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; }
 .risk-dot { display: block; flex: 0 0 8px; width: 8px; height: 8px; margin-top: 5px; border-radius: 50%; background: var(--warning); }
-.risk-dot.high { background: var(--danger); box-shadow: 0 0 0 4px var(--danger-soft); }
+.risk-dot.high { background: var(--warning); box-shadow: 0 0 0 4px var(--warning-soft); }
 .risk-dot.medium { background: var(--warning); box-shadow: 0 0 0 4px var(--warning-soft); }
 .risk-dot.low { background: var(--success); box-shadow: 0 0 0 4px var(--success-soft); }
 .row-meta { display: flex; gap: 8px; margin-top: 6px; color: var(--muted); font-size: 10px; }
 .row-meta span + span::before { margin-right: 8px; content: '·'; color: var(--subtle); }
 .badge { display: inline-flex; align-items: center; justify-content: center; width: max-content; min-height: 24px; border: 1px solid rgba(45, 91, 216, .14); border-radius: 999px; padding: 4px 8px; color: var(--accent); background: var(--accent-soft); font-size: 10px; font-weight: 800; white-space: nowrap; }
-.badge.high { color: var(--danger); border-color: rgba(192, 69, 60, .16); background: var(--danger-soft); }
+.badge.high { color: var(--warning); border-color: rgba(138, 90, 10, .24); background: var(--warning-soft); font-weight: 800; }
 .badge.medium { color: var(--warning); border-color: rgba(183, 122, 22, .18); background: var(--warning-soft); }
 .badge.low, .badge.success { color: var(--success); border-color: rgba(38, 122, 138, .15); background: var(--success-soft); }
 .badge.warning { color: var(--warning); border-color: rgba(183, 122, 22, .18); background: var(--warning-soft); }
@@ -309,8 +309,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .comparison-values div { padding: 16px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--panel-soft); }
 .comparison-values dt { color: var(--muted); font-size: 11px; }
 .comparison-values dd { margin: 10px 0 0; overflow-wrap: anywhere; color: var(--ink); font-size: 18px; font-weight: 800; font-variant-numeric: tabular-nums; }
-.comparison-values dd.down { color: var(--success); }
-.comparison-values dd.up { color: var(--danger); }
+.comparison-values dd.down, .comparison-values dd.up { color: var(--ink); }
 .evidence-section { padding-top: 20px; border-top: 1px solid var(--border); }
 .evidence-section .section-title { margin-bottom: 6px; }
 .evidence-section .section-title h3 { margin: 0; color: var(--ink-soft); font-size: 15px; }
