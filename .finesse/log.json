@@ -9,6 +9,6 @@
     "layout": "sidebar research desk with weighted evidence panels",
     "engine": "none; feedback-only motion",
     "material": "evidence ledger / cool paper",
-    "brief": "Reference images supplied by user: deep-blue brand layer, white and pale-blue content panels, blue CTA. Preserved navigation and status semantics."
+    "brief": "Reference images supplied by user: deep-blue brand layer, white and pale-blue content panels, blue CTA. Preserved navigation and status semantics. Final polish: viewport-contained scrolling sidebar, AA text contrast, 44px mobile controls, and compare connection status derived from the existing request. Evidence excerpts use rounded tinted inset surfaces."
   }
 ]
