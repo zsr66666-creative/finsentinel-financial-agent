@@ -452,3 +452,13 @@ button:disabled { cursor: wait; opacity: .62; }
   .evidence-section li small { width: 100%; margin-left: 0; }
   .page-footer { flex-direction: column; }
 }
+
+/* Task 7: candidate evidence stays distinct from reviewed conclusions. */
+.retrieval-card { margin-top: 24px; }
+.retrieval-card input[type=file] { max-width: 100%; padding: 12px 0; }
+.retrieval-candidates { list-style: none; padding: 0; display: grid; gap: 14px; }
+.retrieval-candidates > li { padding: 18px; border: 1px solid var(--border, #e5e1d9); border-radius: 14px; min-width: 0; }
+.retrieval-text { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.75; }
+.retrieval-candidates details { margin-top: 12px; font-size: 12px; overflow-wrap: anywhere; }
+.retrieval-candidates summary { cursor: pointer; padding: 6px 0; }
+.retrieval-candidates .section-title { flex-wrap: wrap; gap: 8px; }

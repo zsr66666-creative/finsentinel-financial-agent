@@ -1,0 +1,253 @@
+{
+  "model": "BAAI/bge-small-zh-v1.5@7999e1d3359715c523056ef9478215996d62a620",
+  "dimensions": 512,
+  "model_load_ms": 3383.247,
+  "batch_query_encode_ms": 125.945,
+  "split": "development_smoke",
+  "cases": [
+    {
+      "id": "parent-direct",
+      "question": "立讯精密2026年半年度报告母公司应收账款是多少？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p63-s4"
+      ],
+      "query_package_sha256": "5fec1a08a329302367dcf7a463f84c3f29a2d53c52821030fd0e6c2983e14318",
+      "http_wall_ms": 39.835,
+      "rankings": {
+        "rrf": [
+          "002475-2026H1-p60-s20",
+          "002475-2026H1-p63-s4",
+          "002475-2026H1-p3-s9",
+          "002475-2026H1-p62-fulltext-line117",
+          "002475-2026H1-p8-s6",
+          "002475-2026H1-p8-s5",
+          "002475-2026H1-p3-s3",
+          "002475-2026H1-p60-s8",
+          "002475-2026H1-p3-s8",
+          "002475-2026H1-p3-s7",
+          "002475-2026H1-p3-s5",
+          "002475-2026H1-p3-s2",
+          "002475-2026H1-p3-s6",
+          "002475-2026H1-p3-s4"
+        ],
+        "bm25": [
+          "002475-2026H1-p60-s20",
+          "002475-2026H1-p63-s4",
+          "002475-2026H1-p3-s9",
+          "002475-2026H1-p62-fulltext-line117"
+        ],
+        "vector": [
+          "002475-2026H1-p63-s4",
+          "002475-2026H1-p60-s20",
+          "002475-2026H1-p8-s6",
+          "002475-2026H1-p62-fulltext-line117",
+          "002475-2026H1-p3-s9",
+          "002475-2026H1-p8-s5",
+          "002475-2026H1-p3-s3",
+          "002475-2026H1-p60-s8",
+          "002475-2026H1-p3-s8",
+          "002475-2026H1-p3-s7",
+          "002475-2026H1-p3-s5",
+          "002475-2026H1-p3-s2",
+          "002475-2026H1-p3-s6",
+          "002475-2026H1-p3-s4"
+        ]
+      },
+      "recall_at_5": {
+        "rrf": 1,
+        "bm25": 1,
+        "vector": 1
+      },
+      "server_duration_ms": 4.951,
+      "retrieval_mode": "bm25_vector_rrf",
+      "corpus_candidates": 14
+    },
+    {
+      "id": "parent-paraphrase",
+      "question": "想了解立讯精密母公司期末尚未收回的销售货款余额，应查哪段财报？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p63-s4"
+      ],
+      "query_package_sha256": "94c63eaed32ccb13824dbb4988bd60cddc0190f684df913fb8a2abf8df120516",
+      "http_wall_ms": 21.02,
+      "rankings": {
+        "rrf": [
+          "002475-2026H1-p3-s3",
+          "002475-2026H1-p3-s5",
+          "002475-2026H1-p62-fulltext-line117",
+          "002475-2026H1-p3-s9",
+          "002475-2026H1-p63-s4",
+          "002475-2026H1-p60-s20",
+          "002475-2026H1-p8-s6",
+          "002475-2026H1-p60-s8",
+          "002475-2026H1-p3-s8",
+          "002475-2026H1-p8-s5",
+          "002475-2026H1-p3-s7",
+          "002475-2026H1-p3-s2",
+          "002475-2026H1-p3-s4",
+          "002475-2026H1-p3-s6"
+        ],
+        "bm25": [
+          "002475-2026H1-p3-s5",
+          "002475-2026H1-p3-s3"
+        ],
+        "vector": [
+          "002475-2026H1-p62-fulltext-line117",
+          "002475-2026H1-p3-s9",
+          "002475-2026H1-p63-s4",
+          "002475-2026H1-p60-s20",
+          "002475-2026H1-p8-s6",
+          "002475-2026H1-p3-s3",
+          "002475-2026H1-p60-s8",
+          "002475-2026H1-p3-s8",
+          "002475-2026H1-p8-s5",
+          "002475-2026H1-p3-s7",
+          "002475-2026H1-p3-s2",
+          "002475-2026H1-p3-s4",
+          "002475-2026H1-p3-s6",
+          "002475-2026H1-p3-s5"
+        ]
+      },
+      "recall_at_5": {
+        "rrf": 1,
+        "bm25": 0,
+        "vector": 1
+      },
+      "server_duration_ms": 3.171,
+      "retrieval_mode": "bm25_vector_rrf",
+      "corpus_candidates": 14
+    },
+    {
+      "id": "consolidated-direct",
+      "question": "立讯精密2026年半年度报告合并应收账款是多少？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p60-s20"
+      ],
+      "query_package_sha256": "bbfbf9e956152d516b4a71fb5e7f53915e8bae986d8db7acf63def84bb8e727e",
+      "http_wall_ms": 20.14,
+      "rankings": {
+        "rrf": [
+          "002475-2026H1-p60-s20",
+          "002475-2026H1-p63-s4",
+          "002475-2026H1-p3-s9",
+          "002475-2026H1-p60-s8",
+          "002475-2026H1-p8-s6",
+          "002475-2026H1-p8-s5",
+          "002475-2026H1-p62-fulltext-line117",
+          "002475-2026H1-p3-s3",
+          "002475-2026H1-p3-s8",
+          "002475-2026H1-p3-s7",
+          "002475-2026H1-p3-s5",
+          "002475-2026H1-p3-s4",
+          "002475-2026H1-p3-s6",
+          "002475-2026H1-p3-s2"
+        ],
+        "bm25": [
+          "002475-2026H1-p60-s20",
+          "002475-2026H1-p63-s4",
+          "002475-2026H1-p3-s9",
+          "002475-2026H1-p60-s8"
+        ],
+        "vector": [
+          "002475-2026H1-p63-s4",
+          "002475-2026H1-p60-s20",
+          "002475-2026H1-p8-s6",
+          "002475-2026H1-p60-s8",
+          "002475-2026H1-p3-s9",
+          "002475-2026H1-p8-s5",
+          "002475-2026H1-p62-fulltext-line117",
+          "002475-2026H1-p3-s3",
+          "002475-2026H1-p3-s8",
+          "002475-2026H1-p3-s7",
+          "002475-2026H1-p3-s5",
+          "002475-2026H1-p3-s4",
+          "002475-2026H1-p3-s6",
+          "002475-2026H1-p3-s2"
+        ]
+      },
+      "recall_at_5": {
+        "rrf": 1,
+        "bm25": 1,
+        "vector": 1
+      },
+      "server_duration_ms": 3.013,
+      "retrieval_mode": "bm25_vector_rrf",
+      "corpus_candidates": 14
+    },
+    {
+      "id": "consolidated-paraphrase",
+      "question": "立讯精密集团合并报表中客户欠款的期末余额在哪里披露？",
+      "gold_evidence_ids": [
+        "002475-2026H1-p60-s20"
+      ],
+      "query_package_sha256": "6db555375fe8c73abb7719101fe86038106db70ea7844e2d2d25cd5cc202dbe4",
+      "http_wall_ms": 20.8,
+      "rankings": {
+        "rrf": [
+          "002475-2026H1-p60-s8",
+          "002475-2026H1-p62-fulltext-line117",
+          "002475-2026H1-p60-s20",
+          "002475-2026H1-p63-s4",
+          "002475-2026H1-p8-s6",
+          "002475-2026H1-p3-s8",
+          "002475-2026H1-p8-s5",
+          "002475-2026H1-p3-s9",
+          "002475-2026H1-p3-s3",
+          "002475-2026H1-p3-s7",
+          "002475-2026H1-p3-s5",
+          "002475-2026H1-p3-s2",
+          "002475-2026H1-p3-s4",
+          "002475-2026H1-p3-s6"
+        ],
+        "bm25": [
+          "002475-2026H1-p60-s8"
+        ],
+        "vector": [
+          "002475-2026H1-p60-s8",
+          "002475-2026H1-p62-fulltext-line117",
+          "002475-2026H1-p60-s20",
+          "002475-2026H1-p63-s4",
+          "002475-2026H1-p8-s6",
+          "002475-2026H1-p3-s8",
+          "002475-2026H1-p8-s5",
+          "002475-2026H1-p3-s9",
+          "002475-2026H1-p3-s3",
+          "002475-2026H1-p3-s7",
+          "002475-2026H1-p3-s5",
+          "002475-2026H1-p3-s2",
+          "002475-2026H1-p3-s4",
+          "002475-2026H1-p3-s6"
+        ]
+      },
+      "recall_at_5": {
+        "rrf": 1,
+        "bm25": 0,
+        "vector": 1
+      },
+      "server_duration_ms": 3.236,
+      "retrieval_mode": "bm25_vector_rrf",
+      "corpus_candidates": 14
+    }
+  ],
+  "limitations": [
+    "Four known-source development queries, not held-out evaluation",
+    "Gold IDs reuse reviewed receivables spans; no broad financial QA claim",
+    "Candidate retrieval does not prove scope or numeric answer correctness",
+    "No negative-case abstention evaluated; no complete-report coverage claim",
+    "Cloud wall latency excludes local model load and query encoding"
+  ],
+  "recall_at_5": {
+    "bm25": {
+      "hits": 2,
+      "total": 4
+    },
+    "vector": {
+      "hits": 4,
+      "total": 4
+    },
+    "rrf": {
+      "hits": 4,
+      "total": 4
+    }
+  }
+}

@@ -30,5 +30,13 @@
     "engine": "none; feedback-only motion",
     "material": "evidence ledger / cool paper",
     "brief": "Reference images supplied by user: deep-blue brand layer, white and pale-blue content panels, blue CTA. Preserved navigation and status semantics. Final polish: viewport-contained scrolling sidebar, AA text contrast, 44px mobile controls, and compare connection status derived from the existing request. Evidence excerpts use rounded tinted inset surfaces."
+  },
+  {
+    "date": "2026-11-14",
+    "target": "FinSentinel /compare candidate retrieval",
+    "register": "product",
+    "shell": "existing research desk",
+    "palette": "preserve existing warm tea and mineral accents",
+    "brief": "Separate candidate evidence from reviewed conclusions; pinned local query packages, accessible upload and async states, source IDs and physical pages, no confidence claims."
   }
 ]
