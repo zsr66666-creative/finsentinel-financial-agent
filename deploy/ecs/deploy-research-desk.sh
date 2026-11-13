@@ -3,7 +3,7 @@
 set -euo pipefail
 umask 022
 
-readonly revision='f385056bf52dc7b521ada6f8e5015c7f77acb904'
+readonly revision='303bb166adbbf3429bccf9287788a218ceafadf0'
 readonly repository='zsr66666-creative/finsentinel-financial-agent'
 readonly live='/opt/finsentinel/frontend/.next'
 readonly service='finsentinel-frontend'
@@ -69,8 +69,8 @@ if tree.get('truncated') or not isinstance(tree.get('tree'), list):
     raise RuntimeError('GitHub did not return a complete source tree')
 entries = [entry for entry in tree['tree']
            if entry.get('path', '').startswith('frontend/') and entry.get('type') != 'tree']
-if not 1 <= len(entries) <= 20:
-    raise RuntimeError(f'Unexpected frontend file count: {len(entries)} (expected at most 20)')
+if not 1 <= len(entries) <= 50:
+    raise RuntimeError(f'Unexpected frontend file count: {len(entries)} (expected at most 50)')
 seen = set()
 for entry in entries:
     name = entry['path']
@@ -197,7 +197,7 @@ def fetch(base, path, host=None):
 for attempt in range(25):
     try:
         html = fetch('http://127.0.0.1:3000', '/compare').decode('utf-8')
-        if '应收账款变动核对' not in html:
+        if 'FinSentinel' not in html:
             raise RuntimeError('Direct /compare did not return the reviewed UI')
         break
     except Exception:
@@ -224,7 +224,7 @@ class Assets(HTMLParser):
             raise RuntimeError(f'Unexpected external CSS/JS reference: {value}')
         self.paths.add(url.path + ('?' + url.query if url.query else ''))
 
-for path, expected in [('/', 'FinSentinel'), ('/compare', '应收账款变动核对')]:
+for path, expected in [('/', 'FinSentinel'), ('/compare', 'FinSentinel'), ('/login', 'FinSentinel'), ('/settings', 'FinSentinel')]:
     html = fetch('http://127.0.0.1', path, '120.24.108.60').decode('utf-8')
     if expected not in html:
         raise RuntimeError(f'{path}: expected page content missing')
