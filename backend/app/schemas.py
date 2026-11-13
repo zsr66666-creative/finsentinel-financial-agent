@@ -10,6 +10,16 @@ class EvidenceComparisonRequest(StrictModel):
     question: str = Field(min_length=1, max_length=500)
 
 
+class EvidenceVectorSearchRequest(StrictModel):
+    query: str = Field(min_length=1, max_length=500)
+    vector: list[float] = Field(min_length=512, max_length=512)
+    model: str = Field(min_length=1, max_length=160)
+    company_code: str = Field(min_length=1, max_length=32)
+    period: str = Field(min_length=1, max_length=32)
+    top_k: int = Field(default=5, ge=1, le=20)
+    as_of: str | None = Field(default=None, max_length=32)
+
+
 class AnalysisRequest(StrictModel):
     company_id: str
     question: str = Field(min_length=1, max_length=2000)

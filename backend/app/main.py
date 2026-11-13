@@ -29,9 +29,10 @@ from app.risk_rules import evaluate_event_rule, evaluate_rules
 from app.retrieval import search_chunks
 from app.evaluation import recall_at_k
 from app.review import next_alert_status, validate_feedback
-from app.schemas import EvidenceComparisonRequest
+from app.schemas import EvidenceComparisonRequest, EvidenceVectorSearchRequest
 from app.persisted_comparison import compare_persisted, compare_rows
 from app.comparison_query import parse_comparison
+from app.persisted_hybrid import search_persisted
 
 
 def now():
@@ -130,6 +131,26 @@ def create_app(database_url=None, data_mode=None):
         except Exception:
             logger.warning('Comparison evidence unavailable')
             raise HTTPException(status_code=503, detail='comparison_evidence_unavailable')
+
+    @app.post('/api/v1/evidence/search/vector')
+    def vector_evidence_search(payload: EvidenceVectorSearchRequest):
+        """Retrieve real persisted evidence spans with pgvector + lexical RRF.
+
+        Query-vector generation stays outside the small ECS process; the API only
+        accepts a validated 512-dimensional vector and never loads a model.
+        """
+        try:
+            result = search_persisted(
+                store.engine, payload.query, payload.vector,
+                model=payload.model, company_code=payload.company_code,
+                period=payload.period, top_k=payload.top_k, as_of=payload.as_of,
+            )
+            return {**result, 'data_mode': 'reviewed_real_pdf'}
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from exc
+        except Exception:
+            logger.warning('Vector evidence search unavailable')
+            raise HTTPException(status_code=503, detail='vector_search_unavailable')
 
     @app.middleware('http')
     async def request_observability(request: Request, call_next):
