@@ -1,0 +1,2 @@
+# Deployment archives must contain Linux shell line endings on every host.
+*.sh text eol=lf
