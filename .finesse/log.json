@@ -60,5 +60,13 @@
     "design_language": "apple",
     "apple_mode": "app",
     "brief": "User approved replacing tea rail with neutral gray translucent sidebar; blue selection, system type, opaque evidence cards, five page types, dark/mobile/reduced transparency fallbacks."
+  },
+  {
+    "date": "2026-11-15",
+    "target": "Task 8 text evidence retrieval",
+    "register": "product",
+    "design_language": "apple",
+    "apple_mode": "app",
+    "brief": "Direct question form scoped to current real corpus; encoding and retrieval timing; old private package upload in advanced disclosure; candidacy boundary and 429/503 feedback."
   }
 ]

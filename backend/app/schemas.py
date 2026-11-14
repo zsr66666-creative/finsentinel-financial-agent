@@ -1,5 +1,5 @@
 from typing import Literal
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, field_validator
 
 
 class StrictModel(BaseModel):
@@ -18,6 +18,20 @@ class EvidenceVectorSearchRequest(StrictModel):
     period: str = Field(min_length=1, max_length=32)
     top_k: int = Field(default=5, ge=1, le=20)
     as_of: str | None = Field(default=None, max_length=32)
+
+
+class EvidenceTextSearchRequest(StrictModel):
+    query: str = Field(min_length=1, max_length=500)
+    company_code: str = Field(min_length=1, max_length=32, pattern=r'^[A-Za-z0-9_-]+$')
+    period: str = Field(min_length=1, max_length=32, pattern=r'^[A-Za-z0-9_-]+$')
+    top_k: int = Field(default=5, ge=1, le=20)
+
+    @field_validator('query')
+    @classmethod
+    def meaningful_query(cls, value):
+        if not value.strip():
+            raise ValueError('query must contain text')
+        return value.strip()
 
 
 class AnalysisRequest(StrictModel):

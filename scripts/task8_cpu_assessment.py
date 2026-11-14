@@ -66,12 +66,16 @@ def main():
             similarities.append(float(np.dot(actual,expected)/(np.linalg.norm(actual)*np.linalg.norm(expected))))
         memory=process.memory_info()
         peak=getattr(memory,'peak_wset',memory.rss)
+        import sys
+        if sys.platform.startswith('linux'):
+            import resource
+            peak=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024
         report=dict(model=MODEL,revision=REVISION,model_sha256=hashlib.sha256((root/'model.onnx').read_bytes()).hexdigest(),
             model_mib=(root/'model.onnx').stat().st_size/1024**2,load_ms=load_ms,rss_mib=memory.rss/1024**2,peak_mib=peak/1024**2,
             timings_ms=timings,max_abs_errors=errors,cosine_similarities=similarities,dimensions=len(actual),
             imported_torch=__import__('sys').modules.get('torch') is not None,
             parity_passed=min(similarities)>0.99999 and max(errors)<0.0001,
-            limitations=['Local Windows CPU assessment, not Alibaba Linux memory/latency acceptance','One inference thread; no concurrent load measurement'])
+            platform=sys.platform, limitations=['Measurements describe this process and platform only','One inference thread; no concurrent load measurement'])
         (root/'assessment.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
         print(json.dumps(report,indent=2))
         if not report['parity_passed']:raise SystemExit('parity failed')

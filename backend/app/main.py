@@ -33,6 +33,8 @@ from app.schemas import EvidenceComparisonRequest, EvidenceVectorSearchRequest
 from app.persisted_comparison import compare_persisted, compare_rows
 from app.comparison_query import parse_comparison
 from app.persisted_hybrid import search_persisted
+from app.online_query import MODEL_ID, QueryServiceError, encode_online_query
+from app.schemas import EvidenceTextSearchRequest
 
 
 def now():
@@ -131,6 +133,22 @@ def create_app(database_url=None, data_mode=None):
         except Exception:
             logger.warning('Comparison evidence unavailable')
             raise HTTPException(status_code=503, detail='comparison_evidence_unavailable')
+
+    @app.post('/api/v1/evidence/search/text')
+    def text_evidence_search(payload: EvidenceTextSearchRequest):
+        try:
+            vector, encoding_ms = encode_online_query(payload.query)
+        except QueryServiceError as exc:
+            detail = 'query_encoder_busy' if exc.status_code == 429 else 'query_encoder_unavailable'
+            raise HTTPException(exc.status_code, detail=detail) from exc
+        try:
+            result = search_persisted(store.engine, payload.query, vector, model=MODEL_ID,
+                                      company_code=payload.company_code, period=payload.period, top_k=payload.top_k)
+            return {**result, 'model': MODEL_ID, 'encoding_ms': encoding_ms,
+                    'answer_status': 'candidates_only', 'data_mode': 'reviewed_real_pdf'}
+        except Exception as exc:
+            logger.warning('Text evidence search unavailable')
+            raise HTTPException(503, detail='text_search_unavailable') from exc
 
     @app.post('/api/v1/evidence/search/vector')
     def vector_evidence_search(payload: EvidenceVectorSearchRequest):

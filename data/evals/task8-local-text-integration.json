@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "path": "local text API -> real loopback ONNX -> existing Alibaba vector API via test relay",
+  "model": "BAAI/bge-small-zh-v1.5@7999e1d3359715c523056ef9478215996d62a620",
+  "encoding_ms": 13.446,
+  "ids": [
+    "002475-2026H1-p60-s20",
+    "002475-2026H1-p63-s4",
+    "002475-2026H1-p62-fulltext-line117",
+    "002475-2026H1-p8-s6",
+    "002475-2026H1-p8-s5"
+  ],
+  "limitation": "New text endpoint not yet deployed; database retrieval relayed to old live API in this integration test"
+}

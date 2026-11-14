@@ -528,3 +528,7 @@ body {
 html[data-theme="dark"] .panel-heading { background:linear-gradient(110deg,var(--surface-sage),var(--panel) 75%); }
 html[data-theme="dark"] .comparison-card > .panel-heading { background:none; }
 @media(max-width:600px) { .page-heading { padding:16px; } }
+
+.retrieval-card form textarea { width:100%; padding:12px 14px; margin-top:8px; border:1px solid var(--border-strong); border-radius:var(--radius-sm); background:var(--panel-soft); color:var(--ink); resize:vertical; }
+.retrieval-advanced { margin-top:18px; padding-top:14px; border-top:1px solid var(--border); }
+.retrieval-advanced > summary { cursor:pointer; color:var(--muted); padding:8px 0; font-size:13px; }
