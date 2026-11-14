@@ -492,3 +492,39 @@ html[data-theme="dark"] .login-visual { background:var(--navy); }
 @media(max-width:600px) { .theme-dock { right:10px; bottom:10px; } .theme-control select { min-height:44px; } }
 
 html[data-theme="dark"] .nav-item.active, html[data-theme="dark"] .nav-item:hover { color:var(--rail-text); }
+
+/* Warm tea / mist blue / sage: ambient color stays behind opaque evidence. */
+:root {
+ --ambient-blue:#dce8ef; --ambient-sage:#dce9dd; --ambient-tea:#efe0cc;
+ --surface-blue:#edf3f7; --surface-sage:#edf4ec; --surface-tea:#f6eee2;
+ --heading-glow:rgba(220,233,221,.65);
+}
+html[data-theme="dark"] {
+ --ambient-blue:#233c4b; --ambient-sage:#294236; --ambient-tea:#44352a;
+ --surface-blue:#27343e; --surface-sage:#29392f; --surface-tea:#3a3027;
+ --heading-glow:rgba(41,66,54,.5);
+}
+body {
+ background-color:var(--page);
+ background-image:radial-gradient(ellipse 75% 650px at 100% 0%,var(--ambient-blue),transparent 78%),radial-gradient(ellipse 70% 700px at 15% 48%,var(--ambient-sage),transparent 80%),radial-gradient(ellipse 65% 650px at 100% 100%,var(--ambient-tea),transparent 80%);
+ background-repeat:no-repeat;
+}
+.page-heading {
+ border-radius:var(--radius-md);
+ padding:20px;
+ background:linear-gradient(110deg,var(--heading-glow),transparent 65%),linear-gradient(280deg,var(--surface-blue),transparent 75%);
+ border:1px solid var(--border);
+}
+.panel-heading { background:linear-gradient(110deg,var(--surface-sage),var(--panel) 75%); border-radius:var(--radius-md) var(--radius-md) 0 0; }
+.comparison-card > .panel-heading { background:none; }
+.comparison-form-card, .settings-card { background:linear-gradient(145deg,var(--surface-blue),var(--panel) 45%); }
+.retrieval-card { background:linear-gradient(145deg,var(--surface-sage),var(--panel) 45%); }
+.company-card:nth-child(3n+1) { background:linear-gradient(130deg,var(--surface-sage),var(--panel)); }
+.company-card:nth-child(3n+2) { background:linear-gradient(130deg,var(--surface-blue),var(--panel)); }
+.company-card:nth-child(3n) { background:linear-gradient(130deg,var(--surface-tea),var(--panel)); }
+.company-card:hover { background:var(--accent-wash); }
+.login-form-area { background:radial-gradient(ellipse at 90% 10%,var(--ambient-blue),transparent 65%),radial-gradient(ellipse at 0% 100%,var(--ambient-sage),transparent 65%); }
+.login-story { background:radial-gradient(ellipse at 0% 0%,rgba(173,202,190,.13),transparent 65%),linear-gradient(150deg,var(--navy),var(--navy-bright)); }
+html[data-theme="dark"] .panel-heading { background:linear-gradient(110deg,var(--surface-sage),var(--panel) 75%); }
+html[data-theme="dark"] .comparison-card > .panel-heading { background:none; }
+@media(max-width:600px) { .page-heading { padding:16px; } }

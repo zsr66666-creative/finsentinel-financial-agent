@@ -45,5 +45,12 @@
     "register": "product",
     "palette": "warm tea light plus mineral dark",
     "brief": "Three-state system-aware persisted theme, semantic financial colors, independent company pages with period and provenance. No expanded real corpus claim."
+  },
+  {
+    "date": "2026-11-14",
+    "target": "Ambient backgrounds across research desk",
+    "register": "product",
+    "palette": "approved warm tea + mist blue + sage",
+    "brief": "Static broad ambient gradients, opaque evidence surfaces, quiet tinted section headers, matching ink-blue/forest/tea dark palette. Preserve status meaning and existing layout."
   }
 ]
