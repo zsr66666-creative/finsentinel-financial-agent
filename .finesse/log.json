@@ -52,5 +52,13 @@
     "register": "product",
     "palette": "approved warm tea + mist blue + sage",
     "brief": "Static broad ambient gradients, opaque evidence surfaces, quiet tinted section headers, matching ink-blue/forest/tea dark palette. Preserve status meaning and existing layout."
+  },
+  {
+    "date": "2026-11-15",
+    "target": "Global macOS app redesign",
+    "register": "product",
+    "design_language": "apple",
+    "apple_mode": "app",
+    "brief": "User approved replacing tea rail with neutral gray translucent sidebar; blue selection, system type, opaque evidence cards, five page types, dark/mobile/reduced transparency fallbacks."
   }
 ]

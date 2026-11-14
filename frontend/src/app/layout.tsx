@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import './macos.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import { themeBootstrap } from '@/lib/theme.mjs';
 import { DemoSession } from '@/components/demo-session';

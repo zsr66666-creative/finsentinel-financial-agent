@@ -1,0 +1,89 @@
+/* finesse · register=product · design-language=apple · apple-mode=app
+ * Approved: neutral translucent chrome, quiet blue actions, opaque evidence. */
+:root {
+  --page:#f3f4f6; --panel:#fff; --panel-soft:#f5f5f7; --panel-muted:#e8ebef;
+  --ink:#24262b; --ink-soft:#414650; --muted:#626872; --subtle:#656b75;
+  --border:rgba(35,42,54,.1); --border-strong:rgba(35,42,54,.22);
+  --accent:#0863c3; --accent-action:#0863c3; --accent-bright:#3970ac;
+  --on-accent:#fff; --accent-soft:#e6effb; --accent-wash:#eaf1fa; --accent-hover:#dce9f9;
+  --navy:#e6e9ee; --navy-bright:#f1f2f5; --rail-text:#323943;
+  --rail-icon:#476582; --rail-workspace-text:#323943; --rail-idle-text:#626872;
+  --rail-online:#278455; --rail-online-text:#286343; --rail-error:#bd3939; --rail-error-text:#a83030;
+  --tea-highlight:#8caacb; --tea-brand:#c4d6ed; --tea-ink:#705d42;
+  --ambient-blue:#e2eaf7; --ambient-sage:#e7efe9; --ambient-tea:#f1ece6;
+  --surface-blue:#f0f4fa; --surface-sage:#f1f6f2; --surface-tea:#f7f4ef;
+  --slate-ink:#476582; --slate-soft:#ecf0f6; --company-chip:#edf1f6;
+  --banner-start:#f1f5fa; --banner-end:#f5f7f9;
+  --radius-sm:9px; --radius-md:16px; --radius-lg:22px;
+  --shadow:0 1px 2px rgba(24,33,50,.035),0 5px 18px rgba(24,33,50,.035);
+  --shadow-hover:0 7px 22px rgba(24,33,50,.09);
+  --chrome-solid:#e9ecf1; --chrome-glass:rgba(233,236,241,.85);
+  --toolbar-glass:rgba(243,244,246,.86); --selection:#dce8f8;
+}
+html[data-theme="dark"] {
+  --page:#1a1c21; --panel:#26292f; --panel-soft:#2d3037; --panel-muted:#373b44;
+  --ink:#f0f1f4; --ink-soft:#d8dce4; --muted:#b8bec9; --subtle:#adb5c2;
+  --border:rgba(225,232,244,.12); --border-strong:rgba(225,232,244,.25);
+  --accent:#8ec5ff; --accent-action:#8ec5ff; --on-accent:#142a43;
+  --accent-soft:#293c55; --accent-wash:#2b3c52; --accent-hover:#344b68;
+  --accent-bright:#abc6ea; --navy:#24272d; --navy-bright:#30333b;
+  --rail-text:#e3e7ee; --rail-icon:#a9c1df; --rail-workspace-text:#e3e7ee;
+  --rail-idle-text:#b8bec9; --rail-online:#8ed6ad; --rail-online-text:#a8dfbc;
+  --rail-error:#ffb4ae; --rail-error-text:#ffb4ae;
+  --ambient-blue:#252f42; --ambient-sage:#26352f; --ambient-tea:#302d2b;
+  --surface-blue:#2b3340; --surface-sage:#2c3732; --surface-tea:#34312e;
+  --slate-ink:#b3c8e3; --slate-soft:#303b4a; --company-chip:#343e4b;
+  --banner-start:#2b3340; --banner-end:#2c323b;
+  --chrome-solid:#25282f; --chrome-glass:rgba(37,40,47,.9);
+  --toolbar-glass:rgba(26,28,33,.88); --selection:#354963;
+}
+body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; }
+.sidebar { background:var(--chrome-solid); color:var(--rail-text); border-right:1px solid var(--border); box-shadow:none; padding-top:28px; }
+.sidebar .brand small,.sidebar .workspace small,.sidebar .profile small,.sidebar .nav-caption,.sidebar .chevron,.sidebar .health,.sidebar .health.error { color:var(--muted); }
+.sidebar .brand-mark { background:var(--accent); color:var(--on-accent); box-shadow:none; border-radius:11px; }
+.sidebar .brand-mark span { background:var(--on-accent); }
+.workspace { background:var(--panel-soft); border-color:var(--border); color:var(--ink-soft); }
+.workspace-icon { background:var(--panel-muted); color:var(--accent); }
+.sidebar .nav-item { color:var(--rail-text); border:0; min-height:40px; font-size:13px; }
+.sidebar .nav-item:hover { transform:none; color:var(--rail-text); background:var(--panel-muted); }
+.sidebar .nav-item.active,html[data-theme="dark"] .sidebar .nav-item.active { color:var(--rail-text); background:var(--selection); box-shadow:none; font-weight:650; }
+.sidebar .nav-item.active .nav-icon { color:var(--accent); }
+.sidebar .profile { border-color:var(--border); }
+.sidebar .profile-link:hover { background:var(--panel-muted); }
+.avatar { color:var(--accent); background:var(--accent-soft); }
+.topbar { min-height:68px; background:transparent; }
+.page-heading { background:none; border:0; padding:4px 0 12px; }
+.page-heading h1 { letter-spacing:-.035em; font-size:30px; font-weight:650; }
+.eyebrow { letter-spacing:.12em; font-size:10px; color:var(--muted); }
+.panel-heading,html[data-theme="dark"] .panel-heading { background:none; }
+.panel,.comparison-form-card,.settings-card,.retrieval-card { background:var(--panel); }
+.company-card { border-radius:12px; }
+.primary-button { border-radius:9px; box-shadow:0 1px 2px rgba(10,40,80,.12); }
+.secondary-button { background:var(--panel); border-color:var(--border-strong); color:var(--ink-soft); border-radius:9px; }
+.secondary-button:hover { background:var(--panel-soft); border-color:var(--border-strong); }
+.mode-banner { border-color:var(--border); }
+.theme-dock { background:var(--panel); border-radius:12px; }
+.login-story { color:var(--ink); background:linear-gradient(145deg,var(--surface-blue),var(--surface-sage) 65%,var(--surface-tea)); }
+.login-story p,.login-story .brand small { color:var(--muted); }
+.login-kicker { color:var(--accent); }
+.login-story .brand-mark { color:var(--on-accent); background:var(--accent); box-shadow:none; }
+.login-capabilities span { border-color:var(--border-strong); color:var(--ink-soft); }
+.login-card { box-shadow:var(--shadow-hover); }
+input,textarea,select { accent-color:var(--accent); }
+:focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
+@supports (backdrop-filter:blur(1px)) {
+  .sidebar { background:var(--chrome-glass); backdrop-filter:blur(22px) saturate(115%); }
+  .theme-dock { background:var(--toolbar-glass); backdrop-filter:blur(16px); }
+}
+@media(prefers-reduced-transparency:reduce) {
+  .sidebar,.theme-dock { background:var(--chrome-solid); backdrop-filter:none; }
+}
+@media(prefers-contrast:more) {
+  .sidebar,.theme-dock { background:var(--chrome-solid); backdrop-filter:none; }
+  .panel,.stat-card,.company-card { border-color:var(--border-strong); }
+}
+@media(max-width:760px) {
+  .sidebar { padding-top:13px; border-right:0; border-bottom:1px solid var(--border); }
+  .page-heading h1 { font-size:26px; }
+  .sidebar .nav-item { min-height:44px; }
+}
