@@ -8,7 +8,7 @@ export function readProfile(raw) {
   try { return normalizeProfile(JSON.parse(raw)); } catch { return { ...defaultProfile }; }
 }
 export function safeReturnPath(path) {
-  return ['/', '/compare', '/settings'].includes(path) ? path : '/';
+  return ['/', '/compare', '/settings'].includes(path) || (typeof path === 'string' && /^\/companies\/[A-Za-z0-9_-]{1,64}$/.test(path)) ? path : '/';
 }
 export function demoCredentialsValid(account, password) {
   return typeof account === 'string' && !!account.trim() && typeof password === 'string' && !!password.trim();
