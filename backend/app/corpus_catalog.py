@@ -4,6 +4,7 @@ import json
 from sqlalchemy import inspect, text
 
 from app.online_query import MODEL_ID
+from app.research_companies import RESEARCH_COMPANIES
 
 
 def list_scopes(engine):
@@ -20,8 +21,9 @@ def list_scopes(engine):
             company, period, page = p.get('company_code'), p.get('period'), p.get('page')
             if not company or not period or type(page) is not int or page < 1:
                 continue
+            identity = RESEARCH_COMPANIES.get(company, dict(company_name=company, industry='待标注', market='未标注'))
             scope = scopes.setdefault((company, period), dict(company_code=company,
-                company_name={'002475': '立讯精密'}.get(company, company), period=period, chunk_count=0, documents={}))
+                **identity, period=period, chunk_count=0, documents={}))
             scope['chunk_count'] += 1
             key = (p.get('document_id'), p.get('document_sha256'))
             coverage = p.get('coverage') or {}

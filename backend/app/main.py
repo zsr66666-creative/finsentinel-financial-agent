@@ -248,7 +248,18 @@ def create_app(database_url=None, data_mode=None):
 
     @app.get('/api/v1/companies/{company_id}')
     def company(company_id: str):
-        return require('companies',company_id)
+        existing = store.get('companies', company_id)
+        if existing:
+            return existing
+        try:
+            scopes = [scope for scope in list_scopes(store.engine)['items'] if scope['company_code'] == company_id]
+        except Exception as exc:
+            logger.warning('Indexed company profile unavailable')
+            raise HTTPException(503, detail='indexed_company_unavailable') from exc
+        if not scopes:
+            raise HTTPException(404, detail='companies not found')
+        return dict(id=company_id, ticker=company_id, name=scopes[0]['company_name'], industry=scopes[0]['industry'],
+                    market=scopes[0]['market'], data_mode='real_pdf_candidates', indexed_scopes=scopes)
 
     @app.get('/api/v1/companies/{company_id}/metrics')
     def metrics(company_id: str, period: str | None = None):

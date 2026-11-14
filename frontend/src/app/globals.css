@@ -542,3 +542,5 @@ html[data-theme="dark"] .comparison-card > .panel-heading { background:none; }
 .evidence-coverage { margin:8px 0 16px; font-size:12px; color:var(--muted); line-height:1.7; overflow-wrap:anywhere; }
 .retrieval-candidates code, .retrieval-candidates details p { overflow-wrap:anywhere; }
 @media(max-width:600px) { .evidence-scope-controls { grid-template-columns:minmax(0,1fr); } }
+.real-report-library { margin-block:20px; }
+.real-report-library .company-card small { display:block; overflow-wrap:anywhere; }

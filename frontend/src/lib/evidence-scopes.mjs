@@ -37,3 +37,19 @@ export function createRequestGate() {
     cancel() { current?.controller.abort(); current = undefined; },
   };
 }
+
+export function scopesForCompany(items, companyCode) {
+  return companyCode ? items.filter(item => item.company_code === companyCode) : items;
+}
+
+export function groupScopedCompanies(items) {
+  const companies = new Map();
+  for (const item of items) {
+    const company = companies.get(item.company_code) ?? { company_code: item.company_code, company_name: item.company_name,
+      industry: item.industry ?? '待标注', chunk_count: 0, periods: [] };
+    company.chunk_count += item.chunk_count;
+    if (!company.periods.includes(item.period)) company.periods.push(item.period);
+    companies.set(item.company_code, company);
+  }
+  return Array.from(companies.values());
+}

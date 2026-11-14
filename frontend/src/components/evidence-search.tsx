@@ -2,15 +2,15 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { parseQueryPackage } from '@/lib/query-package.mjs';
-import { parseScopes, selectScope, createRequestGate, coverageText, type EvidenceScope } from '@/lib/evidence-scopes.mjs';
+import { parseScopes, selectScope, createRequestGate, coverageText, scopesForCompany, type EvidenceScope } from '@/lib/evidence-scopes.mjs';
 
 type Query = { query: string; vector: number[]; model: string; company_code: string; period: string; top_k: number };
 type Candidate = { chunk_id: string; provenance: { text?: string; page?: number; company_code?: string; period?: string; statement_scope?: string; document_sha256?: string; source_status?: string; source_url?: string }; bm25_rank: number | null; vector_rank: number | null };
 type SearchResult = { items: Candidate[]; retrieval_mode: string; warnings: string[]; duration_ms: number; encoding_ms?: number };
 
-export function EvidenceSearch() {
+export function EvidenceSearch({ companyCode }: { companyCode?: string } = {}) {
   const [query, setQuery] = useState<Query | null>(null);
-  const [question, setQuestion] = useState('立讯精密母公司期末应收账款是多少？');
+  const [question, setQuestion] = useState(companyCode && companyCode !== '002475' ? '期末应收账款在哪里披露？' : '立讯精密母公司期末应收账款是多少？');
   const [submitted, setSubmitted] = useState('');
   const [result, setResult] = useState<SearchResult | null>(null);
   const [error, setError] = useState('');
@@ -25,6 +25,8 @@ export function EvidenceSearch() {
   const scopeKey = (scope: EvidenceScope) => JSON.stringify([scope.company_code, scope.period]);
   const scope = scopes.find(item => scopeKey(item) === selected);
   useEffect(() => {
+    gate.current.cancel(); ++loadVersion.current;
+    setQuery(null); setResult(null); setBusy(false); setSubmitted(''); setError('');
     const controller = new AbortController();
     let active = true;
     let timedOut = false;
@@ -34,7 +36,7 @@ export function EvidenceSearch() {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL ?? ''}/api/v1/evidence/scopes`, { signal: controller.signal, cache: 'no-store' });
         if (!response.ok) throw new Error(`范围目录暂不可用（${response.status}）。`);
-        const items = parseScopes(await response.json());
+        const items = scopesForCompany(parseScopes(await response.json()), companyCode);
         if (!active) return;
         setScopes(items);
         setSelected(previous => items.some(item => scopeKey(item) === previous) ? previous : items.length ? scopeKey(items.find(item => item.company_code === '002475' && item.period === '2026H1') ?? items[0]) : '');
@@ -43,7 +45,7 @@ export function EvidenceSearch() {
       } finally { clearTimeout(timer); if (active) setCatalogBusy(false); }
     })();
     return () => { active = false; clearTimeout(timer); controller.abort(); };
-  }, [catalogRetry]);
+  }, [catalogRetry, companyCode]);
   useEffect(() => () => { gate.current.cancel(); ++loadVersion.current; }, []);
   function invalidate() {
     gate.current.cancel(); ++loadVersion.current;
@@ -60,6 +62,7 @@ export function EvidenceSearch() {
     try {
       if (file.size > 100000) throw new Error('查询包超过 100 KB，请选择单个问题的导出文件。');
       const parsed = parseQueryPackage(await file.text());
+      if (companyCode && parsed.company_code !== companyCode) throw new Error('查询包公司与当前公司不一致，请回到证据比较页检索其他公司。');
       if (version === loadVersion.current) setQuery(parsed);
     } catch (e) { if (version === loadVersion.current) setError(e instanceof Error ? e.message : '无法读取查询包。'); }
   }
@@ -78,12 +81,13 @@ export function EvidenceSearch() {
       if (!response.ok) throw new Error(response.status === 429 ? '编码服务繁忙，请稍后重试。' : response.status === 503 ? '编码或检索服务暂不可用，请稍后重试；未生成结论。' : `证据检索失败（${response.status}），请稍后重试。`);
       const body = await response.json();
       if (!Array.isArray(body.items) || !Array.isArray(body.warnings) || typeof body.retrieval_mode !== 'string' || typeof body.duration_ms !== 'number' || body.items.some((item: Candidate) => !item || typeof item.chunk_id !== 'string' || !item.provenance)) throw new Error('检索结果格式不完整。');
+      if (body.items.some((item: Candidate) => item.provenance.company_code !== payload!.company_code || item.provenance.period !== payload!.period)) throw new Error('检索结果与请求的公司或报告期不一致，已停止展示。');
       if (gate.current.isCurrent(request)) setResult(body);
     } catch (e) { if (gate.current.isCurrent(request)) setError(e instanceof Error && e.name === 'AbortError' ? '检索超时，请重试。' : e instanceof Error ? e.message : '网络连接失败。'); }
     finally { clearTimeout(timer); if (gate.current.isCurrent(request)) setBusy(false); }
   }
   return <section className="panel comparison-card retrieval-card" aria-labelledby="retrieval-title">
-    <div className="panel-heading"><div><h2 id="retrieval-title">候选证据检索 <span>RETRIEVE</span></h2><p>查找相关原文，与上方已复核的金额比较相互独立。</p></div><span className="badge warning">研究预览</span></div>
+    <div className="panel-heading"><div><h2 id="retrieval-title">候选证据检索 <span>RETRIEVE</span></h2><p>查找相关原文；候选片段不代表已复核的金额结论。</p></div><span className="badge warning">研究预览</span></div>
     <p>直接输入问题，系统使用固定 BGE 模型在线编码，再检索已入库原文。</p>
     <div className="evidence-scope-controls" aria-busy={catalogBusy}>
       <label htmlFor="evidence-company">公司<select id="evidence-company" value={scope?.company_code ?? ''} disabled={catalogBusy || !scopes.length} onChange={event => changeScope(selectScope(scopes, event.target.value, scope?.period ?? ''))}>

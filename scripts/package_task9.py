@@ -9,11 +9,15 @@ import subprocess
 import tarfile
 
 
-def package(output, revision='HEAD'):
+def package(output, revision='HEAD', task='task9'):
     root = Path(__file__).resolve().parents[1]
     commit = subprocess.check_output(['git', 'rev-parse', revision + '^{commit}'], cwd=root, text=True).strip()
-    exported = subprocess.check_output(['git', 'archive', '--format=tar', commit, 'backend', 'frontend', 'scripts',
-        'deploy/ecs/install-task9-offline.sh', 'docs/task9-corpus-expansion.md'], cwd=root)
+    if task not in ('task9', 'task10'):
+        raise ValueError('unknown deployment task')
+    paths = ['backend', 'frontend', 'scripts', 'deploy/ecs/install-task9-offline.sh', 'docs/task9-corpus-expansion.md']
+    if task == 'task10':
+        paths += ['deploy/ecs/install-task10-offline.sh', 'data/manifests/task10-official-reports.json', 'docs/task10-company-corpus.md']
+    exported = subprocess.check_output(['git', 'archive', '--format=tar', commit, *paths], cwd=root)
     files = {}
     with tarfile.open(fileobj=io.BytesIO(exported), mode='r:') as archive:
         for member in archive.getmembers():

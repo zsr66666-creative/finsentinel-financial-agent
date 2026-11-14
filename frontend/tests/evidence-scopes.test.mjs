@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { parseScopes, selectScope, createRequestGate, coverageText } from '../src/lib/evidence-scopes.mjs';
+import { parseScopes, selectScope, createRequestGate, coverageText, groupScopedCompanies, scopesForCompany } from '../src/lib/evidence-scopes.mjs';
 import { QUERY_MODEL } from '../src/lib/query-package.mjs';
 
 const scope = (company, period) => ({ company_code: company, company_name: company, period, chunk_count: 2,
@@ -35,4 +35,16 @@ test('scope changes invalidate late responses and abort in-flight work', () => {
   gate.cancel();
   assert.equal(next.controller.signal.aborted, true);
   assert.equal(gate.isCurrent(next), false);
+});
+
+test('real report library groups only indexed companies and preserves company-page scope', () => {
+  assert.deepEqual(groupScopedCompanies([]), []);
+  const items = [scope('002475', '2024FY'), scope('002475', '2026H1'), { ...scope('002555', '2024FY'), company_name: '三七互娱', industry: '互联网游戏' }];
+  const companies = groupScopedCompanies(items);
+  assert.equal(companies.length, 2);
+  assert.equal(companies.find(c => c.company_code === '002475').chunk_count, 4);
+  assert.equal(companies.find(c => c.company_code === '002555').industry, '互联网游戏');
+  assert.equal(scopesForCompany(items, '002555').length, 1);
+  assert.deepEqual(scopesForCompany(items, 'not-indexed'), []);
+  assert.equal(scopesForCompany(items).length, 3);
 });

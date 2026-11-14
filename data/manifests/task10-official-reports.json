@@ -1,0 +1,35 @@
+{
+  "version": "task10-2024fy-v1",
+  "reports": [
+    {
+      "company_code": "002555",
+      "company_name": "三七互娱",
+      "industry": "互联网游戏",
+      "report_period": "2024FY",
+      "report_type": "annual",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2025-04-19/1223144140.PDF",
+      "sha256": "72cd6c526325f42322fcdd6a4d1135a17c38711f39702cb444818d0b1a0fd9fe",
+      "total_pages": 203,
+      "identity_page": 2,
+      "announcement_id": "1223144140",
+      "published_at": "2025-04-19",
+      "discovery_endpoint": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "document_id": "98e9605c19af25bad7d9eaf582e21848a0e12539510d108c1dfb891d2bfcc564"
+    },
+    {
+      "company_code": "002230",
+      "company_name": "科大讯飞",
+      "industry": "人工智能",
+      "report_period": "2024FY",
+      "report_type": "annual",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2025-04-22/1223191180.PDF",
+      "sha256": "bb56b3c6b55836b9d32c4f0bab1ebc333c8c91eb44fefe8cdcafeaf7405cdab3",
+      "total_pages": 289,
+      "identity_page": 1,
+      "announcement_id": "1223191180",
+      "published_at": "2025-04-22",
+      "discovery_endpoint": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+      "document_id": "300ab355dda1fb1f73e8dca7f3b7bf687219aeb0289979065e31f4f3d55b744f"
+    }
+  ]
+}
