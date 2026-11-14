@@ -35,6 +35,7 @@ from app.comparison_query import parse_comparison
 from app.persisted_hybrid import search_persisted
 from app.online_query import MODEL_ID, QueryServiceError, encode_online_query
 from app.schemas import EvidenceTextSearchRequest
+from app.corpus_catalog import list_scopes
 
 
 def now():
@@ -134,6 +135,14 @@ def create_app(database_url=None, data_mode=None):
             logger.warning('Comparison evidence unavailable')
             raise HTTPException(status_code=503, detail='comparison_evidence_unavailable')
 
+    @app.get('/api/v1/evidence/scopes')
+    def evidence_scopes():
+        try:
+            return list_scopes(store.engine)
+        except Exception as exc:
+            logger.warning('Evidence scopes unavailable')
+            raise HTTPException(503, detail='evidence_scopes_unavailable') from exc
+
     @app.post('/api/v1/evidence/search/text')
     def text_evidence_search(payload: EvidenceTextSearchRequest):
         try:
@@ -145,7 +154,7 @@ def create_app(database_url=None, data_mode=None):
             result = search_persisted(store.engine, payload.query, vector, model=MODEL_ID,
                                       company_code=payload.company_code, period=payload.period, top_k=payload.top_k)
             return {**result, 'model': MODEL_ID, 'encoding_ms': encoding_ms,
-                    'answer_status': 'candidates_only', 'data_mode': 'reviewed_real_pdf'}
+                    'answer_status': 'candidates_only', 'data_mode': 'real_pdf_candidates'}
         except Exception as exc:
             logger.warning('Text evidence search unavailable')
             raise HTTPException(503, detail='text_search_unavailable') from exc

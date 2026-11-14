@@ -27,6 +27,9 @@ def test_encoder_prefix_inputs_and_busy_rejection():
     assert value['model'] == MODEL_ID
     assert len(value['vector']) == 512
     assert instance.tokenizer.text == '为这个句子生成表示以用于检索相关文章：应收账款'
+    document = instance.encode_document('报告中的原文')
+    assert document['model'] == MODEL_ID
+    assert instance.tokenizer.text == '报告中的原文'
     instance.lock.acquire()
     try:
         assert instance.encode('ignored') is None
@@ -47,4 +50,17 @@ def test_encoder_releases_slot_on_failure():
     instance.session = Session()
     with pytest.raises(RuntimeError):
         instance.encode('问题')
+    assert instance.lock.acquire(False)
+
+
+def test_document_overflow_is_rejected_instead_of_silently_truncated():
+    import threading
+    instance = Encoder.__new__(Encoder)
+    instance.lock = threading.Lock()
+    class OverflowTokenizer:
+        def encode(self, text):
+            return type('Tokens', (), dict(overflowing=[object()]))()
+    instance.tokenizer = OverflowTokenizer()
+    with pytest.raises(ValueError, match='token budget'):
+        instance.encode_document('原文过长')
     assert instance.lock.acquire(False)

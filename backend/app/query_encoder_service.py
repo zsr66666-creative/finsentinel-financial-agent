@@ -34,11 +34,20 @@ class Encoder:
         self.lock = threading.Lock()
 
     def encode(self, query):
+        return self._encode(PREFIX + query)
+
+    def encode_document(self, content):
+        """Administrator batch use only; documents must not carry query instructions."""
+        return self._encode(content, reject_truncation=True)
+
+    def _encode(self, content, reject_truncation=False):
         if not self.lock.acquire(blocking=False):
             return None
         try:
             started = perf_counter()
-            tokens = self.tokenizer.encode(PREFIX + query)
+            tokens = self.tokenizer.encode(content)
+            if reject_truncation and getattr(tokens, 'overflowing', []):
+                raise ValueError('document chunk exceeds token budget')
             inputs = {name: self.np.array([value], dtype=self.np.int64) for name, value in (
                 ('input_ids', tokens.ids), ('attention_mask', tokens.attention_mask), ('token_type_ids', tokens.type_ids))}
             vector = self.session.run(None, inputs)[0][0].tolist()

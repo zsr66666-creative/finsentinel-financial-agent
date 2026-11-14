@@ -532,3 +532,13 @@ html[data-theme="dark"] .comparison-card > .panel-heading { background:none; }
 .retrieval-card form textarea { width:100%; padding:12px 14px; margin-top:8px; border:1px solid var(--border-strong); border-radius:var(--radius-sm); background:var(--panel-soft); color:var(--ink); resize:vertical; }
 .retrieval-advanced { margin-top:18px; padding-top:14px; border-top:1px solid var(--border); }
 .retrieval-advanced > summary { cursor:pointer; color:var(--muted); padding:8px 0; font-size:13px; }
+
+/* finesse component: scope selector · product/apple-app · existing semantic tokens */
+.evidence-scope-controls { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:14px; margin:18px 0 10px; }
+.evidence-scope-controls label { display:grid; gap:8px; color:var(--ink-soft); font-size:13px; font-weight:600; min-width:0; }
+.evidence-scope-controls select { width:100%; min-width:0; min-height:44px; padding:10px 12px; border:1px solid var(--border-strong); border-radius:var(--radius-sm); background:var(--panel-soft); color:var(--ink); font:inherit; }
+.evidence-scope-controls select:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+.evidence-scope-controls select:disabled { opacity:.65; cursor:wait; }
+.evidence-coverage { margin:8px 0 16px; font-size:12px; color:var(--muted); line-height:1.7; overflow-wrap:anywhere; }
+.retrieval-candidates code, .retrieval-candidates details p { overflow-wrap:anywhere; }
+@media(max-width:600px) { .evidence-scope-controls { grid-template-columns:minmax(0,1fr); } }
