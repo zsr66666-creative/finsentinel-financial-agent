@@ -1,0 +1,5 @@
+export type FinancialProof = { role: string; page: number; text: string; evidence_id: string; text_sha256: string; page_text_sha256: string };
+export type FinancialMetric = { metric: string; label: string; status: 'supported' | 'needs_review'; review_status: 'pending_human'; reason?: string; current_value?: string; previous_value?: string; difference?: string; change_percent?: string | null; direction?: string; current_period?: string; previous_period?: string; current_column?: string; previous_column?: string; period_kind?: string; source_url?: string; source_sha256?: string; document_id?: string; evidence: FinancialProof[] };
+export type FinancialComparison = { company_code: string; period: string; statement_scope: string; data_mode: string; status: 'supported' | 'needs_review'; reason?: string; items: FinancialMetric[]; total: number };
+export function formatFinancialNumber(value: unknown): string;
+export function parseFinancialComparison(body: unknown, company: string, period: string, scope: string): FinancialComparison;

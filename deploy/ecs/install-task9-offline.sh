@@ -8,6 +8,7 @@ task_name="${FINSENTINEL_CORPUS_DEPLOYMENT:-task9}"
 case "$task_name" in
   task9) task_label='Task 9'; acceptance_module='scripts.task9_acceptance' ;;
   task10) task_label='Task 10'; acceptance_module='scripts.task10_acceptance' ;;
+  task11) task_label='Task 11'; acceptance_module='scripts.task11_acceptance' ;;
   *) echo 'Unknown corpus deployment'; exit 1 ;;
 esac
 root='/opt/finsentinel'
@@ -73,7 +74,7 @@ install -d -m 700 "$release/backup"
 sudo -u postgres pg_dump -Fc -d finsentinel > "$release/backup/database.dump"
 chmod 600 "$release/backup/database.dump"
 test -s "$release/backup/database.dump"
-echo 'PASS pre-index database backup'
+echo 'PASS pre-switch database backup'
 backend_drop='/etc/systemd/system/finsentinel-backend.service.d/90-task9-corpus.conf'
 mkdir -p /etc/systemd/system/finsentinel-backend.service.d
 backend_previous=0
@@ -116,6 +117,11 @@ run_admin() {
     DATABASE_URL='postgresql+psycopg:///finsentinel?host=/var/run/postgresql' \
     "$root/.venv/bin/python" "$@"
 }
+if [[ "$task_name" == task11 ]]; then
+  # Verify all six contracts against existing committed official PDFs before switching.
+  # Task11 deliberately does not acquire reports, pause the encoder or publish vectors.
+  run_admin -m scripts.task11_acceptance --source-only --output "$release/source-acceptance.json"
+else
 # Acquisition remains in the existing persistent queue; no admin token is exposed.
 artifact_ids=(05e081ae37a01bc1df83183f2b93c64590d2c2aac6dd4d0c9864743de1b105c4)
 if [[ "$task_name" == task10 ]]; then
@@ -160,6 +166,7 @@ done
 systemctl start finsentinel-query-encoder
 curl --noproxy '*' --fail --silent --show-error --max-time 10 --retry 10 --retry-connrefused --retry-delay 1 http://127.0.0.1:8081/health
 encoder_stopped=0
+fi
 switch_started=1
 cat > "$backend_drop" <<EOF
 [Service]
@@ -196,7 +203,7 @@ class Assets(HTMLParser):
             assert value.startswith('/_next/')
             self.paths.add(value)
 routes=['/','/compare','/login','/settings','/companies/002475']
-if os.environ.get('FINSENTINEL_CORPUS_DEPLOYMENT')=='task10':routes+=['/companies/002555','/companies/002230']
+if os.environ.get('FINSENTINEL_CORPUS_DEPLOYMENT') in ('task10','task11'):routes+=['/companies/002555','/companies/002230']
 for route in routes:
     html=fetch(route).decode();assert 'FinSentinel' in html
     assets=Assets();assets.feed(html);assert assets.paths

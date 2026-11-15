@@ -135,6 +135,16 @@ def create_app(database_url=None, data_mode=None):
             logger.warning('Comparison evidence unavailable')
             raise HTTPException(status_code=503, detail='comparison_evidence_unavailable')
 
+    @app.get('/api/v1/companies/{company_code}/financial-comparison')
+    def financial_comparison(company_code: str, period: str = '2024FY', statement_scope: str = 'consolidated'):
+        from app.verified_financials import company_comparisons, DEFAULT_ARTIFACT_ROOT
+        try:
+            return company_comparisons(store.engine, company_code, period, statement_scope,
+                os.getenv('INGESTION_ARTIFACT_ROOT', DEFAULT_ARTIFACT_ROOT))
+        except Exception as exc:
+            logger.warning('Financial source verification unavailable (%s)', type(exc).__name__)
+            raise HTTPException(503, detail='financial_source_verification_unavailable') from exc
+
     @app.get('/api/v1/evidence/scopes')
     def evidence_scopes():
         try:

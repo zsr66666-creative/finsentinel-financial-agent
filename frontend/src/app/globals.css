@@ -544,3 +544,22 @@ html[data-theme="dark"] .comparison-card > .panel-heading { background:none; }
 @media(max-width:600px) { .evidence-scope-controls { grid-template-columns:minmax(0,1fr); } }
 .real-report-library { margin-block:20px; }
 .real-report-library .company-card small { display:block; overflow-wrap:anywhere; }
+
+/* finesse component: financial evidence ledger · product/apple-app · existing tokens */
+.financial-check-grid { display:grid; gap:18px; }
+.financial-check-item { min-width:0; padding:20px; border:1px solid var(--border); border-radius:var(--radius-md); background:var(--panel); }
+.financial-check-heading { display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:18px; }
+.financial-check-heading h3 { margin:0; font-size:16px; }
+.financial-check-heading > span { color:var(--ink-soft); font-size:12px; }
+.financial-review-tag { color:var(--warning); background:var(--warning-soft); border-radius:var(--radius-sm); padding:6px 10px; font-size:12px; white-space:nowrap; }
+.financial-amounts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; margin:0; }
+.financial-amounts dt { color:var(--muted); font-size:12px; margin-bottom:8px; }
+.financial-amounts dd { margin:0; font-size:clamp(17px,2vw,24px); font-weight:650; font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+.financial-change { display:flex; flex-wrap:wrap; gap:12px 24px; margin-top:18px; padding:12px; border-radius:var(--radius-sm); background:var(--panel-soft); color:var(--ink-soft); font-size:13px; }
+.financial-change strong { font-variant-numeric:tabular-nums; }
+.financial-proof { padding:12px 0; border-top:1px solid var(--border); }
+.financial-proof pre { font:inherit; white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.8; background:var(--panel-soft); padding:12px; border-radius:var(--radius-sm); }
+.financial-proof a { color:var(--accent); text-decoration:underline; text-underline-offset:3px; display:inline-block; padding:10px 0; }
+.verified-financials summary { min-height:44px; display:list-item; }
+.verified-financials code { overflow-wrap:anywhere; }
+@media(max-width:600px) { .financial-amounts { grid-template-columns:minmax(0,1fr); } .financial-check-item { padding:14px; } }

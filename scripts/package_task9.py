@@ -12,11 +12,13 @@ import tarfile
 def package(output, revision='HEAD', task='task9'):
     root = Path(__file__).resolve().parents[1]
     commit = subprocess.check_output(['git', 'rev-parse', revision + '^{commit}'], cwd=root, text=True).strip()
-    if task not in ('task9', 'task10'):
+    if task not in ('task9', 'task10', 'task11'):
         raise ValueError('unknown deployment task')
     paths = ['backend', 'frontend', 'scripts', 'deploy/ecs/install-task9-offline.sh', 'docs/task9-corpus-expansion.md']
-    if task == 'task10':
+    if task in ('task10', 'task11'):
         paths += ['deploy/ecs/install-task10-offline.sh', 'data/manifests/task10-official-reports.json', 'docs/task10-company-corpus.md']
+    if task == 'task11':
+        paths += ['deploy/ecs/install-task11-offline.sh', 'docs/task11-financial-comparison.md']
     exported = subprocess.check_output(['git', 'archive', '--format=tar', commit, *paths], cwd=root)
     files = {}
     with tarfile.open(fileobj=io.BytesIO(exported), mode='r:') as archive:

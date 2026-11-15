@@ -1,0 +1,301 @@
+{
+  "version": "task11-financial-contract-v1",
+  "reports": [
+    {
+      "company_code": "002555",
+      "company_name": "三七互娱",
+      "report_period": "2024FY",
+      "report_type": "annual",
+      "document_id": "98e9605c19af25bad7d9eaf582e21848a0e12539510d108c1dfb891d2bfcc564",
+      "sha256": "72cd6c526325f42322fcdd6a4d1135a17c38711f39702cb444818d0b1a0fd9fe",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2025-04-19/1223144140.PDF",
+      "total_pages": 203,
+      "metrics": [
+        {
+          "metric": "revenue",
+          "label": "营业收入",
+          "statement_scope": "consolidated",
+          "unit": "CNY",
+          "period_kind": "flow",
+          "current_value": "17440957495.58",
+          "previous_value": "16546871737.85",
+          "current_period": "2024-01-01/2024-12-31",
+          "previous_period": "2023-01-01/2023-12-31",
+          "current_column": "2024 年度",
+          "previous_column": "2023 年度",
+          "evidence": [
+            {
+              "role": "statement",
+              "page": 92,
+              "text": "3、合并利润表",
+              "text_sha256": "66363f5b9c58bc5957a55f7666b3ebbf59303bb4a851ab6cb3d27c0fa236423c",
+              "page_text_sha256": "be6ad45a7f3f59e1070709f7f2bcf7103f50bf9a8af94642315034f0db3dc13f"
+            },
+            {
+              "role": "unit",
+              "page": 92,
+              "text": "单位：元",
+              "text_sha256": "9291cfb1e831fe84de19bf7d02a7c9b7a059202b41f07cad06f59535ae5c07e0",
+              "page_text_sha256": "be6ad45a7f3f59e1070709f7f2bcf7103f50bf9a8af94642315034f0db3dc13f"
+            },
+            {
+              "role": "columns",
+              "page": 92,
+              "text": "3、合并利润表\n单位：元\n项目\n2024 年度\n2023 年度",
+              "text_sha256": "e24db2f8c0512fe306340b32f367cbde9d182e24c1126e8fc640b284544d7133",
+              "page_text_sha256": "be6ad45a7f3f59e1070709f7f2bcf7103f50bf9a8af94642315034f0db3dc13f"
+            },
+            {
+              "role": "row",
+              "page": 92,
+              "text": "其中：营业收入\n17,440,957,495.58\n16,546,871,737.85",
+              "text_sha256": "5e2d2a4b5422662ef5dfccfb700e63f6bbf4a53818ca18d7f2d4fedd77c0e379",
+              "page_text_sha256": "be6ad45a7f3f59e1070709f7f2bcf7103f50bf9a8af94642315034f0db3dc13f"
+            }
+          ]
+        },
+        {
+          "metric": "receivables",
+          "label": "应收账款",
+          "statement_scope": "consolidated",
+          "unit": "CNY",
+          "period_kind": "balance",
+          "current_value": "1212667677.20",
+          "previous_value": "1479267695.67",
+          "current_period": "2024-12-31",
+          "previous_period": "opening_balance_2024",
+          "current_column": "期末余额",
+          "previous_column": "期初余额",
+          "evidence": [
+            {
+              "role": "statement",
+              "page": 87,
+              "text": "1、合并资产负债表",
+              "text_sha256": "d5f910f79e67294e08fb9c9ba2ad11cab08ed08dc2815cb3c57b0579eb2f13f9",
+              "page_text_sha256": "ea5e3ec39570c021fdb9b8cd88921be155fbaa278883ce07c9d81eaf356e921b"
+            },
+            {
+              "role": "unit",
+              "page": 87,
+              "text": "单位：元",
+              "text_sha256": "9291cfb1e831fe84de19bf7d02a7c9b7a059202b41f07cad06f59535ae5c07e0",
+              "page_text_sha256": "ea5e3ec39570c021fdb9b8cd88921be155fbaa278883ce07c9d81eaf356e921b"
+            },
+            {
+              "role": "columns",
+              "page": 87,
+              "text": "项目\n期末余额\n期初余额",
+              "text_sha256": "e37877ca9d4b397a94c6226a0dfd555ff658a894de5d9896f8468c6c5a987837",
+              "page_text_sha256": "ea5e3ec39570c021fdb9b8cd88921be155fbaa278883ce07c9d81eaf356e921b"
+            },
+            {
+              "role": "row",
+              "page": 88,
+              "text": "应收账款\n1,212,667,677.20\n1,479,267,695.67",
+              "text_sha256": "1e0d1c24717aac402416271f6d2290be9f5f37d6c051cf103f37c463b43b41de",
+              "page_text_sha256": "d28687d7199c0288e432569e6d8345682029489b00714d14fed59c4c60d94bd4"
+            },
+            {
+              "role": "balance_date",
+              "page": 87,
+              "text": "2024 年12 月31 日",
+              "text_sha256": "119665da651fc6d06f32984f84a3fa46f04d88df7b1fce62da2a4bac09c1098e",
+              "page_text_sha256": "ea5e3ec39570c021fdb9b8cd88921be155fbaa278883ce07c9d81eaf356e921b"
+            }
+          ]
+        },
+        {
+          "metric": "operating_cash_flow",
+          "label": "经营活动产生的现金流量净额",
+          "statement_scope": "consolidated",
+          "unit": "CNY",
+          "period_kind": "flow",
+          "current_value": "2997982682.73",
+          "previous_value": "3147037336.46",
+          "current_period": "2024-01-01/2024-12-31",
+          "previous_period": "2023-01-01/2023-12-31",
+          "current_column": "2024 年度",
+          "previous_column": "2023 年度",
+          "evidence": [
+            {
+              "role": "statement",
+              "page": 95,
+              "text": "5、合并现金流量表",
+              "text_sha256": "1f624f2c09f808299d4b7017eec5c4c49c74f63be6c95a69d57e9c1f20fd2b97",
+              "page_text_sha256": "56639a144dd87044d6c113b1d8d3dae096980159d749f667d36f3ba1dac352f4"
+            },
+            {
+              "role": "unit",
+              "page": 95,
+              "text": "单位：元",
+              "text_sha256": "9291cfb1e831fe84de19bf7d02a7c9b7a059202b41f07cad06f59535ae5c07e0",
+              "page_text_sha256": "56639a144dd87044d6c113b1d8d3dae096980159d749f667d36f3ba1dac352f4"
+            },
+            {
+              "role": "columns",
+              "page": 95,
+              "text": "5、合并现金流量表\n单位：元\n项目\n2024 年度\n2023 年度",
+              "text_sha256": "eea8f9e79b704e2e1d1b70cb80e6a5fa0a0b0a3f1b543aeacf94d2438edb2e0c",
+              "page_text_sha256": "56639a144dd87044d6c113b1d8d3dae096980159d749f667d36f3ba1dac352f4"
+            },
+            {
+              "role": "row",
+              "page": 95,
+              "text": "经营活动产生的现金流量净额\n2,997,982,682.73\n3,147,037,336.46",
+              "text_sha256": "9e4892461d2b8c0cacac54ca82cd7fe73d3f815197641db6390673d48d6548e1",
+              "page_text_sha256": "56639a144dd87044d6c113b1d8d3dae096980159d749f667d36f3ba1dac352f4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "company_code": "002230",
+      "company_name": "科大讯飞",
+      "report_period": "2024FY",
+      "report_type": "annual",
+      "document_id": "300ab355dda1fb1f73e8dca7f3b7bf687219aeb0289979065e31f4f3d55b744f",
+      "sha256": "bb56b3c6b55836b9d32c4f0bab1ebc333c8c91eb44fefe8cdcafeaf7405cdab3",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2025-04-22/1223191180.PDF",
+      "total_pages": 289,
+      "metrics": [
+        {
+          "metric": "revenue",
+          "label": "营业收入",
+          "statement_scope": "consolidated",
+          "unit": "CNY",
+          "period_kind": "flow",
+          "current_value": "23343093018.69",
+          "previous_value": "19650329209.04",
+          "current_period": "2024-01-01/2024-12-31",
+          "previous_period": "2023-01-01/2023-12-31",
+          "current_column": "2024 年度",
+          "previous_column": "2023 年度",
+          "evidence": [
+            {
+              "role": "statement",
+              "page": 119,
+              "text": "3、合并利润表",
+              "text_sha256": "66363f5b9c58bc5957a55f7666b3ebbf59303bb4a851ab6cb3d27c0fa236423c",
+              "page_text_sha256": "93618a907cf2539c4b3e4a1af37e68507fb1d2108b868d74bd83fca82c192385"
+            },
+            {
+              "role": "unit",
+              "page": 119,
+              "text": "单位：元",
+              "text_sha256": "9291cfb1e831fe84de19bf7d02a7c9b7a059202b41f07cad06f59535ae5c07e0",
+              "page_text_sha256": "93618a907cf2539c4b3e4a1af37e68507fb1d2108b868d74bd83fca82c192385"
+            },
+            {
+              "role": "columns",
+              "page": 119,
+              "text": "3、合并利润表\n单位：元\n项目\n2024 年度\n2023 年度",
+              "text_sha256": "e24db2f8c0512fe306340b32f367cbde9d182e24c1126e8fc640b284544d7133",
+              "page_text_sha256": "93618a907cf2539c4b3e4a1af37e68507fb1d2108b868d74bd83fca82c192385"
+            },
+            {
+              "role": "row",
+              "page": 119,
+              "text": "其中：营业收入\n23,343,093,018.69\n19,650,329,209.04",
+              "text_sha256": "9745a7a5a2277696f1e5b0424798759118752774fa1cd38d6f2d131fc9fdeffc",
+              "page_text_sha256": "93618a907cf2539c4b3e4a1af37e68507fb1d2108b868d74bd83fca82c192385"
+            }
+          ]
+        },
+        {
+          "metric": "receivables",
+          "label": "应收账款",
+          "statement_scope": "consolidated",
+          "unit": "CNY",
+          "period_kind": "balance",
+          "current_value": "14666453043.92",
+          "previous_value": "12165102111.50",
+          "current_period": "2024-12-31",
+          "previous_period": "2024-01-01",
+          "current_column": "2024 年12 月31 日",
+          "previous_column": "2024 年1 月1 日",
+          "evidence": [
+            {
+              "role": "statement",
+              "page": 114,
+              "text": "1、合并资产负债表",
+              "text_sha256": "d5f910f79e67294e08fb9c9ba2ad11cab08ed08dc2815cb3c57b0579eb2f13f9",
+              "page_text_sha256": "d8ebfa04c8e52772f2c594f759220e704f6bde101ea77bd030fdbe1aee5065a7"
+            },
+            {
+              "role": "unit",
+              "page": 114,
+              "text": "单位：元",
+              "text_sha256": "9291cfb1e831fe84de19bf7d02a7c9b7a059202b41f07cad06f59535ae5c07e0",
+              "page_text_sha256": "d8ebfa04c8e52772f2c594f759220e704f6bde101ea77bd030fdbe1aee5065a7"
+            },
+            {
+              "role": "columns",
+              "page": 114,
+              "text": "项目\n2024 年12 月31 日\n2024 年1 月1 日",
+              "text_sha256": "39de42e4b6f521e108c9b0340b85dc7a59f8e3caea9b94d8defd32b0523ba714",
+              "page_text_sha256": "d8ebfa04c8e52772f2c594f759220e704f6bde101ea77bd030fdbe1aee5065a7"
+            },
+            {
+              "role": "row",
+              "page": 115,
+              "text": "应收账款\n14,666,453,043.92\n12,165,102,111.50",
+              "text_sha256": "7e58880113d123306713fc006dce84771ed83f480c968d1e00cddc735da12578",
+              "page_text_sha256": "bf28c1c4a8c59a57c80015a3925043e187e3b0a7378d371f3ba338bf431798ca"
+            },
+            {
+              "role": "balance_date",
+              "page": 114,
+              "text": "2024 年12 月31 日",
+              "text_sha256": "119665da651fc6d06f32984f84a3fa46f04d88df7b1fce62da2a4bac09c1098e",
+              "page_text_sha256": "d8ebfa04c8e52772f2c594f759220e704f6bde101ea77bd030fdbe1aee5065a7"
+            }
+          ]
+        },
+        {
+          "metric": "operating_cash_flow",
+          "label": "经营活动产生的现金流量净额",
+          "statement_scope": "consolidated",
+          "unit": "CNY",
+          "period_kind": "flow",
+          "current_value": "2495173454.92",
+          "previous_value": "349757814.55",
+          "current_period": "2024-01-01/2024-12-31",
+          "previous_period": "2023-01-01/2023-12-31",
+          "current_column": "2024 年度",
+          "previous_column": "2023 年度",
+          "evidence": [
+            {
+              "role": "statement",
+              "page": 122,
+              "text": "5、合并现金流量表",
+              "text_sha256": "1f624f2c09f808299d4b7017eec5c4c49c74f63be6c95a69d57e9c1f20fd2b97",
+              "page_text_sha256": "a14715a24157dd54d9cd152afa139e89140a0acf14d51540fd5c2784e4e59d03"
+            },
+            {
+              "role": "unit",
+              "page": 122,
+              "text": "单位：元",
+              "text_sha256": "9291cfb1e831fe84de19bf7d02a7c9b7a059202b41f07cad06f59535ae5c07e0",
+              "page_text_sha256": "a14715a24157dd54d9cd152afa139e89140a0acf14d51540fd5c2784e4e59d03"
+            },
+            {
+              "role": "columns",
+              "page": 122,
+              "text": "5、合并现金流量表\n单位：元\n项目\n2024 年度\n2023 年度",
+              "text_sha256": "eea8f9e79b704e2e1d1b70cb80e6a5fa0a0b0a3f1b543aeacf94d2438edb2e0c",
+              "page_text_sha256": "a14715a24157dd54d9cd152afa139e89140a0acf14d51540fd5c2784e4e59d03"
+            },
+            {
+              "role": "row",
+              "page": 123,
+              "text": "经营活动产生的现金流量净额\n2,495,173,454.92\n349,757,814.55",
+              "text_sha256": "12712249ee6efc330cfb7f833c2dcd55014e9f6ea212e7a2e432e2be0cded61f",
+              "page_text_sha256": "a19ceb77478c2c49f263bf883e3006c5cc5ea19d50193b71c3cc741fadbad135"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
