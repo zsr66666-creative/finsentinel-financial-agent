@@ -1,14 +1,16 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { parseQueryPackage } from '@/lib/query-package.mjs';
-import { parseScopes, selectScope, createRequestGate, coverageText, scopesForCompany, type EvidenceScope } from '@/lib/evidence-scopes.mjs';
+import { selectScope, createRequestGate, coverageText, scopesForCompany, type EvidenceScope } from '@/lib/evidence-scopes.mjs';
+
+import { useResearchCatalog } from '@/components/research-catalog';
 
 type Query = { query: string; vector: number[]; model: string; company_code: string; period: string; top_k: number };
 type Candidate = { chunk_id: string; provenance: { text?: string; page?: number; company_code?: string; period?: string; statement_scope?: string; document_sha256?: string; source_status?: string; source_url?: string }; bm25_rank: number | null; vector_rank: number | null };
 type SearchResult = { items: Candidate[]; retrieval_mode: string; warnings: string[]; duration_ms: number; encoding_ms?: number };
 
-export function EvidenceSearch({ companyCode }: { companyCode?: string } = {}) {
+export function EvidenceSearch({ companyCode, initialPeriod }: { companyCode?: string; initialPeriod?: string } = {}) {
   const [query, setQuery] = useState<Query | null>(null);
   const [question, setQuestion] = useState(companyCode && companyCode !== '002475' ? '期末应收账款在哪里披露？' : '立讯精密母公司期末应收账款是多少？');
   const [submitted, setSubmitted] = useState('');
@@ -17,35 +19,18 @@ export function EvidenceSearch({ companyCode }: { companyCode?: string } = {}) {
   const [busy, setBusy] = useState(false);
   const loadVersion = useRef(0);
   const gate = useRef(createRequestGate());
-  const [scopes, setScopes] = useState<EvidenceScope[]>([]);
+  const catalog = useResearchCatalog();
+  const scopes = useMemo(() => scopesForCompany(catalog.items, companyCode).filter(s => !initialPeriod || s.period === initialPeriod), [catalog.items, companyCode, initialPeriod]);
   const [selected, setSelected] = useState('');
-  const [catalogBusy, setCatalogBusy] = useState(true);
-  const [catalogError, setCatalogError] = useState('');
-  const [catalogRetry, setCatalogRetry] = useState(0);
+  const catalogBusy = catalog.loading;
+  const catalogError = catalog.error;
   const scopeKey = (scope: EvidenceScope) => JSON.stringify([scope.company_code, scope.period]);
   const scope = scopes.find(item => scopeKey(item) === selected);
   useEffect(() => {
     gate.current.cancel(); ++loadVersion.current;
     setQuery(null); setResult(null); setBusy(false); setSubmitted(''); setError('');
-    const controller = new AbortController();
-    let active = true;
-    let timedOut = false;
-    const timer = setTimeout(() => { timedOut = true; controller.abort(); }, 10000);
-    setCatalogBusy(true); setCatalogError('');
-    void (async () => {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL ?? ''}/api/v1/evidence/scopes`, { signal: controller.signal, cache: 'no-store' });
-        if (!response.ok) throw new Error(`范围目录暂不可用（${response.status}）。`);
-        const items = scopesForCompany(parseScopes(await response.json()), companyCode);
-        if (!active) return;
-        setScopes(items);
-        setSelected(previous => items.some(item => scopeKey(item) === previous) ? previous : items.length ? scopeKey(items.find(item => item.company_code === '002475' && item.period === '2026H1') ?? items[0]) : '');
-      } catch (e) {
-        if (active) { setScopes([]); setSelected(''); setCatalogError(timedOut ? '范围目录加载超时，请重试。' : e instanceof Error ? e.message : '无法加载范围目录。'); }
-      } finally { clearTimeout(timer); if (active) setCatalogBusy(false); }
-    })();
-    return () => { active = false; clearTimeout(timer); controller.abort(); };
-  }, [catalogRetry, companyCode]);
+    setSelected(previous => scopes.some(item => scopeKey(item) === previous) ? previous : scopes.length ? scopeKey(scopes.find(item => item.company_code === '002475' && item.period === '2026H1') ?? scopes[0]) : '');
+  }, [scopes]);
   useEffect(() => () => { gate.current.cancel(); ++loadVersion.current; }, []);
   function invalidate() {
     gate.current.cancel(); ++loadVersion.current;
@@ -62,6 +47,7 @@ export function EvidenceSearch({ companyCode }: { companyCode?: string } = {}) {
     try {
       if (file.size > 100000) throw new Error('查询包超过 100 KB，请选择单个问题的导出文件。');
       const parsed = parseQueryPackage(await file.text());
+      if (initialPeriod && parsed.period !== initialPeriod) throw new Error('查询包报告期与当前范围不一致。');
       if (companyCode && parsed.company_code !== companyCode) throw new Error('查询包公司与当前公司不一致，请回到证据比较页检索其他公司。');
       if (version === loadVersion.current) setQuery(parsed);
     } catch (e) { if (version === loadVersion.current) setError(e instanceof Error ? e.message : '无法读取查询包。'); }
@@ -99,7 +85,7 @@ export function EvidenceSearch({ companyCode }: { companyCode?: string } = {}) {
         {scopes.filter(item => item.company_code === scope?.company_code).map(item => <option key={item.period} value={item.period}>{item.period}</option>)}
       </select></label>
     </div>
-    {catalogError && <div className="error" role="alert">{catalogError} <button type="button" className="secondary-button" onClick={() => { invalidate(); setCatalogRetry(value => value + 1); }}>重新加载范围</button></div>}
+    {catalogError && <div className="error" role="alert">{catalogError} <button type="button" className="secondary-button" onClick={() => { invalidate(); catalog.refresh(); }}>重新加载范围</button></div>}
     {!catalogBusy && !catalogError && !scopes.length && <p role="status">当前还没有可检索的真实索引。采集完成的报告需建索引后才会出现在此处。</p>}
     {scope && <p className="evidence-coverage">{coverageText(scope)}</p>}
     <form onSubmit={event => { event.preventDefault(); void search(true); }}>

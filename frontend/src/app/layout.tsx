@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import './macos.css';
+import './portal.css';
+import { ResearchCatalogProvider } from '@/components/research-catalog';
 import { ThemeProvider } from '@/components/theme-provider';
 import { themeBootstrap } from '@/lib/theme.mjs';
 import { DemoSession } from '@/components/demo-session';
-export const metadata: Metadata = { title: 'FinSentinel · 证据链风险研判', description: '消费电子财报与公告研究工作台' };
+export const metadata: Metadata = { title: 'FinSentinel · 证据链风险研判', description: '上市公司财报、原文证据与财务核对研究门户' };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="zh-CN" suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: themeBootstrap }} /></head><body><ThemeProvider><DemoSession>{children}</DemoSession></ThemeProvider></body></html>;
+  return <html lang="zh-CN" suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: themeBootstrap }} /></head><body><ThemeProvider><DemoSession><ResearchCatalogProvider>{children}</ResearchCatalogProvider></DemoSession></ThemeProvider></body></html>;
 }

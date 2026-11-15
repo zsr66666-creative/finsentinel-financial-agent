@@ -1,0 +1,11 @@
+import type { EvidenceScope } from './evidence-scopes.mjs';
+export type PortalCompany = {company_code:string;company_name:string;industry:string;periods:string[];chunk_count:number;report_count:number};
+export type PortalReport = EvidenceScope['documents'][number] & {company_code:string;company_name:string;industry:string;period:string};
+export type WorkbenchView = 'overview'|'alerts'|'companies'|'review'|'evals'|'data';
+export function workbenchView(section?:string):WorkbenchView|null;
+export function catalogReports(scopes:EvidenceScope[]):PortalReport[];
+export function catalogCompanies(scopes:EvidenceScope[]):PortalCompany[];
+export function catalogSummary(scopes:EvidenceScope[]):{companies:number;reports:number;chunks:number};
+export function filterCompanies(companies:PortalCompany[],industry?:string,query?:string):PortalCompany[];
+export function chooseCompany(companies:PortalCompany[],query:string):PortalCompany|null;
+export function evidenceContext(scopes:EvidenceScope[],company:string|null,period:string|null):{companyCode:string;period:string}|null;
