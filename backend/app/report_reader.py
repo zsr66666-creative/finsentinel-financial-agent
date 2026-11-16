@@ -101,7 +101,7 @@ def snapshot(sha):
             with PARSE_LOCK:
                 data=result.read()
                 with pymupdf.open(stream=data,filetype='pdf') as pdf:
-                    if pdf.needs_pass or not pdf.is_pdf or pdf.page_count<1:raise ValueError('invalid_pdf')
+                    if pdf.needs_pass or pdf.is_encrypted or (pdf.metadata or {}).get('encryption') or not pdf.is_pdf or pdf.page_count<1:raise ValueError('invalid_pdf')
                     count=pdf.page_count
                 del data
             result.seek(0)

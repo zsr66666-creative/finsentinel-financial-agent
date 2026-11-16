@@ -84,3 +84,15 @@ def test_symlink_missing_oversized_and_encrypted(reader,monkeypatch):
     with app.state.store.engine.begin() as conn:
         conn.execute(text('INSERT INTO document_chunk_embeddings VALUES (:id,:p)'),dict(id='encrypted',p=json.dumps(dict(document_sha256=encrypted_sha,document_id='encrypted',page=1))))
     assert c.get(f'/api/v1/evidence/documents/{encrypted_sha}/pdf').status_code==404
+
+
+def test_encrypted_pdf_with_empty_user_password_is_rejected(reader):
+    c,sha,data,root,app=reader
+    with pymupdf.open() as doc:
+        doc.new_page()
+        encrypted=doc.tobytes(encryption=pymupdf.PDF_ENCRYPT_AES_256,owner_pw='owner',user_pw='')
+    encrypted_sha=hashlib.sha256(encrypted).hexdigest()
+    (root/'blobs'/(encrypted_sha+'.pdf')).write_bytes(encrypted)
+    with app.state.store.engine.begin() as conn:
+        conn.execute(text('INSERT INTO document_chunk_embeddings VALUES (:id,:p)'),dict(id='empty-password-encrypted',p=json.dumps(dict(document_sha256=encrypted_sha,document_id='encrypted',page=1))))
+    assert c.get(f'/api/v1/evidence/documents/{encrypted_sha}/pdf').status_code==404
