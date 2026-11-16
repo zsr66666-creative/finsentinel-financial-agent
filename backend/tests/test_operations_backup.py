@@ -17,6 +17,7 @@ def fake_snapshot(monkeypatch, refs=(), counts=None):
     @contextmanager
     def snapshot(url, dump):
         dump.write_bytes(b'custom pg dump')
+        if os.name == 'posix': dump.chmod(0o600)
         yield {'table_counts': counts or {'accounts': 2}, 'schema': [['public','accounts','id','integer','NO']],
                'artifact_refs': list(refs), 'postgres_version': 'test'}
     monkeypatch.setattr(m, '_snapshot', snapshot)
