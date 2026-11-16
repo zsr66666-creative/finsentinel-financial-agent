@@ -167,3 +167,5 @@ python -m scripts.package_task12 --output finsentinel-task12-review.tar.gz
 个人研究保存与隔离规则、部署及人工验收见 [personal-research.md](docs/personal-research.md)。本次功能需完成服务器部署与浏览器验收后才记为上线。
 
 原文阅读的来源边界、浏览器兼容及上线验收见 [report-reader.md](docs/report-reader.md)。本次功能需服务器部署和浏览器验证后记为上线。
+
+私人研究报告保存、快照边界与上线验收见 [saved-reports.md](docs/saved-reports.md)。本轮开发需服务器部署和浏览器验收后记为上线。
