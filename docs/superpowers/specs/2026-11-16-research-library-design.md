@@ -1,0 +1,15 @@
+# Personal research library design
+
+Approved scope: company favorites, evidence favorites with private notes, successful research history and per-account isolation. User approved implementation and ECS deployment.
+
+## Contract
+Authenticated-only /api/v1/me/research endpoints; reject anonymous even AUTH_ENABLED=false. Existing cookie and CSRF middleware applies. No user_id accepted from clients. SQLAlchemy additive tables personal_research_favorites and personal_research_history. Durable SQLite development and PostgreSQL production. Explicit migration CLI before cutover; no schema creation on API reads.
+
+Favorites GET /favorites?offset=0&limit=30 returns {items,total}; POST /favorites accepts {kind:company|evidence,company_code,period?,chunk_id?,note?}; validates actual catalog/company or persisted chunk server-side, derives text/page/hash/document source, upserts by per-user deterministic identity. Returns favorite {id,kind,company_code,period,chunk_id,note,snapshot,created_at,updated_at}. POST /favorites/{id}/note accepts {note}, max1000; DELETE /favorites/{id}. Owner filter every operation, unknown/nonowned404. Max500 favorites/account.
+History GET /history pagination same envelope; POST /history accepts {kind:search|compare,company_code?,period?,query}, validates scope/query bounds, stores only successful interactions via frontend success path and server verifies company/period exists. Describes recorded entry, not proof old result was true or reverified. No vectors/credentials or generated financial conclusions stored. UUID entry, owner, kind, company_code, period, query, created_at; cap200 per account transactionally. DELETE /history clears current account only; DELETE /history/{id} optional. History entry supports safe server-derived internal href for re-execution. Never autoexecute upon history link navigation. Search query prefill supported.
+
+## UI
+/my-research page tabs company/evidence/history with independent load/error/empty states, pagination, edit note, remove favorite, delete history. Portal personal navigation. Company page favorite toggle, evidence candidate favorite button, success history recording in search and compare; record failure does not hide valid query results. No external links/localStorage for private persistence. Existing design/theme/mobile/focus styles, no dependencies. Saved snapshot explicitly historical; no false review status or freshness. Authentication user change clears private UI. Requests bounded timeout and stale response ignored.
+
+## Delivery
+Source-only SHA256 package, additive migration and deployment script preserving auth/TLS/operations; root source immutable; app writable test dir prepared before tests. Reuse existing operations installer carefully, existing timers/backup services continue pinned old operations release. Validate backup before app switch; do not disable existing timers. Root maintenance imports trusted ops venv/source. PostgreSQL persistence/isolation CI plus frontend production build, tests, tsc. One complete ECS console command; cloud/browser acceptance separate.
