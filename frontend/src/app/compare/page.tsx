@@ -1,4 +1,5 @@
 'use client';
+import { authFetch } from '@/lib/accounts.mjs';
 
 import Link from 'next/link';
 import { EvidenceSearch } from '@/components/evidence-search';
@@ -24,8 +25,8 @@ export default function ComparePage() {
     const controller = new AbortController(); const timeout = setTimeout(() => controller.abort(), 10000);
     setBusy(true); setConnection('pending'); setResult(null); setError(''); setSubmitted(question.trim());
     try {
-      const base = process.env.NEXT_PUBLIC_API_URL ?? '';
-      const response = await fetch(`${base}/api/v1/evidence/compare`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question: question.trim() }), signal: controller.signal });
+      const base = '';
+      const response = await authFetch(`${base}/api/v1/evidence/compare`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question: question.trim() }), signal: controller.signal });
       if (!response.ok) throw new Error(response.status === 503 ? '证据服务暂不可用，请稍后重试。' : `请求失败（${response.status}），请稍后重试。`);
       const body: Result = await response.json();
       if (!['supported', 'needs_review'].includes(body.status) || !Array.isArray(body.evidence_ids) || (body.status === 'supported' && (typeof body.claim_true !== 'boolean' || !body.evidence_ids.length))) throw new Error('返回结果不完整，请稍后重试。');

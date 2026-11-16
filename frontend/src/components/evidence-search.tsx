@@ -1,4 +1,5 @@
 'use client';
+import { authFetch } from '@/lib/accounts.mjs';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { parseQueryPackage } from '@/lib/query-package.mjs';
@@ -63,7 +64,7 @@ export function EvidenceSearch({ companyCode, initialPeriod }: { companyCode?: s
     try {
       const endpoint = online ? 'text' : 'vector';
       const payload = online ? { query: question.trim(), company_code: scope!.company_code, period: scope!.period, top_k: 5 } : query;
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL ?? ''}/api/v1/evidence/search/${endpoint}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: controller.signal });
+      const response = await authFetch(`/api/v1/evidence/search/${endpoint}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: controller.signal });
       if (!response.ok) throw new Error(response.status === 429 ? '编码服务繁忙，请稍后重试。' : response.status === 503 ? '编码或检索服务暂不可用，请稍后重试；未生成结论。' : `证据检索失败（${response.status}），请稍后重试。`);
       const body = await response.json();
       if (!Array.isArray(body.items) || !Array.isArray(body.warnings) || typeof body.retrieval_mode !== 'string' || typeof body.duration_ms !== 'number' || body.items.some((item: Candidate) => !item || typeof item.chunk_id !== 'string' || !item.provenance)) throw new Error('检索结果格式不完整。');

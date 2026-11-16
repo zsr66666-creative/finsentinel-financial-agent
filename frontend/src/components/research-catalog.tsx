@@ -1,11 +1,14 @@
 'use client';
+import { useSession } from '@/components/demo-session';
+import { authFetch } from '@/lib/accounts.mjs';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { parseScopes, type EvidenceScope } from '@/lib/evidence-scopes.mjs';
 type Catalog = {items:EvidenceScope[];loading:boolean;error:string;refresh:()=>void};
 const Context=createContext<Catalog|null>(null);
 export function ResearchCatalogProvider({children}:{children:React.ReactNode}) {
-  const enabled=usePathname()!=='/login';
+  const {user}=useSession();
+  const enabled=usePathname()!=='/login' && !!user && !user.must_change_password;
   const [items,setItems]=useState<EvidenceScope[]>([]);
   const [loading,setLoading]=useState(true);const [error,setError]=useState('');const [retry,setRetry]=useState(0);
   useEffect(()=>{
@@ -14,7 +17,7 @@ export function ResearchCatalogProvider({children}:{children:React.ReactNode}) {
     const timeout=setTimeout(()=>controller.abort(),12000);
     setLoading(true);setError('');setItems([]);
     void(async()=>{try{
-      const r=await fetch(`${process.env.NEXT_PUBLIC_API_URL??''}/api/v1/evidence/scopes`,{signal:controller.signal,cache:'no-store'});
+      const r=await authFetch(`/api/v1/evidence/scopes`,{signal:controller.signal,cache:'no-store'});
       if(!r.ok)throw new Error(`真实报告目录暂不可用（${r.status}）。`);
       const scopes=parseScopes(await r.json());if(active)setItems(scopes);
     }catch(e){if(active)setError(e instanceof Error&&e.name==='AbortError'?'真实报告目录加载超时，请重试。':e instanceof Error?e.message:'真实报告目录加载失败。');}

@@ -27,7 +27,7 @@ def export_research(engine, comparison, format='json'):
     company_name = next((r['company_name'] for r in load_contracts() if r['company_code']==comparison['company_code']), comparison['company_code'])
     report = dict(company_name=company_name, schema_version='finsentinel-research-v1', exported_at=datetime.now(timezone.utc).isoformat(),
         **{k:comparison[k] for k in ('company_code','period','statement_scope','status','data_mode')},
-        items=items, limitations=['来源校验不等于人工复核；署名为维护者自报，未经真实账号认证。',
+        items=items, limitations=['来源校验不等于人工复核；账号署名仅表示系统登录身份，历史自报署名不追认为真实账号。',
         '增加或减少不构成风险或投资结论。', '仅覆盖六个固定指标契约；历史决策不会继承到变更后的来源。',
         'rejected 表示人工驳回，所列金额仅保留为被审阅的来源值，不代表认可。'])
     if comparison.get('reason'): report['reason'] = comparison['reason']
@@ -41,7 +41,12 @@ def export_research(engine, comparison, format='json'):
         lines += ['## '+safe_text(item['label']), '来源状态：'+safe_text(item['status']),
                   '人工复核：'+safe_text(state['review_status'])]
         if latest:
-            lines += ['自报署名：'+safe_text(latest['reviewer']), '意见：'+safe_text(latest['reason']),
+            if latest.get('identity_assurance') == 'authenticated_user':
+                lines += ['账号署名：'+safe_text(latest['reviewer'])+' / '+safe_text(latest['username']),
+                          '用户 ID：'+safe_text(latest['user_id'])]
+            else:
+                lines += ['历史自报署名：'+safe_text(latest['reviewer'])]
+            lines += ['意见：'+safe_text(latest['reason']),
                       '复核时间：'+safe_text(latest['created_at']), '记录 ID：'+safe_text(latest['id'])]
         if item['status'] != 'supported':
             lines += ['证据不足，不展示数值。原因：'+safe_text(item.get('reason','unknown')), ''];continue

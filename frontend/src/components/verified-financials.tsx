@@ -1,4 +1,5 @@
 'use client';
+import { authFetch } from '@/lib/accounts.mjs';
 import { FinancialReviewPanel } from '@/components/financial-review-panel';
 import { useEffect, useState } from 'react';
 import { formatFinancialNumber, parseFinancialComparison, type FinancialComparison } from '@/lib/verified-financials.mjs';
@@ -26,7 +27,7 @@ export function VerifiedFinancials({ companyCode }: { companyCode: string }) {
     void (async () => {
       try {
         const query = new URLSearchParams({ period, statement_scope: scope });
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL ?? ''}/api/v1/companies/${encodeURIComponent(companyCode)}/financial-comparison?${query}`, { signal: controller.signal, cache: 'no-store' });
+        const response = await authFetch(`/api/v1/companies/${encodeURIComponent(companyCode)}/financial-comparison?${query}`, { signal: controller.signal, cache: 'no-store' });
         if (!response.ok) throw new Error(`财务来源服务返回 ${response.status}，请重试。`);
         const parsed = parseFinancialComparison(await response.json(), companyCode, period, scope);
         if (active) setResult(parsed);

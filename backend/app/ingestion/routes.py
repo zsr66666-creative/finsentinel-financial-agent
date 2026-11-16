@@ -4,7 +4,7 @@ import secrets
 from threading import Lock
 from time import monotonic
 from uuid import UUID
-from fastapi import APIRouter,Depends,Header,HTTPException
+from fastapi import APIRouter,Depends,Header,HTTPException,Request
 from pydantic import BaseModel,ConfigDict,Field,field_validator
 from sqlalchemy import select,func
 from sqlalchemy.exc import SQLAlchemyError
@@ -28,7 +28,10 @@ class SourceTaskRequest(BaseModel):
 def build_router(store):
     router=APIRouter(prefix='/api/v1/admin/source-ingestion/tasks')
     lock=Lock(); writes=[]
-    def authorize(authorization:str|None=Header(default=None)):
+    def authorize(request:Request,authorization:str|None=Header(default=None)):
+        if getattr(request.app.state,'auth_enabled',False) and getattr(request.state,'session',None):
+            if request.state.session['user']['role']!='admin':raise HTTPException(403,'admin_required')
+            return
         expected=os.getenv('INGESTION_ADMIN_TOKEN','')
         if len(expected)<32:raise HTTPException(503,'source_ingestion_disabled')
         if not authorization or not secrets.compare_digest(authorization.encode(),('Bearer '+expected).encode()):

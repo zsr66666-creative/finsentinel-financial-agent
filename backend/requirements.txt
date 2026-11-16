@@ -11,3 +11,5 @@ requests>=2.32,<3
 # callers work even in minimal CI workflows.
 -e ./backend
 sentence-transformers>=3.0,<6
+
+Pillow==12.0.0

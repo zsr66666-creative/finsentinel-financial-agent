@@ -124,7 +124,7 @@ def create_app(database_url=None, data_mode=None):
     from app.financial_review_routes import build_review_router
     app.include_router(build_review_router(store))
     app.state.model_settings = ModelSettings.from_env()
-    app.add_middleware(CORSMiddleware,allow_origins=os.getenv('CORS_ORIGINS','http://localhost:3000').split(','),allow_methods=['GET','POST'],allow_headers=['Content-Type','Authorization'])
+    app.add_middleware(CORSMiddleware,allow_origins=os.getenv('CORS_ORIGINS','http://localhost:3000').split(','),allow_methods=['GET','POST'],allow_headers=['Content-Type','Authorization','X-CSRF-Token'])
 
     @app.post('/api/v1/evidence/compare')
     def evidence_compare(payload: EvidenceComparisonRequest):
@@ -480,6 +480,8 @@ def create_app(database_url=None, data_mode=None):
         values = store.all('financial_metrics')
         return {'data_mode':mode,'company_count':len(store.all('companies')),'filing_count':len(store.all('filings')),'metric_count':len(values),'evidence_count':len(store.all('evidence_spans')),'missing_source_count':sum(not m['source_ids'] for m in values),'jobs':store.all('ingestion_jobs'),'sources':store.all('filings')[:20]}
 
+    from app.auth.routes import wire_auth
+    wire_auth(app, store)
     return app
 
 

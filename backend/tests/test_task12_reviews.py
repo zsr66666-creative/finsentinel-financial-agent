@@ -135,3 +135,13 @@ def test_review_persists_after_engine_restart(engine):
     restarted=create_engine(engine.url)
     try:assert review_state(restarted,comparison())['items'][0]['latest']==original
     finally:restarted.dispose()
+
+
+def test_authenticated_export_identifies_account_and_preserves_legacy_label(engine):
+    row=submit_review(engine,comparison(),dict(request(),user_id='account-123',username='verified_reviewer'))
+    markdown=export_research(engine,comparison(),'markdown')
+    assert '账号署名：' in markdown and 'verified\\_reviewer' in markdown
+    assert '用户 ID：account-123' in markdown
+    assert '自报署名：' not in markdown
+    report=json.loads(export_research(engine,comparison(),'json'))
+    assert not any('未经真实账号认证' in line for line in report['limitations'])

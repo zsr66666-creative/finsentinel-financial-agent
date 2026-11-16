@@ -81,7 +81,7 @@ def review_state(engine, comparison):
                 identity_assurance='self_declared_operator')
 
 
-def submit_review(engine, comparison, body):
+def submit_review(engine, comparison, body, session_token=None):
     metric = next((m for m in comparison['items'] if m['metric'] == body['metric']), None)
     if not metric or metric['status'] != 'supported':
         raise ReviewUnavailable('source_not_supported')
@@ -90,15 +90,22 @@ def submit_review(engine, comparison, body):
         raise ReviewConflict('source_snapshot_changed')
     if body['decision'] not in DECISIONS or not body['reason'].strip() or not body['reviewer'].strip():
         raise ValueError('decision_reason_and_reviewer_required')
-    request_hash = hashlib.sha256(canonical(dict(body, company_code=comparison['company_code'],
+    hash_body={k:v for k,v in body.items() if k!='reviewer'} if body.get('user_id') else body
+    request_hash = hashlib.sha256(canonical(dict(hash_body, company_code=comparison['company_code'],
         period=comparison['period'], statement_scope=comparison['statement_scope'])).encode()).hexdigest()
     # A single lock is deliberate: a small operator-only workflow, <=10 writes/min.
     # It covers idempotency and optimistic latest-id checks in one transaction.
     with engine.connect() as c:
         try:
             if engine.dialect.name == 'sqlite': c.exec_driver_sql('BEGIN IMMEDIATE')
-            elif engine.dialect.name == 'postgresql': c.execute(text('SELECT pg_advisory_xact_lock(572012)'))
+            elif engine.dialect.name == 'postgresql':
+                if session_token is not None:c.execute(text('SELECT pg_advisory_xact_lock(572016)'))
+                c.execute(text('SELECT pg_advisory_xact_lock(572012)'))
             else: raise ReviewUnavailable('unsupported_database')
+            if session_token is not None:
+                from app.auth.service import Accounts
+                actor=Accounts(engine).authorize_actor(c,body['user_id'],session_token)
+                if actor['role'] not in ('reviewer','admin') or actor['must_change_password']:raise ValueError('reviewer_required')
             old = c.execute(select(review_table).where(review_table.c.idempotency_key == body['idempotency_key'])).mappings().first()
             if old:
                 if old['request_sha256'] != request_hash: raise ReviewConflict('idempotency_conflict')
@@ -112,6 +119,8 @@ def submit_review(engine, comparison, body):
                 decision=body['decision'], reason=body['reason'].strip(), reviewer=body['reviewer'].strip(),
                 identity_assurance='self_declared_operator', created_at=datetime.now(timezone.utc).isoformat(),
                 previous_review_id=latest, snapshot=json.loads(canonical(metric)))
+            if body.get('user_id'):
+                record.update(user_id=body['user_id'],username=body['username'],identity_assurance='authenticated_user')
             c.execute(review_table.insert().values(**{k:record[k] for k in ('id','company_code','period','statement_scope','metric','fingerprint','created_at')},
                 idempotency_key=body['idempotency_key'], request_sha256=request_hash, payload=record))
             c.commit()

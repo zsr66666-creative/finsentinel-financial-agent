@@ -6,6 +6,19 @@ on:
 jobs:
   backend:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_PASSWORD: ci_test_only
+          POSTGRES_DB: finsentinel_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d finsentinel_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
     env:
       PYTHONPATH: backend
     steps:
@@ -24,6 +37,10 @@ jobs:
       - name: Run complete backend suite from backend directory
         run: python -m pytest -ra --junitxml=pytest-results.xml
         working-directory: backend
+      - name: PostgreSQL account concurrency and persistence
+        env:
+          DATABASE_URL: postgresql+psycopg://postgres:ci_test_only@127.0.0.1:5432/finsentinel_test
+        run: python -m scripts.accounts_pg_acceptance --output accounts-postgres.json
       - name: Summarize backend test results
         if: always()
         run: |
@@ -48,6 +65,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: bash -n deploy/ecs/deploy-research-desk.sh
       - run: bash -n deploy/ecs/install-ip-https.sh
+      - run: bash -n deploy/ecs/install-accounts-offline.sh
       - uses: actions/setup-node@v4
         with:
           node-version: "22"

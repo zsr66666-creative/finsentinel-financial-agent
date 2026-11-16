@@ -1,8 +1,9 @@
 'use client';
 
+import Link from 'next/link';
 import { PortalShell } from '@/components/portal-shell';
 import { FormEvent, useRef, useState } from 'react';
-import { UserAvatar, useDemoSession } from '@/components/demo-session';
+import { UserAvatar, useSession } from '@/components/demo-session';
 
 async function avatarFromFile(file: File): Promise<string> {
   if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) throw new Error('请选择 JPG、PNG 或 WebP 图片。');
@@ -24,7 +25,7 @@ async function avatarFromFile(file: File): Promise<string> {
 }
 
 export default function SettingsPage() {
-  const { profile, saveProfile, signOut } = useDemoSession();
+  const { profile, user, saveProfile, signOut, changePassword } = useSession();
   const [nickname, setNickname] = useState(profile.nickname);
   const [avatar, setAvatar] = useState(profile.avatar);
   const [busy, setBusy] = useState(false);
@@ -39,11 +40,18 @@ export default function SettingsPage() {
     catch (cause) { if (id === uploadId.current) setError(cause instanceof Error ? cause.message : '图片处理失败。'); }
     finally { if (id === uploadId.current) setBusy(false); if (fileInput.current) fileInput.current.value = ''; }
   }
-  function submit(event: FormEvent) {
-    event.preventDefault(); setError(''); setMessage('');
+  async function submit(event: FormEvent) {
+    event.preventDefault(); if(busy)return;setError(''); setMessage('');
     if (!nickname.trim() || Array.from(nickname.trim()).length > 24) { setError('昵称需要 1–24 个字符。'); return; }
-    try { saveProfile({ nickname, avatar }); setNickname(nickname.trim()); setMessage('个人资料已保存。'); }
-    catch { setError('保存失败，浏览器存储可能已满或被禁用；原资料未更改。'); }
+    setBusy(true);
+    try { await saveProfile({ nickname, avatar }); setNickname(nickname.trim()); setMessage('个人资料已保存。'); }
+    catch (cause) { setError(cause instanceof Error?cause.message:'保存失败，请重试。'); }finally{setBusy(false);}
   }
-  return <PortalShell title="个人设置"><div className="content settings-content"><div className="page-heading"><div><h1>个人设置</h1><p>设置你在研究工作台中的昵称与头像。</p></div><span className="subtle-chip">本机演示账户</span></div><form className="panel settings-card" onSubmit={submit}><h2>个人资料</h2><div className="avatar-editor"><UserAvatar profile={{ nickname: nickname.trim() || '研究员', avatar }} /><div className="avatar-actions"><button className="secondary-button" type="button" disabled={busy} onClick={() => fileInput.current?.click()}>{busy ? '正在处理…' : '上传头像'}</button><button className="secondary-button" type="button" disabled={busy || !avatar} onClick={() => { setAvatar(''); setMessage(''); }}>恢复默认</button><input ref={fileInput} type="file" accept="image/jpeg,image/png,image/webp" hidden aria-label="选择头像图片" onChange={e => upload(e.target.files?.[0])} /><p>JPG、PNG、WebP，最大 2 MB，自动居中裁剪。</p></div></div><label htmlFor="profile-nickname">昵称</label><input id="profile-nickname" value={nickname} maxLength={48} required onChange={e => { setNickname(e.target.value); setMessage(''); }} aria-describedby="nickname-help" /><p id="nickname-help" className="field-hint">1–24 个字符，保存后同步更新侧栏与顶部头像。</p>{error && <p className="error form-message" role="alert">{error}</p>}<p className="save-message" role="status">{message}</p><div className="settings-footer"><span>资料仅保存在当前浏览器，不上传服务器。</span><button type="submit" className="primary-button" disabled={busy}>保存修改</button></div></form><section className="panel settings-card session-card"><div><h2>演示会话</h2><p>退出后回到登录页；已保存的昵称和头像会保留。</p></div><button type="button" className="secondary-button" onClick={signOut}>退出登录</button></section></div></PortalShell>;
+  return <PortalShell title="个人设置"><div className="content settings-content"><div className="page-heading"><div><h1>个人设置</h1><p>设置你在研究工作台中的昵称与头像。</p></div><span className="subtle-chip">{user?.username}</span></div>{error&&<p className="error form-message" role="alert">{error}</p>}{user?.must_change_password?<p className="review-callout" role="alert">首次登录或密码已重置，请先修改临时密码。</p>:<form className="panel settings-card" onSubmit={submit}><h2>个人资料</h2><div className="avatar-editor"><UserAvatar profile={{ nickname: nickname.trim() || '研究员', avatar }} /><div className="avatar-actions"><button className="secondary-button" type="button" disabled={busy} onClick={() => fileInput.current?.click()}>{busy ? '正在处理…' : '上传头像'}</button><button className="secondary-button" type="button" disabled={busy || !avatar} onClick={() => { setAvatar(''); setMessage(''); }}>恢复默认</button><input ref={fileInput} type="file" accept="image/jpeg,image/png,image/webp" hidden aria-label="选择头像图片" onChange={e => upload(e.target.files?.[0])} /><p>JPG、PNG、WebP，最大 2 MB，自动居中裁剪。</p></div></div><label htmlFor="profile-nickname">昵称</label><input id="profile-nickname" value={nickname} maxLength={48} required onChange={e => { setNickname(e.target.value); setMessage(''); }} aria-describedby="nickname-help" /><p id="nickname-help" className="field-hint">1–24 个字符，保存后同步更新侧栏与顶部头像。</p><p className="save-message" role="status">{message}</p><div className="settings-footer"><span>资料保存在服务器，跨浏览器同步。</span><button type="submit" className="primary-button" disabled={busy}>保存修改</button></div></form>}<PasswordForm onChange={changePassword}/>{user?.role==='admin'&&!user.must_change_password&&<Link className="secondary-button" href="/admin/users">管理用户账号</Link>}<section className="panel settings-card session-card"><div><h2>账号会话</h2><p>退出后撤销当前会话，返回登录页。</p></div><button type="button" className="secondary-button" onClick={()=>{void signOut().catch(cause=>setError(cause.message));}}>退出登录</button></section></div></PortalShell>;
+}
+
+function PasswordForm({onChange}:{onChange:(current:string,next:string)=>Promise<void>}){
+ const [current,setCurrent]=useState('');const [next,setNext]=useState('');const [confirm,setConfirm]=useState('');const [busy,setBusy]=useState(false);const [error,setError]=useState('');
+ async function submit(e:FormEvent){e.preventDefault();if(next!==confirm){setError('两次新密码不一致。');return;}setBusy(true);setError('');try{await onChange(current,next);setCurrent('');setNext('');setConfirm('');}catch(cause){setError(cause instanceof Error?cause.message:'修改失败。');}finally{setBusy(false);}}
+ return <form className="panel settings-card" onSubmit={submit}><h2>修改密码</h2><p>新密码 12–128 个字符。修改成功后需重新登录。</p><label>当前密码<input type="password" autoComplete="current-password" value={current} onChange={e=>setCurrent(e.target.value)} required maxLength={128}/></label><label>新密码<input type="password" autoComplete="new-password" value={next} onChange={e=>setNext(e.target.value)} required minLength={12} maxLength={128}/></label><label>确认新密码<input type="password" autoComplete="new-password" value={confirm} onChange={e=>setConfirm(e.target.value)} required minLength={12} maxLength={128}/></label>{error&&<p role="alert" className="error">{error}</p>}<button className="primary-button" disabled={busy}>{busy?'修改中…':'修改密码并重新登录'}</button></form>;
 }

@@ -1,4 +1,5 @@
 'use client';
+import { authFetch } from '@/lib/accounts.mjs';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { PortalShell } from '@/components/portal-shell';
@@ -21,7 +22,7 @@ export function CompanyResearch({ companyId }: { companyId: string }) {
     let active = true;
     setLoading(true); setError(''); setWarning(''); setCompany(null); setMetrics([]); setAlerts([]); setPeriod('all');
     async function get(path: string, optional = false) {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL ?? ''}${path}`, { signal: controller.signal });
+      const response = await authFetch(`${path}`, { signal: controller.signal });
       if (optional && response.status === 404) return { items: [] };
       if (!response.ok) throw new Error(response.status === 404 ? '未找到该公司，请从研究库重新选择。' : `数据服务返回 ${response.status}`);
       return response.json();
