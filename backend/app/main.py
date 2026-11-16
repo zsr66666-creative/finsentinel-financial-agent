@@ -488,6 +488,8 @@ def create_app(database_url=None, data_mode=None):
     wire_auth(app, store)
     from app.personal_research_routes import wire_personal_research
     wire_personal_research(app, store)
+    from app.saved_report_routes import wire_saved_reports
+    wire_saved_reports(app, store)
     return app
 
 

@@ -31,12 +31,20 @@ def export_research(engine, comparison, format='json'):
         '增加或减少不构成风险或投资结论。', '仅覆盖六个固定指标契约；历史决策不会继承到变更后的来源。',
         'rejected 表示人工驳回，所列金额仅保留为被审阅的来源值，不代表认可。'])
     if comparison.get('reason'): report['reason'] = comparison['reason']
+    return render_research(report, format)
+
+
+def render_research(report, format='json'):
+    if format not in ('json', 'markdown'): raise ValueError('unsupported export format')
     if format == 'json': return json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False)
     lines = ['# FinSentinel 财务证据研究报告', '',
         f"公司：{safe_text(report['company_name'])} / 代码：{safe_text(report['company_code'])} / 报告期：{safe_text(report['period'])} / 口径：{safe_text(report['statement_scope'])}",
         f"导出时间：{safe_text(report['exported_at'])}", '', '## 适用边界', *['- '+safe_text(v) for v in report['limitations']], '']
+    if report.get('saved_snapshot'):
+        lines += ['## 保存时快照', '此报告保留保存时的来源与复核状态，后续数据变化不会更新本报告。',
+                  '标题：'+safe_text(report['saved_title']), '用户问题（备注）：'+safe_text(report.get('saved_question') or '未填写'), '']
     if report.get('reason'): lines += ['待复核原因：'+safe_text(report['reason']), '']
-    for item in items:
+    for item in report['items']:
         state = item['review']; latest = state['latest']
         lines += ['## '+safe_text(item['label']), '来源状态：'+safe_text(item['status']),
                   '人工复核：'+safe_text(state['review_status'])]
