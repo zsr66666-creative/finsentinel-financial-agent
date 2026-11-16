@@ -80,6 +80,8 @@ sudo -u finsentinel env NEXT_PUBLIC_API_URL='' NEXT_TELEMETRY_DISABLED=1 \
   bash -c 'cd "$1" && npm ci --cache /var/lib/finsentinel/npm-cache && npm test && npm run build' \
   _ "$release/frontend"
 
+# Tests use a workspace-local tmp_path fixture; keep source directories root owned.
+install -d -o finsentinel -g finsentinel -m 700 "$release/.test-tmp-week13"
 sudo -u finsentinel env PYTHONPATH="$release/backend:$release" AUTH_ENABLED=false \
   bash -c 'cd "$1" && /opt/finsentinel/.venv/bin/python -m pytest backend/tests/test_operations.py backend/tests/test_operations_runner.py backend/tests/test_operations_backup.py -q -p no:cacheprovider' _ "$release"
 

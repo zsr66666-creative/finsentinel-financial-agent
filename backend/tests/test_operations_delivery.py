@@ -35,3 +35,11 @@ def test_committed_package_contains_managed_units_no_production_data(tmp_path):
         assert 'deploy/ecs/install-operations-offline.sh' in names
         assert 'backend/app/operations.py' in names
         assert not any(n.endswith(('.dump','.env','.pem','.db','.onnx','.PDF','.pdf')) or 'node_modules' in n or '.next/' in n for n in names)
+
+
+def test_deployment_prepares_only_test_temp_directory_before_unprivileged_tests():
+    script=(ROOT/'deploy/ecs/install-operations-offline.sh').read_text(encoding='utf-8')
+    setup='install -d -o finsentinel -g finsentinel -m 700 "$release/.test-tmp-week13"'
+    assert setup in script
+    assert script.index(setup) < script.index('AUTH_ENABLED=false')
+    assert 'chown -R finsentinel:finsentinel "$release"' not in script
