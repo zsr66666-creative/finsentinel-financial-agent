@@ -1,4 +1,5 @@
 'use client';
+import { FinancialReviewPanel } from '@/components/financial-review-panel';
 import { useEffect, useState } from 'react';
 import { formatFinancialNumber, parseFinancialComparison, type FinancialComparison } from '@/lib/verified-financials.mjs';
 
@@ -37,9 +38,9 @@ export function VerifiedFinancials({ companyCode }: { companyCode: string }) {
   }, [companyCode, scope, retry]);
   const shown = result?.company_code === companyCode && result?.statement_scope === scope ? result : null;
   return <section className="panel comparison-card verified-financials" aria-labelledby="financial-check-title" aria-busy={loading}>
-    <div className="panel-heading"><div><h2 id="financial-check-title">真实财务核对</h2><p>同一公司、同一报表口径，比较金额与来源一起呈现。</p></div><span className="financial-review-tag">待人工复核</span></div>
+    <div className="panel-heading"><div><h2 id="financial-check-title">真实财务核对</h2><p>同一公司、同一报表口径，比较金额与来源一起呈现。</p></div><span className="financial-review-tag">来源与人工复核分开</span></div>
     <div className="evidence-scope-controls"><label>报告期<select aria-label="财务核对报告期" value={period} disabled><option value="2024FY">2024 年年度报告</option></select></label><label>报表口径<select aria-label="财务核对报表口径" value={scope} onChange={e => { setResult(null); setScope(e.target.value); }}><option value="consolidated">合并口径 · 已覆盖</option><option value="parent">母公司口径 · 待覆盖</option></select></label></div>
-    <p className="evidence-coverage">金额单位：人民币元。来源校验通过表示金额与指定原文一致，仍待人工复核；增加或减少本身不等于风险结论。</p>
+    <p className="evidence-coverage">金额单位：人民币元。来源校验通过表示金额与指定原文一致，不自动等于人工复核，详见下方记录；增加或减少本身不等于风险结论。</p>
     {loading && <p role="status">正在核对官方报告原件、报表口径与期间…</p>}
     {error && <div className="notice error" role="alert">{error}<button className="secondary-button" onClick={() => setRetry(v => v + 1)}>重新核对</button></div>}
     {!loading && !error && shown && <>
@@ -53,6 +54,7 @@ export function VerifiedFinancials({ companyCode }: { companyCode: string }) {
           <details><summary>查看原文与来源定位</summary><p>来源：2024 年官方年度报告 · 物理页码（从 PDF 第 1 页起计）</p>{row.evidence.map(proof => <div className="financial-proof" key={proof.evidence_id}><strong>{roleText[proof.role] ?? proof.role} · 第 {proof.page} 页</strong><pre>{proof.text}</pre><a href={`${row.source_url}#page=${proof.page}`} target="_blank" rel="noreferrer">打开官方 PDF 第 {proof.page} 页 ↗</a></div>)}<p>文档 SHA-256：<code>{row.source_sha256}</code></p><p>变化率计算：(本期 − 比较期) ÷ |比较期| × 100%，四舍五入至两位小数。</p></details>
         </>}
       </article>)}</div>
+      {['002555','002230'].includes(companyCode) && scope === 'consolidated' && <FinancialReviewPanel key={`${companyCode}-${scope}`} comparison={shown} onSourceRefresh={()=>setRetry(v=>v+1)}/> }
       {!shown.items.length && !shown.reason && <p className="empty">该研究范围暂无可核对的财务指标。</p>}
     </>}
   </section>;

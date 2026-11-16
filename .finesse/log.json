@@ -76,5 +76,13 @@
     "palette": "white, ink, cream selection, pale yellow with restrained sage/blue",
     "shell": "grouped sidebar, company search, main list and source rail",
     "brief": "Reference-led redesign approved by user. Actual scopes catalog drives research counts and lists; demo monitoring remains distinct. Native mobile dialog, dark parity, no new dependencies. Cloud/browser acceptance pending."
+  },
+  {
+    "date": "2026-11-16",
+    "target": "Task12 company financial review and research report downloads",
+    "register": "product/dashboard",
+    "palette": "existing neutral research portal + semantic review badges",
+    "shell": "existing company research page",
+    "brief": "Independent source-bound review panel, explicit decisions, bounded immutable history, per-submission credential, Markdown/JSON download. Preserve dark/mobile and actual source boundaries. Browser/cloud acceptance pending."
   }
 ]
