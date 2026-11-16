@@ -9,7 +9,7 @@ import { catalogCompanies, chooseCompany, filterCompanies } from '@/lib/portal.m
 const groups=[
  {label:'研究',items:[['/','home','研究首页'],['/companies','companies','公司研究'],['/reports','reports','报告库'],['/evidence','search','原文检索'],['/compare','compare','证据比较']]},
  {label:'演示工作台',items:[['/workbench','dashboard','监控总览'],['/workbench/alerts','alerts','风险告警'],['/workbench/review','review','告警复核'],['/workbench/evals','evals','评测与版本'],['/workbench/data','data','数据质量'],['/workbench/companies','companies','演示公司库']]},
- {label:'个人',items:[['/settings','settings','个人设置']]},
+ {label:'个人',items:[['/my-research','reports','我的研究'],['/settings','settings','个人设置']]},
 ];
 function SidebarContent({close}:{close?:()=>void}){
  const pathname=usePathname();return <>

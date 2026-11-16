@@ -41,6 +41,10 @@ jobs:
         env:
           DATABASE_URL: postgresql+psycopg://postgres:ci_test_only@127.0.0.1:5432/finsentinel_test
         run: python -m scripts.accounts_pg_acceptance --output accounts-postgres.json
+      - name: PostgreSQL personal research isolation and persistence
+        env:
+          DATABASE_URL: postgresql+psycopg://postgres:ci_test_only@127.0.0.1:5432/finsentinel_test
+        run: python -m scripts.personal_research_pg_acceptance --output personal-research-postgres.json
       - name: Install PostgreSQL 16 backup clients
         run: sudo apt-get update && sudo apt-get install -y postgresql-client-16
       - name: PostgreSQL snapshot backup and isolated restore
@@ -80,6 +84,7 @@ jobs:
       - run: bash -n deploy/ecs/install-ip-https.sh
       - run: bash -n deploy/ecs/install-accounts-offline.sh
       - run: bash -n deploy/ecs/install-operations-offline.sh
+      - run: bash -n deploy/ecs/install-research-library-offline.sh
       - uses: actions/setup-node@v4
         with:
           node-version: "22"

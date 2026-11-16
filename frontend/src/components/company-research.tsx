@@ -1,4 +1,5 @@
 'use client';
+import { FavoriteButton } from '@/components/personal-research';
 import { authFetch } from '@/lib/accounts.mjs';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -55,7 +56,7 @@ export function CompanyResearch({ companyId }: { companyId: string }) {
     <div className="page-heading"><div><div className="eyebrow">COMPANY RESEARCH</div><h1>{company?.name ?? '公司研究'}</h1><p>{companyId} · {company?.industry ?? company?.sector ?? '行业待标注'}</p></div><Link className="secondary-button" href="/companies">返回公司库</Link></div>
     {loading && <p role="status">正在加载公司数据…</p>}
     {error && <div className="notice error" role="alert">{error}<button onClick={() => setRetry(v => v + 1)}>重新加载</button></div>}
-    {company && <><div className={`mode-banner ${demo ? 'synthetic-banner' : ''}`}><strong>{demo ? '演示 / 未验证真实来源' : '真实公开材料'}</strong><span>数据模式：{company.data_mode ?? '未标注'}。接入 API 不代表财务数据已经真实来源复核。</span></div>
+    {company && <><FavoriteButton kind="company" companyCode={companyId}/><div className={`mode-banner ${demo ? 'synthetic-banner' : ''}`}><strong>{demo ? '演示 / 未验证真实来源' : '真实公开材料'}</strong><span>数据模式：{company.data_mode ?? '未标注'}。接入 API 不代表财务数据已经真实来源复核。</span></div>
     {warning && <div className="notice error" role="alert">{warning}<button onClick={() => setRetry(v => v + 1)}>重试</button></div>}
     {['002555', '002230'].includes(companyId) && <VerifiedFinancials key={companyId} companyCode={companyId} />}
     {!indexedOnly && <EvidenceSearch key={companyId} companyCode={companyId} />}

@@ -484,10 +484,9 @@ def create_app(database_url=None, data_mode=None):
 
     from app.auth.routes import wire_auth
     wire_auth(app, store)
+    from app.personal_research_routes import wire_personal_research
+    wire_personal_research(app, store)
     return app
 
 
 app = create_app()
-
-
-
