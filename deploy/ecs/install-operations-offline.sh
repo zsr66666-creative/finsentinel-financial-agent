@@ -348,7 +348,8 @@ EOF
 systemd-analyze verify /etc/systemd/system/finsentinel-ops-{backup,restore,check}.{service,timer}
 systemctl daemon-reload
 systemctl enable --now finsentinel-ops-backup.timer finsentinel-ops-restore.timer finsentinel-ops-check.timer
-run_ops check
+# Let systemd coalesce an immediate OnBootSec trigger with this initial check.
+systemctl start finsentinel-ops-check.service
 # Only a schema and permission check, no operational secrets printed.
 run_admin -c 'from app.operations import read_status; s=read_status(); assert len(s["checks"]) == 18, "Invalid operations status"; print("PASS status reader; aggregate=" + s["status"])'
 for name in nginx finsentinel-backend finsentinel-frontend finsentinel-ingestion-worker finsentinel-query-encoder; do
