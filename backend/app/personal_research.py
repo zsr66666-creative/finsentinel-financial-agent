@@ -53,7 +53,7 @@ def migrate_research_library(engine):
     return [VERSION]
 
 class ResearchLibrary:
-    def __init__(self,store):self.store=store;self.engine=store.engine
+    def __init__(self,store):self.store=store;self.engine=getattr(store,"engine",None)
     def scope(self,company,period=None):
         scopes=[s for s in list_scopes(self.engine)['items'] if s['company_code']==company and (period is None or s['period']==period)]
         fixture=self.store.get('companies',company)
