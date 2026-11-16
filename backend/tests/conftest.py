@@ -7,8 +7,10 @@ import pytest
 
 
 BACKEND_ROOT = Path(__file__).resolve().parents[1]
-if str(BACKEND_ROOT) not in sys.path:
-    sys.path.insert(0, str(BACKEND_ROOT))
+# Integration helpers live at repository level; CI runs from backend/.
+for import_root in (BACKEND_ROOT, BACKEND_ROOT.parent):
+    if str(import_root) not in sys.path:
+        sys.path.insert(0, str(import_root))
 
 
 @pytest.fixture
