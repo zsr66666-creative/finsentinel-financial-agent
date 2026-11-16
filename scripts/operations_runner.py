@@ -157,6 +157,14 @@ def run_checks(state, database_url, ip):
     for kind in ('backup','restore'): probe(kind,lambda kind=kind:recovery(kind))
     return checks
 
+def print_diagnostic(task,result):
+    diagnostics={'missing_original','backup_failed','restore_failed','restore_cleanup_failed','backup_invalid','disk_full','configuration_missing'}
+    detail=result.get('reason')
+    if detail in diagnostics: print(task+': '+detail)
+    digest=result.get('missing_sha256')
+    import re
+    if detail=='missing_original' and isinstance(digest,str) and re.fullmatch(r'[0-9a-f]{64}',digest): print('missing_sha256='+digest)
+
 def main(argv=None):
     parser=argparse.ArgumentParser()
     parser.add_argument('task',choices=('backup','restore','check'))
@@ -192,19 +200,7 @@ def main(argv=None):
         safe=dict(status='ok' if result.get('status')=='ok' else 'critical',reason='check_passed' if result.get('status')=='ok' else 'task_failed',finished_at=stamp())
         atomic_json(private/(args.task+'.json'),safe)
         if safe['status']=='ok': atomic_json(private/(args.task+'_success.json'),safe)
-        diagnostic=result.get('reason','')
-        if diagnostic in ('missing_original','restore_cleanup_failed','backup_failed','restore_failed'):
-            print(args.task+': '+diagnostic)
-            missing=result.get('missing_sha256','')
-            if diagnostic=='missing_original' and isinstance(missing,str) and len(missing)==64 and all(c in '0123456789abcdef' for c in missing):
-                print('Required original PDF SHA256: '+missing)
-        else:
-            diagnostics={'missing_original','backup_failed','restore_failed','restore_cleanup_failed','backup_invalid','disk_full','configuration_missing'}
-        detail=result.get('reason')
-        if detail in diagnostics: print(args.task+': '+detail)
-        digest=result.get('missing_sha256')
-        import re
-        if detail=='missing_original' and isinstance(digest,str) and re.fullmatch(r'[0-9a-f]{64}',digest): print('missing_sha256='+digest)
+        print_diagnostic(args.task,result)
         print(args.task+': '+safe['status']+' '+safe['reason'])
         return 0 if safe['status']=='ok' else 1
 

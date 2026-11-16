@@ -53,3 +53,11 @@ def test_recovery_metadata_preserves_old_success_during_failure(monkeypatch,tmp_
     backup=next(row for row in rows if row['id']=='backup')
     assert backup['status']=='critical'
     assert backup['last_success_at']==when
+
+
+def test_missing_original_failure_emits_safe_diagnostic_without_crashing(capsys):
+    runner.print_diagnostic('backup',dict(status='critical',reason='missing_original',missing_sha256='a'*64))
+    output=capsys.readouterr().out
+    assert 'missing_sha256='+'a'*64 in output
+    runner.print_diagnostic('restore',dict(status='critical',reason='restore_failed',error='/private/secret'))
+    assert capsys.readouterr().out=='restore: restore_failed\n'
