@@ -1,4 +1,5 @@
 'use client';
+import { SaveReport } from './saved-reports';
 import { ReaderLink } from '@/components/reader-link';
 import { authFetch } from '@/lib/accounts.mjs';
 import { FinancialReviewPanel } from '@/components/financial-review-panel';
@@ -57,6 +58,7 @@ export function VerifiedFinancials({ companyCode }: { companyCode: string }) {
         </>}
       </article>)}</div>
       {['002555','002230'].includes(companyCode) && scope === 'consolidated' && <FinancialReviewPanel key={`${companyCode}-${scope}`} comparison={shown} onSourceRefresh={()=>setRetry(v=>v+1)}/> }
+      <SaveReport key={`${companyCode}-${scope}`} companyCode={companyCode} period={period} scope={scope}/>
       {!shown.items.length && !shown.reason && <p className="empty">该研究范围暂无可核对的财务指标。</p>}
     </>}
   </section>;

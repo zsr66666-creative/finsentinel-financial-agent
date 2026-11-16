@@ -1,0 +1,10 @@
+import type {FinancialMetric} from './verified-financials.mjs';
+export type SavedMetadata={id:string;title:string;question:string|null;company_code:string;period:string;statement_scope:string;created_at:number;snapshot_sha256:string};
+export type SavedMetric=FinancialMetric&{review:{fingerprint:string|null;review_status:string;latest:null|{id:string;reviewer:string;reason:string;created_at:string;username?:string;user_id?:string;identity_assurance?:string}}};
+export type SavedReport=SavedMetadata&{snapshot:{company_name:string;exported_at:string;items:SavedMetric[];limitations:string[]}};
+export const REPORT_UUID:RegExp;
+export function canSaveReport(company:string,period:string,scope:string):boolean;
+export function parseSavedMetadata(value:unknown):SavedMetadata;
+export function parseSavedReportPage(value:unknown):{items:SavedMetadata[];total:number};
+export function parseSavedReport(value:unknown):SavedReport;
+export function savedReportRequest(path?:string,options?:{signal?:AbortSignal;method?:string;body?:unknown;download?:boolean}):Promise<any>;
