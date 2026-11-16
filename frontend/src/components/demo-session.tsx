@@ -17,7 +17,7 @@ export function SessionProvider({children}:{children:React.ReactNode}) {
  const expired=()=>{setCsrfToken('');setUser(null);setReady(true);};window.addEventListener('finsentinel-session-expired',expired);
  void accountRequest('/session').then(data=>{if(active){setUser(data.user);setCsrfToken(data.csrf_token);}}).catch(cause=>{if(active && cause.status!==401)setError(cause.message);}).finally(()=>{if(active)setReady(true);});
  return()=>{active=false;window.removeEventListener('finsentinel-session-expired',expired);};},[retry]);
- useEffect(()=>{if(ready&&!user&&!error&&pathname!=='/login')router.replace(`/login?next=${encodeURIComponent(safeReturnPath(pathname))}`);if(ready&&user?.must_change_password&&pathname!=='/settings')router.replace('/settings');},[ready,user,error,pathname,router]);
+ useEffect(()=>{if(ready&&!user&&!error&&pathname!=='/login')router.replace(`/login?next=${encodeURIComponent(safeReturnPath(pathname==='/reader'?pathname+window.location.search:pathname))}`);if(ready&&user?.must_change_password&&pathname!=='/settings')router.replace('/settings');},[ready,user,error,pathname,router]);
  const session:Session={user,profile:user??{nickname:'研究员',avatar:''},
  async signIn(username,password){const data=await accountRequest('/login',{username,password});setCsrfToken(data.csrf_token);setUser(data.user);setError('');return data.user;},
  async signOut(){await accountRequest('/logout',{});setCsrfToken('');setUser(null);setError('');router.replace('/login');router.refresh();},

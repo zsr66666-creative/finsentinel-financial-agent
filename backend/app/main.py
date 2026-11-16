@@ -121,6 +121,8 @@ def create_app(database_url=None, data_mode=None):
     from app.operations import build_router as build_operations_router
     app.include_router(build_operations_router())
     app.state.store = store
+    from app.report_reader import wire_report_reader
+    wire_report_reader(app, store)
     from app.ingestion.routes import build_router
     app.include_router(build_router(store))
     from app.financial_review_routes import build_review_router

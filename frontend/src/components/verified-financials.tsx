@@ -1,4 +1,5 @@
 'use client';
+import { ReaderLink } from '@/components/reader-link';
 import { authFetch } from '@/lib/accounts.mjs';
 import { FinancialReviewPanel } from '@/components/financial-review-panel';
 import { useEffect, useState } from 'react';
@@ -52,7 +53,7 @@ export function VerifiedFinancials({ companyCode }: { companyCode: string }) {
           <dl className="financial-amounts"><div><dt>本期 · {row.current_column}</dt><dd>{formatFinancialNumber(row.current_value)}</dd></div><div><dt>比较期 · {row.previous_column}</dt><dd>{formatFinancialNumber(row.previous_value)}</dd></div></dl>
           <div className="financial-change"><span>{row.direction === 'increase' ? '增加' : row.direction === 'decrease' ? '减少' : '持平'} · 差额 <strong>{formatFinancialNumber(row.difference)}</strong> 元</span><span>变化率 <strong>{row.change_percent === null ? '不适用（比较基数为零）' : `${row.change_percent}%`}</strong></span></div>
           <p className="evidence-coverage">{row.period_kind === 'flow' ? '全年发生额对比' : '期末与期初余额对比'} · 合并口径<br />原始期间：{row.current_period} ／ {row.previous_period === 'opening_balance_2024' ? '2024 年报期初余额（原表未单列日期）' : row.previous_period}</p>
-          <details><summary>查看原文与来源定位</summary><p>来源：2024 年官方年度报告 · 物理页码（从 PDF 第 1 页起计）</p>{row.evidence.map(proof => <div className="financial-proof" key={proof.evidence_id}><strong>{roleText[proof.role] ?? proof.role} · 第 {proof.page} 页</strong><pre>{proof.text}</pre><a href={`${row.source_url}#page=${proof.page}`} target="_blank" rel="noreferrer">打开官方 PDF 第 {proof.page} 页 ↗</a></div>)}<p>文档 SHA-256：<code>{row.source_sha256}</code></p><p>变化率计算：(本期 − 比较期) ÷ |比较期| × 100%，四舍五入至两位小数。</p></details>
+          <details><summary>查看原文与来源定位</summary><p>来源：2024 年官方年度报告 · 物理页码（从 PDF 第 1 页起计）</p>{row.evidence.map(proof => <div className="financial-proof" key={proof.evidence_id}><strong>{roleText[proof.role] ?? proof.role} · 第 {proof.page} 页</strong><pre>{proof.text}</pre><ReaderLink locator={{company_code:companyCode,period,document_sha256:row.source_sha256,page:proof.page}}/><a href={`${row.source_url}#page=${proof.page}`} target="_blank" rel="noreferrer">打开官方 PDF 第 {proof.page} 页 ↗</a></div>)}<p>文档 SHA-256：<code>{row.source_sha256}</code></p><p>变化率计算：(本期 − 比较期) ÷ |比较期| × 100%，四舍五入至两位小数。</p></details>
         </>}
       </article>)}</div>
       {['002555','002230'].includes(companyCode) && scope === 'consolidated' && <FinancialReviewPanel key={`${companyCode}-${scope}`} comparison={shown} onSourceRefresh={()=>setRetry(v=>v+1)}/> }

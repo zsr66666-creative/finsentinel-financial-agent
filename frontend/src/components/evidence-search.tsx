@@ -1,4 +1,5 @@
 'use client';
+import { ReaderLink } from '@/components/reader-link';
 import { FavoriteButton } from '@/components/personal-research';
 import { useSession } from '@/components/demo-session';
 import { queryPrefill, researchWrite } from '@/lib/research-library.mjs';
@@ -115,7 +116,7 @@ export function EvidenceSearch({ companyCode, initialPeriod, initialQuery }: { c
       <p className="review-callout">以下均为候选片段，排名不是置信度。未命中也不能据此断言财报未披露；金额、单位和报表口径仍需复核。</p>
       {result.warnings.length > 0 && <p role="status">检索提示：{result.warnings.join(' / ')}</p>}
       {!result.items.length && <p>当前范围未返回候选片段，请核对公司、报告期与入库覆盖范围。</p>}
-      <ol className="retrieval-candidates">{result.items.map(item => <li key={item.chunk_id}><div className="section-title"><strong>物理页码：{item.provenance.page ?? '未知'}</strong><span>词法 #{item.bm25_rank ?? '—'} · 向量 #{item.vector_rank ?? '—'}</span></div><p className="retrieval-text">{item.provenance.text || '该片段未提供原文'}</p><small>{item.provenance.company_code} · {item.provenance.period} · {item.provenance.statement_scope === 'parent' ? '母公司' : item.provenance.statement_scope === 'consolidated' ? '合并' : '口径未标注'}</small><FavoriteButton kind="evidence" companyCode={item.provenance.company_code!} period={item.provenance.period} chunkId={item.chunk_id}/><details><summary>来源标识与校验信息</summary><code>{item.chunk_id}</code><p>PDF SHA-256：{item.provenance.document_sha256 ?? '未提供'}</p><p>来源状态：{item.provenance.source_status ?? '未标注'}</p><p>来源：{item.provenance.source_url?.startsWith('https://static.cninfo.com.cn/') ? <a href={item.provenance.source_url} target="_blank" rel="noopener noreferrer">官方 PDF ↗</a> : '本地 PDF，请结合哈希与物理页码核对'}</p></details></li>)}</ol>
+      <ol className="retrieval-candidates">{result.items.map(item => <li key={item.chunk_id}><div className="section-title"><strong>物理页码：{item.provenance.page ?? '未知'}</strong><span>词法 #{item.bm25_rank ?? '—'} · 向量 #{item.vector_rank ?? '—'}</span></div><p className="retrieval-text">{item.provenance.text || '该片段未提供原文'}</p><small>{item.provenance.company_code} · {item.provenance.period} · {item.provenance.statement_scope === 'parent' ? '母公司' : item.provenance.statement_scope === 'consolidated' ? '合并' : '口径未标注'}</small><ReaderLink locator={{chunk_id:item.chunk_id,document_sha256:item.provenance.document_sha256}}/><FavoriteButton kind="evidence" companyCode={item.provenance.company_code!} period={item.provenance.period} chunkId={item.chunk_id}/><details><summary>来源标识与校验信息</summary><code>{item.chunk_id}</code><p>PDF SHA-256：{item.provenance.document_sha256 ?? '未提供'}</p><p>来源状态：{item.provenance.source_status ?? '未标注'}</p><p>来源：{item.provenance.source_url?.startsWith('https://static.cninfo.com.cn/') ? <a href={item.provenance.source_url} target="_blank" rel="noopener noreferrer">官方 PDF ↗</a> : '本地 PDF，请结合哈希与物理页码核对'}</p></details></li>)}</ol>
     </>}</div>
   </section>;
 }

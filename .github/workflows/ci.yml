@@ -85,6 +85,7 @@ jobs:
       - run: bash -n deploy/ecs/install-accounts-offline.sh
       - run: bash -n deploy/ecs/install-operations-offline.sh
       - run: bash -n deploy/ecs/install-research-library-offline.sh
+      - run: bash -n deploy/ecs/install-report-reader-offline.sh
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
