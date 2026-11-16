@@ -118,6 +118,8 @@ def create_app(database_url=None, data_mode=None):
         store.close()
 
     app = FastAPI(title='FinSentinel API',version='0.1.0',lifespan=lifespan,description='Evidence-first finance research workbench. Synthetic fixtures are explicitly labeled.')
+    from app.operations import build_router as build_operations_router
+    app.include_router(build_operations_router())
     app.state.store = store
     from app.ingestion.routes import build_router
     app.include_router(build_router(store))
