@@ -232,7 +232,7 @@ systemctl start "$service"
 run_admin -m scripts.saved_reports_acceptance --output "$report_root/https-acceptance.json"
 # Preserve existing operations units and refresh their status.
 systemctl start finsentinel-ops-check.service
-run_admin -c 'from app.operations import read_status; s=read_status(); assert len(s["checks"]) == 18 and s["status"] in ("ok","warning"), "Operations checks need attention"; print("PASS preserved operations; aggregate=" + s["status"])' 
+run_admin -c 'from app.operations import read_status; s=read_status(); assert len(s["checks"]) == 18 and s["status"] in ("ok","warning"), "Operations checks need attention"; print("PASS preserved operations; aggregate=" + s["status"])'
 for name in nginx finsentinel-backend finsentinel-frontend finsentinel-ingestion-worker finsentinel-query-encoder; do
   systemctl is-active --quiet "$name" || { echo "Service not active: $name" >&2; exit 1; }
 done

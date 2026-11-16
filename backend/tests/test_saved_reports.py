@@ -107,3 +107,29 @@ def test_unavailable_store_can_be_wired():
     app=FastAPI();app.state.auth_enabled=False
     wire_saved_reports(app,object())
     assert TestClient(app).get('/api/v1/me/research/reports').status_code==401
+
+
+def test_supported_report_freezes_precise_amounts_evidence_and_review(tmp_path,monkeypatch):
+    import json
+    import hashlib
+    from app.store import Store
+    from app.financial_reviews import migrate_reviews,submit_review
+    from test_task12_reviews import comparison,request
+    store=Store('sqlite:///'+str(tmp_path/'precise.db'))
+    migrate_accounts(store.engine);migrate_reviews(store.engine);migrate_saved_reports(store.engine)
+    owner=Accounts(store.engine).create_user('precise','password for tests','viewer','Precise')['id']
+    source=comparison()
+    monkeypatch.setattr('app.saved_reports.company_comparisons',lambda *a,**k:source)
+    service=SavedReports(store)
+    saved=service.create(owner,company_code='002555',title='Precision report',question='Check revenue')
+    original=service.export(owner,saved['id'])
+    assert hashlib.sha256(original.encode()).hexdigest()==saved['snapshot_sha256']
+    item=json.loads(original)['items'][0]
+    assert item['current_value']=='9007199254740993.01'
+    assert item['source_sha256']=='b'*64 and item['evidence'][0]['page']==1
+    assert item['review']['review_status']=='pending_human'
+    submit_review(store.engine,source,request())
+    assert service.export(owner,saved['id'])==original
+    assert '9007199254740993.01' in service.export(owner,saved['id'],'markdown')
+    second=service.create(owner,company_code='002555',title='New review snapshot')
+    assert service.detail(owner,second['id'])['snapshot']['items'][0]['review']['review_status']=='confirmed'
