@@ -37,6 +37,26 @@ def test_committed_package_contains_managed_units_no_production_data(tmp_path):
         assert not any(n.endswith(('.dump','.env','.pem','.db','.onnx','.PDF','.pdf')) or 'node_modules' in n or '.next/' in n for n in names)
 
 
+def test_package_contains_offsite_code_docs_and_spec_without_secrets(tmp_path):
+    from scripts.package_operations import package
+    target=tmp_path/'operations-offsite.tar.gz';package(target)
+    with tarfile.open(target) as archive:
+        names=set(archive.getnames())
+        assert 'scripts/operations_offsite.py' in names
+        assert 'backend/tests/test_operations_offsite.py' in names
+        assert 'docs/offsite-backup.md' in names
+        assert 'docs/superpowers/specs/2026-11-17-google-drive-offsite-backup-design.md' in names
+        assert not any('rclone.conf' in n or n.endswith(('.agekey','.pem','.dump','.pdf','.PDF')) for n in names)
+
+
+def test_offsite_installer_defaults_disabled_and_keeps_oauth_out_of_env():
+    script=(ROOT/'deploy/ecs/install-operations-offline.sh').read_text(encoding='utf-8')
+    assert 'EnvironmentFile=-/etc/finsentinel/offsite.env' in script
+    assert 'OFFSITE_ENABLED=false' in script
+    assert '/etc/rclone/rclone.conf' in script
+    assert 'Environment="OFFSITE_TOKEN=' not in script
+
+
 def test_deployment_prepares_only_test_temp_directory_before_unprivileged_tests():
     script=(ROOT/'deploy/ecs/install-operations-offline.sh').read_text(encoding='utf-8')
     setup='install -d -o finsentinel -g finsentinel -m 700 "$release/.test-tmp-week13"'

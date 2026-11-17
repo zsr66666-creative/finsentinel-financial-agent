@@ -1,4 +1,4 @@
-const mandatoryIds = ['nginx','backend','frontend','ingestion_worker','query_encoder','renewal_timer','backup_timer','restore_timer','renewal','database','https_health','https_login','https_static','encoder_health','disk','certificate','backup','restore'];
+const mandatoryIds = ['nginx','backend','frontend','ingestion_worker','query_encoder','renewal_timer','backup_timer','restore_timer','renewal','database','https_health','https_login','https_static','encoder_health','disk','certificate','backup','restore','offsite_backup'];
 const statuses = ['ok','warning','critical','unknown'];
 const invalid = () => { throw new Error('运行状态格式无效，请稍后刷新。'); };
 const stamp = value => typeof value === 'string' && /^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d+)?(?:Z|\+00:00)$/.test(value) && Number.isFinite(Date.parse(value));
@@ -14,7 +14,7 @@ export function parseOperations(value, now = Date.now()) {
  const checks=value.checks.map(c=>{
   if (!c || !/^[a-z][a-z0-9_]{0,63}$/.test(c.id) || ids.has(c.id) || !safeText(c.label) || !safeText(c.reason) || !statuses.includes(c.status) || !stamp(c.checked_at) || !Number.isFinite(c.duration_ms) || c.duration_ms<0 || c.duration_ms>120000) return invalid();
   const metadata={};
-  if (['backup','restore'].includes(c.id) && c.last_success_at!==undefined) { if (!stamp(c.last_success_at)) return invalid(); metadata.last_success_at=c.last_success_at; }
+  if (['backup','restore','offsite_backup'].includes(c.id) && c.last_success_at!==undefined) { if (!stamp(c.last_success_at)) return invalid(); metadata.last_success_at=c.last_success_at; }
   if (c.id==='certificate' && c.expires_at!==undefined) { if (!stamp(c.expires_at)) return invalid(); metadata.expires_at=c.expires_at; }
   if (c.id==='disk') {
    for (const key of ['free_bytes','total_bytes']) if (c[key]!==undefined) { if (!Number.isSafeInteger(c[key]) || c[key]<0) return invalid(); metadata[key]=c[key]; }
@@ -29,6 +29,7 @@ export function parseOperations(value, now = Date.now()) {
  const expired = at => now-Date.parse(at)>15*60000 || Date.parse(at)-now>60000;
  const stale = expired(value.checked_at) || checks.some(c=>expired(c.checked_at));
  const incomplete = mandatoryIds.some(id=>!ids.has(id));
- const status=groupStatus([{status:value.status},...checks,...(incomplete?[{status:'unknown'}]:[])]);
+ const statusChecks=checks.filter(c=>!(c.id==='offsite_backup'&&c.status==='unknown'&&c.reason==='not_configured'));
+ const status=groupStatus([{status:value.status},...statusChecks,...(incomplete?[{status:'unknown'}]:[])]);
  return {schema_version:1,checked_at:value.checked_at,status:stale||!checks.length?(status==='critical'?'critical':'unknown'):status,checks:stale?checks.map(c=>({...c,status:'unknown',reason:'状态超过有效时间，请刷新确认。'})):checks,history,stale};
 }

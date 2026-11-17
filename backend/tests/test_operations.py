@@ -88,3 +88,22 @@ def test_safe_metadata_whitelist(tmp_path):
     assert 'secret' not in result['disk']
     checks['disk']['free_bytes']=True
     path.write_text(json.dumps(data));assert read_status(path)['status']=='unknown'
+
+
+def test_offsite_status_is_mandatory_sanitized_and_optional_when_unconfigured(tmp_path):
+    from app.operations import LABELS, aggregate
+    now=datetime.now(timezone.utc).isoformat()
+    data=dict(schema_version=1,checked_at=now,status='ok',checks=[dict(id=k,label=k,status='ok',reason='check_passed',checked_at=now,duration_ms=0) for k in LABELS],history=[])
+    rows={row['id']:row for row in data['checks']}
+    rows['offsite_backup'].update(status='unknown',reason='not_configured',last_success_at=now,backup_id='private-name',ciphertext_sha256='secret')
+    path=tmp_path/'status.json';path.write_text(json.dumps(data))
+
+    parsed=read_status(path)
+    offsite=next(row for row in parsed['checks'] if row['id']=='offsite_backup')
+    assert offsite['last_success_at']==now
+    assert 'backup_id' not in offsite and 'ciphertext_sha256' not in offsite
+    assert aggregate(parsed['checks'])=='ok'
+
+    data['checks']=[row for row in data['checks'] if row['id']!='offsite_backup']
+    path.write_text(json.dumps(data))
+    assert read_status(path)['status']=='unknown'

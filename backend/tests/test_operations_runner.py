@@ -19,6 +19,7 @@ def test_atomic_writer_permissions_and_symlink(tmp_path):
     assert json.loads(target.read_text())=={'ok':True}
 
 def test_checks_do_not_treat_https_tuple_as_status(monkeypatch,tmp_path):
+    monkeypatch.delenv('OFFSITE_ENABLED',raising=False)
     monkeypatch.setattr(runner,'command',lambda args:'Result=success\nExecMainStatus=0\nExecMainStartTimestampMonotonic=1' if 'show' in args else 'enabled' if 'is-enabled' in args else 'active')
     monkeypatch.setattr(runner,'database_probe',lambda url:None)
     monkeypatch.setattr(runner,'local_https',lambda ip,path:(b'HTTP/1.1 200 OK\r\n\r\n<script src="/_next/static/a.js"></script>',{'notAfter':'Dec 31 23:59:59 2099 GMT'}))
@@ -26,7 +27,9 @@ def test_checks_do_not_treat_https_tuple_as_status(monkeypatch,tmp_path):
     rows=runner.run_checks(tmp_path,'secret','127.0.0.1')
     assert next(x for x in rows if x['id']=='https_health')['status']=='ok'
     assert next(x for x in rows if x['id']=='https_static')['status']=='ok'
-    assert len(rows)==18
+    assert len(rows)==19
+    offsite=next(x for x in rows if x['id']=='offsite_backup')
+    assert (offsite['status'],offsite['reason'])==('unknown','not_configured')
     assert next(x for x in rows if x['id']=='certificate')['expires_at'].startswith('2099-12-31')
     assert next(x for x in rows if x['id']=='disk')['free_bytes']==50*1024**3
     assert 'secret' not in json.dumps(rows)
@@ -61,3 +64,38 @@ def test_missing_original_failure_emits_safe_diagnostic_without_crashing(capsys)
     assert 'missing_sha256='+'a'*64 in output
     runner.print_diagnostic('restore',dict(status='critical',reason='restore_failed',error='/private/secret'))
     assert capsys.readouterr().out=='restore: restore_failed\n'
+
+
+def test_offsite_failure_preserves_local_and_previous_offsite_success(tmp_path,monkeypatch):
+    private=tmp_path/'private';private.mkdir()
+    finished=datetime.now(timezone.utc).isoformat()
+    local_success={'status':'ok','finished_at':finished}
+    offsite_success={'status':'ok','reason':'offsite_verified','finished_at':finished,
+                     'backup_id':'backup-20261117T120000000000Z-'+'a'*32,'ciphertext_sha256':'a'*64}
+    (private/'backup_success.json').write_text(json.dumps(local_success))
+    (private/'offsite_backup_success.json').write_text(json.dumps(offsite_success))
+    monkeypatch.setattr(runner,'stamp',lambda:finished)
+
+    result=runner.run_offsite_task(tmp_path,private,backup_ok=True,enabled=True,
+                                   sync=lambda *args,**kwargs:{'status':'critical','reason':'upload_failed','finished_at':finished})
+
+    assert result['status']=='critical'
+    assert json.loads((private/'backup_success.json').read_text())==local_success
+    assert json.loads((private/'offsite_backup_success.json').read_text())==offsite_success
+    assert json.loads((private/'offsite_backup.json').read_text())=={'status':'critical','reason':'upload_failed','finished_at':finished}
+
+
+def test_offsite_disabled_is_explicit_without_failure(tmp_path):
+    private=tmp_path/'private';private.mkdir()
+    assert runner.offsite_recovery(private,enabled=False)=={'status':'unknown','reason':'not_configured'}
+
+
+def test_offsite_status_exposes_only_fixed_failure_code_and_last_success(tmp_path):
+    private=tmp_path/'private';private.mkdir()
+    finished=datetime.now(timezone.utc).isoformat()
+    (private/'offsite_backup.json').write_text(json.dumps({'status':'critical','reason':'upload_failed','finished_at':finished,'error':'token=secret'}))
+    (private/'offsite_backup_success.json').write_text(json.dumps({'status':'ok','finished_at':finished,'ciphertext_sha256':'secret'}))
+
+    result=runner.offsite_recovery(private,enabled=True)
+
+    assert result=={'status':'critical','reason':'upload_failed','last_success_at':finished}

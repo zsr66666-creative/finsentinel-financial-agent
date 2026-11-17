@@ -7,8 +7,8 @@ from pathlib import Path
 from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse
 
-LABELS = {key: key.replace('_', ' ').title() for key in ('nginx','backend','frontend','ingestion_worker','query_encoder','renewal_timer','backup_timer','restore_timer','renewal','database','https_health','https_login','https_static','encoder_health','disk','certificate','backup','restore')}
-REASONS = frozenset(('check_passed','check_failed','check_timeout','not_configured','never_completed','backup_aging','backup_expired','restore_aging','certificate_expiring','certificate_urgent','disk_low','disk_critical','task_failed','status_missing','status_invalid','status_stale'))
+LABELS = {key: key.replace('_', ' ').title() for key in ('nginx','backend','frontend','ingestion_worker','query_encoder','renewal_timer','backup_timer','restore_timer','renewal','database','https_health','https_login','https_static','encoder_health','disk','certificate','backup','restore','offsite_backup')}
+REASONS = frozenset(('check_passed','check_failed','check_timeout','not_configured','never_completed','backup_aging','backup_expired','offsite_aging','offsite_expired','restore_aging','certificate_expiring','certificate_urgent','disk_low','disk_critical','task_failed','status_missing','status_invalid','status_stale','offsite_verified','quota_insufficient','quota_unknown','configuration_missing','configuration_invalid','backup_missing','backup_invalid','encryption_failed','upload_failed','remote_readback_failed','remote_integrity_failed','remote_publish_failed','retention_failed','remote_unavailable'))
 STATUSES = frozenset(('ok','warning','critical','unknown'))
 
 def stamp(): return datetime.now(timezone.utc).isoformat()
@@ -44,7 +44,7 @@ def read_status(path=None, *, enforce_fresh=True):
             if type(duration) not in (int,float) or not math.isfinite(duration) or not 0<=duration<=120000: raise ValueError()
             checks.append(dict(id=key,label=LABELS[key],status=row['status'],reason=row['reason'],checked_at=row['checked_at'],duration_ms=duration))
             clean=checks[-1]
-            if key in ('backup','restore') and 'last_success_at' in row:
+            if key in ('backup','restore','offsite_backup') and 'last_success_at' in row:
                 when=parsed_time(row['last_success_at'])
                 if (when-datetime.now(timezone.utc)).total_seconds()>60: raise ValueError()
                 clean['last_success_at']=when.astimezone(timezone.utc).isoformat()
@@ -64,7 +64,8 @@ def read_status(path=None, *, enforce_fresh=True):
     except (OSError,ValueError,TypeError,KeyError,AttributeError): return summary('status_invalid')
 
 def aggregate(checks):
-    statuses={row['status'] for row in checks}
+    statuses={row['status'] for row in checks
+              if not (row['id']=='offsite_backup' and row['status']=='unknown' and row['reason']=='not_configured')}
     return next((s for s in ('critical','unknown','warning') if s in statuses),'ok')
 
 def build_router():

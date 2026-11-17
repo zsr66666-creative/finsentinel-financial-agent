@@ -35,7 +35,7 @@ available_kib="$(awk '/MemAvailable:/ {print $2}' /proc/meminfo)"
 id finsentinel >/dev/null
 python3 - <<'PYPREFLIGHT'
 from pathlib import Path
-for raw in ('/opt/finsentinel-releases','/opt/finsentinel-operations-venv','/var/lib/finsentinel','/var/lib/finsentinel/deploy-reports','/var/lib/finsentinel/operations/private','/var/backups/finsentinel'):
+for raw in ('/opt/finsentinel-releases','/opt/finsentinel-operations-venv','/var/lib/finsentinel','/var/lib/finsentinel/deploy-reports','/var/lib/finsentinel/operations/private','/var/backups/finsentinel','/etc/finsentinel','/etc/rclone'):
     p=Path(raw)
     if any(c.is_symlink() for c in (p,*p.parents)):
         raise SystemExit('Refusing symlink in maintenance path')
@@ -83,7 +83,7 @@ sudo -u finsentinel env NEXT_PUBLIC_API_URL='' NEXT_TELEMETRY_DISABLED=1 \
 # Tests use a workspace-local tmp_path fixture; keep source directories root owned.
 install -d -o finsentinel -g finsentinel -m 700 "$release/.test-tmp-week13"
 sudo -u finsentinel env PYTHONPATH="$release/backend:$release" AUTH_ENABLED=false \
-  bash -c 'cd "$1" && /opt/finsentinel/.venv/bin/python -m pytest backend/tests/test_operations.py backend/tests/test_operations_runner.py backend/tests/test_operations_backup.py -q -p no:cacheprovider' _ "$release"
+  bash -c 'cd "$1" && /opt/finsentinel/.venv/bin/python -m pytest backend/tests/test_operations.py backend/tests/test_operations_runner.py backend/tests/test_operations_backup.py backend/tests/test_operations_offsite.py -q -p no:cacheprovider' _ "$release"
 
 standalone="$release/frontend/.next/standalone"
 [[ -f "$standalone/server.js" && -d "$release/frontend/.next/static" ]]
@@ -258,6 +258,24 @@ install -d -o finsentinel -g finsentinel -m 750 "$report_root"
 install -d -o root -g root -m 700 /var/backups/finsentinel
 install -d -o root -g finsentinel -m 750 /var/lib/finsentinel/operations
 install -d -o root -g root -m 700 /var/lib/finsentinel/operations/private
+install -d -o root -g root -m 750 /etc/finsentinel
+install -d -o root -g root -m 700 /etc/rclone
+[[ ! -L /etc/finsentinel/offsite.env && ! -L /etc/rclone/rclone.conf ]] || { echo 'Refusing symlink in offsite configuration path.' >&2; exit 1; }
+if [[ ! -e /etc/finsentinel/offsite.env ]]; then
+  install -o root -g root -m 600 /dev/null /etc/finsentinel/offsite.env
+  printf 'OFFSITE_ENABLED=false\nOFFSITE_REMOTE=\nOFFSITE_RECIPIENT=\nOFFSITE_RCLONE_CONFIG=/etc/rclone/rclone.conf\n' > /etc/finsentinel/offsite.env
+fi
+chown root:root /etc/finsentinel/offsite.env
+chmod 600 /etc/finsentinel/offsite.env
+if [[ -e /etc/rclone/rclone.conf ]]; then
+  chown root:root /etc/rclone/rclone.conf
+  chmod 600 /etc/rclone/rclone.conf
+fi
+if grep -qx 'OFFSITE_ENABLED=true' /etc/finsentinel/offsite.env; then
+  command -v age >/dev/null || { echo 'age is required while offsite backup is enabled.' >&2; exit 1; }
+  command -v rclone >/dev/null || { echo 'rclone is required while offsite backup is enabled.' >&2; exit 1; }
+  [[ -s /etc/rclone/rclone.conf ]] || { echo 'Root-only rclone config is required while offsite backup is enabled.' >&2; exit 1; }
+fi
 run_ops() {
   (cd "$release" && env PYTHONPATH="$release/backend:$release" \
     DATABASE_URL='postgresql+psycopg:///finsentinel?host=/var/run/postgresql' \
@@ -309,6 +327,7 @@ WorkingDirectory=$release
 Environment="PYTHONPATH=$release/backend:$release"
 Environment="DATABASE_URL=postgresql+psycopg:///finsentinel?host=/var/run/postgresql"
 Environment="OPERATIONS_SOURCE_REVISION=$revision"
+EnvironmentFile=-/etc/finsentinel/offsite.env
 ExecStart=/opt/finsentinel-operations-venv/bin/python -m scripts.operations_runner $job
 TimeoutStartSec=30min
 Nice=10
@@ -353,7 +372,7 @@ systemctl enable --now finsentinel-ops-backup.timer finsentinel-ops-restore.time
 # Let systemd coalesce an immediate OnBootSec trigger with this initial check.
 systemctl start finsentinel-ops-check.service
 # Only a schema and permission check, no operational secrets printed.
-run_admin -c 'from app.operations import read_status; s=read_status(); assert len(s["checks"]) == 18, "Invalid operations status"; print("PASS status reader; aggregate=" + s["status"])'
+run_admin -c 'from app.operations import read_status; s=read_status(); assert len(s["checks"]) == 19, "Invalid operations status"; print("PASS status reader; aggregate=" + s["status"])'
 for name in nginx finsentinel-backend finsentinel-frontend finsentinel-ingestion-worker finsentinel-query-encoder; do
   systemctl is-active --quiet "$name" || { echo "Service not active: $name" >&2; exit 1; }
 done
@@ -362,4 +381,4 @@ nginx -t
 switch_started=0
 trap - EXIT INT TERM
 printf 'PASS operations deployment; SOURCE_REVISION=%s\nRetained release and backup: %s\n' "$revision" "$release"
-echo 'Next: open https://120.24.108.60/admin/operations as administrator. Local backups are not offsite disaster recovery.'
+echo 'Next: open https://120.24.108.60/admin/operations as administrator. Google Drive offsite backup remains disabled until separately configured.'
