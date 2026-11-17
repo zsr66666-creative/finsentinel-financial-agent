@@ -73,6 +73,11 @@ def make_client_config(tmp_path):
     return config
 
 
+def make_test_remote(m, config, remote_root, monkeypatch):
+    monkeypatch.setattr(m, '_safe_config', lambda path: Path(path))
+    return m.RcloneRemote(config, remote_root)
+
+
 def add_managed_files(remote, count):
     for index in range(count):
         name = f'backup-202611{10+index:02d}T120000000000Z-{index:032x}.tar.gz.age'
@@ -146,7 +151,7 @@ def test_invalid_source_and_missing_oauth_config_fail_closed(tmp_path, monkeypat
     config = make_client_config(tmp_path)
     config.unlink()
 
-    result = m.sync_latest(root, 'drive:FinSentinelOffsite', 'age1recipient', config, remote_client=client)
+    result = m.sync_latest(root, 'drive:FinSentinelOffsite', 'age1recipient', config)
 
     assert result['status'] == 'critical'
     assert result['reason'] == 'configuration_missing'
@@ -159,21 +164,21 @@ def test_invalid_source_and_missing_oauth_config_fail_closed(tmp_path, monkeypat
     assert not client.uploaded
 
 
-def test_remote_directory_allows_safe_nested_folder_but_rejects_traversal(tmp_path):
+def test_remote_directory_allows_safe_nested_folder_but_rejects_traversal(tmp_path, monkeypatch):
     m = module()
     config = make_client_config(tmp_path)
 
-    remote = m.RcloneRemote(config, 'drive:FinSentinel/offsite/backups')
+    remote = make_test_remote(m, config, 'drive:FinSentinel/offsite/backups', monkeypatch)
 
     assert remote.remote_root.endswith('FinSentinel/offsite/backups')
     with pytest.raises(m.OffsiteError, match='configuration_invalid'):
-        m.RcloneRemote(config, 'drive:FinSentinel/../other')
+        make_test_remote(m, config, 'drive:FinSentinel/../other', monkeypatch)
 
 
 def test_readback_command_uses_timeout_without_blocking_pipe_read(tmp_path, monkeypatch):
     m = module()
     config = make_client_config(tmp_path)
-    remote = m.RcloneRemote(config, 'drive:FinSentinel/offsite')
+    remote = make_test_remote(m, config, 'drive:FinSentinel/offsite', monkeypatch)
     calls = {}
 
     def timeout_run(argv, **kwargs):
@@ -191,7 +196,7 @@ def test_readback_command_uses_timeout_without_blocking_pipe_read(tmp_path, monk
 
 def test_readback_hashes_stream_to_file_without_loading_ciphertext_into_memory(tmp_path, monkeypatch):
     m = module()
-    remote = m.RcloneRemote(make_client_config(tmp_path), 'drive:FinSentinel/offsite')
+    remote = make_test_remote(m, make_client_config(tmp_path), 'drive:FinSentinel/offsite', monkeypatch)
 
     def write_readback(argv, **kwargs):
         kwargs['stdout'].write(b'ciphertext-bytes')
@@ -254,6 +259,28 @@ def test_existing_copy_without_matching_local_verified_hash_is_not_trusted(tmp_p
     assert result['reason']=='remote_integrity_failed'
     assert client.uploaded==[]
     assert client.deleted==[]
+
+
+def test_injected_remote_client_does_not_require_production_rclone_config(tmp_path, monkeypatch):
+    m=module()
+    root,_=point(tmp_path,monkeypatch)
+    monkeypatch.setattr(m,'_encrypt_backup',fake_encrypt)
+
+    result=m.sync_latest(root,'drive:FinSentinel/offsite','age1recipient',
+                         tmp_path/'root-only-config-not-needed-by-fake-client',
+                         remote_client=FakeRemote())
+
+    assert result['status']=='ok'
+
+
+def test_real_rclone_client_rejects_non_root_owned_config_on_linux(tmp_path):
+    import os
+    if os.name != 'posix': pytest.skip('POSIX ownership check')
+    m=module()
+    config=make_client_config(tmp_path)
+
+    with pytest.raises(m.OffsiteError,match='configuration_invalid'):
+        m.RcloneRemote(config,'drive:FinSentinel/offsite')
 
 
 def test_untrusted_remote_and_recipient_are_rejected_without_commands(tmp_path, monkeypatch):

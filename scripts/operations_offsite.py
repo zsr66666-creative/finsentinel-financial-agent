@@ -174,8 +174,11 @@ def sync_latest(backup_root, remote, recipient, rclone_config, *, remote_client=
     try:
         if not REMOTE_RE.fullmatch(remote) or not RECIPIENT_RE.fullmatch(recipient):
             raise OffsiteError('configuration_invalid')
-        config_path = _safe_config(rclone_config)
-        client = remote_client or RcloneRemote(config_path, remote)
+        if remote_client is None:
+            config_path = _safe_config(rclone_config)
+            client = RcloneRemote(config_path, remote)
+        else:
+            client = remote_client
         stage = 'backup_invalid'
         points = valid_backups(backup_root)
         if not points:
