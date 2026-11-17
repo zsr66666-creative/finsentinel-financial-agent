@@ -15,7 +15,7 @@ if [[ $EUID -ne 0 ]]; then
   echo 'Run this deployment script as root.' >&2
   exit 1
 fi
-for command in flock systemctl python3 sudo npm tar pg_dump nginx; do
+for command in flock systemctl python3 sudo npm tar pg_dump nginx sshd ssh-keygen useradd getent passwd chpasswd openssl; do
   command -v "$command" >/dev/null
 done
 install -d -o root -g root -m 700 /run/lock/finsentinel-deploy
@@ -35,7 +35,7 @@ available_kib="$(awk '/MemAvailable:/ {print $2}' /proc/meminfo)"
 id finsentinel >/dev/null
 python3 - <<'PYPREFLIGHT'
 from pathlib import Path
-for raw in ('/opt/finsentinel-releases','/opt/finsentinel-operations-venv','/var/lib/finsentinel','/var/lib/finsentinel/deploy-reports','/var/lib/finsentinel/operations/private','/var/backups/finsentinel','/etc/finsentinel','/etc/rclone'):
+for raw in ('/opt/finsentinel-releases','/opt/finsentinel-operations-venv','/var/lib/finsentinel','/var/lib/finsentinel/deploy-reports','/var/lib/finsentinel/operations/private','/var/backups/finsentinel','/etc/finsentinel','/srv/finsentinel-sftp','/etc/ssh/sshd_config','/etc/ssh/authorized_keys'):
     p=Path(raw)
     if any(c.is_symlink() for c in (p,*p.parents)):
         raise SystemExit('Refusing symlink in maintenance path')
@@ -187,18 +187,35 @@ for name in "${managed_names[@]}"; do
   systemctl is-enabled "$name" > "$release/backup/$name.timer-enabled" 2>/dev/null || true
   systemctl is-active "$name" > "$release/backup/$name.timer-active" 2>/dev/null || true
 done
+sshd_config='/etc/ssh/sshd_config'
+sshd_auth_dir='/etc/ssh/authorized_keys'
+sshd_auth_file="$sshd_auth_dir/finsentinel-backup-pull"
+export_config='/etc/finsentinel/offsite-export.env'
+[[ -f "$sshd_config" && ! -L "$sshd_config" ]] || { echo 'Missing or unsafe sshd configuration.' >&2; exit 1; }
+[[ ! -L "$sshd_auth_file" && ! -L "$export_config" ]] || { echo 'Refusing symlink in SFTP configuration.' >&2; exit 1; }
+cp -p "$sshd_config" "$release/backup/sshd_config"
+sshd_auth_previous=0
+if [[ -f "$sshd_auth_file" ]]; then cp -p "$sshd_auth_file" "$release/backup/sftp-authorized-keys"; sshd_auth_previous=1; fi
+export_config_previous=0
+if [[ -f "$export_config" ]]; then cp -p "$export_config" "$release/backup/offsite-export.env"; export_config_previous=1; fi
+[[ -f /root/finsentinel-backup-pull.pub && ! -L /root/finsentinel-backup-pull.pub ]] || { echo 'Place the dedicated Windows SSH public key at /root/finsentinel-backup-pull.pub.' >&2; exit 1; }
+mapfile -t sftp_key_lines < /root/finsentinel-backup-pull.pub
+[[ "${#sftp_key_lines[@]}" -eq 1 && "${sftp_key_lines[0]}" =~ ^ssh-ed25519[[:space:]]+[^[:space:]]+([[:space:]].*)?$ ]] || { echo 'Expected exactly one ssh-ed25519 public key.' >&2; exit 1; }
+ssh-keygen -lf /root/finsentinel-backup-pull.pub >/dev/null
 units_started=0
 switch_started=0
+ssh_started=0
+sftp_user_created=0
 frontend_stopped=0
 frontend_moved=0
 rollback_on_exit() {
   status=$?
   trap - EXIT INT TERM
-  if [[ "$switch_started" -eq 1 ]]; then
+  if [[ "$switch_started" -eq 1 || "$ssh_started" -eq 1 ]]; then
     set +e
     rollback_failed=0
     echo "Deployment failed; restoring previous frontend/backend configuration: $release" >&2
-    if [[ "$frontend_stopped" -eq 1 ]]; then
+    if [[ "$switch_started" -eq 1 && "$frontend_stopped" -eq 1 ]]; then
       systemctl stop "$service" || rollback_failed=1
       if [[ "$frontend_moved" -eq 1 ]]; then
         if [[ -e "$live" ]]; then mv "$live" "$release/failed-next" || rollback_failed=1; fi
@@ -206,7 +223,7 @@ rollback_on_exit() {
       fi
       systemctl start "$service" || rollback_failed=1
     fi
-    if [[ "$units_started" -eq 1 ]]; then
+    if [[ "$switch_started" -eq 1 && "$units_started" -eq 1 ]]; then
       for name in "${managed_names[@]}"; do
         systemctl stop "$name" || true
         if [[ -f "$release/backup/$name" ]]; then cp -p "$release/backup/$name" "/etc/systemd/system/$name" || rollback_failed=1; else rm -f -- "/etc/systemd/system/$name" || rollback_failed=1; fi
@@ -219,9 +236,19 @@ rollback_on_exit() {
         fi
       done
     fi
-    if [[ "$backend_previous" -eq 1 ]]; then cp -p "$release/backup/backend.conf" "$backend_drop" || rollback_failed=1; else rm -f "$backend_drop" || rollback_failed=1; fi
-    systemctl daemon-reload || rollback_failed=1
-    systemctl restart finsentinel-backend || rollback_failed=1
+    if [[ "$switch_started" -eq 1 ]]; then
+      if [[ "$backend_previous" -eq 1 ]]; then cp -p "$release/backup/backend.conf" "$backend_drop" || rollback_failed=1; else rm -f "$backend_drop" || rollback_failed=1; fi
+      systemctl daemon-reload || rollback_failed=1
+      systemctl restart finsentinel-backend || rollback_failed=1
+    fi
+    if [[ "$ssh_started" -eq 1 ]]; then
+      cp -p "$release/backup/sshd_config" "$sshd_config" || rollback_failed=1
+      if [[ "$sshd_auth_previous" -eq 1 ]]; then cp -p "$release/backup/sftp-authorized-keys" "$sshd_auth_file" || rollback_failed=1; else rm -f "$sshd_auth_file" || rollback_failed=1; fi
+      if [[ "$export_config_previous" -eq 1 ]]; then cp -p "$release/backup/offsite-export.env" "$export_config" || rollback_failed=1; else rm -f "$export_config" || rollback_failed=1; fi
+      if [[ "$sftp_user_created" -eq 1 ]]; then userdel finsentinel-backup-pull || rollback_failed=1; fi
+      sshd -t || rollback_failed=1
+      systemctl reload ssh || rollback_failed=1
+    fi
     if [[ "$rollback_failed" -ne 0 ]]; then echo 'ROLLBACK ERROR: inspect services and retained backup immediately.' >&2; fi
     echo 'Backups and diagnostic results retained; no production human reviews or account changes made.' >&2
     [[ "$status" -ne 0 ]] || status=1
@@ -259,23 +286,100 @@ install -d -o root -g root -m 700 /var/backups/finsentinel
 install -d -o root -g finsentinel -m 750 /var/lib/finsentinel/operations
 install -d -o root -g root -m 700 /var/lib/finsentinel/operations/private
 install -d -o root -g root -m 750 /etc/finsentinel
-install -d -o root -g root -m 700 /etc/rclone
-[[ ! -L /etc/finsentinel/offsite.env && ! -L /etc/rclone/rclone.conf ]] || { echo 'Refusing symlink in offsite configuration path.' >&2; exit 1; }
-if [[ ! -e /etc/finsentinel/offsite.env ]]; then
-  install -o root -g root -m 600 /dev/null /etc/finsentinel/offsite.env
-  printf 'OFFSITE_ENABLED=false\nOFFSITE_REMOTE=\nOFFSITE_RECIPIENT=\nOFFSITE_RCLONE_CONFIG=/etc/rclone/rclone.conf\n' > /etc/finsentinel/offsite.env
+export_root='/srv/finsentinel-sftp/finsentinel-backup-pull/exports'
+command -v age >/dev/null || { echo 'age is required for encrypted recovery exports.' >&2; exit 1; }
+ssh_started=1
+install -d -o root -g root -m 755 /etc/ssh/authorized_keys
+install -d -o root -g root -m 755 /srv/finsentinel-sftp
+install -d -o root -g root -m 755 /srv/finsentinel-sftp/finsentinel-backup-pull
+install -d -o root -g root -m 755 "$export_root"
+printf '%s\n' "${sftp_key_lines[0]}" > "$sshd_auth_file"
+chown root:root "$sshd_auth_file"
+chmod 644 "$sshd_auth_file"
+if ! getent passwd finsentinel-backup-pull >/dev/null; then
+  useradd --system --no-create-home --home-dir / --shell /usr/sbin/nologin finsentinel-backup-pull
+  sftp_user_created=1
+  random_password="$(openssl rand -base64 48)"
+  password_hash="$(printf '%s' "$random_password" | openssl passwd -6 -stdin)"
+  unset random_password
+  printf 'finsentinel-backup-pull:%s\n' "$password_hash" | chpasswd --encrypted
+  unset password_hash
+else
+  [[ "$(getent passwd finsentinel-backup-pull | cut -d: -f7)" == /usr/sbin/nologin ]] || { echo 'Existing SFTP account has an unexpected shell.' >&2; exit 1; }
 fi
-chown root:root /etc/finsentinel/offsite.env
-chmod 600 /etc/finsentinel/offsite.env
-if [[ -e /etc/rclone/rclone.conf ]]; then
-  chown root:root /etc/rclone/rclone.conf
-  chmod 600 /etc/rclone/rclone.conf
+if [[ ! -e "$export_config" ]]; then
+  printf 'FINSENTINEL_AGE_RECIPIENT=\nFINSENTINEL_EXPORT_ROOT=%s\n' "$export_root" > "$export_config"
 fi
-if grep -qx 'OFFSITE_ENABLED=true' /etc/finsentinel/offsite.env; then
-  command -v age >/dev/null || { echo 'age is required while offsite backup is enabled.' >&2; exit 1; }
-  command -v rclone >/dev/null || { echo 'rclone is required while offsite backup is enabled.' >&2; exit 1; }
-  [[ -s /etc/rclone/rclone.conf ]] || { echo 'Root-only rclone config is required while offsite backup is enabled.' >&2; exit 1; }
-fi
+chown root:root "$export_config"
+chmod 600 "$export_config"
+python3 - "$export_config" "$export_root" <<'PYEXPORTCONFIG'
+import re,sys
+from pathlib import Path
+path=Path(sys.argv[1]); expected_root=sys.argv[2]
+rows=path.read_text(encoding='ascii').splitlines()
+values={}
+for row in rows:
+    if not row or row.startswith('#'): continue
+    key,sep,value=row.partition('=')
+    if not sep or key not in ('FINSENTINEL_AGE_RECIPIENT','FINSENTINEL_EXPORT_ROOT') or key in values:
+        raise SystemExit('Invalid export configuration format')
+    values[key]=value
+if set(values)!={'FINSENTINEL_AGE_RECIPIENT','FINSENTINEL_EXPORT_ROOT'}:
+    raise SystemExit('Incomplete export configuration')
+if values['FINSENTINEL_AGE_RECIPIENT'] and not re.fullmatch(r'age1[0-9a-z]{8,100}',values['FINSENTINEL_AGE_RECIPIENT']):
+    raise SystemExit('Invalid age recipient')
+if values['FINSENTINEL_EXPORT_ROOT']!=expected_root:
+    raise SystemExit('Unexpected export directory')
+PYEXPORTCONFIG
+root_auth_before="$(sshd -T -C user=root,host=localhost,addr=127.0.0.1 | awk '$1 ~ /^(port|permitrootlogin|passwordauthentication|pubkeyauthentication|authorizedkeysfile|authenticationmethods)$/')"
+python3 - "$sshd_config" <<'PYSSHD'
+import os,sys,tempfile
+from pathlib import Path
+path=Path(sys.argv[1])
+start='# BEGIN FINSENTINEL SFTP ACCOUNT'
+end='# END FINSENTINEL SFTP ACCOUNT'
+text=path.read_text(encoding='utf-8')
+if text.count(start)!=text.count(end) or text.count(start)>1:
+    raise SystemExit('Invalid managed SSH block markers')
+if start in text:
+    before,rest=text.split(start,1)
+    _,after=rest.split(end,1)
+    text=before.rstrip()+'\n'+after.lstrip('\n')
+block='''# BEGIN FINSENTINEL SFTP ACCOUNT
+Match all
+Match User finsentinel-backup-pull
+    AuthorizedKeysFile /etc/ssh/authorized_keys/%u
+    AuthenticationMethods publickey
+    PasswordAuthentication no
+    KbdInteractiveAuthentication no
+    ChrootDirectory /srv/finsentinel-sftp/finsentinel-backup-pull
+    ForceCommand internal-sftp -R -d /exports
+    DisableForwarding yes
+    AllowTcpForwarding no
+    AllowAgentForwarding no
+    PermitTTY no
+    X11Forwarding no
+# END FINSENTINEL SFTP ACCOUNT
+'''
+fd,name=tempfile.mkstemp(prefix='.sshd_config-',dir=str(path.parent))
+with os.fdopen(fd,'w',encoding='utf-8',newline='\n') as stream:
+    stream.write(text.rstrip()+'\n\n'+block)
+    stream.flush();os.fsync(stream.fileno())
+os.chmod(name,path.stat().st_mode & 0o777)
+os.replace(name,path)
+PYSSHD
+sshd -t
+sftp_effective="$(sshd -T -C user=finsentinel-backup-pull,host=localhost,addr=127.0.0.1)"
+grep -Fxq 'authorizedkeysfile /etc/ssh/authorized_keys/%u' <<< "$sftp_effective"
+grep -Fxq 'authenticationmethods publickey' <<< "$sftp_effective"
+grep -Fxq 'passwordauthentication no' <<< "$sftp_effective"
+grep -Fxq 'chrootdirectory /srv/finsentinel-sftp/finsentinel-backup-pull' <<< "$sftp_effective"
+grep -Fxq 'forcecommand internal-sftp -R -d /exports' <<< "$sftp_effective"
+grep -Fxq 'disableforwarding yes' <<< "$sftp_effective"
+grep -Fxq 'permittty no' <<< "$sftp_effective"
+root_auth_after="$(sshd -T -C user=root,host=localhost,addr=127.0.0.1 | awk '$1 ~ /^(port|permitrootlogin|passwordauthentication|pubkeyauthentication|authorizedkeysfile|authenticationmethods)$/')"
+[[ "$root_auth_before" == "$root_auth_after" ]] || { echo 'Root SSH effective settings changed; rolling back.' >&2; exit 1; }
+systemctl reload ssh
 run_ops() {
   (cd "$release" && env PYTHONPATH="$release/backend:$release" \
     DATABASE_URL='postgresql+psycopg:///finsentinel?host=/var/run/postgresql' \
@@ -327,7 +431,7 @@ WorkingDirectory=$release
 Environment="PYTHONPATH=$release/backend:$release"
 Environment="DATABASE_URL=postgresql+psycopg:///finsentinel?host=/var/run/postgresql"
 Environment="OPERATIONS_SOURCE_REVISION=$revision"
-EnvironmentFile=-/etc/finsentinel/offsite.env
+EnvironmentFile=-/etc/finsentinel/offsite-export.env
 ExecStart=/opt/finsentinel-operations-venv/bin/python -m scripts.operations_runner $job
 TimeoutStartSec=30min
 Nice=10
@@ -372,7 +476,7 @@ systemctl enable --now finsentinel-ops-backup.timer finsentinel-ops-restore.time
 # Let systemd coalesce an immediate OnBootSec trigger with this initial check.
 systemctl start finsentinel-ops-check.service
 # Only a schema and permission check, no operational secrets printed.
-run_admin -c 'from app.operations import read_status; s=read_status(); assert len(s["checks"]) == 19, "Invalid operations status"; print("PASS status reader; aggregate=" + s["status"])'
+run_admin -c 'from app.operations import LABELS, read_status; s=read_status(); assert len(s["checks"]) == len(LABELS) == 18, "Invalid operations status"; print("PASS status reader; aggregate=" + s["status"])'
 for name in nginx finsentinel-backend finsentinel-frontend finsentinel-ingestion-worker finsentinel-query-encoder; do
   systemctl is-active --quiet "$name" || { echo "Service not active: $name" >&2; exit 1; }
 done
@@ -381,4 +485,4 @@ nginx -t
 switch_started=0
 trap - EXIT INT TERM
 printf 'PASS operations deployment; SOURCE_REVISION=%s\nRetained release and backup: %s\n' "$revision" "$release"
-echo 'Next: open https://120.24.108.60/admin/operations as administrator. Google Drive offsite backup remains disabled until separately configured.'
+echo 'Next: set FINSENTINEL_AGE_RECIPIENT in /etc/finsentinel/offsite-export.env, then configure the Windows pull task and ECS SSH ingress /32.'

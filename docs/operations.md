@@ -3,7 +3,7 @@
 ## 范围
 
 管理员 `/admin/operations` 展示关键服务、数据库、受信本机HTTPS、磁盘、证书、最近备份/恢复验收及异常历史。页面仅可读取和刷新，不提供执行命令、恢复生产库或下载敏感文件的入口。
-本机恢复点可选择同步到 Google Drive 的 age 加密异地副本；功能默认关闭，完成账号授权、公钥及免费空间检查后才可启用。细节见[异地备份操作指南](offsite-backup.md)。
+每日本机恢复点会尝试生成 age 加密导出，供 Windows 通过只读 SFTP 每日拉取。ECS 导出日志不代表 Windows 已收到副本；配置与验收见[Windows 异地备份操作指南](offsite-backup.md)。
 本机HTTPS成功不能证明公网安全组或用户网络正常；外部通知渠道本期未接入。
 
 ## 计划任务
@@ -13,7 +13,7 @@
 | 每日备份 | 北京时间03:30，随机延迟不超过5分钟 | finsentinel-ops-backup.timer |
 | 隔离恢复验收 | 每周日北京时间04:30，随机延迟不超过5分钟 | finsentinel-ops-restore.timer |
 | 运行检查 | 每5分钟 | finsentinel-ops-check.timer |
-| 异地备份 | 随每日本机备份执行（仅显式启用后） | finsentinel-ops-backup.service |
+| 加密导出 | 随每日本机备份执行（需配置 age 公钥） | finsentinel-ops-backup.service |
 
 使用systemd，错过每日/每周任务后补执行；同类备份恢复互斥。首次部署先备份并实际恢复到独立测试库，成功后启用定时任务。检查任务失败或长时间未更新时，页面不能显示正常。
 
@@ -22,11 +22,11 @@
 - `/var/backups/finsentinel`：root专用0700；恢复点文件0600，包括数据库dump、引用原始资料、清单与受限配置归档。含账号哈希、研究数据和可能的服务凭据，禁止上传GitHub或发到聊天。
 - `/var/lib/finsentinel/operations/private`：root专用任务结果，不通过API返回。
 - `/var/lib/finsentinel/operations/status.json`：root写、finsentinel组只读；只含固定检查摘要与最多200条状态变化。
-- `/etc/finsentinel/offsite.env`：root专用配置，初始 `OFFSITE_ENABLED=false`；只包含远端目录、公钥 recipient 和配置文件路径，不放 OAuth token。
-- `/etc/rclone/rclone.conf`：root专用 Google OAuth 配置；不进入 API、部署包、命令行参数或日志。
+- `/etc/finsentinel/offsite-export.env`：root专用配置，只含 age 公钥 recipient 和受限 SFTP 导出路径，不放私钥。
+- `/srv/finsentinel-sftp/finsentinel-backup-pull/exports`：供 chroot SFTP 只读账号访问的加密导出目录；不放明文恢复点。
 - API `/api/v1/admin/operations`：仅认证管理员可读，未登录401，非管理员403；未启用账号模式也不允许匿名访问。
 
-本机和 Google Drive 各保留最近7个成功受管恢复点。新副本没有完成校验时不清理旧成功副本。未知文件或符号链接不自动删除，空间不足会记录失败。数据保留政策只针对各自专用目录，不会清理旧应用发布目录或用户数据。
+ECS 和 Windows 各保留最近7个成功受管加密恢复点。新副本没有完成校验时不清理旧成功副本。未知文件或符号链接不自动删除，空间不足会记录失败。数据保留政策只针对各自专用目录，不会清理旧应用发布目录或用户数据。
 
 ## 恢复验证的含义
 
@@ -37,7 +37,7 @@
 
 证书剩余不足48小时警告，不足24小时严重；证书续期timer启用不等于续期成功。
 最近成功备份超过30小时警告、超过48小时严重；恢复验证超过8天警告。首次缺失显示未知。
-异地副本超过30小时警告、超过48小时严重；关闭时明确显示“尚未配置”，不影响本机备份和整体检查状态。根磁盘剩余低于20%或4GiB警告，低于10%或2GiB严重。状态文件超过15分钟未更新显示严重。异常变化和恢复写入有界历史，同一状态不反复追加。
+异地导出按每日本机备份任务执行；Windows 拉取成功时间在 Windows 本地状态文件检查。ECS 检查页不将导出误报为 Windows 收件成功。根磁盘剩余低于20%或4GiB警告，低于10%或2GiB严重。状态文件超过15分钟未更新显示严重。异常变化和恢复写入有界历史，同一状态不反复追加。
 
 ## 运维查看
 

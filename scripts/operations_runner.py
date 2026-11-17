@@ -4,6 +4,7 @@ import contextlib
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import socket
 import ssl
@@ -17,13 +18,12 @@ import sys
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'backend'))
 from app.operations import LABELS, aggregate, parsed_time, stamp
 
-OFFSITE_REASONS={'offsite_verified','backup_missing','backup_invalid','configuration_missing','configuration_invalid',
-                 'encryption_failed','upload_failed','remote_readback_failed','remote_integrity_failed',
-                 'remote_publish_failed','retention_failed','remote_unavailable','quota_unknown','quota_insufficient'}
+EXPORT_REASONS={'export_verified','backup_missing','backup_invalid','configuration_invalid',
+                'encryption_failed','export_publish_failed','export_integrity_failed','retention_failed'}
 
 
 def age_status(seconds, kind):
-    if kind in ('backup','offsite_backup'): return 'critical' if seconds>48*3600 else 'warning' if seconds>30*3600 else 'ok'
+    if kind=='backup': return 'critical' if seconds>48*3600 else 'warning' if seconds>30*3600 else 'ok'
     return 'warning' if seconds>8*86400 else 'ok'
 def certificate_status(seconds): return 'critical' if seconds<24*3600 else 'warning' if seconds<48*3600 else 'ok'
 def disk_status(free,total):
@@ -101,54 +101,31 @@ def result_age(private, kind):
         return status, 'check_passed' if status=='ok' else (prefix+'_expired' if status=='critical' else prefix+'_aging')
     except (OSError,ValueError,KeyError,TypeError): return 'unknown','never_completed'
 
-def offsite_recovery(private, *, enabled):
-    if not enabled: return {'status':'unknown','reason':'not_configured'}
-    status,reason=result_age(private,'offsite_backup')
-    try:
-        latest=json.loads(safe_path(private/'offsite_backup.json').read_text(encoding='utf-8'))
-        if latest.get('status')=='critical':
-            status='critical'
-            reason=latest.get('reason') if latest.get('reason') in OFFSITE_REASONS else 'task_failed'
-    except (OSError,ValueError,TypeError,KeyError): pass
-    result={'status':status,'reason':reason}
-    try:
-        data=json.loads(safe_path(private/'offsite_backup_success.json').read_text(encoding='utf-8'))
-        when=parsed_time(data['finished_at'])
-        if (when-datetime.now(timezone.utc)).total_seconds()<=60:
-            result['last_success_at']=when.astimezone(timezone.utc).isoformat()
-    except (OSError,ValueError,TypeError,KeyError): pass
-    return result
-
-def run_offsite_task(backup_root, private, *, backup_ok, enabled, sync=None):
-    if not enabled: return {'status':'unknown','reason':'not_configured'}
+def run_encrypted_export(backup_root, private, *, backup_ok, recipient, export_root,
+                         exporter=None):
     if not backup_ok:
-        result={'status':'critical','reason':'backup_invalid'}
+        safe={'status':'critical','reason':'backup_invalid'}
+    elif not recipient:
+        safe={'status':'critical','reason':'configuration_missing'}
     else:
         try:
-            if sync is None:
-                from scripts.operations_offsite import sync_latest
-                sync=sync_latest
-            previous={}
-            try:
-                previous=json.loads(safe_path(Path(private)/'offsite_backup_success.json').read_text(encoding='utf-8'))
-            except (OSError,ValueError,TypeError): pass
-            result=sync(backup_root,os.getenv('OFFSITE_REMOTE',''),os.getenv('OFFSITE_RECIPIENT',''),
-                        os.getenv('OFFSITE_RCLONE_CONFIG','/etc/rclone/rclone.conf'),
-                        expected_backup_id=previous.get('backup_id'),expected_sha256=previous.get('ciphertext_sha256'))
+            if exporter is None:
+                from scripts.operations_offsite import export_latest
+                exporter=export_latest
+            result=exporter(backup_root,export_root,recipient)
+            backup_id=result.get('backup_id')
+            digest=result.get('ciphertext_sha256')
+            size=result.get('ciphertext_size')
+            valid=(result.get('status')=='ok' and result.get('reason')=='export_verified'
+                   and isinstance(backup_id,str)
+                   and re.fullmatch(r'backup-\d{8}T\d{12}Z-[0-9a-f]{32}',backup_id)
+                   and isinstance(digest,str) and re.fullmatch(r'[0-9a-f]{64}',digest)
+                   and type(size) is int and size>0)
+            safe={'status':'ok' if valid else 'critical',
+                  'reason':'export_verified' if valid else result.get('reason') if result.get('reason') in EXPORT_REASONS else 'task_failed'}
         except Exception:
-            result={'status':'critical','reason':'task_failed'}
-    import re
-    backup_id=result.get('backup_id'); digest=result.get('ciphertext_sha256')
-    verified=(result.get('status')=='ok' and isinstance(backup_id,str)
-              and re.fullmatch(r'backup-\d{8}T\d{12}Z-[0-9a-f]{32}',backup_id)
-              and isinstance(digest,str) and re.fullmatch(r'[0-9a-f]{64}',digest))
-    safe={'status':'ok' if verified else 'critical',
-          'reason':'offsite_verified' if verified else result.get('reason') if result.get('reason') in OFFSITE_REASONS else 'task_failed',
-          'finished_at':stamp()}
-    if verified:
-        safe.update(backup_id=backup_id,ciphertext_sha256=digest)
-    atomic_json(private/'offsite_backup.json',safe)
-    if safe['status']=='ok': atomic_json(private/'offsite_backup_success.json',safe)
+            safe={'status':'critical','reason':'task_failed'}
+    print('encrypted_export: '+safe['status']+' '+safe['reason'])
     return safe
 
 def run_checks(state, database_url, ip):
@@ -210,7 +187,6 @@ def run_checks(state, database_url, ip):
         except (OSError,ValueError,TypeError,KeyError): pass
         return result
     for kind in ('backup','restore'): probe(kind,lambda kind=kind:recovery(kind))
-    probe('offsite_backup',lambda:offsite_recovery(state/'private',enabled=os.getenv('OFFSITE_ENABLED','false').lower()=='true'))
     return checks
 
 def print_diagnostic(task,result):
@@ -256,13 +232,13 @@ def main(argv=None):
         safe=dict(status='ok' if result.get('status')=='ok' else 'critical',reason='check_passed' if result.get('status')=='ok' else 'task_failed',finished_at=stamp())
         atomic_json(private/(args.task+'.json'),safe)
         if safe['status']=='ok': atomic_json(private/(args.task+'_success.json'),safe)
-        offsite=None
-        if args.task=='backup' and os.getenv('OFFSITE_ENABLED','false').lower()=='true':
-            offsite=run_offsite_task(args.backup_root,private,backup_ok=safe['status']=='ok',enabled=True)
+        if args.task=='backup' and safe['status']=='ok':
+            run_encrypted_export(args.backup_root,private,backup_ok=True,
+                                 recipient=os.getenv('FINSENTINEL_AGE_RECIPIENT',''),
+                                 export_root=os.getenv('FINSENTINEL_EXPORT_ROOT','/srv/finsentinel-sftp/finsentinel-backup-pull/exports'))
         print_diagnostic(args.task,result)
         print(args.task+': '+safe['status']+' '+safe['reason'])
-        if offsite is not None: print('offsite_backup: '+offsite['status']+' '+offsite['reason'])
-        return 0 if safe['status']=='ok' and (offsite is None or offsite['status']=='ok') else 1
+        return 0 if safe['status']=='ok' else 1
 
 if __name__=='__main__':
     try: raise SystemExit(main())

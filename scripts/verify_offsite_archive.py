@@ -27,7 +27,9 @@ def verify_archive(path):
     seen = set()
     total_size = 0
     try:
-        with tarfile.open(path, mode='r|gz') as archive:
+        opener = (lambda: tarfile.open(fileobj=path, mode='r|gz')) if hasattr(path, 'read') else (
+            lambda: tarfile.open(path, mode='r|gz'))
+        with opener() as archive:
             for member in archive:
                 if len(seen) >= MAX_ENTRIES or member.name in seen:
                     raise ValueError('unsafe_archive')
@@ -67,6 +69,10 @@ def verify_archive(path):
                 if captured is not None:
                     metadata[relative] = bytes(captured)
                 seen.add(member.name)
+            while archive.fileobj.read(1024 * 1024):
+                pass
+            if not getattr(archive.fileobj.cmp, 'eof', False):
+                raise tarfile.ReadError('truncated gzip stream')
     except ValueError:
         raise
     except (OSError, tarfile.TarError, EOFError) as exc:

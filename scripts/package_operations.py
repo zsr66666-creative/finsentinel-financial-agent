@@ -12,9 +12,9 @@ import tarfile
 def package(output, revision='HEAD'):
     root=Path(__file__).resolve().parents[1]
     commit=subprocess.check_output(['git','rev-parse',revision+'^{commit}'],cwd=root,text=True).strip()
-    paths=['backend','frontend','scripts','deploy/ecs/install-operations-offline.sh','docs/operations.md','docs/offsite-backup.md',
+    paths=['backend','frontend','scripts','deploy/ecs/install-operations-offline.sh','deploy/windows/install-offsite-task.ps1','docs/operations.md','docs/offsite-backup.md',
         'docs/superpowers/specs/2026-11-16-operations-backup-design.md',
-        'docs/superpowers/specs/2026-11-17-google-drive-offsite-backup-design.md']
+        'docs/superpowers/specs/2026-11-17-windows-offsite-backup-design.md']
     raw=subprocess.check_output(['git','archive','--format=tar',commit,*paths],cwd=root)
     files={}
     with tarfile.open(fileobj=io.BytesIO(raw)) as archive:
