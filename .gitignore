@@ -33,3 +33,4 @@ backend/data/
 .tmp/
 .pytest-of-*
 .test-tmp-week13/
+.worktrees/
