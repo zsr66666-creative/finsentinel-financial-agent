@@ -1,6 +1,6 @@
 from contextlib import contextmanager
 from pathlib import Path
-from sqlalchemy import JSON, String, create_engine, select
+from sqlalchemy import JSON, String, create_engine, event, select
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, sessionmaker
 from sqlalchemy.pool import StaticPool
 
@@ -18,11 +18,22 @@ MODELS = {table: record_model(''.join(w.title() for w in table.split('_')), tabl
 
 
 class Store:
-    def __init__(self, url, create_schema=True):
+    def __init__(self, url, create_schema=True, read_only=False):
         options = {'connect_args': {'check_same_thread': False}} if url.startswith('sqlite') else {}
         if url in ('sqlite://', 'sqlite:///:memory:'):
             options['poolclass'] = StaticPool
         self.engine = create_engine(url, **options)
+        if read_only:
+            if url.startswith('sqlite'):
+                @event.listens_for(self.engine, 'connect')
+                def enable_sqlite_query_only(connection, _record):
+                    connection.execute('PRAGMA query_only = ON')
+            elif url.startswith(('postgresql://', 'postgresql+')):
+                @event.listens_for(self.engine, 'connect')
+                def enable_postgres_read_only(connection, _record):
+                    cursor = connection.cursor()
+                    cursor.execute('SET default_transaction_read_only = on')
+                    cursor.close()
         if create_schema:
             Base.metadata.create_all(self.engine)
         self.sessions = sessionmaker(self.engine, expire_on_commit=False)
