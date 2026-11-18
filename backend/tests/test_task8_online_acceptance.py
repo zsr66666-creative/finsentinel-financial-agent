@@ -99,4 +99,6 @@ def test_installer_uses_isolated_acceptance_and_keeps_live_api_protected():
     assert '--api-url http://127.0.0.1 ' not in source
     assert "--comparison-query '立讯精密" in source
     assert "s.post('http://127.0.0.1:8000/api/v1/evidence/compare'" not in source
+    assert "DATABASE_URL='postgresql+psycopg:///finsentinel?host=/var/run/postgresql'" in source
+    assert 'systemctl show finsentinel-backend -p Environment' not in source
     assert 'origin_invalid' in source
