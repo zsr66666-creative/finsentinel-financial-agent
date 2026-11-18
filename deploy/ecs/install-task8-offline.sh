@@ -127,11 +127,9 @@ systemctl restart finsentinel-query-encoder
 curl --noproxy '*' --fail --silent --show-error --max-time 10 --retry 10 --retry-connrefused --retry-delay 1 http://127.0.0.1:8081/health
 systemctl restart finsentinel-backend
 curl --noproxy '*' --fail --silent --show-error --max-time 10 --retry 10 --retry-connrefused --retry-delay 1 http://127.0.0.1:8000/health
-database_url="$(systemctl show finsentinel-backend -p Environment --value | tr ' ' '\n' | sed -n 's/^DATABASE_URL=//p' | tail -n 1)"
-[[ -n "$database_url" ]] || { echo 'Could not read backend DATABASE_URL for isolated acceptance'; exit 1; }
 sudo -u finsentinel env \
   AUTH_ENABLED=false QUERY_ENCODER_ENABLED=1 DATA_MODE=real_corpus \
-  PYTHONPATH="$release/backend" DATABASE_URL="$database_url" \
+  PYTHONPATH="$release/backend" DATABASE_URL='postgresql+psycopg:///finsentinel?host=/var/run/postgresql' \
   "$root/.venv/bin/python" "$release/scripts/task8_online_acceptance.py" \
   --model-dir "$release/model" --in-process-api --output "$release/cloud-acceptance.json" \
   --comparison-query '立讯精密2026年6月30日母公司应收账款较2025年12月31日是否未增加？'
