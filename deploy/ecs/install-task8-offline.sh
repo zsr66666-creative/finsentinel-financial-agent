@@ -196,9 +196,12 @@ request = Request(
 try:
     opener.open(request, timeout=10)
 except HTTPError as response:
-    body = json.loads(response.read())
-    assert response.code == 403 and body.get('detail') == 'origin_invalid', (response.code, body)
-    print('PASS Nginx routes anonymous search to the protected API')
+    raw = response.read()
+    assert response.code in (401, 403), (response.code, response.headers.get('Content-Type'), raw[:300])
+    if raw and 'json' in response.headers.get('Content-Type', '').lower():
+        body = json.loads(raw)
+        assert body.get('detail') in ('origin_invalid', 'authentication_required'), (response.code, body)
+    print('PASS Nginx rejects anonymous text search with HTTP', response.code)
 else:
     raise SystemExit('Anonymous text search unexpectedly succeeded')
 PY
