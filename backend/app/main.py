@@ -74,14 +74,14 @@ class _UnavailableStore:
         return None
 
 
-def create_app(database_url=None, data_mode=None):
+def create_app(database_url=None, data_mode=None, create_schema=True, read_only=False):
     url = database_url or os.getenv('DATABASE_URL','sqlite:///./finsentinel.db')
     mode = data_mode or os.getenv('DATA_MODE','synthetic_demo')
     database_config = DatabaseConfig.from_url(url)
     logger = logging.getLogger('finsentinel.api')
     database_error = None
     try:
-        store = Store(url)
+        store = Store(url, create_schema=create_schema, read_only=read_only)
         if mode == 'synthetic_demo':
             seed(store)
         elif mode == 'real_corpus' and os.getenv('CORPUS_PATH'):

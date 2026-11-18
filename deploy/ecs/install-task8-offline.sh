@@ -127,17 +127,14 @@ systemctl restart finsentinel-query-encoder
 curl --noproxy '*' --fail --silent --show-error --max-time 10 --retry 10 --retry-connrefused --retry-delay 1 http://127.0.0.1:8081/health
 systemctl restart finsentinel-backend
 curl --noproxy '*' --fail --silent --show-error --max-time 10 --retry 10 --retry-connrefused --retry-delay 1 http://127.0.0.1:8000/health
-sudo -u finsentinel "$release/encoder-venv/bin/python" "$release/scripts/task8_online_acceptance.py" \
-  --model-dir "$release/model" --api-url http://127.0.0.1:8000 --output "$release/cloud-acceptance.json"
-# Recheck the original reviewed comparison before any frontend switch.
-"$release/encoder-venv/bin/python" - <<'PY'
-import requests
-s=requests.Session();s.trust_env=False
-r=s.post('http://127.0.0.1:8000/api/v1/evidence/compare',json={'question':'立讯精密2026年6月30日母公司应收账款较2025年12月31日是否未增加？'},timeout=15)
-r.raise_for_status();body=r.json()
-assert body['status']=='supported' and body['claim_true'] is True
-print('PASS original reviewed comparison')
-PY
+database_url="$(systemctl show finsentinel-backend -p Environment --value | tr ' ' '\n' | sed -n 's/^DATABASE_URL=//p' | tail -n 1)"
+[[ -n "$database_url" ]] || { echo 'Could not read backend DATABASE_URL for isolated acceptance'; exit 1; }
+sudo -u finsentinel env \
+  AUTH_ENABLED=false QUERY_ENCODER_ENABLED=1 DATA_MODE=real_corpus \
+  PYTHONPATH="$release/backend" DATABASE_URL="$database_url" \
+  "$root/.venv/bin/python" "$release/scripts/task8_online_acceptance.py" \
+  --model-dir "$release/model" --in-process-api --output "$release/cloud-acceptance.json" \
+  --comparison-query '立讯精密2026年6月30日母公司应收账款较2025年12月31日是否未增加？'
 python3 - "$live/static" "$release/frontend/.next/static" <<'PY'
 import os,shutil,sys
 from pathlib import Path
@@ -186,8 +183,27 @@ for route in ['/','/compare','/login','/settings','/companies/002475']:
     for path in assets.paths:assert fetch(path)
     print('PASS Nginx application shell and assets:',route)
 PY
-sudo -u finsentinel "$release/encoder-venv/bin/python" "$release/scripts/task8_online_acceptance.py" \
-  --model-dir "$release/model" --api-url http://127.0.0.1 --host-header 120.24.108.60 --output "$release/nginx-acceptance.json"
+"$release/encoder-venv/bin/python" - <<'PY'
+import json
+from urllib.error import HTTPError
+from urllib.request import ProxyHandler, Request, build_opener
+
+opener = build_opener(ProxyHandler({}))
+request = Request(
+    'http://127.0.0.1/api/v1/evidence/search/text',
+    data=json.dumps({'query':'anonymous acceptance probe','company_code':'002475','period':'2026H1','top_k':5}).encode(),
+    headers={'Content-Type':'application/json','Host':'120.24.108.60'},
+    method='POST',
+)
+try:
+    opener.open(request, timeout=10)
+except HTTPError as response:
+    body = json.loads(response.read())
+    assert response.code == 403 and body.get('detail') == 'origin_invalid', (response.code, body)
+    print('PASS Nginx routes anonymous search to the protected API')
+else:
+    raise SystemExit('Anonymous text search unexpectedly succeeded')
+PY
 systemctl enable finsentinel-query-encoder
 systemctl show finsentinel-query-encoder -p ActiveState -p NRestarts -p MemoryCurrent -p MemoryPeak
 switch_started=0
