@@ -13,6 +13,33 @@ MODEL_REVISION = '7999e1d3359715c523056ef9478215996d62a620'
 MODEL_SHA256 = '6e644f914603e965204e410e7b74c7c60e070489292a2ac34eb0c8e889a4940b'
 
 
+def load_model_artifacts(model_dir):
+    model_root = Path(model_dir).resolve()
+    reference = json.loads((model_root / 'reference.json').read_text(encoding='utf-8'))
+    assessment = json.loads((model_root / 'assessment.json').read_text(encoding='utf-8'))
+    runtime_manifest = json.loads((model_root / 'manifest.json').read_text(encoding='utf-8'))
+    if reference.get('revision') != MODEL_REVISION or assessment.get('revision') != MODEL_REVISION:
+        raise ValueError('Task 8 model revision mismatch')
+    if not assessment.get('parity_passed') or assessment.get('imported_torch'):
+        raise ValueError('Task 8 model assessment did not pass CPU parity without torch')
+    if runtime_manifest.get('model') != f'BAAI/bge-small-zh-v1.5@{MODEL_REVISION}':
+        raise ValueError('Task 8 runtime model manifest mismatch')
+    if runtime_manifest.get('prefix') != reference.get('prefix'):
+        raise ValueError('Task 8 model prefix mismatch')
+
+    artifacts = {}
+    for name in ('model.onnx', 'tokenizer.json'):
+        data = (model_root / name).read_bytes()
+        if hashlib.sha256(data).hexdigest() != runtime_manifest.get('files', {}).get(name):
+            raise ValueError('Task 8 model manifest checksum mismatch: ' + name)
+        artifacts['model/' + name] = data
+    if hashlib.sha256(artifacts['model/model.onnx']).hexdigest() != MODEL_SHA256:
+        raise ValueError('Task 8 ONNX model SHA-256 mismatch')
+    for name in ('tokenizer_config.json', 'reference.json', 'manifest.json'):
+        artifacts['model/' + name] = (model_root / name).read_bytes()
+    return artifacts
+
+
 def package(output, model_dir, revision='HEAD'):
     root = Path(__file__).resolve().parents[1]
     commit = subprocess.check_output(
@@ -35,19 +62,7 @@ def package(output, model_dir, revision='HEAD'):
                 raise ValueError('Shell scripts must retain LF: ' + member.name)
             files[member.name] = data
 
-    model_root = Path(model_dir).resolve()
-    reference = json.loads((model_root / 'reference.json').read_text(encoding='utf-8'))
-    assessment = json.loads((model_root / 'assessment.json').read_text(encoding='utf-8'))
-    model_bytes = (model_root / 'model.onnx').read_bytes()
-    if reference.get('revision') != MODEL_REVISION or assessment.get('revision') != MODEL_REVISION:
-        raise ValueError('Task 8 model revision mismatch')
-    if not assessment.get('parity_passed') or assessment.get('imported_torch'):
-        raise ValueError('Task 8 model assessment did not pass CPU parity without torch')
-    if hashlib.sha256(model_bytes).hexdigest() != MODEL_SHA256:
-        raise ValueError('Task 8 ONNX model SHA-256 mismatch')
-
-    for name in ('model.onnx', 'tokenizer.json', 'tokenizer_config.json', 'reference.json'):
-        files['model/' + name] = (model_root / name).read_bytes()
+    files.update(load_model_artifacts(model_dir))
     files['model/LICENSE.txt'] = (
         b'Model: BAAI/bge-small-zh-v1.5\n'
         b'Revision: 7999e1d3359715c523056ef9478215996d62a620\n'
