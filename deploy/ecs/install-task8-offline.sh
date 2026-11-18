@@ -183,27 +183,35 @@ for route in ['/','/compare','/login','/settings','/companies/002475']:
 PY
 "$release/encoder-venv/bin/python" - <<'PY'
 import json
+import ssl
+import http.client
+import socket
 from urllib.error import HTTPError
-from urllib.request import ProxyHandler, Request, build_opener
+from http.client import HTTPSConnection
 
-opener = build_opener(ProxyHandler({}))
-request = Request(
-    'http://127.0.0.1/api/v1/evidence/search/text',
-    data=json.dumps({'query':'anonymous acceptance probe','company_code':'002475','period':'2026H1','top_k':5}).encode(),
-    headers={'Content-Type':'application/json','Host':'120.24.108.60'},
-    method='POST',
+class LoopbackHTTPSConnection(HTTPSConnection):
+    def connect(self):
+        raw = socket.create_connection(('127.0.0.1', self.port), self.timeout)
+        self.sock = self._context.wrap_socket(raw, server_hostname=self.host)
+
+connection = LoopbackHTTPSConnection(
+    '120.24.108.60', port=443, timeout=10, context=ssl.create_default_context()
 )
 try:
-    opener.open(request, timeout=10)
-except HTTPError as response:
+    connection.request(
+        'POST', '/api/v1/evidence/search/text',
+        body=json.dumps({'query':'anonymous acceptance probe','company_code':'002475','period':'2026H1','top_k':5}),
+        headers={'Content-Type':'application/json', 'Host':'120.24.108.60'},
+    )
+    response = connection.getresponse()
     raw = response.read()
-    assert response.code in (401, 403), (response.code, response.headers.get('Content-Type'), raw[:300])
-    if raw and 'json' in response.headers.get('Content-Type', '').lower():
+    assert response.status in (401, 403), (response.status, response.getheader('Content-Type'), raw[:300])
+    if raw and 'json' in response.getheader('Content-Type', '').lower():
         body = json.loads(raw)
-        assert body.get('detail') in ('origin_invalid', 'authentication_required'), (response.code, body)
-    print('PASS Nginx rejects anonymous text search with HTTP', response.code)
-else:
-    raise SystemExit('Anonymous text search unexpectedly succeeded')
+        assert body.get('detail') in ('origin_invalid', 'authentication_required'), (response.status, body)
+    print('PASS Nginx rejects anonymous text search with HTTPS', response.status)
+finally:
+    connection.close()
 PY
 systemctl enable finsentinel-query-encoder
 systemctl show finsentinel-query-encoder -p ActiveState -p NRestarts -p MemoryCurrent -p MemoryPeak
