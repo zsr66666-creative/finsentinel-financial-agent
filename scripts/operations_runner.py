@@ -4,6 +4,7 @@ import contextlib
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import socket
 import ssl
@@ -16,6 +17,9 @@ from datetime import datetime, timezone
 import sys
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'backend'))
 from app.operations import LABELS, aggregate, parsed_time, stamp
+
+EXPORT_REASONS={'export_verified','backup_missing','backup_invalid','configuration_invalid',
+                'encryption_failed','export_publish_failed','export_integrity_failed','retention_failed'}
 
 
 def age_status(seconds, kind):
@@ -93,8 +97,36 @@ def result_age(private, kind):
         age=(datetime.now(timezone.utc)-parsed_time(data['finished_at'])).total_seconds()
         if age < -60: raise ValueError()
         status=age_status(age,kind)
-        return status, 'check_passed' if status=='ok' else ('backup_expired' if status=='critical' else kind+'_aging')
+        prefix='offsite' if kind=='offsite_backup' else kind
+        return status, 'check_passed' if status=='ok' else (prefix+'_expired' if status=='critical' else prefix+'_aging')
     except (OSError,ValueError,KeyError,TypeError): return 'unknown','never_completed'
+
+def run_encrypted_export(backup_root, private, *, backup_ok, recipient, export_root,
+                         exporter=None):
+    if not backup_ok:
+        safe={'status':'critical','reason':'backup_invalid'}
+    elif not recipient:
+        safe={'status':'critical','reason':'configuration_missing'}
+    else:
+        try:
+            if exporter is None:
+                from scripts.operations_offsite import export_latest
+                exporter=export_latest
+            result=exporter(backup_root,export_root,recipient)
+            backup_id=result.get('backup_id')
+            digest=result.get('ciphertext_sha256')
+            size=result.get('ciphertext_size')
+            valid=(result.get('status')=='ok' and result.get('reason')=='export_verified'
+                   and isinstance(backup_id,str)
+                   and re.fullmatch(r'backup-\d{8}T\d{12}Z-[0-9a-f]{32}',backup_id)
+                   and isinstance(digest,str) and re.fullmatch(r'[0-9a-f]{64}',digest)
+                   and type(size) is int and size>0)
+            safe={'status':'ok' if valid else 'critical',
+                  'reason':'export_verified' if valid else result.get('reason') if result.get('reason') in EXPORT_REASONS else 'task_failed'}
+        except Exception:
+            safe={'status':'critical','reason':'task_failed'}
+    print('encrypted_export: '+safe['status']+' '+safe['reason'])
+    return safe
 
 def run_checks(state, database_url, ip):
     checks=[]; started=time.monotonic()
@@ -200,6 +232,10 @@ def main(argv=None):
         safe=dict(status='ok' if result.get('status')=='ok' else 'critical',reason='check_passed' if result.get('status')=='ok' else 'task_failed',finished_at=stamp())
         atomic_json(private/(args.task+'.json'),safe)
         if safe['status']=='ok': atomic_json(private/(args.task+'_success.json'),safe)
+        if args.task=='backup' and safe['status']=='ok':
+            run_encrypted_export(args.backup_root,private,backup_ok=True,
+                                 recipient=os.getenv('FINSENTINEL_AGE_RECIPIENT',''),
+                                 export_root=os.getenv('FINSENTINEL_EXPORT_ROOT','/srv/finsentinel-sftp/finsentinel-backup-pull/exports'))
         print_diagnostic(args.task,result)
         print(args.task+': '+safe['status']+' '+safe['reason'])
         return 0 if safe['status']=='ok' else 1

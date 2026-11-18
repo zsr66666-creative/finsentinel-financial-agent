@@ -162,7 +162,9 @@ python -m scripts.package_task12 --output finsentinel-task12-review.tar.gz
 
 ## 运维备份与监控
 
-新增管理员只读运维页、每日本机数据库及原始产物备份、每周隔离数据库恢复验证和五分钟健康检查。保留最近七个验证完整的备份点，失败任务不清理已有恢复点。配置和备份仅由 root 读取；网页不提供备份下载。此功能尚待 ECS 部署验收，本机同盘备份不属于异地容灾。部署、检查范围及恢复限制见 [operations.md](docs/operations.md)。
+管理员只读运维页、每日本机数据库及原始产物备份、每周隔离数据库恢复验证和五分钟健康检查已部署 ECS。另已验证 age 加密导出、Windows 每日只读 SFTP 拉取、归档校验，以及将 Windows 下载的备份恢复到临时测试数据库；恢复后临时数据库和一次性 SSH 授权均已清理。ECS 与 Windows 各保留最近七份成功验证的副本，失败任务不清理已有副本。
+
+Windows 拉取与隔离恢复演练已通过；**age 私钥的独立副本尚未准备，ECS 上早期生成的源私钥是否仍存在也尚未核实**。因此不能把当前状态描述为完整的密钥灾备或地理隔离。Windows 计划任务状态与验证范围见 [Windows 异地备份操作指南](docs/offsite-backup.md)；服务器运维检查见 [operations.md](docs/operations.md)。网页不提供备份下载，私钥、密文和恢复暂存数据不进入仓库。
 
 个人研究保存与隔离规则、部署及人工验收见 [personal-research.md](docs/personal-research.md)。本次功能需完成服务器部署与浏览器验收后才记为上线。
 

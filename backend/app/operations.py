@@ -8,7 +8,7 @@ from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse
 
 LABELS = {key: key.replace('_', ' ').title() for key in ('nginx','backend','frontend','ingestion_worker','query_encoder','renewal_timer','backup_timer','restore_timer','renewal','database','https_health','https_login','https_static','encoder_health','disk','certificate','backup','restore')}
-REASONS = frozenset(('check_passed','check_failed','check_timeout','not_configured','never_completed','backup_aging','backup_expired','restore_aging','certificate_expiring','certificate_urgent','disk_low','disk_critical','task_failed','status_missing','status_invalid','status_stale'))
+REASONS = frozenset(('check_passed','check_failed','check_timeout','never_completed','backup_aging','backup_expired','restore_aging','certificate_expiring','certificate_urgent','disk_low','disk_critical','task_failed','status_missing','status_invalid','status_stale'))
 STATUSES = frozenset(('ok','warning','critical','unknown'))
 
 def stamp(): return datetime.now(timezone.utc).isoformat()

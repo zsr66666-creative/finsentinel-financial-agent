@@ -12,8 +12,9 @@ import tarfile
 def package(output, revision='HEAD'):
     root=Path(__file__).resolve().parents[1]
     commit=subprocess.check_output(['git','rev-parse',revision+'^{commit}'],cwd=root,text=True).strip()
-    paths=['backend','frontend','scripts','deploy/ecs/install-operations-offline.sh','docs/operations.md',
-        'docs/superpowers/specs/2026-11-16-operations-backup-design.md']
+    paths=['backend','frontend','scripts','deploy/ecs/install-operations-offline.sh','deploy/windows/install-offsite-task.ps1','docs/operations.md','docs/offsite-backup.md',
+        'docs/superpowers/specs/2026-11-16-operations-backup-design.md',
+        'docs/superpowers/specs/2026-11-17-windows-offsite-backup-design.md']
     raw=subprocess.check_output(['git','archive','--format=tar',commit,*paths],cwd=root)
     files={}
     with tarfile.open(fileobj=io.BytesIO(raw)) as archive:
@@ -35,7 +36,7 @@ def package(output, revision='HEAD'):
     with tarfile.open(output,'r:gz') as archive:
         unpacked={m.name:archive.extractfile(m).read() for m in archive.getmembers() if m.isfile()}
     assert unpacked==files
-    assert not any('node_modules' in n or '.next/' in n or n.endswith(('.env','.pdf','.PDF','.db','.onnx','.tsbuildinfo')) for n in files)
+    assert not any('node_modules' in n or '.next/' in n or n.endswith(('.env','.pdf','.PDF','.db','.onnx','.tsbuildinfo','.agekey','rclone.conf')) for n in files)
     report=dict(path=str(output),source_revision=commit,files=len(files),bytes=output.stat().st_size,sha256=hashlib.sha256(output.read_bytes()).hexdigest())
     print(json.dumps(report,indent=2));return report
 

@@ -61,3 +61,40 @@ def test_missing_original_failure_emits_safe_diagnostic_without_crashing(capsys)
     assert 'missing_sha256='+'a'*64 in output
     runner.print_diagnostic('restore',dict(status='critical',reason='restore_failed',error='/private/secret'))
     assert capsys.readouterr().out=='restore: restore_failed\n'
+
+
+def test_export_journal_result_never_records_windows_pull_or_ciphertext_details(tmp_path,capsys):
+    private=tmp_path/'private';private.mkdir()
+    local_success={'status':'ok','finished_at':datetime.now(timezone.utc).isoformat()}
+    (private/'backup_success.json').write_text(json.dumps(local_success))
+    secret_digest='a'*64
+    backup_id='backup-20261117T120000000000Z-'+'b'*32
+
+    result=runner.run_encrypted_export(
+        tmp_path,private,backup_ok=True,recipient='age1recipient',export_root=tmp_path/'exports',
+        exporter=lambda *args,**kwargs:{'status':'ok','reason':'export_verified','backup_id':backup_id,
+                                      'ciphertext_sha256':secret_digest,'ciphertext_size':123},
+    )
+    output=capsys.readouterr().out
+
+    assert result=={'status':'ok','reason':'export_verified'}
+    assert output=='encrypted_export: ok export_verified\n'
+    assert secret_digest not in output
+    assert json.loads((private/'backup_success.json').read_text())==local_success
+    assert not list(private.glob('offsite_backup*'))
+
+
+def test_export_failure_does_not_modify_local_success_and_logs_only_fixed_code(tmp_path,capsys):
+    private=tmp_path/'private';private.mkdir()
+    local_success={'status':'ok','finished_at':datetime.now(timezone.utc).isoformat()}
+    (private/'backup_success.json').write_text(json.dumps(local_success))
+
+    result=runner.run_encrypted_export(
+        tmp_path,private,backup_ok=True,recipient='age1recipient',export_root=tmp_path/'exports',
+        exporter=lambda *args,**kwargs:{'status':'critical','reason':'encryption_failed','ciphertext_sha256':'secret'},
+    )
+
+    assert result=={'status':'critical','reason':'encryption_failed'}
+    assert capsys.readouterr().out=='encrypted_export: critical encryption_failed\n'
+    assert json.loads((private/'backup_success.json').read_text())==local_success
+    assert not list(private.glob('offsite_backup*'))
