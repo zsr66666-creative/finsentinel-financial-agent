@@ -6,6 +6,8 @@
 每日本机恢复点会尝试生成 age 加密导出，供 Windows 通过只读 SFTP 每日拉取。ECS 导出日志不代表 Windows 已收到副本；配置与验收见[Windows 异地备份操作指南](offsite-backup.md)。
 本机HTTPS成功不能证明公网安全组或用户网络正常；外部通知渠道本期未接入。
 
+截至2026-11-18，Windows 定时拉取、只读账号约束和一次真实异地备份隔离恢复演练均已完成验收。Windows 端拉取状态不写回 ECS，也不显示在管理员运维页；应在 Windows 本机检查 Task Scheduler 结果和 `pull-status.json`。独立 age 私钥副本尚未准备，ECS 是否残留早期生成的 age 私钥也待核实，故不宣称具备完整密钥灾备。具体证据和边界见[Windows 异地备份操作指南](offsite-backup.md)。
+
 ## 计划任务
 
 | 任务 | 时间 | 管理单位 |

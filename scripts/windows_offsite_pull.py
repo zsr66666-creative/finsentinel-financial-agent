@@ -155,14 +155,14 @@ def _prune_local(root):
         (root/name).unlink()
 
 
-def _verify_age_stream(cipher_path, identity, popen, verifier):
+def _verify_age_stream(cipher_path, identity, popen, verifier, age_exe='age'):
     process=None
     outcome={}
     finished=threading.Event()
     try:
         encrypted=cipher_path.open('rb')
         try:
-            process=popen(['age','--decrypt','--identity',str(identity)],stdin=encrypted,
+            process=popen([age_exe,'--decrypt','--identity',str(identity)],stdin=encrypted,
                           stdout=subprocess.PIPE,stderr=subprocess.DEVNULL)
         finally:
             encrypted.close()
@@ -250,7 +250,8 @@ def _pull(config, *, command_runner, popen, verifier):
         if (cipher_stage.stat().st_size!=index['ciphertext_size']
                 or _hash_file(cipher_stage)!=index['ciphertext_sha256']):
             raise PullError('ciphertext_integrity_failed')
-        _verify_age_stream(cipher_stage,config['age_identity'],popen,verifier)
+        _verify_age_stream(cipher_stage,config['age_identity'],popen,verifier,
+                           config.get('age_exe','age'))
         final_archive=local_dir/archive_name
         final_index=local_dir/(archive_name+'.json')
         if final_archive.exists() or final_index.exists():
@@ -303,10 +304,12 @@ def main(argv=None):
     parser.add_argument('--local-dir',required=True)
     parser.add_argument('--status-path')
     parser.add_argument('--sftp-exe',default='sftp.exe')
+    parser.add_argument('--age-exe',default='age.exe')
     args=parser.parse_args(argv)
     config={'server':args.server,'username':'finsentinel-backup-pull','remote_dir':'/exports',
             'known_hosts':args.known_hosts,'ssh_key':args.ssh_key,'age_identity':args.age_identity,
-            'local_dir':args.local_dir,'status_path':args.status_path,'sftp_exe':args.sftp_exe}
+            'local_dir':args.local_dir,'status_path':args.status_path,'sftp_exe':args.sftp_exe,
+            'age_exe':args.age_exe}
     result=pull_latest(config)
     print('pull: '+result['status']+' '+result['reason'])
     return 0 if result['status']=='ok' else 1

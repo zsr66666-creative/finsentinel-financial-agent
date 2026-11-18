@@ -27,9 +27,40 @@ function Protect-File([string]$Path) {
     if ($LASTEXITCODE -ne 0) { throw "Could not restrict file ACL: $Path" }
 }
 
+function Get-PinnedHostFingerprint([string]$HostAddress, [string]$Path, [string]$Keygen) {
+    $entry = @(& $Keygen -F $HostAddress -f $Path 2>$null)
+    if ($LASTEXITCODE -ne 0 -or $entry.Count -eq 0) {
+        throw "No pinned SSH host key found for $HostAddress."
+    }
+    $keyLine = $entry | Where-Object { $_ -match '^\s*\S+\s+ssh-ed25519\s+\S+' } | Select-Object -First 1
+    if (-not $keyLine) { throw 'Pinned known_hosts entry is not an Ed25519 host key.' }
+    $fields = $keyLine.Trim() -split '\s+'
+    $tempKey = Join-Path ([IO.Path]::GetTempPath()) ("finsentinel-hostkey-{0}.pub" -f [guid]::NewGuid().ToString('N'))
+    try {
+        Set-Content -LiteralPath $tempKey -Value ($fields[1..($fields.Length - 1)] -join ' ') -Encoding ascii
+        $fingerprint = @(& $Keygen -lf $tempKey 2>$null)
+        if ($LASTEXITCODE -ne 0 -or $fingerprint.Count -eq 0) {
+            throw 'Could not calculate the pinned SSH host-key fingerprint.'
+        }
+        return ($fingerprint | Select-Object -First 1).Trim()
+    } finally {
+        Remove-Item -LiteralPath $tempKey -Force -ErrorAction SilentlyContinue
+    }
+}
+
 function Protect-Directory([string]$Path) {
-    & icacls.exe $Path /inheritance:r /grant:r "$($CurrentUser):(OI)(CI)(F)" /T /C | Out-Null
-    if ($LASTEXITCODE -ne 0) { throw "Could not restrict directory ACL: $Path" }
+    $targets = @((Get-Item -LiteralPath $Path)) + @(Get-ChildItem -LiteralPath $Path -Force -Recurse)
+    foreach ($target in $targets) {
+        if ($target.Attributes -band [IO.FileAttributes]::ReparsePoint) {
+            throw "Refusing to change ACL through reparse point: $($target.FullName)"
+        }
+        if ($target.PSIsContainer) {
+            & icacls.exe $target.FullName /inheritance:r /grant:r "$($CurrentUser):(OI)(CI)(F)" | Out-Null
+        } else {
+            & icacls.exe $target.FullName /inheritance:r /grant:r "$($CurrentUser):(F)" | Out-Null
+        }
+        if ($LASTEXITCODE -ne 0) { throw "Could not restrict ACL: $($target.FullName)" }
+    }
 }
 
 $parsedAddress = $null
@@ -74,10 +105,20 @@ Protect-File $identity
 Protect-File $sshKey
 Protect-Directory $backupPath
 Protect-Directory $AppRoot
+Protect-File $knownHostsPath
 
 $scriptDestination = Join-Path $ClientRoot 'scripts'
+$ageDestination = Join-Path $ClientRoot 'age'
 New-Item -ItemType Directory -Force -Path $scriptDestination | Out-Null
-foreach ($name in @('windows_offsite_pull.py','verify_offsite_archive.py')) {
+New-Item -ItemType Directory -Force -Path $ageDestination | Out-Null
+foreach ($name in @('age.exe','age-keygen.exe','LICENSE')) {
+    $source = Join-Path (Split-Path -Parent $age) $name
+    if (-not (Test-Path -LiteralPath $source -PathType Leaf)) { throw "Packaged age file missing: $source" }
+    Copy-Item -LiteralPath $source -Destination (Join-Path $ageDestination $name) -Force
+}
+Protect-Directory $ageDestination
+$installedAge = Join-Path $ageDestination 'age.exe'
+foreach ($name in @('windows_offsite_pull.py','verify_offsite_archive.py','offsite_restore_transfer.py')) {
     $source = Join-Path $SourceRoot $name
     if (-not (Test-Path -LiteralPath $source -PathType Leaf)) { throw "Packaged client file missing: $source" }
     Copy-Item -LiteralPath $source -Destination (Join-Path $scriptDestination $name) -Force
@@ -87,8 +128,7 @@ $ageRecipient = (& $ageKeygen -y $identity).Trim()
 if ($LASTEXITCODE -ne 0 -or $ageRecipient -notmatch '^age1[0-9a-z]{8,100}$') {
     throw 'Could not derive a valid public recipient from the age identity.'
 }
-$hostFingerprint = (& $sshKeygen -lf $knownHostsPath 2>$null | Out-String).Trim()
-if (-not $hostFingerprint) { throw 'Could not read the pinned SSH host-key fingerprint.' }
+$hostFingerprint = Get-PinnedHostFingerprint $Server $knownHostsPath $sshKeygen
 
 $dailyTrigger = New-ScheduledTaskTrigger -Daily -At $DailyAt
 $logonTrigger = New-ScheduledTaskTrigger -AtLogOn -User $CurrentUser
@@ -103,7 +143,8 @@ $arguments = @(
     '--age-identity', $identity,
     '--local-dir', $backupPath,
     '--status-path', $StatusPath,
-    '--sftp-exe', $sftp
+    '--sftp-exe', $sftp,
+    '--age-exe', $installedAge
 ) | ForEach-Object { '"' + ([string]$_).Replace('"','\"') + '"' }
 $action = New-ScheduledTaskAction -Execute $python -Argument ($arguments -join ' ') -WorkingDirectory $ClientRoot
 

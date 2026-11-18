@@ -7,7 +7,7 @@ The SFTP account is public-key-only, chrooted, and exposes a read-only SFTP view
 ## Before ECS Installation
 
 1. Install age and Python 3.12 on Windows. Ensure `age.exe`, `age-keygen.exe`, `ssh-keygen.exe`, `sftp.exe`, and `python.exe` are on `PATH`.
-2. Generate an age identity on Windows with `age-keygen -o "$env:USERPROFILE\finsentinel-age-key.txt"`; protect the file so only your Windows account can read it. Create a second encrypted copy on 离线介质 and verify both copies with `age-keygen -y`.
+2. Generate an age identity on Windows with `age-keygen -o "$env:USERPROFILE\finsentinel-age-key.txt"`; protect the file so only your Windows account can read it. Before calling disaster recovery complete, create a second protected copy on a separate device and verify both copies with `age-keygen -y`.
 3. Create a dedicated SSH key pair with `ssh-keygen.exe -t ed25519 -N '' -C finsentinel-windows-backup-pull -f "$env:USERPROFILE\.ssh\finsentinel-backup-pull"`. Keep the private key on Windows. Transfer only the `.pub` public key to the ECS console as `/root/finsentinel-backup-pull.pub`, mode 600.
 4. On ECS, get the SSH host public key and fingerprint using `ssh-keygen -lf /etc/ssh/ssh_host_ed25519_key.pub`. Compare the fingerprint over the trusted ECS console. Copy that public host key to the Windows known_hosts file as `120.24.108.60 <key-type> <base64-key>`; do not derive trust from an unauthenticated network scan.
 5. Allow inbound TCP/22 in the Alibaba Cloud security group only from the Windows public IPv4 address with `/32`. If that address changes, update the rule.
@@ -53,7 +53,22 @@ Get-ScheduledTaskInfo -TaskName FinSentinel-OffsitePull
 Get-Content "$env:LOCALAPPDATA\FinSentinel\pull-status.json"
 ```
 
-Success requires `status` to be `ok` and reason `verified`; check that a `.tar.gz.age` and matching `.json` exist in `%USERPROFILE%\FinSentinelBackups`. Run one isolated restore drill from a copied decrypted archive in a disposable environment before treating disaster recovery as accepted. Do not paste the age identity, SSH private key, or decrypted backup into chat.
+Success requires `status` to be `ok` and reason `verified`; check that a `.tar.gz.age` and matching `.json` exist in `%USERPROFILE%\FinSentinelBackups`. Before treating disaster recovery as accepted, restore a downloaded backup into a disposable test database. Do not paste the age identity, SSH private key, or decrypted backup into chat.
+
+## Production Acceptance Record
+
+As of 2026-11-18, the following live checks have passed:
+
+- The Windows Task Scheduler task `FinSentinel-OffsitePull` runs daily at 04:00 Beijing time and retries after a missed run at the next logon. The reported latest run completed with task result `0`; the local status recorded `status=ok` and `reason=verified`.
+- A real encrypted ECS export was downloaded to Windows. The client checked the index size and SHA-256, decrypted the stream in memory, and verified the archive manifest, `COMPLETE` marker, file hashes, and source references.
+- The dedicated SFTP account's write probe was rejected; SSH command execution was rejected with the SFTP-only service message. The ECS SSH host key was pinned using its console-verified Ed25519 fingerprint. The user confirmed the inbound TCP/22 security-group source is the current Windows public IPv4 `/32`.
+- A Windows-downloaded encrypted backup was streamed through a one-time forced-command SSH receiver and restored to a strictly named temporary PostgreSQL test database. ECS reported `restore_verified`; a subsequent check found no leftover restore database, uploaded archive, or one-time authorized key. The production database was not the restore target.
+
+These checks establish that this backup could be decrypted, verified, and restored into an isolated test database. They do not establish full-machine recovery, geographic separation, or row-by-row independent verification beyond the backup system's manifest, schema, table-count, and artifact-reference checks.
+
+## Remaining Key Risk
+
+The user has deferred making a second independent age private-key copy. The Windows identity is readable and has been used for a successful restore drill. The age identity was originally generated on ECS before being provisioned on Windows; whether that original ECS private-key file still exists has not been checked. Do not claim that ECS contains only the public recipient until that is verified, and do not remove any remaining ECS private-key copy until an independent second copy has been created and its derived public recipient has been checked. If the Windows device and every other private-key copy are lost, retained ciphertext cannot be decrypted.
 
 ## Routine Checks and Recovery
 
@@ -62,5 +77,5 @@ Success requires `status` to be `ok` and reason `verified`; check that a `.tar.g
 - Local verified ciphertext: `%USERPROFILE%\FinSentinelBackups`.
 - ECS export status: `journalctl -u finsentinel-ops-backup.service`; this is separate from Windows pull status.
 - A failed pull leaves previously verified Windows copies in place. Resolve network, host-key, age, disk, or account errors, then run the scheduled task again.
-- Keep a second age identity copy on offline media stored separately. Keep at least one ciphertext copy outside both the ECS and the Windows computer for geographic separation.
-- Restore only in a disposable isolated environment first. A verified ciphertext and archive structure check are not a completed application recovery drill.
+- Keep a second age identity copy on a separate device. Keep at least one ciphertext copy outside both the ECS and the Windows computer for geographic separation.
+- Repeat the restore drill periodically in a disposable isolated environment; retain the result and clean up only the drill's own temporary test database and one-time authorization.
