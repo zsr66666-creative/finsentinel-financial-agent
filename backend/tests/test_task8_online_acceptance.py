@@ -101,5 +101,9 @@ def test_installer_uses_isolated_acceptance_and_keeps_live_api_protected():
     assert "s.post('http://127.0.0.1:8000/api/v1/evidence/compare'" not in source
     assert "DATABASE_URL='postgresql+psycopg:///finsentinel?host=/var/run/postgresql'" in source
     assert 'systemctl show finsentinel-backend -p Environment' not in source
-    assert "response.code in (401, 403)" in source
+    assert "response.status in (401, 403)" in source
     assert 'origin_invalid' in source
+    assert "LoopbackHTTPSConnection(" in source
+    assert "('127.0.0.1', self.port)" in source
+    assert "server_hostname=self.host" in source
+    assert "'http://127.0.0.1/api/v1/evidence/search/text'" not in source
