@@ -25,6 +25,7 @@ from app.financial_calculations import (
     calc_inventory_turnover,
     calc_receivables_turnover,
 )
+from app.financial_analysis import analyze_pair, calc_verified_cash_profit_ratio
 from app.risk_rules import evaluate_event_rule, evaluate_rules
 from app.retrieval import search_chunks
 from app.evaluation import recall_at_k
@@ -365,6 +366,72 @@ def create_app(database_url=None, data_mode=None, create_schema=True, read_only=
             raise HTTPException(422, str(exc)) from exc
         return result
 
+    @app.get('/api/v1/companies/{company_id}/financial-analysis')
+    def financial_analysis(company_id: str, from_period: str, to_period: str):
+        company = require('companies', company_id)
+        try:
+            first, last = int(from_period.removesuffix('FY')), int(to_period.removesuffix('FY'))
+        except ValueError as exc:
+            raise HTTPException(422, 'periods must use YYYYFY format') from exc
+        if f'{first}FY' != from_period or f'{last}FY' != to_period or not first < last or last - first > 10:
+            raise HTTPException(422, 'periods must be an ordered YYYYFY range spanning at most 10 years')
+        if company.get('data_mode') in ('synthetic', 'synthetic_demo', 'demo'):
+            result = analyze_pair({}, {}, {}, {})
+            return {**result, 'company_id':company_id, 'company_name':company['name'],
+                    'from_period':from_period, 'to_period':to_period,
+                    'reason':'synthetic demo data cannot support a real financial conclusion'}
+
+        def record(metric, period):
+            rows = [item for item in store.all('financial_metrics') if item.get('company_id') == company_id
+                    and item.get('metric') == metric and item.get('period') == period
+                    and item.get('data_mode') not in ('synthetic', 'synthetic_demo', 'demo')]
+            if len(rows) != 1:
+                return {}
+            item = rows[0]; evidence_id = item.get('evidence_id') or ((item.get('source_ids') or [None])[0])
+            evidence = store.get('evidence_spans', evidence_id) if evidence_id else None
+            filing = store.get('filings', item.get('filing_id', '')) if item.get('filing_id') else None
+            result = {**item, 'id':item.get('id'), 'evidence_id':evidence_id,
+                      'document_sha256':item.get('document_sha256') or (filing or {}).get('version'),
+                      'page':(evidence or {}).get('page'), 'excerpt':item.get('excerpt') or (evidence or {}).get('text'),
+                      'statement_scope':item.get('statement_scope') or item.get('scope'),
+                      'extraction_status':item.get('extraction_status') or 'needs_review',
+                      'source_url':(filing or {}).get('source_url')}
+            if (not evidence or evidence.get('company_id') != company_id or evidence.get('period') != period
+                    or evidence.get('filing_id') != item.get('filing_id') or not filing
+                    or filing.get('version') != result.get('document_sha256')
+                    or (item.get('page') is not None and item.get('page') != evidence.get('page'))
+                    or (item.get('excerpt') and item.get('excerpt') not in evidence.get('text', ''))):
+                result['evidence_id'] = None
+            return result
+
+        periods = [f'{year}FY' for year in range(first, last + 1)]
+        pairs = [analyze_pair(record('net_profit', periods[i]), record('net_profit', periods[i + 1]),
+                              record('operating_cash_flow', periods[i]), record('operating_cash_flow', periods[i + 1]))
+                 for i in range(len(periods) - 1)]
+        latest = pairs[-1]
+        evidence = {item['evidence_id']:item for pair in pairs for item in pair['evidence'] if item.get('evidence_id')}
+        profit_points, cash_points, ratio_points = [], [], []
+        for period in periods:
+            try:
+                ratio = calc_verified_cash_profit_ratio(record('net_profit', period), record('operating_cash_flow', period))
+                ratio_points.append({'period':period, 'value':str(ratio)})
+            except (KeyError, ValueError):
+                ratio_points.append({'period':period, 'value':None})
+        for i, pair in enumerate(pairs):
+            profit_points.append({'period':periods[i + 1], 'value':pair['metrics'].get('net_profit_yoy', {}).get('value') if pair['status'] == 'completed' else None})
+            cash_points.append({'period':periods[i + 1], 'value':pair['metrics'].get('operating_cash_flow_yoy', {}).get('value') if pair['status'] == 'completed' else None})
+        completed = all(pair['status'] == 'completed' for pair in pairs)
+        charts = [{'id':'yoy-comparison','title':'净利润与经营现金流同比变化','unit':'%', 'series':[
+            {'name':'净利润同比','value':profit_points[-1]['value'],'points':profit_points},
+            {'name':'经营现金流同比','value':cash_points[-1]['value'],'points':cash_points}]},
+            {'id':'cash-profit-ratio','title':'现金流利润比趋势','unit':'ratio', 'series':[
+            {'name':'经营现金流 / 归母净利润','value':ratio_points[-1]['value'],'points':ratio_points}]}]
+        return {**latest, 'status':'completed' if completed else 'needs_review',
+                'classification':latest['classification'] if completed else '无法判断',
+                'reason':None if completed else 'range contains missing, unverified, inconsistent or invalid financial inputs',
+                'charts':charts, 'evidence':list(evidence.values()), 'company_id':company_id,
+                'company_name':company['name'], 'from_period':from_period, 'to_period':to_period}
+
     @app.get('/api/v1/alerts')
     def alerts(company_id: str | None = None, status: str | None = None, severity: str | None = None):
         return envelope([a for a in store.all('alerts') if (not company_id or a['company_id']==company_id) and (not status or a['status']==status) and (not severity or a['severity']==severity)])
@@ -396,6 +463,25 @@ def create_app(database_url=None, data_mode=None, create_schema=True, read_only=
     def create_run(request: AnalysisRequest):
         company = require('companies',request.company_id)
         run_id, started = str(uuid4()), perf_counter()
+        if '现金流' in request.question and '净利润' in request.question:
+            try:
+                year = int(request.period.removesuffix('FY'))
+                result = financial_analysis(request.company_id, f'{year - 1}FY', f'{year}FY')
+            except ValueError as exc:
+                raise HTTPException(422, str(exc)) from exc
+            run = {'id':run_id,'run_id':run_id,'company_id':request.company_id,'company_name':company['name'],
+                   'question':request.question,'period':request.period,'mode':request.mode,'status':result['status'],
+                   'summary':f"{company['name']} {request.period}：{result['classification']}。" if result['status']=='completed' else f"需复核：{result.get('reason') or '缺少已核验数据'}",
+                   'classification':result['classification'],'metrics':result['metrics'],'charts':result['charts'],
+                   'evidence':result['evidence'],'verification':{'numeric_verified':result['status']=='completed',
+                   'citation_coverage':1.0 if result['status']=='completed' else 0.0,'status':'passed' if result['status']=='completed' else 'partial'},
+                   'agent_steps':[],'tool_calls':[{'name':'analyze_cashflow_profit','arguments':{'company_id':request.company_id,'period':request.period},'result':result,'status':'success'}],
+                   'formula_version':result['formula_version'],'reason':result.get('reason'),'prompt_version':'financial-agent-v1',
+                   'model_version':'deterministic-financial-v1','model_provider':'deterministic','model_error':None,
+                   'token_usage':{'input':0,'output':0},'cost_usd':0.0,'duration_ms':round((perf_counter()-started)*1000,2),
+                   'created_at':now(),'data_mode':company['data_mode'],'human_review_required':True}
+            store.put('analysis_runs', run)
+            return run
         try:
             state = run_workflow(store,tools,request.company_id,request.question,request.period,request.mode)
         except ValueError as exc:

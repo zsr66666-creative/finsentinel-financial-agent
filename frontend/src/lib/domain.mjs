@@ -32,6 +32,16 @@ export function formatMetric(value, unit = '') {
   if (typeof value !== 'number') return String(value);
   return `${value.toLocaleString('zh-CN', { maximumFractionDigits: 1, minimumFractionDigits: unit === '%' ? 1 : 0 })}${unit}`;
 }
+export function normalizeFinancialAnalysis(payload) {
+  return {
+    status: payload?.status === 'completed' ? 'completed' : 'needs_review',
+    classification: payload?.classification ?? '无法判断', reason: payload?.reason ?? null,
+    metrics: payload?.metrics && typeof payload.metrics === 'object' ? payload.metrics : {},
+    charts: Array.isArray(payload?.charts) ? payload.charts : [], evidence: Array.isArray(payload?.evidence) ? payload.evidence : [],
+    formula_version: payload?.formula_version ?? null, company_id: payload?.company_id ?? null,
+    company_name: payload?.company_name ?? null, from_period: payload?.from_period ?? null, to_period: payload?.to_period ?? null,
+  };
+}
 
 export function connectionStatusLabel({ loading = false, connected = false, error = '' } = {}) {
   if (loading) return '正在连接数据服务…';

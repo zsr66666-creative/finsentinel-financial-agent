@@ -27,6 +27,13 @@ def load_corpus(store, path):
         for idx, metric in enumerate(doc.get('metrics',[])):
             source_ids = metric.get('source_ids') or []
             mid = f'{filing_id}-metric-{metric["metric"]}-{idx}'
-            store.put('financial_metrics', {'id':mid,'company_id':company_id,'metric':metric['metric'],'value':metric['value'],'unit':metric.get('unit',''),'period':str(metric.get('period',doc.get('report_period'))),'source_ids':source_ids,'data_mode':'real_corpus'})
+            store.put('financial_metrics', {'id':mid,'company_id':company_id,'filing_id':filing_id,
+                'metric':metric['metric'],'value':str(metric['value']),'unit':metric.get('unit',''),
+                'period':str(metric.get('period',doc.get('report_period'))),'source_ids':source_ids,
+                'statement_scope':metric.get('statement_scope'),'document_sha256':doc.get('sha256'),
+                'page':metric.get('page'),'excerpt':metric.get('excerpt'),
+                'extraction_status':metric.get('extraction_status','needs_review'),
+                'evidence_id':source_ids[0] if len(source_ids)==1 else metric.get('evidence_id'),
+                'data_mode':'real_corpus'})
         count += 1
     return {'documents':count,'data_mode':'real_corpus'}

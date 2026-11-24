@@ -1,3 +1,4 @@
+from decimal import Decimal
 from typing import Literal
 from pydantic import BaseModel, Field, ConfigDict, field_validator
 
@@ -74,3 +75,28 @@ class EventEvaluationRequest(StrictModel):
     event_date: str | None = None
     amount: str | None = None
     description: str = Field(default='', max_length=2000)
+
+
+class FinancialInput(StrictModel):
+    id: str
+    company_id: str
+    metric: Literal['net_profit', 'operating_cash_flow']
+    period: str
+    value: Decimal
+    unit: str = Field(min_length=1)
+    statement_scope: str = Field(min_length=1)
+    document_sha256: str = Field(pattern=r'^[0-9a-fA-F]{64}$')
+    page: int = Field(ge=1)
+    excerpt: str = Field(min_length=1)
+    extraction_status: Literal['machine_extracted', 'human_verified', 'needs_review']
+    evidence_id: str = Field(min_length=1)
+
+
+class AnalysisResponse(StrictModel):
+    status: Literal['completed', 'needs_review']
+    classification: str
+    metrics: dict
+    charts: list[dict]
+    evidence: list[dict]
+    reason: str | None = None
+    formula_version: str = 'cashflow-profit-v1'

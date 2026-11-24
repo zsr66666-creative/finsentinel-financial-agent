@@ -7,6 +7,7 @@ import { PortalShell } from '@/components/portal-shell';
 import { VerifiedFinancials } from '@/components/verified-financials';
 import { EvidenceSearch } from '@/components/evidence-search';
 import { formatMetric, normalizeCollection } from '@/lib/domain.mjs';
+import { FinancialAnalysisPanel } from '@/components/financial-analysis-panel';
 type Row = Record<string, any>;
 export function CompanyResearch({ companyId }: { companyId: string }) {
   const [company, setCompany] = useState<Row | null>(null);
@@ -59,6 +60,7 @@ export function CompanyResearch({ companyId }: { companyId: string }) {
     {company && <><FavoriteButton kind="company" companyCode={companyId}/><div className={`mode-banner ${demo ? 'synthetic-banner' : ''}`}><strong>{demo ? '演示 / 未验证真实来源' : '真实公开材料'}</strong><span>数据模式：{company.data_mode ?? '未标注'}。接入 API 不代表财务数据已经真实来源复核。</span></div>
     {warning && <div className="notice error" role="alert">{warning}<button onClick={() => setRetry(v => v + 1)}>重试</button></div>}
     {['002555', '002230'].includes(companyId) && <VerifiedFinancials key={companyId} companyCode={companyId} />}
+    <FinancialAnalysisPanel companyId={companyId} />
     {!indexedOnly && <EvidenceSearch key={companyId} companyCode={companyId} />}
     {indexedOnly ? <><p className="review-callout">上方财务核对与下方候选原文检索分别展示。检索仅覆盖实际已索引页，尚未建立人工复核的风险结论，不以缺失值代替零。</p><EvidenceSearch key={companyId} companyCode={companyId} /></> : <>
     <section className="panel comparison-card"><div className="panel-heading"><div><h2>研究范围</h2><p>各报告期分别展示，币种和单位以原记录为准。</p></div><label>报告期 <select aria-label="公司报告期" value={period} onChange={e => setPeriod(e.target.value)}><option value="all">全部报告期</option>{periods.map(p => <option key={p}>{p}</option>)}</select></label></div><p>市场：{company.market ?? company.exchange ?? '未标注'} · 行业：{company.industry ?? company.sector ?? '未标注'}</p></section>
