@@ -135,5 +135,5 @@ def test_offline_installer_keeps_encoder_out_of_restart_path_and_has_acceptance_
     assert 'systemctl restart finsentinel-query-encoder' not in script
     assert '--check-only' in script
     assert 'PASS post-import API' in script
-    assert 'PASS nginx company 000157 page response' in script
+    assert 'PASS nginx company 000157' in script
     assert 'Environment=DATA_MODE=real_corpus' in script

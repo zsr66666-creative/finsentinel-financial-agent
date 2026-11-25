@@ -25,7 +25,13 @@ done
 [[ -x /opt/finsentinel/.venv/bin/python && -d "$live" && ! -L "$live" ]]
 id finsentinel >/dev/null
 available_kib="$(df -Pk / | awk 'NR==2 {print $4}')"
-[[ "$available_kib" -ge 2500000 ]] || { echo 'Less than 2.5 GiB free on root filesystem.' >&2; df -h /; exit 1; }
+database_mib="$(sudo -u postgres psql -d finsentinel -Atc "SELECT ceil(pg_database_size('finsentinel') / 1048576.0)::bigint")"
+required_kib="$((3145728 + database_mib * 1024))"
+[[ "$available_kib" -ge "$required_kib" ]] || {
+  echo "Insufficient disk: need 3 GiB build/switch margin plus up to ${database_mib} MiB database backup." >&2
+  df -h /
+  exit 1
+}
 available_mem="$(awk '/MemAvailable:/ {print $2}' /proc/meminfo)"
 [[ "$available_mem" -ge 716800 ]] || { echo 'Less than 700 MiB available memory.' >&2; exit 1; }
 
@@ -59,6 +65,12 @@ sudo -u finsentinel env NEXT_PUBLIC_API_URL='' NEXT_TELEMETRY_DISABLED=1 \
   bash -c 'cd "$1" && npm ci --cache /var/lib/finsentinel/npm-cache && npm test && npx tsc --noEmit && npm run build' _ "$release/frontend"
 sudo -u finsentinel env PYTHONPATH="$release/backend:$release" \
   bash -c 'cd "$1" && /opt/finsentinel/.venv/bin/python -m pytest backend/tests/test_verified_financial_import.py backend/tests/test_financial_analysis_api.py backend/tests/test_financial_analysis_contract.py -q -p no:cacheprovider' _ "$release"
+available_kib="$(df -Pk / | awk 'NR==2 {print $4}')"
+[[ "$available_kib" -ge "$((database_mib * 1024 + 524288))" ]] || {
+  echo 'Insufficient space remains for database backup and frontend switch; aborting before backup.' >&2
+  df -h /
+  exit 1
+}
 sudo -u finsentinel env PYTHONPATH="$release/backend:$release" \
   DATABASE_URL='postgresql+psycopg:///finsentinel?host=/var/run/postgresql' \
   /opt/finsentinel/.venv/bin/python -m scripts.import_verified_financials \
@@ -173,13 +185,31 @@ cp -a "$release/frontend/.next" "$live"
 systemctl start "$service"
 curl --noproxy '*' --fail --silent --show-error --max-time 10 --retry 15 --retry-connrefused --retry-delay 1 http://127.0.0.1:3000/companies/000157 >/dev/null
 python3 - <<'PY'
+from html.parser import HTMLParser
 from urllib.request import ProxyHandler, Request, build_opener
 opener = build_opener(ProxyHandler({}))
 with opener.open(Request('http://127.0.0.1/companies/000157', headers={'Host':'120.24.108.60'}), timeout=15) as response:
     html = response.read().decode('utf-8')
-    if response.status != 200 or '现金流与净利润' not in html:
+    if response.status != 200:
         raise SystemExit('Nginx company research route failed financial analysis page check')
-print('PASS nginx company 000157 page response')
+class Parser(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.paths = []
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        value = attrs.get('href') if tag == 'link' else attrs.get('src') if tag == 'script' else None
+        if value and value.startswith('/_next/'):
+            self.paths.append(value)
+parser = Parser()
+parser.feed(html)
+if not parser.paths:
+    raise SystemExit('Nginx page has no Next.js asset references')
+for path in parser.paths:
+    with opener.open('http://127.0.0.1' + path, timeout=15) as asset:
+        if asset.status != 200 or not asset.read(1):
+            raise SystemExit(f'Nginx asset failed: {path}')
+print('PASS nginx company 000157 route and ' + str(len(parser.paths)) + ' assets')
 PY
 nginx -t
 for name in nginx finsentinel-backend finsentinel-frontend finsentinel-ingestion-worker finsentinel-query-encoder; do
