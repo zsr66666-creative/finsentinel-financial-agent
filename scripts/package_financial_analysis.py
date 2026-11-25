@@ -44,8 +44,12 @@ def package(output, revision='HEAD'):
         unpacked = {m.name: archive.extractfile(m).read() for m in archive.getmembers() if m.isfile()}
     if unpacked != files:
         raise ValueError('package read-back mismatch')
-    forbidden = ('node_modules/', '.next/', '.env', '.pdf', '.PDF', '.db', '.onnx', '.tsbuildinfo')
-    if any(any(part in name for part in forbidden) for name in files):
+    forbidden_parts = ('node_modules', '.next', '.browser-config')
+    forbidden_names = ('.env', '.env.local')
+    forbidden_suffixes = ('.pdf', '.db', '.onnx', '.tsbuildinfo')
+    if any(any(part in PurePosixPath(name).parts for part in forbidden_parts)
+           or PurePosixPath(name).name in forbidden_names
+           or name.endswith(forbidden_suffixes) for name in files):
         raise ValueError('package includes generated, secret, or binary data')
     result = dict(path=str(output), source_revision=commit, files=len(files), bytes=output.stat().st_size,
                   sha256=hashlib.sha256(output.read_bytes()).hexdigest())
