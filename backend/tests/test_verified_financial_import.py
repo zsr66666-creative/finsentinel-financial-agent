@@ -7,7 +7,7 @@ import pytest
 from sqlalchemy import create_engine, text
 from pathlib import Path
 
-from scripts.import_verified_financials import import_verified_financials
+from scripts.import_verified_financials import _read_records, import_verified_financials
 
 
 def source_fixture(tmp_path):
@@ -137,3 +137,12 @@ def test_offline_installer_keeps_encoder_out_of_restart_path_and_has_acceptance_
     assert 'PASS post-import API' in script
     assert 'PASS nginx company 000157' in script
     assert 'Environment=DATA_MODE=real_corpus' in script
+
+
+def test_approved_financial_corpus_uses_real_newlines_in_pdf_excerpts():
+    corpus = Path(__file__).resolve().parents[2] / 'data/verified-financials/000157-2023-2024.jsonl'
+    records = _read_records(corpus)
+    for report in records:
+        for metric in report['metrics']:
+            assert '\\n' not in metric['excerpt']
+            assert '\n' in metric['excerpt']

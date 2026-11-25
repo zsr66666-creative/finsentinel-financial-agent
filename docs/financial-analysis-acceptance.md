@@ -25,6 +25,8 @@
 
 专用安装器 `deploy/ecs/install-financial-analysis-offline.sh` 不创建 RAG 向量，也不停止/重启编码器。它检查服务与磁盘/内存门槛，验证源码清单，运行财务后端测试、前端测试/typecheck/build，再做只读来源预检、数据库备份、切换后端、导入四项指标、调用真实财务分析 API 验收，最后切换前端并检查 Nginx 路由。失败时恢复旧后端 drop-in 和前端 `.next`；已通过来源核验的财务行保留，备份留在发布目录，不做全库回灌。
 
+首次 ECS 预检失败于 2023FY 净利润原文匹配：PDF 页 167 的 SHA、物理页和金额均匹配，失败原因是 JSONL 把换行保存成字面 `\\n`，而 PDF 抽取文本使用真实换行。失败发生在只读 `--check-only`，没有导入财务行；安装器恢复了原后端配置，前端未切换。数据清单已改为真实换行并重算 span 字符偏移，新增测试防止字面换行转义再次进入。修复后的 ECS 部署仍待执行和验收。
+
 本地提交与构建离线包不代表 ECS 部署已完成。需将包传到服务器，核验打包输出的 SHA-256 后从 root shell 执行专用 installer。只有日志同时出现 `inserted=4`（首次部署）或 `existing=4`（重复运行）、`PASS post-import API`、`PASS nginx company 000157 page response`、`PASS deployment`，且五个核心服务均 active，才记为 000157 ECS 发布验收通过。浏览器登录后检查 000157 公司页的两个年度、图表、四项输入和四条 PDF 来源仍属于独立人工验收。
 
 不得把合成测试值、RAG 证据片段或验收目标写成实际财务结论。
