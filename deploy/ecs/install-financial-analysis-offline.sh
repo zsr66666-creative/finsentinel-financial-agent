@@ -186,12 +186,18 @@ systemctl start "$service"
 curl --noproxy '*' --fail --silent --show-error --max-time 10 --retry 15 --retry-connrefused --retry-delay 1 http://127.0.0.1:3000/companies/000157 >/dev/null
 python3 - <<'PY'
 from html.parser import HTMLParser
-from urllib.request import ProxyHandler, Request, build_opener
-opener = build_opener(ProxyHandler({}))
-with opener.open(Request('http://127.0.0.1/companies/000157', headers={'Host':'120.24.108.60'}), timeout=15) as response:
-    html = response.read().decode('utf-8')
-    if response.status != 200:
-        raise SystemExit('Nginx company research route failed financial analysis page check')
+import subprocess
+
+def fetch(path):
+    response = subprocess.run(
+        ['curl', '--noproxy', '*', '--resolve', '120.24.108.60:443:127.0.0.1',
+         '--fail', '--silent', '--show-error', '--max-time', '15',
+         'https://120.24.108.60' + path], capture_output=True)
+    if response.returncode:
+        raise SystemExit(f'Nginx HTTPS request failed for {path}: {response.stderr.decode(errors="replace")}')
+    return response.stdout
+
+html = fetch('/companies/000157').decode('utf-8')
 class Parser(HTMLParser):
     def __init__(self):
         super().__init__()
@@ -206,10 +212,9 @@ parser.feed(html)
 if not parser.paths:
     raise SystemExit('Nginx page has no Next.js asset references')
 for path in parser.paths:
-    with opener.open('http://127.0.0.1' + path, timeout=15) as asset:
-        if asset.status != 200 or not asset.read(1):
-            raise SystemExit(f'Nginx asset failed: {path}')
-print('PASS nginx company 000157 route and ' + str(len(parser.paths)) + ' assets')
+    if not fetch(path):
+        raise SystemExit(f'Nginx HTTPS asset was empty: {path}')
+print('PASS nginx company 000157 page response via HTTPS and ' + str(len(parser.paths)) + ' assets')
 PY
 nginx -t
 for name in nginx finsentinel-backend finsentinel-frontend finsentinel-ingestion-worker finsentinel-query-encoder; do

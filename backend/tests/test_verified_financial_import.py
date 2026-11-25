@@ -136,6 +136,9 @@ def test_offline_installer_keeps_encoder_out_of_restart_path_and_has_acceptance_
     assert '--check-only' in script
     assert 'PASS post-import API' in script
     assert 'PASS nginx company 000157' in script
+    assert 'https://120.24.108.60' in script
+    assert '120.24.108.60:443:127.0.0.1' in script
+    assert "'http://127.0.0.1/companies/000157'" not in script
     assert 'Environment=DATA_MODE=real_corpus' in script
 
 
