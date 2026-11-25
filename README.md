@@ -90,6 +90,8 @@ python scripts/verify_financial_analysis.py
 
 截至 2026-11-25，中联重科 2023FY–2024FY 的四项合并报表指标已按官方年报页码、SHA-256 和原文记录，并通过本地真实数据验收（`1/5`）。数据清单位于 [000157-2023-2024.jsonl](data/verified-financials/000157-2023-2024.jsonl)。这项本地验收不代表记录已经部署到 ECS；线上部署和浏览器验收仍需单独确认。
 
+部署这四项已确认数据时，使用专用来源核验和幂等导入器 `scripts/import_verified_financials.py` 及 `deploy/ecs/install-financial-analysis-offline.sh`。安装器不触碰 RAG 向量和查询编码器；它会备份数据库、核验服务器原 PDF、构建前后端、导入后调用真实财务分析接口并检查 Nginx。部署完成必须以服务器输出和浏览器检查为准，不能把本地构建写成线上验收。具体步骤见[财务分析验收记录](docs/financial-analysis-acceptance.md)。
+
 ## 本地启动
 
 以下命令在仓库根目录执行，示例为 Windows PowerShell，使用 Python 3.11+、Node.js 22。

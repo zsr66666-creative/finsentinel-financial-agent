@@ -19,4 +19,12 @@
 
 **状态：本地真实数据验收 1/5；ECS 入库及线上验收待完成。** 中联重科（000157）的 2023FY、2024FY 归母净利润和经营活动现金流净额已由用户确认，并绑定官方年报 SHA-256、原文摘录、合并报表口径及 PDF 物理页。数据记录在 `data/verified-financials/000157-2023-2024.jsonl`。运行 `CORPUS_PATH=data/verified-financials/000157-2023-2024.jsonl` 的本地验收得到 `FINANCIAL_ACCEPTANCE=1/5`；TCL 科技、徐工机械、柳工、京东方 A 仍为 `needs_review`。此结果不代表这些记录已写入 ECS，也不代表线上页面已验收。当前实现没有调用外部 LLM；分析请求由关键词路由，结论由确定性规则生成。
 
+## 000157 ECS 发布步骤
+
+`scripts.import_verified_financials` 仅接受这两份用户确认的 000157 年报及四项指定指标。写入前校验披露身份哈希、`ingestion_artifacts` 元信息、ECS 内容寻址 PDF 的 SHA-256、物理页金额和摘录、财务口径/单位/期间/证据 ID，以及冲突记录；`--check-only` 完整执行校验但不写入。重复运行按稳定 ID 幂等。
+
+专用安装器 `deploy/ecs/install-financial-analysis-offline.sh` 不创建 RAG 向量，也不停止/重启编码器。它检查服务与磁盘/内存门槛，验证源码清单，运行财务后端测试、前端测试/typecheck/build，再做只读来源预检、数据库备份、切换后端、导入四项指标、调用真实财务分析 API 验收，最后切换前端并检查 Nginx 路由。失败时恢复旧后端 drop-in 和前端 `.next`；已通过来源核验的财务行保留，备份留在发布目录，不做全库回灌。
+
+本地提交与构建离线包不代表 ECS 部署已完成。需将包传到服务器，核验打包输出的 SHA-256 后从 root shell 执行专用 installer。只有日志同时出现 `inserted=4`（首次部署）或 `existing=4`（重复运行）、`PASS post-import API`、`PASS nginx company 000157 page response`、`PASS deployment`，且五个核心服务均 active，才记为 000157 ECS 发布验收通过。浏览器登录后检查 000157 公司页的两个年度、图表、四项输入和四条 PDF 来源仍属于独立人工验收。
+
 不得把合成测试值、RAG 证据片段或验收目标写成实际财务结论。
