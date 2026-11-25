@@ -88,6 +88,8 @@ python scripts/verify_financial_analysis.py
 
 脚本的 `FINANCIAL_ACCEPTANCE=5/5` 才表示五家公司均具备可审计的真实财务输入。合成 fixture、RAG 命中片段和测试目标不能替代人工核验；当前工作区的真实验收结果记录在 [docs/financial-analysis-acceptance.md](docs/financial-analysis-acceptance.md)。
 
+截至 2026-11-25，中联重科 2023FY–2024FY 的四项合并报表指标已按官方年报页码、SHA-256 和原文记录，并通过本地真实数据验收（`1/5`）。数据清单位于 [000157-2023-2024.jsonl](data/verified-financials/000157-2023-2024.jsonl)。这项本地验收不代表记录已经部署到 ECS；线上部署和浏览器验收仍需单独确认。
+
 ## 本地启动
 
 以下命令在仓库根目录执行，示例为 Windows PowerShell，使用 Python 3.11+、Node.js 22。
